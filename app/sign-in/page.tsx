@@ -35,6 +35,7 @@ export default function SignInPage() {
                 router.push("/dashboard");
             }
         } catch (err) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
             setError("An unexpected error occurred");
         } finally {
             setIsLoading(false);

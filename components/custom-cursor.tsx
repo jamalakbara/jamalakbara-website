@@ -15,7 +15,7 @@ export function CustomCursor() {
     
     // Detect mobile device
     const checkIfMobile = () => {
-      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera
+      const userAgent = navigator.userAgent || navigator.vendor || (window as unknown as { opera?: string }).opera || ''
       const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase())
       const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
       const isSmallScreen = window.innerWidth <= 768
@@ -149,7 +149,7 @@ export function CustomCursor() {
 
     // Re-run when DOM changes (for dynamic content)
     const observer = new MutationObserver(() => {
-      const newElements = addListenersToElements()
+      addListenersToElements()
     })
     
     observer.observe(document.body, { childList: true, subtree: true })

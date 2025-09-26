@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 export function HeroSection() {
   const ref = useRef(null)
@@ -23,11 +23,13 @@ export function HeroSection() {
 
   // Auto-animate subtitle words periodically
   useEffect(() => {
-    let animationTimeout: NodeJS.Timeout
+    let animationTimeout: NodeJS.Timeout | null = null
     
     const animateWords = async () => {
       // Wait for initial load (dipercepat dari 4 detik jadi 3 detik)
-      await new Promise(resolve => setTimeout(resolve, 3000))
+      await new Promise(resolve => {
+        animationTimeout = setTimeout(resolve, 3000)
+      })
       
       const runAnimation = async () => {
         // Animate each word with faster stagger
@@ -61,11 +63,15 @@ export function HeroSection() {
             return {}
           })
           // Faster delay between words (dipercepat dari 300ms jadi 200ms)
-          await new Promise(resolve => setTimeout(resolve, 200))
+          await new Promise(resolve => {
+            animationTimeout = setTimeout(resolve, 200)
+          })
         }
         
         // Shorter wait before next cycle (dipercepat dari 5 detik jadi 3 detik)
-        await new Promise(resolve => setTimeout(resolve, 3000))
+        await new Promise(resolve => {
+          animationTimeout = setTimeout(resolve, 3000)
+        })
         runAnimation()
       }
       

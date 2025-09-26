@@ -2,7 +2,6 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
-import Image from 'next/image'
 
 const projects = [
   {
@@ -275,7 +274,7 @@ export function FeaturedWorkSection() {
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                     transition={{ delay: 0.6 * index }}
                   >
-                    {project.tech.map((tech, techIndex) => (
+                    {project.tech.map((tech) => (
                       <span
                         key={tech}
                         className="px-3 py-1 text-sm border border-gray-300 text-gray-700 font-mono"

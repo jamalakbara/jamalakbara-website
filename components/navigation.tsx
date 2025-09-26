@@ -71,7 +71,7 @@ export function Navigation() {
   }, [isMobileMenuOpen])
 
   // Helper function to get optimal scroll offset for each section
-  const getSectionScrollOffset = (sectionId: string, element: HTMLElement) => {
+  const getSectionScrollOffset = (sectionId: string, _element: HTMLElement) => {
     const navbar = document.querySelector('nav')
     const navbarHeight = navbar ? navbar.offsetHeight : 80
     
