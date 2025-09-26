@@ -1,27 +1,29 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Parkinsans } from "next/font/google";
+import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const spaceMono = Space_Mono({
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
   subsets: ["latin"],
 });
 
-const parkinsans = Parkinsans({
-  variable: "--font-parkinsans",
+const dmSerifDisplay = DM_Serif_Display({
+  variable: "--font-dm-serif-display",
+  weight: "400",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Codeguide Starter Fullstack",
+  title: "Creative Developer & Designer - Portfolio",
   description:
-    "A modern Next.js starter with TypeScript, TailwindCSS, shadcn/ui, Better Auth, and Drizzle ORM",
+    "A modern portfolio showcasing creative development and design work with interactive experiences",
 };
 
 export default function RootLayout({
@@ -32,11 +34,11 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${parkinsans.variable} antialiased`}
+        className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
