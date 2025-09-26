@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -11,6 +11,17 @@ export function CTASection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  // Scroll-based animations for stacking effect
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  })
+
+  const y = useTransform(scrollYProgress, [0, 0.5], [200, 0])
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1])
+  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
+  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0])
 
   const pulseVariants = {
     initial: { scale: 1 },
@@ -28,8 +39,9 @@ export function CTASection() {
     <>
       <motion.section 
         id="contact"
-        className="pt-32 pb-20 md:pb-32 px-6 bg-black text-white relative overflow-hidden min-h-screen"
+        className="pt-20 pb-16 md:pb-24 px-4 bg-black text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl"
         ref={ref}
+        style={{ y, scale, opacity, rotateX }}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -45,7 +57,7 @@ export function CTASection() {
             transition={{ duration: 0.8 }}
           >
             <motion.h2 
-              className="text-6xl md:text-8xl font-serif font-bold mb-8 leading-tight"
+              className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-[0.9]"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.2, duration: 0.8 }}
@@ -63,7 +75,7 @@ export function CTASection() {
             </motion.h2>
 
             <motion.p 
-              className="text-xl md:text-2xl text-gray-300 font-sans max-w-2xl mx-auto mb-12 leading-relaxed"
+              className="text-lg md:text-xl text-gray-300 font-sans max-w-xl mx-auto mb-8 leading-normal"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -90,7 +102,7 @@ export function CTASection() {
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsModalOpen(true)}
-                className="group relative px-12 py-6 border-2 border-white text-white font-sans font-medium text-xl transition-all duration-300 overflow-hidden"
+                className="group relative px-10 py-4 border-2 border-white text-white font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
               >
                 <span className="relative z-10">Start a Project</span>
                 
