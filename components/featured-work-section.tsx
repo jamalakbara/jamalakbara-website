@@ -15,6 +15,8 @@ export function FeaturedWorkSection() {
   const [isMobile, setIsMobile] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const headingRef = useRef<HTMLHeadingElement>(null)
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null)
+  const [imageRects, setImageRects] = useState<{[key: string]: DOMRect}>({})
 
   // Check if mobile
   useEffect(() => {
@@ -62,6 +64,40 @@ export function FeaturedWorkSection() {
     }
   }, [showMagnifier])
 
+  // Track image positions for color restoration effect
+  useEffect(() => {
+    const updateImageRects = () => {
+      const rects: {[key: string]: DOMRect} = {}
+      projects.forEach(project => {
+        const element = document.getElementById(`project-${project.id}`)
+        if (element) {
+          rects[`project-${project.id}`] = element.getBoundingClientRect()
+        }
+      })
+      setImageRects(rects)
+    }
+
+    updateImageRects()
+    window.addEventListener('resize', updateImageRects)
+    window.addEventListener('scroll', updateImageRects)
+
+    return () => {
+      window.removeEventListener('resize', updateImageRects)
+      window.removeEventListener('scroll', updateImageRects)
+    }
+  }, [])
+
+  // Handle mouse enter/leave for images
+  const handleImageMouseEnter = (projectId: string) => {
+    if (!isMobile) {
+      setHoveredImage(projectId)
+    }
+  }
+
+  const handleImageMouseLeave = () => {
+    setHoveredImage(null)
+  }
+
   const handleMouseEnter = () => {
     if (isMobile) return // Disable on mobile
     
@@ -89,6 +125,24 @@ export function FeaturedWorkSection() {
 
   // Determine if magnifier should show (mobile: scroll-based, desktop: hover)
   const shouldShowMagnifier = isMobile ? (scrollProgress > 0.3 && scrollProgress < 0.7) : showMagnifier
+
+  // Create color restoration effect with dynamic CSS variables
+  useEffect(() => {
+    const updateCursorPosition = () => {
+      if (hoveredImage) {
+        const rect = imageRects[hoveredImage]
+        if (rect) {
+          const relativeX = mousePosition.x - rect.left
+          const relativeY = mousePosition.y - rect.top
+
+          document.documentElement.style.setProperty('--cursor-x', `${relativeX}px`)
+          document.documentElement.style.setProperty('--cursor-y', `${relativeY}px`)
+        }
+      }
+    }
+
+    updateCursorPosition()
+  }, [mousePosition, hoveredImage, imageRects])
   
   // Calculate horizontal position for mobile magnifier animation (left to right)
   const getMagnifierPosition = () => {
@@ -223,45 +277,120 @@ export function FeaturedWorkSection() {
               className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}
             >
               {/* Project Image */}
-              <motion.div 
-                className="lg:w-1/2 relative group cursor-pointer"
+              <motion.div
+                className="lg:w-1/2 relative group"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <motion.div
-                  className="relative overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors duration-300"
-                  whileHover={{ 
+                  className="relative overflow-hidden transition-colors duration-300"
+                  whileHover={{
                     rotateX: 2,
                     rotateY: index % 2 === 0 ? 3 : -3,
                   }}
                   transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  style={{ 
+                  style={{
                     transformPerspective: "1000px",
                   }}
                 >
-                  <div className="aspect-[4/3] relative">
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-300 flex items-center justify-center">
-                      <span className="text-gray-500 font-mono text-lg">
-                        Project {project.id}
-                      </span>
-                    </div>
-                  </div>
-                  
-                  {/* Hover Overlay */}
-                  <motion.div
-                    className="absolute inset-0 bg-black bg-opacity-0 flex items-center justify-center"
-                    whileHover={{ backgroundColor: "rgba(0,0,0,0.7)" }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileHover={{ opacity: 1, scale: 1 }}
-                      className="text-white text-center"
-                    >
-                      <div className="text-lg font-sans mb-2">View Case Study</div>
-                      <div className="w-12 h-px bg-white mx-auto" />
-                    </motion.div>
-                  </motion.div>
+                  <div className="relative overflow-hidden" style={{ aspectRatio: '16/10' }}>
+                    {project.livePreview ? (
+                      <motion.div
+                        id={`project-${project.id}`}
+                        className="w-full h-full relative group"
+                        whileHover={{ scale: 1.01 }}
+                        transition={{ duration: 0.7, type: "spring", stiffness: 200 }}
+                        style={{
+                          transformOrigin: 'center center'
+                        }}
+                        onMouseEnter={() => handleImageMouseEnter(`project-${project.id}`)}
+                        onMouseLeave={handleImageMouseLeave}
+                        onMouseMove={(e) => {
+                          if (hoveredImage === `project-${project.id}`) {
+                            setMousePosition({ x: e.clientX, y: e.clientY })
+                          }
+                        }}
+                      >
+                        {/* Layered image system for color restoration */}
+                        <motion.div
+                          className="w-full h-full relative overflow-hidden"
+                          whileHover={{ scale: 1.005 }}
+                          transition={{ duration: 0.6, type: "spring", stiffness: 150 }}
+                        >
+                          {/* Normal image without filters and shadows */}
+                          <div
+                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                            style={{
+                              backgroundImage: `url(${project.image})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              backgroundRepeat: 'no-repeat',
+                              filter: 'drop-shadow(0 0 0 transparent)'
+                            }}
+                          />
+
+                          {/* Subtle overlay for depth */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/5 opacity-30" />
+                        </motion.div>
+
+                        {/* Visit button outside image area */}
+                        <motion.div
+                          className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all duration-400"
+                          initial={{ y: 10 }}
+                          whileHover={{ y: 0 }}
+                        >
+                          <motion.a
+                            href={project.livePreview}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                          >
+                            VIEW LIVE
+                            <span className="text-xs">→</span>
+                          </motion.a>
+                        </motion.div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        id={`project-${project.id}`}
+                        className="w-full h-full relative group"
+                        whileHover={{ scale: 1.01 }}
+                        transition={{ duration: 0.7, type: "spring", stiffness: 200 }}
+                        onMouseEnter={() => handleImageMouseEnter(`project-${project.id}`)}
+                        onMouseLeave={handleImageMouseLeave}
+                        onMouseMove={(e) => {
+                          if (hoveredImage === `project-${project.id}`) {
+                            setMousePosition({ x: e.clientX, y: e.clientY })
+                          }
+                        }}
+                      >
+                        {/* Layered image system for color restoration */}
+                        <motion.div
+                          className="w-full h-full relative overflow-hidden"
+                          whileHover={{ scale: 1.005 }}
+                          transition={{ duration: 0.6, type: "spring", stiffness: 150 }}
+                        >
+                          {/* Normal image without filters and shadows */}
+                          <div
+                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                            style={{
+                              backgroundImage: `url(${project.image})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                              backgroundRepeat: 'no-repeat',
+                              filter: 'drop-shadow(0 0 0 transparent)'
+                            }}
+                          />
+
+                          {/* Subtle overlay for depth */}
+                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/5 opacity-20" />
+                        </motion.div>
+
+                        </motion.div>
+                    )}
+                </div>
                 </motion.div>
               </motion.div>
 
@@ -332,14 +461,17 @@ export function FeaturedWorkSection() {
                     transition={{ delay: 0.7 * index }}
                     className="pt-6"
                   >
-                    <motion.button
-                      whileHover={{ 
+                    <motion.a
+                      href={project.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      whileHover={{
                         x: 10,
                         backgroundColor: "#000",
                         color: "#fff"
                       }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300"
+                      className="group inline-flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300"
                     >
                       <span>View Project</span>
                       <motion.div
@@ -348,7 +480,7 @@ export function FeaturedWorkSection() {
                       >
                         →
                       </motion.div>
-                    </motion.button>
+                    </motion.a>
                   </motion.div>
                 </motion.div>
               </div>

@@ -99,8 +99,9 @@ export const getStaticContent = {
         "tagline": "Creative Developer & Designer"
       },
       "contact": {
-        "email": "hello@jamalakbar.com",
-        "location": "Based in Indonesia"
+        "email": "jamalakbaralam@live.com",
+        "phone": "+6281321766565",
+        "location": "Bandung, Indonesia"
       },
       "social": [
         {
@@ -188,35 +189,37 @@ export const getStaticContent = {
     return [
       {
         "id": 1,
-        "title": "E-Commerce Platform",
-        "category": "Web Development",
-        "description": "A modern e-commerce platform with seamless user experience and advanced analytics. Built with performance and scalability in mind.",
-        "image": "/api/placeholder/600/400",
+        "title": "Sonderlab",
+        "category": "E-Commerce Development",
+        "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
+        "image": "/sonderlab-project.png",
         "year": "2024",
-        "tech": ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
-        "url": "#",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "url": "https://sonderlab.co",
+        "livePreview": "https://sonderlab.co",
         "featured": true
       },
       {
         "id": 2,
-        "title": "Brand Identity System",
-        "category": "Branding",
-        "description": "Complete brand identity design for a sustainable fashion startup. Including logo design, brand guidelines, and marketing materials.",
-        "image": "/api/placeholder/600/400",
+        "title": "Base Data Dashboard",
+        "category": "Backend Development",
+        "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
+        "image": "/base-data-dashboard.png",
         "year": "2024",
-        "tech": ["Figma", "Adobe Suite", "Brand Guidelines"],
-        "url": "#",
+        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
+        "url": "https://bdd.ai",
         "featured": true
       },
       {
         "id": 3,
-        "title": "SaaS Dashboard",
-        "category": "UI/UX Design",
-        "description": "Intuitive dashboard design for a productivity SaaS application. Focus on data visualization and user workflow optimization.",
-        "image": "/api/placeholder/600/400",
-        "year": "2023",
-        "tech": ["React", "D3.js", "Tailwind CSS"],
-        "url": "#",
+        "title": "Green Rebel Foods",
+        "category": "E-commerce Development",
+        "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
+        "image": "/green-rebel-foods-v2.png",
+        "year": "2021",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "React", "GraphQL"],
+        "url": "https://greenrebelfoods.com",
+        "livePreview": "https://greenrebelfoods.com",
         "featured": true
       },
       {
@@ -266,7 +269,7 @@ export const getStaticContent = {
           "description": "Experience"
         }
       ],
-      "profileImage": "/api/placeholder/400/500"
+      "profileImage": "/profile-image.png"
     }
   },
   

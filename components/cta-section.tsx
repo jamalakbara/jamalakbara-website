@@ -6,11 +6,13 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { getStaticContent } from '@/lib/content-manager'
 
 export function CTASection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const siteConfig = getStaticContent.siteConfig()
 
   // Scroll-based animations for stacking effect
   const { scrollYProgress } = useScroll({
@@ -127,15 +129,15 @@ export function CTASection() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Email</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">hello@yourname.com</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.email}</div>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Phone</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">+1 (555) 123-4567</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.phone || '+6281321766565'}</div>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Location</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">San Francisco, CA</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.location}</div>
               </div>
             </div>
           </motion.div>

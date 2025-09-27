@@ -20,7 +20,7 @@ export function Navigation() {
   // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768) // md breakpoint
+      setIsMobile(window.innerWidth < 1280) // xl breakpoint for navigation
     }
     
     checkMobile()
@@ -99,7 +99,7 @@ export function Navigation() {
   }, [isMobileMenuOpen])
 
   // Helper function to get optimal scroll offset for each section
-  const getSectionScrollOffset = (sectionId: string, _element: HTMLElement) => {
+  const getSectionScrollOffset = (sectionId: string) => {
     const navbar = document.querySelector('nav')
     const navbarHeight = navbar ? navbar.offsetHeight : 80
     
@@ -141,7 +141,7 @@ export function Navigation() {
         console.log('Current scroll position:', window.pageYOffset)
         
         // Get optimal offset for this specific section
-        const scrollOffset = getSectionScrollOffset(sectionId, element)
+        const scrollOffset = getSectionScrollOffset(sectionId)
         console.log('Calculated scroll offset for', sectionId, ':', scrollOffset)
         
         // Calculate target position
@@ -161,7 +161,7 @@ export function Navigation() {
           const retryElement = document.getElementById(sectionId)
           if (retryElement) {
             console.log('Element found on retry:', retryElement)
-            const scrollOffset = getSectionScrollOffset(sectionId, retryElement)
+            const scrollOffset = getSectionScrollOffset(sectionId)
             const targetPosition = retryElement.offsetTop - scrollOffset
             
             window.scrollTo({
@@ -271,7 +271,7 @@ export function Navigation() {
           </motion.div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden xl:flex items-center space-x-8">
             {navigationItems.map((item, index) => (
               <motion.div
                 key={item.id}
@@ -356,7 +356,7 @@ export function Navigation() {
 
           {/* Mobile Hamburger Button */}
           <motion.button
-            className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
+            className="xl:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             whileTap={{ scale: 0.95 }}
             aria-label="Toggle mobile menu"
@@ -395,7 +395,7 @@ export function Navigation() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-b-3xl overflow-hidden"
+              className="xl:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-b-3xl overflow-hidden"
             >
               <div className="px-6 py-4 pb-6 space-y-4">
                 {navigationItems.map((item, index) => (

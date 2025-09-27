@@ -16,6 +16,7 @@ export interface Project {
   year: string;
   tech: string[];
   url?: string;
+  livePreview?: string;
   featured?: boolean;
 }
 

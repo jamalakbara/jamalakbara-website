@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { getStaticContent } from '@/lib/content-manager'
 
 const aboutContent = getStaticContent.about()
@@ -115,12 +116,16 @@ export function AboutSection() {
               style={{ y: imageY }}
               className="relative aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-300 overflow-hidden"
             >
-              {/* Placeholder for profile image */}
-              <div className="w-full h-full flex items-center justify-center bg-gray-200">
-                <span className="text-gray-500 font-mono text-lg">
-                  Profile Image
-                </span>
-              </div>
+              {/* Profile Image */}
+              {aboutContent.profileImage && (
+                <Image
+                  src={aboutContent.profileImage}
+                  alt="Profile"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              )}
               
               {/* Decorative elements */}
               <div className="absolute top-4 right-4 w-16 h-16 border-2 border-black dark:border-white transition-colors duration-300" />

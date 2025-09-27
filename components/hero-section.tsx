@@ -88,14 +88,7 @@ export function HeroSection() {
     }
   }, [controls, subWords.length])
 
-  const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
-      opacity: 1,
-      transition: { staggerChildren: 0.12, delayChildren: 0.04 * i },
-    }),
-  }
-
+  
   const child = {
     visible: {
       opacity: 1,
