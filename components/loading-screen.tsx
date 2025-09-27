@@ -61,21 +61,78 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
       <div className="text-center z-10 px-6">
         {/* Logo/Title Animation */}
         <motion.div
-          className="mb-12"
+          className="mb-12 relative h-20 md:h-28 flex items-start justify-center overflow-visible"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <motion.h1 
-            className="text-4xl md:text-6xl font-serif font-bold text-black mb-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-          >
-            Portfolio
-          </motion.h1>
+          {/* Animated text transformation */}
+          <div className="relative text-4xl md:text-6xl font-serif font-bold text-black mb-2">
+            {/* "jamal" - disappears after loading */}
+            <motion.span
+              className="inline-block"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: isComplete ? 0 : 1,
+                x: isComplete ? -30 : 0,
+                scale: isComplete ? 0.7 : 1
+              }}
+              transition={{ delay: 0.2, duration: 0.4, ease: "easeInOut" }}
+            >
+              jamal
+            </motion.span>
+            
+            {/* "akbar" - transforms and gets gradient */}
+            <motion.span
+              className="inline-block relative"
+              style={{
+                background: isComplete ? 'linear-gradient(45deg, #000000, #666666, #000000)' : 'transparent',
+                WebkitBackgroundClip: isComplete ? 'text' : 'unset',
+                backgroundClip: isComplete ? 'text' : 'unset',
+                color: isComplete ? 'transparent' : 'inherit'
+              }}
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: 1,
+                x: isComplete ? -40 : 0,
+                scale: isComplete ? 1.2 : 1
+              }}
+              transition={{ delay: 0.2, duration: 0.5, ease: "easeInOut" }}
+            >
+              akbar
+            </motion.span>
+            
+            {/* "a" (after akbar) - disappears after loading */}
+            <motion.span
+              className="inline-block"
+              initial={{ opacity: 0 }}
+              animate={{
+                opacity: isComplete ? 0 : 1,
+                x: isComplete ? 15 : 0,
+                scale: isComplete ? 0.7 : 1
+              }}
+              transition={{ delay: 0.2, duration: 0.4, ease: "easeInOut" }}
+            >
+              a
+            </motion.span>
+            
+            {/* "." - stays close to akbar */}
+            <motion.span
+              className="inline-block"
+              initial={{ opacity: 0 }}
+              animate={{ 
+                opacity: 1,
+                x: isComplete ? -40 : 0
+              }}
+              transition={{ delay: 0.2, duration: 0.5, ease: "easeInOut" }}
+            >
+              .
+            </motion.span>
+          </div>
+          
+          {/* Subtitle - positioned below the text container */}
           <motion.p 
-            className="text-lg md:text-xl text-gray-600 font-light tracking-wide"
+            className="text-lg md:text-xl text-gray-600 font-light tracking-wide absolute bottom-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}

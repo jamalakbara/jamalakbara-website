@@ -39,7 +39,37 @@ export function FeaturedWorkSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showMagnifier, setShowMagnifier] = useState(false)
   const [headingRect, setHeadingRect] = useState({ left: 0, top: 0, width: 0, height: 0 })
+  const [isMobile, setIsMobile] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
   const headingRef = useRef<HTMLHeadingElement>(null)
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Scroll progress tracking for mobile magnifier
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const rect = (ref.current as HTMLElement).getBoundingClientRect()
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight))
+        setScrollProgress(progress)
+      }
+    }
+
+    if (isMobile) {
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isMobile])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -60,6 +90,8 @@ export function FeaturedWorkSection() {
   }, [showMagnifier])
 
   const handleMouseEnter = () => {
+    if (isMobile) return // Disable on mobile
+    
     if (headingRef.current) {
       const rect = headingRef.current.getBoundingClientRect()
       setHeadingRect({
@@ -75,10 +107,28 @@ export function FeaturedWorkSection() {
   }
 
   const handleMouseLeave = () => {
+    if (isMobile) return // Disable on mobile
+    
     setShowMagnifier(false)
     // Re-enable global cursor effects
     document.body.removeAttribute('data-disable-cursor')
   }
+
+  // Determine if magnifier should show (mobile: scroll-based, desktop: hover)
+  const shouldShowMagnifier = isMobile ? (scrollProgress > 0.3 && scrollProgress < 0.7) : showMagnifier
+  
+  // Calculate horizontal position for mobile magnifier animation (left to right)
+  const getMagnifierPosition = () => {
+    if (!isMobile || !shouldShowMagnifier) return { x: '50%', y: '50%' }
+    
+    // Map scroll progress (0.3 to 0.7) to horizontal movement (10% to 90%)
+    const normalizedProgress = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.4))
+    const xPosition = 10 + (normalizedProgress * 80) // 10% to 90%
+    
+    return { x: `${xPosition}%`, y: '50%' }
+  }
+  
+  const magnifierPos = getMagnifierPosition()
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -145,28 +195,32 @@ export function FeaturedWorkSection() {
               <span className="relative z-10">
                 Featured Work
                 {/* Hide original text in magnified area */}
-                {showMagnifier && (
+                {shouldShowMagnifier && (
                   <span
                     className="absolute inset-0 bg-gray-50 dark:bg-gray-900 pointer-events-none z-10 transition-colors duration-300"
                     style={{
-                      clipPath: `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
+                      clipPath: isMobile 
+                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                        : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                     }}
                   />
                 )}
               </span>
               {/* Magnified text overlay - appears only in circular area around cursor */}
-              {showMagnifier && (
+              {shouldShowMagnifier && (
                 <div
                   className="absolute inset-0 pointer-events-none z-20"
                   style={{
-                    clipPath: `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
+                    clipPath: isMobile 
+                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                      : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                   }}
                 >
                   <span 
                     className="text-5xl md:text-6xl font-serif font-bold text-blue-600 absolute whitespace-nowrap"
                     style={{
                       transform: `scale(1.4)`,
-                      transformOrigin: `${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px`,
+                      transformOrigin: isMobile ? `${magnifierPos.x} ${magnifierPos.y}` : `${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px`,
                       left: 0,
                       top: 0,
                     }}
@@ -329,8 +383,8 @@ export function FeaturedWorkSection() {
           ))}
         </motion.div>
         
-        {/* Custom Magnifying Glass Cursor */}
-        {showMagnifier && (
+        {/* Custom Magnifying Glass Cursor - Desktop only */}
+        {shouldShowMagnifier && !isMobile && (
           <motion.div
             className="fixed pointer-events-none z-50"
             style={{

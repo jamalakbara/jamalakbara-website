@@ -1,11 +1,26 @@
 'use client'
 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 export function AboutSection() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [isAboutHovered, setIsAboutHovered] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+  const [scrollProgress, setScrollProgress] = useState(0)
+  
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -13,6 +28,18 @@ export function AboutSection() {
   })
 
   const imageY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"])
+
+  // Update scroll progress for mobile animation
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.on('change', (latest) => {
+      setScrollProgress(latest)
+    })
+    
+    return () => unsubscribe()
+  }, [scrollYProgress])
+  
+  // Determine if animation should be active
+  const shouldAnimate = isMobile ? scrollProgress > 0.3 && scrollProgress < 0.8 : isAboutHovered
 
   const marqueeText = "DESIGN • DEVELOPMENT • STRATEGY • CREATIVITY • INNOVATION • "
 
@@ -106,12 +133,71 @@ export function AboutSection() {
             animate={isInView ? "visible" : "hidden"}
           >
             <motion.h2 
-              className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white leading-tight transition-colors duration-300"
+              className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white leading-tight transition-colors duration-300 cursor-pointer relative"
               variants={fadeInUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
+              onMouseEnter={() => !isMobile && setIsAboutHovered(true)}
+              onMouseLeave={() => !isMobile && setIsAboutHovered(false)}
             >
-              About the Studio
+              {/* Two line layout */}
+              <div className="block">
+                <div>About</div>
+                <div className="relative inline-block">
+                  {/* "jamal" - disappears */}
+                  <motion.span
+                    className="inline-block"
+                    animate={{
+                      opacity: shouldAnimate ? 0 : 1,
+                      scale: shouldAnimate ? 0.9 : 1
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    jamal
+                  </motion.span>
+                  
+                  {/* "akbar" - transforms */}
+                  <motion.span
+                    className="inline-block relative"
+                    style={{
+                      background: shouldAnimate ? 'linear-gradient(45deg, #000000, #404040, #000000)' : 'transparent',
+                      WebkitBackgroundClip: shouldAnimate ? 'text' : 'unset',
+                      backgroundClip: shouldAnimate ? 'text' : 'unset',
+                      color: shouldAnimate ? 'transparent' : 'inherit'
+                    }}
+                    animate={{
+                      x: shouldAnimate ? -60 : 0,
+                      scale: shouldAnimate ? 1.05 : 1
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
+                  >
+                    akbar
+                  </motion.span>
+                  
+                  {/* "a" (after akbar) - disappears */}
+                  <motion.span
+                    className="inline-block"
+                    animate={{
+                      opacity: shouldAnimate ? 0 : 1,
+                      scale: shouldAnimate ? 0.9 : 1
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    a
+                  </motion.span>
+                  
+                  {/* "." - moves with akbar */}
+                  <motion.span
+                    className="inline-block"
+                    animate={{
+                      x: shouldAnimate ? -60 : 0
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
+                  >
+                    .
+                  </motion.span>
+                </div>
+              </div>
             </motion.h2>
 
             <motion.div 

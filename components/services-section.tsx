@@ -32,7 +32,49 @@ export function ServicesSection() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [headingRect, setHeadingRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
+  const [isMobile, setIsMobile] = useState(false);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
+
+  // Check if mobile
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // md breakpoint
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Auto-rotate active card for mobile
+  useEffect(() => {
+    if (isMobile && isInView) {
+      const interval = setInterval(() => {
+        setActiveCardIndex((prev) => (prev + 1) % services.length)
+      }, 2000) // Change every 2 seconds
+      
+      return () => clearInterval(interval)
+    }
+  }, [isMobile, isInView])
+
+  // Scroll progress tracking for mobile magnifier
+  useEffect(() => {
+    const handleScroll = () => {
+      if (ref.current) {
+        const rect = (ref.current as HTMLElement).getBoundingClientRect()
+        const progress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight))
+        setScrollProgress(progress)
+      }
+    }
+
+    if (isMobile) {
+      window.addEventListener('scroll', handleScroll)
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
+  }, [isMobile])
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -53,6 +95,8 @@ export function ServicesSection() {
   }, [showMagnifier]);
 
   const handleMouseEnter = () => {
+    if (isMobile) return // Disable on mobile
+    
     if (headingRef.current) {
       const rect = headingRef.current.getBoundingClientRect();
       setHeadingRect({
@@ -68,10 +112,28 @@ export function ServicesSection() {
   };
 
   const handleMouseLeave = () => {
+    if (isMobile) return // Disable on mobile
+    
     setShowMagnifier(false);
     // Re-enable global cursor effects
     document.body.removeAttribute('data-disable-cursor');
   };
+
+  // Determine if magnifier should show (mobile: scroll-based, desktop: hover)
+  const shouldShowMagnifier = isMobile ? (scrollProgress > 0.3 && scrollProgress < 0.7) : showMagnifier
+  
+  // Calculate horizontal position for mobile magnifier animation (left to right)
+  const getMagnifierPosition = () => {
+    if (!isMobile || !shouldShowMagnifier) return { x: '50%', y: '50%' }
+    
+    // Map scroll progress (0.3 to 0.7) to horizontal movement (10% to 90%)
+    const normalizedProgress = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.4))
+    const xPosition = 10 + (normalizedProgress * 80) // 10% to 90%
+    
+    return { x: `${xPosition}%`, y: '50%' }
+  }
+  
+  const magnifierPos = getMagnifierPosition()
 
   const containerVariants = {
     hidden: {},
@@ -137,28 +199,32 @@ export function ServicesSection() {
               <span className="relative z-10">
                 Expertise
                 {/* Hide original text in magnified area */}
-                {showMagnifier && (
+                {shouldShowMagnifier && (
                   <span
-                    className="absolute inset-0 bg-white pointer-events-none z-10"
+                    className="absolute inset-0 bg-white dark:bg-black pointer-events-none z-10 transition-colors duration-300"
                     style={{
-                      clipPath: `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
+                      clipPath: isMobile 
+                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                        : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                     }}
                   />
                 )}
               </span>
               {/* Magnified text overlay - appears only in circular area around cursor */}
-              {showMagnifier && (
+              {shouldShowMagnifier && (
                 <div
                   className="absolute inset-0 pointer-events-none z-20"
                   style={{
-                    clipPath: `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
+                    clipPath: isMobile 
+                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                      : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                   }}
                 >
                   <span 
                     className="text-5xl md:text-6xl font-serif font-bold text-blue-600 absolute whitespace-nowrap"
                     style={{
                       transform: `scale(1.4)`,
-                      transformOrigin: `${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px`,
+                      transformOrigin: isMobile ? `${magnifierPos.x} ${magnifierPos.y}` : `${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px`,
                       left: 0,
                       top: 0,
                     }}
@@ -174,8 +240,8 @@ export function ServicesSection() {
           </p>
         </motion.div>
         
-        {/* Custom Magnifying Glass Cursor */}
-        {showMagnifier && (
+        {/* Custom Magnifying Glass Cursor - Desktop only */}
+        {shouldShowMagnifier && !isMobile && (
           <motion.div
             className="fixed pointer-events-none z-50"
             style={{
@@ -223,41 +289,77 @@ export function ServicesSection() {
           animate={isInView ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {services.map((service) => (
-            <motion.div
-              key={service.title}
-              variants={cardVariants}
-              whileHover={{
-                y: -10,
-                transition: { type: "spring", stiffness: 400, damping: 25 }
-              }}
-              className="group relative"
-            >
-              <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 group-hover:border-black dark:group-hover:border-white group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
-                {/* Icon */}
-                <div className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300">
-                  {service.icon}
-                </div>
-                
-                {/* Content */}
-                <h3 className="text-2xl font-serif font-bold text-black dark:text-white mb-4 group-hover:text-black dark:group-hover:text-white transition-colors">
-                  {service.title}
-                </h3>
-                
-                <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base transition-colors duration-300">
-                  {service.description}
-                </p>
+          {services.map((service, index) => {
+            // Determine if card should be active (for mobile: auto-rotate, for desktop: hover)
+            const isCardActive = isMobile ? activeCardIndex === index : false;
+            
+            return (
+              <motion.div
+                key={service.title}
+                variants={cardVariants}
+                whileHover={!isMobile ? {
+                  y: -10,
+                  transition: { type: "spring", stiffness: 400, damping: 25 }
+                } : {}}
+                animate={isCardActive ? {
+                  y: -10,
+                  transition: { type: "spring", stiffness: 400, damping: 25 }
+                } : {
+                  y: 0,
+                  transition: { type: "spring", stiffness: 400, damping: 25 }
+                }}
+                className="group relative"
+                onTouchStart={() => {
+                  if (isMobile) {
+                    setActiveCardIndex(index);
+                  }
+                }}
+              >
+                <div className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 ${
+                  isCardActive
+                    ? 'border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
+                    : !isMobile
+                      ? 'group-hover:border-black dark:group-hover:border-white group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
+                      : ''
+                }`}>
+                  {/* Icon */}
+                  <div className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300">
+                    {service.icon}
+                  </div>
+                  
+                  {/* Content */}
+                  <h3 className={`text-2xl font-serif font-bold text-black dark:text-white mb-4 transition-colors ${
+                    isCardActive
+                      ? 'text-black dark:text-white'
+                      : !isMobile
+                        ? 'group-hover:text-black dark:group-hover:text-white'
+                        : ''
+                  }`}>
+                    {service.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base transition-colors duration-300">
+                    {service.description}
+                  </p>
 
-                {/* Hover indicator */}
-                <motion.div
-                  className="absolute bottom-6 right-6 w-6 h-6 border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity"
-                  whileHover={{ rotate: 45 }}
-                >
-                  <div className="w-full h-full bg-black dark:bg-white transform rotate-45 transition-colors duration-300" />
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
+                  {/* Hover/Active indicator */}
+                  <motion.div
+                    className={`absolute bottom-6 right-6 w-6 h-6 border-2 border-black transition-opacity ${
+                      isCardActive
+                        ? 'opacity-100'
+                        : !isMobile
+                          ? 'opacity-0 group-hover:opacity-100'
+                          : 'opacity-0'
+                    }`}
+                    whileHover={!isMobile ? { rotate: 45 } : {}}
+                    animate={isCardActive ? { rotate: 45 } : { rotate: 0 }}
+                  >
+                    <div className="w-full h-full bg-black dark:bg-white transform rotate-45 transition-colors duration-300" />
+                  </motion.div>
+                </div>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         {/* Bottom Section Divider */}
