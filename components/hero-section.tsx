@@ -196,11 +196,7 @@ export function HeroSection() {
           className="mt-12 mb-16"
         >
           <motion.button
-            whileHover={{ 
-              scale: 1.05,
-              backgroundColor: "#000",
-              color: "#fff"
-            }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => {
               const workSection = document.getElementById('work')
@@ -208,7 +204,7 @@ export function HeroSection() {
                 workSection.scrollIntoView({ behavior: 'smooth' })
               }
             }}
-            className="px-8 py-4 border-2 border-black dark:border-white text-black dark:text-white font-sans font-medium text-lg transition-colors duration-300 cursor-hover hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
+            className="px-8 py-4 border-2 border-black dark:border-white text-black dark:text-white bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black font-sans font-medium text-lg transition-all duration-300 cursor-hover"
           >
             View My Work
           </motion.button>
@@ -218,7 +214,7 @@ export function HeroSection() {
 
       {/* Background Texture (Optional) */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)]" />
+        <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
       </div>
     </motion.section>
   )

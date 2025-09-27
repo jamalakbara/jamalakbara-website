@@ -138,7 +138,7 @@ export function FeaturedWorkSection() {
           >
             <h2 
               ref={headingRef}
-              className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 relative overflow-hidden cursor-none"
+              className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white mb-6 relative overflow-hidden cursor-none transition-colors duration-300"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -147,7 +147,7 @@ export function FeaturedWorkSection() {
                 {/* Hide original text in magnified area */}
                 {showMagnifier && (
                   <span
-                    className="absolute inset-0 bg-gray-50 pointer-events-none z-10"
+                    className="absolute inset-0 bg-gray-50 dark:bg-gray-900 pointer-events-none z-10 transition-colors duration-300"
                     style={{
                       clipPath: `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                     }}
@@ -177,7 +177,7 @@ export function FeaturedWorkSection() {
               )}
             </h2>
           </div>
-          <p className="text-xl text-gray-600 font-sans max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto transition-colors duration-300">
             A selection of projects that showcase creativity, technical excellence, and strategic thinking
           </p>
         </motion.div>
@@ -202,7 +202,7 @@ export function FeaturedWorkSection() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
                 <motion.div
-                  className="relative overflow-hidden bg-white border border-gray-200"
+                  className="relative overflow-hidden bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 transition-colors duration-300"
                   whileHover={{ 
                     rotateX: 2,
                     rotateY: index % 2 === 0 ? 3 : -3,
@@ -263,7 +263,7 @@ export function FeaturedWorkSection() {
 
                   {/* Title */}
                   <motion.h3 
-                    className="text-3xl md:text-4xl font-serif font-bold text-black mb-4"
+                    className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-4 transition-colors duration-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.4 * index }}
@@ -273,7 +273,7 @@ export function FeaturedWorkSection() {
 
                   {/* Description */}
                   <motion.p 
-                    className="text-gray-600 font-sans text-lg leading-relaxed mb-6"
+                    className="text-gray-600 dark:text-gray-400 font-sans text-lg leading-relaxed mb-6 transition-colors duration-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                     transition={{ delay: 0.5 * index }}
@@ -291,7 +291,7 @@ export function FeaturedWorkSection() {
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-sm border border-gray-300 text-gray-700 font-mono"
+                        className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono transition-colors duration-300"
                       >
                         {tech}
                       </span>
@@ -312,12 +312,12 @@ export function FeaturedWorkSection() {
                         color: "#fff"
                       }}
                       whileTap={{ scale: 0.95 }}
-                      className="group flex items-center gap-3 text-black font-sans font-medium border-b border-black pb-1 transition-colors"
+                      className="group flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300"
                     >
                       <span>View Project</span>
                       <motion.div
                         whileHover={{ x: 5 }}
-                        className="w-6 h-6 border border-black flex items-center justify-center"
+                        className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
                       >
                         →
                       </motion.div>

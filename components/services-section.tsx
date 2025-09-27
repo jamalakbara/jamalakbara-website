@@ -169,7 +169,7 @@ export function ServicesSection() {
               )}
             </h2>
           </div>
-          <p className="text-xl text-gray-600 font-sans max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto transition-colors duration-300">
             Specialized services that transform ideas into meaningful digital experiences
           </p>
         </motion.div>
@@ -235,7 +235,7 @@ export function ServicesSection() {
             >
               <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 group-hover:border-black dark:group-hover:border-white group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
                 {/* Icon */}
-                <div className="text-4xl mb-6 text-black font-mono">
+                <div className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300">
                   {service.icon}
                 </div>
                 
@@ -253,7 +253,7 @@ export function ServicesSection() {
                   className="absolute bottom-6 right-6 w-6 h-6 border-2 border-black opacity-0 group-hover:opacity-100 transition-opacity"
                   whileHover={{ rotate: 45 }}
                 >
-                  <div className="w-full h-full bg-black transform rotate-45" />
+                  <div className="w-full h-full bg-black dark:bg-white transform rotate-45 transition-colors duration-300" />
                 </motion.div>
               </div>
             </motion.div>
@@ -265,7 +265,7 @@ export function ServicesSection() {
           initial={{ scaleX: 0 }}
           animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="w-full h-px bg-black mt-32 origin-left"
+          className="w-full h-px bg-black dark:bg-white mt-32 origin-left transition-colors duration-300"
         />
       </div>
     </section>

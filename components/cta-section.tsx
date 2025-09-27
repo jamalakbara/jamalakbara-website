@@ -39,13 +39,13 @@ export function CTASection() {
     <>
       <motion.section 
         id="contact"
-        className="pt-20 pb-16 md:pb-24 px-4 bg-black dark:bg-white text-white dark:text-black relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
+        className="pt-20 pb-16 md:pb-24 px-4 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
         ref={ref}
         style={{ y, scale, opacity, rotateX }}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
@@ -68,14 +68,14 @@ export function CTASection() {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-gray-300"
+                className="text-emerald-200 dark:text-emerald-300"
               >
                 Something Amazing
               </motion.span>
             </motion.h2>
 
             <motion.p 
-              className="text-lg md:text-xl text-gray-300 font-sans max-w-xl mx-auto mb-8 leading-normal"
+              className="text-lg md:text-xl text-emerald-100 dark:text-emerald-200 font-sans max-w-xl mx-auto mb-8 leading-normal"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -97,7 +97,7 @@ export function CTASection() {
                 whileHover={{ 
                   scale: 1.1,
                   backgroundColor: "#fff",
-                  color: "#000",
+                  color: "#065f46",
                   boxShadow: "0 20px 40px rgba(255,255,255,0.3)"
                 }}
                 whileTap={{ scale: 0.95 }}
@@ -119,7 +119,7 @@ export function CTASection() {
 
           {/* Contact Info */}
           <motion.div
-            className="mt-20 pt-12 border-t border-gray-700 relative z-10 mb-20"
+            className="mt-20 pt-12 border-t border-emerald-500 dark:border-emerald-400 relative z-10 mb-20"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
@@ -127,15 +127,15 @@ export function CTASection() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Email</div>
-                <div className="text-gray-400 font-mono">hello@yourname.com</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">hello@yourname.com</div>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Phone</div>
-                <div className="text-gray-400 font-mono">+1 (555) 123-4567</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">+1 (555) 123-4567</div>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Location</div>
-                <div className="text-gray-400 font-mono">San Francisco, CA</div>
+                <div className="text-emerald-300 dark:text-emerald-200 font-mono">San Francisco, CA</div>
               </div>
             </div>
           </motion.div>
@@ -144,14 +144,14 @@ export function CTASection() {
 
       {/* Contact Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-md bg-white border-2 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] z-[9999]">
+        <DialogContent className="sm:max-w-md bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] z-[9999] transition-colors duration-300">
           <motion.div
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
           >
             <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl font-serif font-bold text-black">
+              <DialogTitle className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300">
                 Let&apos;s Start Something Great
               </DialogTitle>
             </DialogHeader>
@@ -210,7 +210,7 @@ export function CTASection() {
                   type="button"
                   variant="outline"
                   onClick={() => setIsModalOpen(false)}
-                  className="border-2 border-black text-black hover:bg-black hover:text-white font-sans font-medium"
+                  className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-sans font-medium"
                 >
                   Cancel
                 </Button>

@@ -65,7 +65,7 @@ export function AboutSection() {
         className="mt-16 mb-16 overflow-hidden whitespace-nowrap w-full"
         style={{ height: '120px' }}
       >
-        <div className="marquee-single text-6xl md:text-8xl font-mono font-bold text-gray-200">
+        <div className="marquee-single text-6xl md:text-8xl font-mono font-bold text-gray-200 dark:text-gray-800 transition-colors duration-300">
           {marqueeText}{marqueeText}{marqueeText}{marqueeText}
         </div>
       </motion.div>
@@ -93,8 +93,8 @@ export function AboutSection() {
               </div>
               
               {/* Decorative elements */}
-              <div className="absolute top-4 right-4 w-16 h-16 border-2 border-black" />
-              <div className="absolute bottom-4 left-4 w-8 h-8 bg-black" />
+              <div className="absolute top-4 right-4 w-16 h-16 border-2 border-black dark:border-white transition-colors duration-300" />
+              <div className="absolute bottom-4 left-4 w-8 h-8 bg-black dark:bg-white transition-colors duration-300" />
             </motion.div>
           </motion.div>
 
@@ -147,27 +147,27 @@ export function AboutSection() {
               animate={isInView ? "visible" : "hidden"}
             >
               <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black mb-2">50+</div>
-                <div className="text-sm font-mono text-gray-500 uppercase tracking-wider">Projects</div>
+                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">50+</div>
+                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Projects</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black mb-2">5</div>
-                <div className="text-sm font-mono text-gray-500 uppercase tracking-wider">Years</div>
+                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">5</div>
+                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Years</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black mb-2">100%</div>
-                <div className="text-sm font-mono text-gray-500 uppercase tracking-wider">Passion</div>
+                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">100%</div>
+                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Passion</div>
               </div>
             </motion.div>
 
             {/* Philosophy */}
             <motion.div 
-              className="bg-gray-50 p-8 border-l-4 border-black"
+              className="bg-gray-50 dark:bg-gray-800 p-8 border-l-4 border-black dark:border-white transition-colors duration-300"
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
               transition={{ delay: 1.2, duration: 0.8 }}
             >
-              <p className="text-lg font-serif italic text-black leading-relaxed">
+              <p className="text-lg font-serif italic text-black dark:text-white leading-relaxed transition-colors duration-300">
                 &ldquo;Great design is not about making something look good. 
                 It&apos;s about making something work beautifully.&rdquo;
               </p>

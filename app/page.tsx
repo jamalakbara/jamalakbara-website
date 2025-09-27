@@ -8,10 +8,16 @@ import { FeaturedWorkSection } from '@/components/featured-work-section'
 import { AboutSection } from '@/components/about-section'
 import { CTASection } from '@/components/cta-section'
 import { LoadingScreen } from '@/components/loading-screen'
-import { motion } from 'framer-motion'
+import { DynamicBackground } from '@/components/dynamic-background'
+import { ParallaxContainer } from '@/components/parallax-layers'
+import { VelocityParticles } from '@/components/velocity-effects'
+import { useTheme } from '@/contexts/theme-context'
+import { motion, useScroll } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
+  const { theme } = useTheme()
+  const { scrollYProgress } = useScroll()
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [buttonOnDarkSection, setButtonOnDarkSection] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
@@ -59,7 +65,12 @@ export default function Home() {
       {/* Main Content */}
       {!isLoading && (
         <>
-          <div className="min-h-screen bg-white">
+          {/* Advanced Scroll Effects */}
+          <DynamicBackground />
+          <ParallaxContainer />
+          <VelocityParticles />
+          
+          <div className="relative min-h-screen">
             {/* Custom Cursor */}
             <CustomCursor />
             
@@ -74,7 +85,7 @@ export default function Home() {
             <CTASection />
           </div>
 
-          {/* Global Floating Scroll Button with Circular Text */}
+          {/* Global Floating Scroll Button with Integrated Progress Ring */}
           <div className="fixed bottom-8 right-8 z-[9999]">
             {/* SVG Circular Text */}
             <svg className="absolute -inset-6 w-28 h-28 animate-spin" style={{ animationDuration: '12s' }}>
@@ -90,7 +101,11 @@ export default function Home() {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
                 className={`text-[8px] font-sans font-bold uppercase tracking-[0.5px] transition-colors duration-300 ${
-                  buttonOnDarkSection ? 'fill-white' : 'fill-black'
+                  buttonOnDarkSection 
+                    ? 'fill-white' 
+                    : theme === 'dark' 
+                      ? 'fill-white' 
+                      : 'fill-black'
                 }`}
               >
                 <textPath href="#circle" startOffset="0%" spacing="auto">
@@ -101,13 +116,59 @@ export default function Home() {
                 </textPath>
               </motion.text>
             </svg>
+            
+            {/* Progress Ring (Inner Layer - Below Text) */}
+            <div className="absolute -inset-4 w-24 h-24">
+              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
+                {/* Background ring */}
+                <circle
+                  cx="48"
+                  cy="48"
+                  r="34"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className={`transition-colors duration-300 opacity-20 ${
+                    buttonOnDarkSection 
+                      ? 'text-white' 
+                      : theme === 'dark' 
+                        ? 'text-white' 
+                        : 'text-black'
+                  }`}
+                />
+                {/* Progress ring */}
+                <motion.circle
+                  cx="48"
+                  cy="48"
+                  r="34"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  className={`transition-colors duration-300 ${
+                    buttonOnDarkSection 
+                      ? 'text-white' 
+                      : theme === 'dark' 
+                        ? 'text-white' 
+                        : 'text-black'
+                  }`}
+                  strokeLinecap="round"
+                  style={{
+                    pathLength: scrollYProgress
+                  }}
+                  strokeDasharray="213.628"
+                  strokeDashoffset="213.628"
+                />
+              </svg>
+            </div>
 
             {/* Center Button */}
             <motion.button
               className={`relative w-16 h-16 bg-transparent rounded-full transition-all duration-300 flex items-center justify-center hover:bg-opacity-20 ${
                 buttonOnDarkSection 
                   ? 'text-white hover:bg-white' 
-                  : 'text-black hover:bg-black'
+                  : theme === 'dark'
+                    ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
+                    : 'text-black hover:bg-black/20'
               }`}
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -115,19 +176,14 @@ export default function Home() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => {
-                console.log('Floating button clicked, showBackToTop:', showBackToTop)
                 if (showBackToTop) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                   const servicesSection = document.getElementById('services');
-                  console.log('Services section found:', servicesSection)
                   if (servicesSection) {
-                    // Get actual navbar height
                     const navbar = document.querySelector('nav')
                     const navbarHeight = navbar ? navbar.offsetHeight + 20 : 100
                     const targetPosition = servicesSection.offsetTop - navbarHeight
-                    
-                    console.log('Floating button - target position:', targetPosition)
                     
                     window.scrollTo({
                       top: Math.max(0, targetPosition),
@@ -147,7 +203,13 @@ export default function Home() {
                   y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
                   rotate: { duration: 0.3 }
                 }}
-                className="text-xl"
+                className={`text-xl transition-colors duration-300 ${
+                  buttonOnDarkSection 
+                    ? 'text-white' 
+                    : theme === 'dark'
+                      ? 'text-white'
+                      : 'text-black'
+                }`}
               >
                 ↑
               </motion.div>
