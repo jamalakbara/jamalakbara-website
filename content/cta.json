@@ -1,0 +1,34 @@
+{
+  "heading": "Let's Work Together",
+  "description": "Ready to bring your vision to life? Let's discuss your project and create something extraordinary together.",
+  "form": {
+    "fields": [
+      {
+        "name": "firstName",
+        "type": "text",
+        "placeholder": "John",
+        "required": true
+      },
+      {
+        "name": "lastName", 
+        "type": "text",
+        "placeholder": "Doe",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "email",
+        "placeholder": "john@example.com",
+        "required": true
+      },
+      {
+        "name": "projectDetails",
+        "type": "textarea",
+        "placeholder": "Tell me about your project...",
+        "required": true
+      }
+    ],
+    "submitText": "Send Message",
+    "secondaryText": "Schedule Call"
+  }
+}

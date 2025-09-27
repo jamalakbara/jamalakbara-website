@@ -1,0 +1,30 @@
+[
+  {
+    "id": "ui-ux-design",
+    "title": "UI/UX Design",
+    "description": "Creating intuitive and visually stunning user interfaces that enhance user experience and drive engagement.",
+    "icon": "✦",
+    "category": "Design"
+  },
+  {
+    "id": "frontend-development",
+    "title": "Frontend Development", 
+    "description": "Building responsive, performant web applications using modern technologies and best practices.",
+    "icon": "◉",
+    "category": "Development"
+  },
+  {
+    "id": "brand-strategy",
+    "title": "Brand Strategy",
+    "description": "Developing cohesive brand identities that communicate your values and resonate with your audience.",
+    "icon": "△",
+    "category": "Branding"
+  },
+  {
+    "id": "creative-direction",
+    "title": "Creative Direction",
+    "description": "Guiding creative projects from concept to completion with strategic thinking and artistic vision.",
+    "icon": "◊",
+    "category": "Strategy"
+  }
+]

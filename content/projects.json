@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "title": "E-Commerce Platform",
+    "category": "Web Development",
+    "description": "A modern e-commerce platform with seamless user experience and advanced analytics. Built with performance and scalability in mind.",
+    "image": "/api/placeholder/600/400",
+    "year": "2024",
+    "tech": ["Next.js", "TypeScript", "Stripe", "PostgreSQL"],
+    "url": "#",
+    "featured": true
+  },
+  {
+    "id": 2,
+    "title": "Brand Identity System",
+    "category": "Branding",
+    "description": "Complete brand identity design for a sustainable fashion startup. Including logo design, brand guidelines, and marketing materials.",
+    "image": "/api/placeholder/600/400",
+    "year": "2024",
+    "tech": ["Figma", "Adobe Suite", "Brand Guidelines"],
+    "url": "#",
+    "featured": true
+  },
+  {
+    "id": 3,
+    "title": "SaaS Dashboard",
+    "category": "UI/UX Design",
+    "description": "Intuitive dashboard design for a productivity SaaS application. Focus on data visualization and user workflow optimization.",
+    "image": "/api/placeholder/600/400",
+    "year": "2023",
+    "tech": ["React", "D3.js", "Tailwind CSS"],
+    "url": "#",
+    "featured": true
+  },
+  {
+    "id": 4,
+    "title": "Mobile Banking App",
+    "category": "Mobile Design",
+    "description": "Modern mobile banking application design with focus on security and user experience.",
+    "image": "/api/placeholder/600/400",
+    "year": "2023",
+    "tech": ["React Native", "Figma", "Fintech"],
+    "url": "#",
+    "featured": false
+  }
+]

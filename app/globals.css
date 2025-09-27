@@ -126,6 +126,17 @@
     @apply bg-background text-foreground;
   }
   
+  /* Ensure cursor visibility in all input fields */
+  input, textarea, [contenteditable="true"] {
+    caret-color: var(--foreground) !important;
+  }
+  
+  /* Admin page specific cursor fixes */
+  .admin-input-fix input, .admin-input-fix textarea {
+    cursor: text !important;
+    caret-color: var(--foreground) !important;
+  }
+  
   /* Smooth theme transitions */
   *,
   *::before,
@@ -143,7 +154,7 @@
   
   /* Hide default cursor for custom cursor - only on desktop */
   @media (min-width: 769px) and (hover: hover) and (pointer: fine) {
-    body * {
+    body:not(.admin-page) * {
       cursor: none;
     }
     
@@ -152,6 +163,18 @@
     span[class*="cursor"], [onClick], [class*="hover"], [class*="group"], 
     [whileHover] {
       cursor: none !important;
+    }
+    
+    /* CRITICAL: Show text cursor for input fields and textareas - highest specificity */
+    body input, body textarea, body [contenteditable="true"],
+    body input[type="text"], body input[type="email"], body input[type="password"], 
+    body input[type="number"], body input[type="search"], body input[type="tel"], 
+    body input[type="url"], body input[type="datetime-local"], body input[type="date"],
+    body .bg-background input, body .bg-input input, 
+    body [role="textbox"], body [data-testid*="input"], body [data-testid*="textarea"],
+    .admin-input-fix input, .admin-input-fix textarea {
+      cursor: text !important;
+      caret-color: var(--foreground) !important;
     }
   }
 }

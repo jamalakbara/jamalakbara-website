@@ -1,0 +1,16 @@
+{
+  "greeting": "Hello, I'm",
+  "name": "Jamal Akbar",
+  "title": "Creative Developer & Designer",
+  "description": "I create digital experiences that blend innovative design with cutting-edge technology. Specializing in web development, brand identity, and user-centered design solutions.",
+  "cta": {
+    "primary": {
+      "text": "View My Work",
+      "action": "scroll-to-work"
+    },
+    "secondary": {
+      "text": "Get In Touch",
+      "action": "scroll-to-contact"
+    }
+  }
+}

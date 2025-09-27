@@ -1,0 +1,7 @@
+[
+  { "id": "hero", "label": "Home" },
+  { "id": "services", "label": "Services" },
+  { "id": "work", "label": "Work" },
+  { "id": "about", "label": "About" },
+  { "id": "contact", "label": "Contact" }
+]

@@ -1,0 +1,28 @@
+{
+  "brand": {
+    "name": "jamalakbara.",
+    "shortName": "akbar.",
+    "tagline": "Creative Developer & Designer"
+  },
+  "contact": {
+    "email": "hello@jamalakbar.com",
+    "location": "Based in Indonesia"
+  },
+  "social": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/jamalakbara",
+      "handle": "@jamalakbara"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/jamalakbara",
+      "handle": "@jamalakbara"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/jamalakbara",
+      "handle": "@jamalakbara"
+    }
+  ]
+}

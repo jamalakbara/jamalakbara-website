@@ -1,16 +1,11 @@
 'use client'
 
-import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { motion, AnimatePresence, useScroll } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { useTheme } from '@/contexts/theme-context'
+import { getStaticContent } from '@/lib/content-manager'
 
-const navigationItems = [
-  { id: 'hero', label: 'Home' },
-  { id: 'services', label: 'Services' },
-  { id: 'work', label: 'Work' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' }
-]
+const navigationItems = getStaticContent.navigation()
 
 export function Navigation() {
   const { theme, toggleTheme } = useTheme()

@@ -2,6 +2,9 @@
 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import { getStaticContent } from '@/lib/content-manager'
+
+const aboutContent = getStaticContent.about()
 
 export function AboutSection() {
   const ref = useRef(null)
@@ -142,7 +145,7 @@ export function AboutSection() {
             >
               {/* Two line layout */}
               <div className="block">
-                <div>About</div>
+                <div>{aboutContent.heading.main}</div>
                 <div className="relative inline-block">
                   {/* "jamal" - disappears */}
                   <motion.span
@@ -206,23 +209,14 @@ export function AboutSection() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
             >
-              <p className="text-xl text-gray-700 dark:text-gray-300 font-sans leading-relaxed transition-colors duration-300">
-                With over 5 years of experience in digital design and development, 
-                I specialize in creating meaningful experiences that bridge the gap 
-                between beautiful design and functional technology.
-              </p>
-
-              <p className="text-lg text-gray-600 dark:text-gray-400 font-sans leading-relaxed transition-colors duration-300">
-                My approach combines strategic thinking with creative execution, 
-                ensuring every project not only looks exceptional but also serves 
-                its intended purpose with precision and elegance.
-              </p>
-
-              <p className="text-lg text-gray-600 dark:text-gray-400 font-sans leading-relaxed transition-colors duration-300">
-                Based in the heart of creativity, I work with forward-thinking 
-                brands and startups who value innovation and aren&apos;t afraid to push 
-                boundaries in their digital presence.
-              </p>
+              {aboutContent.description.map((paragraph, index) => (
+                <p 
+                  key={index}
+                  className={`${index === 0 ? 'text-xl text-gray-700 dark:text-gray-300' : 'text-lg text-gray-600 dark:text-gray-400'} font-sans leading-relaxed transition-colors duration-300`}
+                >
+                  {paragraph}
+                </p>
+              ))}
             </motion.div>
 
             {/* Stats */}
@@ -232,18 +226,16 @@ export function AboutSection() {
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
             >
-              <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">50+</div>
-                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Projects</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">5</div>
-                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Years</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">100%</div>
-                <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">Passion</div>
-              </div>
+              {aboutContent.stats.map((stat, index) => (
+                <div key={index} className="text-center">
+                  <div className="text-3xl font-serif font-bold text-black dark:text-white mb-2 transition-colors duration-300">
+                    {stat.value}
+                  </div>
+                  <div className="text-sm font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider transition-colors duration-300">
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </motion.div>
 
             {/* Philosophy */}

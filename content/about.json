@@ -1,0 +1,29 @@
+{
+  "heading": {
+    "main": "About",
+    "subtitle": "Creative developer with a passion for innovation"
+  },
+  "description": [
+    "I'm a creative developer who bridges the gap between design and technology. With over 5 years of experience in web development and digital design, I specialize in creating memorable digital experiences that not only look beautiful but also perform exceptionally.",
+    "My approach combines technical expertise with creative vision, ensuring every project delivers both aesthetic appeal and functional excellence. I believe great design should be accessible, intuitive, and meaningful.",
+    "Based in the heart of creativity, I work with forward-thinking brands and startups who value innovation and aren't afraid to push boundaries in their digital presence."
+  ],
+  "stats": [
+    {
+      "label": "Projects",
+      "value": "50+",
+      "description": "Completed projects"
+    },
+    {
+      "label": "Clients",
+      "value": "25+", 
+      "description": "Happy clients"
+    },
+    {
+      "label": "Years",
+      "value": "5+",
+      "description": "Experience"
+    }
+  ],
+  "profileImage": "/api/placeholder/400/500"
+}

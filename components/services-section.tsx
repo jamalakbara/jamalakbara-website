@@ -2,29 +2,9 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import { getStaticContent } from '@/lib/content-manager'
 
-const services = [
-  {
-    title: "UI/UX Design",
-    description: "Creating intuitive and visually stunning user interfaces that enhance user experience and drive engagement.",
-    icon: "✦"
-  },
-  {
-    title: "Frontend Development",
-    description: "Building responsive, performant web applications using modern technologies and best practices.",
-    icon: "◉"
-  },
-  {
-    title: "Brand Strategy",
-    description: "Developing cohesive brand identities that communicate your values and resonate with your audience.",
-    icon: "△"
-  },
-  {
-    title: "Creative Direction",
-    description: "Guiding creative projects from concept to completion with strategic thinking and artistic vision.",
-    icon: "◊"
-  }
-]
+const services = getStaticContent.services()
 
 export function ServicesSection() {
   const ref = useRef(null);

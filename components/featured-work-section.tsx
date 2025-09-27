@@ -2,36 +2,9 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import { getStaticContent } from '@/lib/content-manager'
 
-const projects = [
-  {
-    id: 1,
-    title: "E-Commerce Platform",
-    category: "Web Development",
-    description: "A modern e-commerce platform with seamless user experience and advanced analytics.",
-    image: "/api/placeholder/600/400",
-    year: "2024",
-    tech: ["Next.js", "TypeScript", "Stripe"]
-  },
-  {
-    id: 2,
-    title: "Brand Identity System",
-    category: "Branding",
-    description: "Complete brand identity design for a sustainable fashion startup.",
-    image: "/api/placeholder/600/400",
-    year: "2024",
-    tech: ["Figma", "Adobe Suite", "Brand Guidelines"]
-  },
-  {
-    id: 3,
-    title: "SaaS Dashboard",
-    category: "UI/UX Design",
-    description: "Intuitive dashboard design for a productivity SaaS application.",
-    image: "/api/placeholder/600/400",
-    year: "2023",
-    tech: ["React", "D3.js", "Tailwind CSS"]
-  }
-]
+const projects = getStaticContent.featuredProjects()
 
 export function FeaturedWorkSection() {
   const ref = useRef(null)
