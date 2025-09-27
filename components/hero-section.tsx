@@ -1,11 +1,12 @@
 'use client'
 
-import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
+import { motion, useScroll, useTransform, useAnimation, useInView } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 
 export function HeroSection() {
   const ref = useRef(null)
   const controls = useAnimation()
+  const isInView = useInView(ref, { once: true, margin: "-100px" })
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -111,6 +112,29 @@ export function HeroSection() {
     },
   }
 
+  // Scroll-triggered animations
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.8, 
+        ease: "easeOut" as const
+      }
+    }
+  }
+
+  const staggerContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.1
+      }
+    }
+  }
+
   const hoverVariant = {
     scale: 1.05,
     rotate: [-1, 1, -1, 0],
@@ -125,15 +149,16 @@ export function HeroSection() {
       id="hero"
       ref={ref}
       style={{ y, opacity }}
-      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white"
+      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300"
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={staggerContainer}
     >
       <div className="max-w-4xl mx-auto text-center">
         {/* Main Headline with Staggered Animation */}
         <motion.h1
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-black leading-tight mb-8"
+          variants={fadeInUp}
+          className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-black dark:text-white leading-tight mb-8 transition-colors duration-300"
         >
           {words.map((word, index) => (
             <motion.span
@@ -149,11 +174,8 @@ export function HeroSection() {
 
         {/* Subtitle with Staggered Animation */}
         <motion.p
-          variants={container}
-          initial="hidden"
-          animate="visible"
-          custom={1.5}
-          className="text-xl md:text-2xl text-gray-600 font-sans max-w-2xl mx-auto leading-relaxed"
+          variants={fadeInUp}
+          className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto leading-relaxed transition-colors duration-300"
         >
           {subWords.map((word, index) => (
             <motion.span
@@ -170,9 +192,7 @@ export function HeroSection() {
 
         {/* CTA Button with Subtle Animation */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 0.8 }}
+          variants={fadeInUp}
           className="mt-12 mb-16"
         >
           <motion.button
@@ -188,7 +208,7 @@ export function HeroSection() {
                 workSection.scrollIntoView({ behavior: 'smooth' })
               }
             }}
-            className="px-8 py-4 border-2 border-black text-black font-sans font-medium text-lg transition-colors duration-300 cursor-hover"
+            className="px-8 py-4 border-2 border-black dark:border-white text-black dark:text-white font-sans font-medium text-lg transition-colors duration-300 cursor-hover hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black"
           >
             View My Work
           </motion.button>

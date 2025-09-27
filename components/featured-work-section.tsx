@@ -85,8 +85,8 @@ export function FeaturedWorkSection() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
       },
     },
   }
@@ -94,11 +94,13 @@ export function FeaturedWorkSection() {
   const projectVariants = {
     hidden: { 
       opacity: 0, 
-      y: 80 
+      y: 80,
+      scale: 0.95
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring" as const,
         stiffness: 60,
@@ -108,14 +110,26 @@ export function FeaturedWorkSection() {
     },
   }
 
+  const titleVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.8,
+        ease: "easeOut" as const
+      }
+    }
+  }
+
   return (
-    <section id="work" className="py-32 px-6 bg-gray-50" ref={ref}>
+    <section id="work" className="py-32 px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-300" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          variants={titleVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
           className="text-center mb-20"
         >
           <div 

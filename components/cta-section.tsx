@@ -39,7 +39,7 @@ export function CTASection() {
     <>
       <motion.section 
         id="contact"
-        className="pt-20 pb-16 md:pb-24 px-4 bg-black text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl"
+        className="pt-20 pb-16 md:pb-24 px-4 bg-black dark:bg-white text-white dark:text-black relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
         ref={ref}
         style={{ y, scale, opacity, rotateX }}
       >

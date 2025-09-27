@@ -74,40 +74,54 @@ export function ServicesSection() {
   };
 
   const containerVariants = {
-    hidden: { opacity: 0 },
+    hidden: {},
     visible: {
-      opacity: 1,
       transition: {
         staggerChildren: 0.2,
-        delayChildren: 0.3,
+        delayChildren: 0.3
       },
     },
   }
 
   const cardVariants = {
     hidden: { 
-      opacity: 0, 
-      y: 50 
+      opacity: 0,
+      y: 50,
+      scale: 0.9
     },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         type: "spring" as const,
         stiffness: 80,
         damping: 20,
+        duration: 0.6
       },
     },
   }
 
+  const titleVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { 
+        duration: 0.8,
+        ease: "easeOut" as const
+      }
+    }
+  }
+
   return (
-    <section id="services" className="py-32 px-6 bg-white" ref={ref}>
+    <section id="services" className="py-32 px-6 bg-white dark:bg-black transition-colors duration-300" ref={ref}>
       <div className="max-w-6xl mx-auto">
         {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.8 }}
+          variants={titleVariants}
+          initial="hidden"
+          animate={isInView ? "visible" : "hidden"}
           className="text-center mb-20"
         >
           <div 
@@ -116,7 +130,7 @@ export function ServicesSection() {
           >
             <h2 
               ref={headingRef}
-              className="text-5xl md:text-6xl font-serif font-bold text-black mb-6 relative overflow-hidden cursor-none"
+              className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white mb-6 relative overflow-hidden cursor-none transition-colors duration-300"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
@@ -219,18 +233,18 @@ export function ServicesSection() {
               }}
               className="group relative"
             >
-              <div className="bg-white border border-gray-200 p-8 h-full transition-all duration-300 group-hover:border-black group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+              <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 group-hover:border-black dark:group-hover:border-white group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]">
                 {/* Icon */}
                 <div className="text-4xl mb-6 text-black font-mono">
                   {service.icon}
                 </div>
                 
                 {/* Content */}
-                <h3 className="text-2xl font-serif font-bold text-black mb-4 group-hover:text-black transition-colors">
+                <h3 className="text-2xl font-serif font-bold text-black dark:text-white mb-4 group-hover:text-black dark:group-hover:text-white transition-colors">
                   {service.title}
                 </h3>
                 
-                <p className="text-gray-600 font-sans leading-relaxed text-base">
+                <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base transition-colors duration-300">
                   {service.description}
                 </p>
 

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useState, useEffect } from 'react'
+import { ThemeToggle } from './theme-toggle'
 
 const navigationItems = [
   { id: 'hero', label: 'Home' },
@@ -152,112 +153,187 @@ export function Navigation() {
   }
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-white/90 backdrop-blur-sm border-b border-gray-200' : 'bg-transparent'
-      }`}
-      style={{ zIndex: 1000 }}
+    <motion.header 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6"
     >
-      <div className="max-w-6xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+      <motion.nav 
+        animate={{
+          width: isScrolled ? "60%" : "100%",
+          borderRadius: isScrolled ? "24px" : "0px",
+          marginTop: isScrolled ? "12px" : "0px"
+        }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+        className={`mx-auto transition-all duration-500 ${
+          isScrolled 
+            ? 'bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-lg' 
+            : 'bg-transparent'
+        }`}
+        style={isScrolled ? {} : {}}
+      >
+        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+          
           {/* Logo/Brand */}
           <motion.div
             whileHover={{ scale: 1.05 }}
-            className="font-serif font-bold text-xl text-black cursor-pointer"
-            onClick={() => scrollToSection('hero')}
+            whileTap={{ scale: 0.95 }}
+            className="cursor-hover"
           >
-            Studio
+            <h1 className="text-xl font-serif font-bold text-black dark:text-white tracking-tight">
+              Portfolio
+            </h1>
           </motion.div>
 
-          {/* Navigation Items */}
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navigationItems.map((item) => (
-              <button
+            {navigationItems.map((item, index) => (
+              <motion.div
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`relative font-sans text-sm transition-colors ${
-                  activeSection === item.id ? 'text-black' : 'text-gray-600 hover:text-black'
-                }`}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: index * 0.1,
+                  ease: "easeOut" 
+                }}
+                className="relative"
               >
-                {item.label}
-                {activeSection === item.id && (
+                <motion.button
+                  onClick={() => scrollToSection(item.id)}
+                  className="relative px-1 py-2 text-black dark:text-white font-sans font-medium text-base transition-colors hover:text-gray-600 dark:hover:text-gray-300"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {item.label}
+                  
+                  {/* Active indicator */}
                   <motion.div
-                    layoutId="activeSection"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-black"
-                    initial={false}
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black dark:bg-white origin-left"
+                    initial={{ scaleX: 0 }}
+                    animate={{ 
+                      scaleX: activeSection === item.id ? 1 : 0 
+                    }}
+                    transition={{ 
+                      duration: 0.3, 
+                      ease: "easeInOut" 
+                    }}
                   />
-                )}
-              </button>
+                  
+                  {/* Hover effect underline */}
+                  <motion.div
+                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gray-400 dark:bg-gray-500 origin-left"
+                    initial={{ scaleX: 0 }}
+                    whileHover={{ scaleX: 1 }}
+                    transition={{ 
+                      duration: 0.2, 
+                      ease: "easeOut" 
+                    }}
+                  />
+                </motion.button>
+              </motion.div>
             ))}
+            
+            {/* Theme Toggle */}
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: navigationItems.length * 0.1,
+                ease: "easeOut" 
+              }}
+            >
+              <ThemeToggle />
+            </motion.div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button 
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-6 h-6 flex flex-col justify-center space-y-1 relative z-10"
-            >
-              <motion.span 
-                animate={{
-                  rotate: isMobileMenuOpen ? 45 : 0,
-                  y: isMobileMenuOpen ? 2 : 0
-                }}
-                className="w-full h-px bg-black origin-center"
-              />
-              <motion.span 
-                animate={{
-                  rotate: isMobileMenuOpen ? -45 : 0,
-                  y: isMobileMenuOpen ? -2 : 0
-                }}
-                className="w-full h-px bg-black origin-center"
-              />
-            </button>
-          </div>
+          {/* Mobile Hamburger Button */}
+          <motion.button
+            className="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Toggle mobile menu"
+          >
+            <motion.span
+              className="w-6 h-0.5 bg-black dark:bg-white block"
+              animate={{
+                rotate: isMobileMenuOpen ? 45 : 0,
+                y: isMobileMenuOpen ? 4 : 0
+              }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="w-6 h-0.5 bg-black dark:bg-white block"
+              animate={{
+                opacity: isMobileMenuOpen ? 0 : 1
+              }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.span
+              className="w-6 h-0.5 bg-black dark:bg-white block"
+              animate={{
+                rotate: isMobileMenuOpen ? -45 : 0,
+                y: isMobileMenuOpen ? -4 : 0
+              }}
+              transition={{ duration: 0.2 }}
+            />
+          </motion.button>
         </div>
 
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden bg-white/95 backdrop-blur-sm border-t border-gray-200"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-b-3xl overflow-hidden"
             >
-              <div className="px-6 py-4 space-y-4">
-                {navigationItems.map((item) => (
-                  <button
+              <div className="px-6 py-4 pb-6 space-y-4">
+                {navigationItems.map((item, index) => (
+                  <motion.button
                     key={item.id}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      console.log('Mobile menu button clicked for:', item.id)
+                    onClick={() => {
                       scrollToSection(item.id)
+                      setIsMobileMenuOpen(false)
                     }}
-                    className={`relative block w-full text-left font-sans text-base transition-colors py-3 px-2 ${
-                      activeSection === item.id ? 'text-black font-medium' : 'text-gray-600 hover:text-black'
+                    className={`block w-full text-left py-3 px-4 rounded-lg font-sans font-medium text-lg transition-colors ${
+                      activeSection === item.id 
+                        ? 'bg-black dark:bg-white text-white dark:text-black' 
+                        : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ 
+                      duration: 0.3, 
+                      delay: index * 0.1 
+                    }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     {item.label}
-                    {activeSection === item.id && (
-                      <motion.div
-                        layoutId="activeSectionMobile"
-                        className="absolute -bottom-1 left-2 right-2 h-px bg-black"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </button>
+                  </motion.button>
                 ))}
+                
+                {/* Mobile Theme Toggle */}
+                <motion.div
+                  className="flex items-center justify-center pt-4"
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ 
+                    duration: 0.3, 
+                    delay: navigationItems.length * 0.1 
+                  }}
+                >
+                  <ThemeToggle />
+                </motion.div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
-    </motion.nav>
+      </motion.nav>
+    </motion.header>
   )
 }

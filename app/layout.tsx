@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/contexts/theme-context";
 import "./globals.css";
 
 const inter = Inter({
@@ -36,12 +36,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider>
           {children}
         </ThemeProvider>
       </body>
