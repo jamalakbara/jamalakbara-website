@@ -2,6 +2,7 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import Image from 'next/image'
 import { getStaticContent } from '@/lib/content-manager'
 
 const projects = getStaticContent.featuredProjects()
@@ -278,7 +279,7 @@ export function FeaturedWorkSection() {
             >
               {/* Project Image */}
               <motion.div
-                className="lg:w-1/2 relative group"
+                className="lg:w-1/2 relative group w-full"
                 whileHover={{ scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               >
@@ -293,7 +294,10 @@ export function FeaturedWorkSection() {
                     transformPerspective: "1000px",
                   }}
                 >
-                  <div className="relative overflow-hidden" style={{ aspectRatio: '16/10' }}>
+                  <div className="relative overflow-hidden" style={{
+                    aspectRatio: '16/10',
+                    minHeight: isMobile ? '200px' : 'auto'
+                  }}>
                     {project.livePreview ? (
                       <motion.div
                         id={`project-${project.id}`}
@@ -311,21 +315,22 @@ export function FeaturedWorkSection() {
                           }
                         }}
                       >
-                        {/* Layered image system for color restoration */}
+                        {/* Mobile-friendly image using Next.js Image */}
                         <motion.div
                           className="w-full h-full relative overflow-hidden"
                           whileHover={{ scale: 1.005 }}
                           transition={{ duration: 0.6, type: "spring", stiffness: 150 }}
                         >
-                          {/* Normal image without filters and shadows */}
-                          <div
-                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                          {/* Use Next.js Image for better mobile compatibility and optimization */}
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={index === 0}
                             style={{
-                              backgroundImage: `url(${project.image})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              backgroundRepeat: 'no-repeat',
-                              filter: 'drop-shadow(0 0 0 transparent)'
+                              minHeight: '200px'
                             }}
                           />
 
@@ -366,21 +371,22 @@ export function FeaturedWorkSection() {
                           }
                         }}
                       >
-                        {/* Layered image system for color restoration */}
+                        {/* Mobile-friendly image using Next.js Image */}
                         <motion.div
                           className="w-full h-full relative overflow-hidden"
                           whileHover={{ scale: 1.005 }}
                           transition={{ duration: 0.6, type: "spring", stiffness: 150 }}
                         >
-                          {/* Normal image without filters and shadows */}
-                          <div
-                            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                          {/* Use Next.js Image for better mobile compatibility and optimization */}
+                          <Image
+                            src={project.image}
+                            alt={project.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            priority={index === 0}
                             style={{
-                              backgroundImage: `url(${project.image})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                              backgroundRepeat: 'no-repeat',
-                              filter: 'drop-shadow(0 0 0 transparent)'
+                              minHeight: '200px'
                             }}
                           />
 
@@ -395,7 +401,7 @@ export function FeaturedWorkSection() {
               </motion.div>
 
               {/* Project Info */}
-              <div className="lg:w-1/2 space-y-6">
+              <div className="lg:w-1/2 space-y-6 w-full">
                 <motion.div
                   initial={{ opacity: 0, x: index % 2 === 0 ? -30 : 30 }}
                   animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -30 : 30 }}

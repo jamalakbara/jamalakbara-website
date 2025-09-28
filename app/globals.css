@@ -185,7 +185,7 @@
     transform: translateX(0%);
   }
   100% {
-    transform: translateX(-25%);
+    transform: translateX(-50%);
   }
 }
 
@@ -193,6 +193,7 @@
   display: inline-block;
   animation: marquee-simple 20s linear infinite;
   white-space: nowrap;
+  padding-left: 50%; /* Start from center */
 }
 
 /* Hide Scrollbar */

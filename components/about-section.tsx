@@ -93,7 +93,7 @@ export function AboutSection() {
         variants={fadeInUp}
         initial="hidden"
         animate={isInView ? "visible" : "hidden"}
-        className="mt-16 mb-16 overflow-hidden whitespace-nowrap w-full"
+        className="mt-16 mb-16 overflow-hidden whitespace-nowrap w-full flex items-center"
         style={{ height: '120px' }}
       >
         <div className="marquee-single text-6xl md:text-8xl font-mono font-bold text-gray-200 dark:text-gray-800 transition-colors duration-300">
