@@ -334,9 +334,7 @@ export function FeaturedWorkSection() {
                             }}
                           />
 
-                          {/* Subtle overlay for depth */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/5 opacity-30" />
-                        </motion.div>
+                          </motion.div>
 
                         {/* Visit button outside image area */}
                         <motion.div
@@ -390,9 +388,7 @@ export function FeaturedWorkSection() {
                             }}
                           />
 
-                          {/* Subtle overlay for depth */}
-                          <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-black/5 opacity-20" />
-                        </motion.div>
+                          </motion.div>
 
                         </motion.div>
                     )}
@@ -514,7 +510,6 @@ export function FeaturedWorkSection() {
               className="w-full h-full border-3 border-black rounded-full"
               style={{
                 background: 'transparent',
-                boxShadow: 'inset 0 0 8px rgba(0,0,0,0.2)',
               }}
             />
             {/* Magnifying glass handle */}
@@ -526,14 +521,7 @@ export function FeaturedWorkSection() {
                 transform: 'rotate(45deg)',
               }}
             />
-            {/* Lens reflection effect - subtle and transparent */}
-            <div
-              className="absolute top-3 left-3 w-3 h-3 border border-gray-400 rounded-full opacity-30"
-              style={{
-                background: 'transparent',
-              }}
-            />
-          </motion.div>
+            </motion.div>
         )}
       </div>
     </section>

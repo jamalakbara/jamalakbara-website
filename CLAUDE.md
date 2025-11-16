@@ -4,17 +4,15 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a modern portfolio website built with Next.js 15, featuring advanced interactive animations, a file-based content management system, and a sophisticated UI/UX design. The project combines cutting-edge web technologies with creative development practices.
+This is a modern portfolio website built with Next.js 15, featuring advanced interactive animations and a sophisticated UI/UX design. The project combines cutting-edge web technologies with creative development practices.
 
 **Key Technologies:**
 - Next.js 15 with App Router and Turbopack
 - React 19 with TypeScript
 - Tailwind CSS v4 with shadcn/ui components (New York style)
 - Framer Motion for advanced animations
-- File-based CMS with JSON storage
-- PostgreSQL with Drizzle ORM (optional, for auth)
-- Better Auth for authentication
-- Docker support for deployment
+- File-based content system with JSON storage
+- next-themes for dark/light mode
 
 ## Development Commands
 
@@ -24,28 +22,14 @@ This is a modern portfolio website built with Next.js 15, featuring advanced int
 - `npm start` - Production server
 - `npm run lint` - ESLint
 
-### Database (PostgreSQL - Optional)
-- `npm run db:up` - Start PostgreSQL in Docker
-- `npm run db:down` - Stop PostgreSQL container
-- `npm run db:push` - Push schema changes to database
-- `npm run db:studio` - Open Drizzle Studio GUI
-- `npm run db:reset` - Reset database
-
-### Docker
-- `npm run docker:build` - Build application Docker image
-- `npm run docker:up` - Start full application stack
-- `npm run docker:down` - Stop all containers
-
 ## Architecture Overview
 
-### File-Based Content Management System
-The project uses a sophisticated file-based CMS instead of a traditional database:
+### File-Based Content System
+The project uses a simple file-based content system:
 
 - **Content Storage**: JSON files in `/content/` directory
 - **Content Types**: Defined in `lib/content-types.ts` with full TypeScript interfaces
-- **Content Loading**: Managed through `lib/content-manager.ts`
-- **Admin Interface**: Available at `/admin` for content editing
-- **API Endpoints**: RESTful API in `/app/api/admin/content/` for CRUD operations
+- **Content Loading**: Managed through `lib/content-manager.ts` with server-side and client-side helpers
 
 **Content Structure:**
 ```
@@ -128,15 +112,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 ```
 
-## Database Integration (Optional)
-
-While primarily file-based, the project includes PostgreSQL integration:
-- **Drizzle ORM** for type-safe database operations
-- **Better Auth** for authentication
-- **Docker setup** for development database
-- **Migration management** with Drizzle Kit
-
-**Note**: The CMS can function entirely without the database - PostgreSQL is only needed for authentication features.
 
 ## Styling Guidelines
 
@@ -165,15 +140,6 @@ While primarily file-based, the project includes PostgreSQL integration:
 - Utility functions in `lib/`
 - Type definitions in `lib/content-types.ts`
 
-## Admin Interface
-
-Access the admin dashboard at `/admin` for:
-- Content editing and management
-- Real-time content preview
-- Section-based content organization
-- Form-based content editing
-
-**Security Note**: The admin interface currently has no authentication - add auth for production use.
 
 ## Build and Deployment
 
@@ -187,14 +153,6 @@ npm run lint   # ESLint
 ### Production
 - Use `npm run build` for optimized production build
 - Content files are included in the build
-- Admin interface works in production
-- File changes persist to server filesystem
-
-### Docker Deployment
-```bash
-npm run docker:build  # Build Docker image
-npm run docker:up     # Start full stack
-```
 
 ## Testing and Quality
 
@@ -209,8 +167,6 @@ npm run docker:up     # Start full stack
 1. Define TypeScript interface in `lib/content-types.ts`
 2. Create JSON file in `/content/`
 3. Add loader function in `lib/content-manager.ts`
-4. Update admin interface in `/app/admin/page.tsx`
-5. Update API endpoint in `/app/api/admin/content/route.ts`
 
 ### Adding New Animations
 1. Use Framer Motion for animations

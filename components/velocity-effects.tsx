@@ -183,13 +183,13 @@ export const VelocityParticles = () => {
     const unsubscribe = scrollVelocity.on('change', (latest) => {
       if (Math.abs(latest) > 200) {
         const newParticles = Array.from({ length: 5 }, (_, i) => ({
-          id: Date.now() + i,
+          id: Date.now() + Math.random() + i, // More unique with random addition
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight
         }))
-        
+
         setParticles(prev => [...prev, ...newParticles].slice(-20)) // Keep max 20 particles
-        
+
         // Remove particles after animation
         setTimeout(() => {
           setParticles(prev => prev.filter(p => !newParticles.find(np => np.id === p.id)))
@@ -206,20 +206,20 @@ export const VelocityParticles = () => {
         <motion.div
           key={particle.id}
           className="absolute w-2 h-2 bg-black/30 dark:bg-white/30 rounded-full"
-          initial={{ 
-            x: particle.x, 
-            y: particle.y, 
-            scale: 0, 
-            opacity: 1 
+          initial={{
+            x: particle.x,
+            y: particle.y,
+            scale: 0,
+            opacity: 1
           }}
-          animate={{ 
-            scale: [0, 1, 0], 
+          animate={{
+            scale: [0, 1, 0],
             opacity: [0, 1, 0],
             y: particle.y - 50
           }}
-          transition={{ 
-            duration: 1, 
-            ease: "easeOut" 
+          transition={{
+            duration: 1,
+            ease: "easeOut"
           }}
         />
       ))}

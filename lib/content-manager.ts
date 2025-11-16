@@ -169,11 +169,11 @@ export const getStaticContent = {
         "category": "Development"
       },
       {
-        "id": "brand-strategy",
-        "title": "Brand Strategy",
-        "description": "Developing cohesive brand identities that communicate your values and resonate with your audience.",
+        "id": "backend-development",
+        "title": "Backend Development",
+        "description": "Building robust server-side applications, APIs, and database systems that power modern web experiences with scalability and security.",
         "icon": "△",
-        "category": "Branding"
+        "category": "Development"
       },
       {
         "id": "creative-direction",
