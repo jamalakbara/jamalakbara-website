@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
-import { ThemeProvider } from "@/contexts/theme-context";
+import { ThemeProvider } from "@/components/theme-provider";
 import { StructuredData } from "@/components/structured-data";
 import "./globals.css";
 
