@@ -108,7 +108,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
       >
-        <ThemeProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
           {children}
         </ThemeProvider>
       </body>
