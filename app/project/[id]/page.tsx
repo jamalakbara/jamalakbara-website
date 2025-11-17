@@ -1,60 +1,61 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 import { StructuredData } from '@/components/structured-data'
-import { Metadata } from 'next'
+import { CustomCursor } from '@/components/custom-cursor'
+import { LoadingScreen } from '@/components/loading-screen'
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>
 }
 
-export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const { id } = await params
-  const project = getStaticContent.projects().find(p => p.id === parseInt(id))
+export default function ProjectPage({ params }: ProjectPageProps) {
+  const [project, setProject] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
+  const [error, setError] = useState<string | null>(null)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
 
-  if (!project) {
-    return {
-      title: 'Project Not Found',
-    }
-  }
-
-  return {
-    title: `${project.title} | jamalakbara.`,
-    description: project.description,
-    keywords: project.tech.join(', '),
-    openGraph: {
-      title: `${project.title} | jamalakbara.`,
-      description: project.description,
-      images: [
-        {
-          url: project.image,
-          width: 1200,
-          height: 630,
-          alt: project.title,
+  useEffect(() => {
+    async function loadProject() {
+      try {
+        const { id } = await params
+        const foundProject = getStaticContent.projects().find(p => p.id === id)
+        if (foundProject) {
+          setProject(foundProject)
+        } else {
+          setError('Project not found')
         }
-      ]
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${project.title} | jamalakbara.`,
-      description: project.description,
-      images: [project.image],
+      } catch {
+        setError('Error loading project')
+      } finally {
+        // Add a small delay to show loading screen for better UX
+        setTimeout(() => setShowLoadingScreen(false), 300)
+      }
     }
+
+    loadProject()
+  }, [params])
+
+  if (showLoadingScreen) {
+    return (
+      <>
+        <CustomCursor />
+        <LoadingScreen onLoadingComplete={() => {}} />
+      </>
+    )
   }
-}
 
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const { id } = await params
-  const project = getStaticContent.projects().find(p => p.id === parseInt(id))
-
-  if (!project) {
+  if (error || !project) {
     notFound()
   }
 
   return (
     <>
       <StructuredData type="Project" data={project} />
+      <CustomCursor />
 
       <article className="min-h-screen bg-white dark:bg-black">
         {/* Header */}
@@ -62,7 +63,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
           <div className="absolute inset-0">
             <Image
               src={project.image}
-              alt={project.title}
+              alt={`${project.title} - ${project.category} project showcasing ${project.tech.slice(0, 3).join(', ')} technologies`}
               fill
               className="object-cover"
               priority
@@ -79,7 +80,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               {project.category}
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              {project.tech.map((tech) => (
+              {project.tech.map((tech: string) => (
                 <span
                   key={tech}
                   className="px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-sm font-mono"
@@ -89,16 +90,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
               ))}
             </div>
             <div className="flex gap-6 justify-center">
-              {project.livePreview && (
-                <a
-                  href={project.livePreview}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-3 bg-white text-black font-mono text-sm tracking-wider hover:bg-gray-200 transition-colors"
-                >
-                  VIEW LIVE
-                </a>
-              )}
               <a
                 href={project.url}
                 target="_blank"
@@ -110,14 +101,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             </div>
           </div>
 
-          <Link
-            href="/#work"
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-white transition-colors"
+          <button
+            onClick={() => {
+              const nextSection = document.querySelector('section')
+              if (nextSection) {
+                nextSection.scrollIntoView({ behavior: 'smooth' })
+              }
+            }}
+            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-white transition-colors cursor-pointer"
           >
             <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
-          </Link>
+          </button>
         </header>
 
         {/* Content */}
@@ -140,7 +136,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     Technologies Used
                   </h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                    {project.tech.map((tech) => (
+                    {project.tech.map((tech: string) => (
                       <div
                         key={tech}
                         className="p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-400 transition-colors"
@@ -191,17 +187,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         Live Preview
                       </a>
                     )}
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full text-center px-4 py-3 border border-black text-black font-mono text-sm hover:bg-black hover:text-white transition-colors"
-                    >
-                      Project Details
-                    </a>
                     <Link
-                      href="/#work"
-                      className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 font-mono text-sm hover:border-gray-400 transition-colors"
+                      href="/"
+                      className="block w-full text-center px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
                     >
                       Back to Projects
                     </Link>
@@ -217,16 +205,22 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://jamalakbara.com/project/${project.id}`)}&text=${encodeURIComponent(`Check out ${project.title} by @jamalakbara`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 text-center px-3 py-2 bg-blue-500 text-white text-sm hover:bg-blue-600 transition-colors"
+                      className="flex-1 flex items-center justify-center px-3 py-2 bg-black text-white text-sm hover:bg-gray-800 transition-colors"
                     >
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                      </svg>
                       Twitter
                     </a>
                     <a
                       href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://jamalakbara.com/project/${project.id}`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 text-center px-3 py-2 bg-blue-700 text-white text-sm hover:bg-blue-800 transition-colors"
+                      className="flex-1 flex items-center justify-center px-3 py-2 bg-blue-700 text-white text-sm hover:bg-blue-800 transition-colors"
                     >
+                      <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                      </svg>
                       LinkedIn
                     </a>
                   </div>
@@ -252,7 +246,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                       <div className="relative aspect-video overflow-hidden mb-4">
                         <Image
                           src={relatedProject.image}
-                          alt={relatedProject.title}
+                          alt={`${relatedProject.title} - ${relatedProject.category} project by Jamal Akbar`}
                           fill
                           className="object-cover group-hover:scale-105 transition-transform duration-300"
                         />

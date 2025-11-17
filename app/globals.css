@@ -1,6 +1,33 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Font loading optimizations */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: local('Inter');
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  font-display: swap;
+  src: local('Space Mono');
+}
+
+@font-face {
+  font-family: 'DM Serif Display';
+  font-display: swap;
+  src: local('DM Serif Display');
+}
+
+/* Optimize text rendering */
+body {
+  font-optical-sizing: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

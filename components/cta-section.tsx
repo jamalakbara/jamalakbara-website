@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -10,9 +10,61 @@ import { getStaticContent } from '@/lib/content-manager'
 
 export function CTASection() {
   const ref = useRef(null)
+  const formRef = useRef<HTMLFormElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [showStatus, setShowStatus] = useState(false)
   const siteConfig = getStaticContent.siteConfig()
+
+  // Formspree form endpoint from environment variables
+  const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xjkbvlqd'
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      const formData = new FormData(event.currentTarget)
+
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setIsModalOpen(false)
+
+        // Show success message briefly
+        setShowStatus(true)
+        setTimeout(() => {
+          setShowStatus(false)
+        }, 3000)
+
+        // Reset form using ref
+        if (formRef.current) {
+          formRef.current.reset()
+        }
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      setSubmitStatus('error')
+      setShowStatus(true)
+      setTimeout(() => {
+        setShowStatus(false)
+      }, 5000)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   // Scroll-based animations for stacking effect
   const { scrollYProgress } = useScroll({
@@ -129,11 +181,23 @@ export function CTASection() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Email</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.email}</div>
+                <a
+                  href={`mailto:${siteConfig.contact?.email}`}
+                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                >
+                  {siteConfig.contact?.email}
+                </a>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Phone</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.phone || '+6281321766565'}</div>
+                <a
+                  href={`https://wa.me/${(siteConfig.contact?.phone || '+6281321766565').replace(/\D/g, '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                >
+                  {siteConfig.contact?.phone || '+6281321766565'}
+                </a>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Location</div>
@@ -143,6 +207,41 @@ export function CTASection() {
           </motion.div>
         </div>
       </motion.section>
+
+      {/* Success/Error Status Messages */}
+      <AnimatePresence>
+        {showStatus && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${
+              submitStatus === 'success'
+                ? 'bg-green-100 border-2 border-green-500 text-green-800'
+                : 'bg-red-100 border-2 border-red-500 text-red-800'
+            }`}
+          >
+            {submitStatus === 'success' ? (
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 00016 0zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 01-1.414 1.414l2 2a1 1 0 001.414 0l-4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-medium">Thank you! I&apos;ll get back to you soon.</span>
+              </div>
+            ) : (
+              <div className="flex items-center gap-3">
+                <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                <div>
+                  <div className="font-medium">Something went wrong.</div>
+                  <div className="text-sm opacity-75">Please try again or email me directly.</div>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Contact Modal */}
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
@@ -157,62 +256,89 @@ export function CTASection() {
                 Let&apos;s Start Something Great
               </DialogTitle>
             </DialogHeader>
-            
-            <form className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+              <input type="hidden" name="form_name" value="Project Inquiry" />
+              <input type="hidden" name="_subject" value="New Project Request from Portfolio" />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-sans font-medium text-black mb-2">
+                  <label htmlFor="firstName" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
                     First Name
                   </label>
-                  <Input 
-                    className="border-2 border-gray-300 focus:border-black"
+                  <Input
+                    id="firstName"
+                    name="firstName"
+                    className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
                     placeholder="John"
+                    required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-sans font-medium text-black mb-2">
+                  <label htmlFor="lastName" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
                     Last Name
                   </label>
-                  <Input 
-                    className="border-2 border-gray-300 focus:border-black"
+                  <Input
+                    id="lastName"
+                    name="lastName"
+                    className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
                     placeholder="Doe"
+                    required
                   />
                 </div>
               </div>
-              
+
               <div>
-                <label className="block text-sm font-sans font-medium text-black mb-2">
+                <label htmlFor="email" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
                   Email
                 </label>
-                <Input 
+                <Input
+                  id="email"
+                  name="email"
                   type="email"
-                  className="border-2 border-gray-300 focus:border-black"
+                  className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
                   placeholder="john@example.com"
+                  required
                 />
               </div>
-              
+
               <div>
-                <label className="block text-sm font-sans font-medium text-black mb-2">
+                <label htmlFor="projectDetails" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
                   Project Details
                 </label>
-                <Textarea 
-                  className="border-2 border-gray-300 focus:border-black min-h-[120px]"
-                  placeholder="Tell me about your project..."
+                <Textarea
+                  id="projectDetails"
+                  name="projectDetails"
+                  className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white min-h-[120px]"
+                  placeholder="Tell me about your project... What are your goals? Timeline? Budget considerations?"
+                  required
                 />
               </div>
-              
-              <div className="flex gap-3 pt-4">
-                <Button 
+
+              <div className="flex flex-col sm:flex-row gap-3 pt-4">
+                <Button
                   type="submit"
-                  className="flex-1 bg-black text-white hover:bg-gray-800 font-sans font-medium"
+                  disabled={isSubmitting}
+                  className="flex-1 bg-black text-white hover:bg-gray-800 font-sans font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                      </svg>
+                      Sending...
+                    </span>
+                  ) : (
+                    'Send Message'
+                  )}
                 </Button>
-                <Button 
+                <Button
                   type="button"
                   variant="outline"
                   onClick={() => setIsModalOpen(false)}
                   className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-sans font-medium"
+                  disabled={isSubmitting}
                 >
                   Cancel
                 </Button>

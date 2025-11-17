@@ -2,15 +2,26 @@
 
 import { motion, useAnimation } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { useTheme } from '@/contexts/theme-context'
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void
 }
 
 export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
+  const { theme } = useTheme()
   const [progress, setProgress] = useState(0)
   const [isComplete, setIsComplete] = useState(false)
   const controls = useAnimation()
+  const [isMounted, setIsMounted] = useState(false)
+
+  const isDarkMode = theme === 'dark'
+
+  // Track if component is mounted
+  useEffect(() => {
+    setIsMounted(true)
+    return () => setIsMounted(false)
+  }, [])
 
   useEffect(() => {
     // Simulate loading progress
@@ -33,29 +44,36 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
   }, [])
 
   useEffect(() => {
-    if (isComplete) {
+    if (isComplete && isMounted) {
       // Wait a moment then fade out
-      setTimeout(() => {
-        controls.start({
-          opacity: 0,
-          scale: 1.1,
-          transition: { duration: 0.8, ease: "easeInOut" }
-        }).then(() => {
-          onLoadingComplete()
-        })
+      const timeoutId = setTimeout(() => {
+        // Only animate if component is still mounted
+        if (isMounted) {
+          controls.start({
+            opacity: 0,
+            scale: 1.1,
+            transition: { duration: 0.8, ease: "easeInOut" }
+          }).then(() => {
+            if (isMounted) {
+              onLoadingComplete()
+            }
+          })
+        }
       }, 500)
+
+      return () => clearTimeout(timeoutId)
     }
-  }, [isComplete, controls, onLoadingComplete])
+  }, [isComplete, controls, onLoadingComplete, isMounted])
 
   return (
     <motion.div
-      className="fixed inset-0 z-[99999] bg-white flex items-center justify-center"
+      className={`fixed inset-0 z-[99999] ${isDarkMode ? 'bg-black' : 'bg-white'} flex items-center justify-center`}
       initial={{ opacity: 1, scale: 1 }}
       animate={controls}
     >
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)]" />
+        <div className={`absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,${isDarkMode ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.1)'},transparent_70%)]`} />
       </div>
 
       <div className="text-center z-10 px-6">
@@ -67,7 +85,7 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           {/* Animated text transformation */}
-          <div className="relative text-4xl md:text-6xl font-serif font-bold text-black mb-2">
+          <div className={`relative text-4xl md:text-6xl font-serif font-bold ${isDarkMode ? 'text-white' : 'text-black'} mb-2`}>
             {/* "jamal" - disappears after loading */}
             <motion.span
               className="inline-block"
@@ -86,7 +104,7 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
             <motion.span
               className="inline-block relative"
               style={{
-                background: isComplete ? 'linear-gradient(45deg, #000000, #666666, #000000)' : 'transparent',
+                background: isComplete ? (isDarkMode ? 'linear-gradient(45deg, #ffffff, #cccccc, #ffffff)' : 'linear-gradient(45deg, #000000, #666666, #000000)') : 'transparent',
                 WebkitBackgroundClip: isComplete ? 'text' : 'unset',
                 backgroundClip: isComplete ? 'text' : 'unset',
                 color: isComplete ? 'transparent' : 'inherit'
@@ -131,8 +149,8 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
           </div>
           
           {/* Subtitle - positioned below the text container */}
-          <motion.p 
-            className="text-lg md:text-xl text-gray-600 font-light tracking-wide absolute bottom-0"
+          <motion.p
+            className={`text-lg md:text-xl ${isDarkMode ? 'text-gray-400' : 'text-gray-600'} font-light tracking-wide absolute bottom-0`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -144,18 +162,18 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
         {/* Loading Animation */}
         <div className="w-64 mx-auto mb-8">
           {/* Progress Bar Container */}
-          <div className="relative h-1 bg-gray-200 rounded-full overflow-hidden">
+          <div className={`relative h-1 ${isDarkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-full overflow-hidden`}>
             <motion.div
-              className="absolute top-0 left-0 h-full bg-black rounded-full"
+              className={`absolute top-0 left-0 h-full ${isDarkMode ? 'bg-white' : 'bg-black'} rounded-full`}
               initial={{ width: "0%" }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.1, ease: "easeOut" }}
             />
           </div>
-          
+
           {/* Progress Text */}
-          <motion.div 
-            className="mt-4 text-sm text-gray-500 font-mono"
+          <motion.div
+            className={`mt-4 text-sm ${isDarkMode ? 'text-gray-400' : 'text-gray-500'} font-mono`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 0.5 }}
@@ -169,7 +187,7 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
           {[0, 1, 2].map((index) => (
             <motion.div
               key={index}
-              className="w-2 h-2 bg-black rounded-full"
+              className={`w-2 h-2 ${isDarkMode ? 'bg-white' : 'bg-black'} rounded-full`}
               animate={{
                 scale: [1, 1.5, 1],
                 opacity: [0.3, 1, 0.3],
@@ -191,8 +209,8 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          <motion.p 
-            className="text-sm text-gray-400 font-light tracking-widest uppercase"
+          <motion.p
+            className={`text-sm ${isDarkMode ? 'text-gray-500' : 'text-gray-400'} font-light tracking-widest uppercase`}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           >

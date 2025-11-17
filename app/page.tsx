@@ -12,19 +12,29 @@ import { DynamicBackground } from '@/components/dynamic-background'
 import { ParallaxContainer } from '@/components/parallax-layers'
 import { VelocityParticles } from '@/components/velocity-effects'
 import { useTheme } from '@/contexts/theme-context'
+import { useLoading } from '@/contexts/loading-context'
 import { motion, useScroll } from 'framer-motion'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
   const { theme } = useTheme()
+  const { setLoading } = useLoading()
   const { scrollYProgress } = useScroll()
   const [showBackToTop, setShowBackToTop] = useState(false)
   const [buttonOnDarkSection, setButtonOnDarkSection] = useState(false)
-  const [isLoading, setIsLoading] = useState(true)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
 
   const handleLoadingComplete = () => {
-    setIsLoading(false)
+    setLoading(false)
+    // Add a small delay for smooth transition
+    setTimeout(() => setShowLoadingScreen(false), 300)
   }
+
+  // Initialize loading state
+  useEffect(() => {
+    setLoading(true, "Loading experience...", 5000)
+    return () => setLoading(false)
+  }, [setLoading])
 
   // Track scroll position for floating button and detect dark sections
   useEffect(() => {
@@ -60,10 +70,10 @@ export default function Home() {
   return (
     <>
       {/* Loading Screen */}
-      {isLoading && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
-      
+      {showLoadingScreen && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+
       {/* Main Content */}
-      {!isLoading && (
+      {!showLoadingScreen && (
         <>
           {/* Advanced Scroll Effects */}
           <DynamicBackground />

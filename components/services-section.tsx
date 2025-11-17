@@ -2,9 +2,26 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 
 const services = getStaticContent.services()
+
+// Helper function to find projects related to a service
+function getRelatedProjects(serviceId: string) {
+  const projects = getStaticContent.projects()
+
+  // Service to project mapping based on technologies and categories
+  const serviceProjectMap: Record<string, string[]> = {
+    'ui-ux-design': [],
+    'frontend-development': ['1', '3'], // Sonderlab, Green Rebel Foods (React/Shopify)
+    'backend-development': ['2'], // Base Data Dashboard
+    'mobile-development': [] // We'll add mobile projects later
+  }
+
+  const relatedProjectIds = serviceProjectMap[serviceId] || []
+  return projects.filter(project => relatedProjectIds.includes(project.id.toString()))
+}
 
 export function ServicesSection() {
   const ref = useRef(null);
@@ -274,27 +291,27 @@ export function ServicesSection() {
             const isCardActive = isMobile ? activeCardIndex === index : false;
             
             return (
-              <motion.div
-                key={service.title}
-                variants={cardVariants}
-                whileHover={!isMobile ? {
-                  y: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                } : {}}
-                animate={isCardActive ? {
-                  y: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                } : {
-                  y: 0,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                }}
-                className="group relative"
-                onTouchStart={() => {
-                  if (isMobile) {
-                    setActiveCardIndex(index);
-                  }
-                }}
-              >
+              <Link href={`/service/${service.id}`} key={service.title}>
+                <motion.div
+                  variants={cardVariants}
+                  whileHover={!isMobile ? {
+                    y: -10,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  } : {}}
+                  animate={isCardActive ? {
+                    y: -10,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  } : {
+                    y: 0,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  }}
+                  className="group relative cursor-pointer"
+                  onTouchStart={() => {
+                    if (isMobile) {
+                      setActiveCardIndex(index);
+                    }
+                  }}
+                >
                 <div className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 ${
                   isCardActive
                     ? 'border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
@@ -322,6 +339,27 @@ export function ServicesSection() {
                     {service.description}
                   </p>
 
+                  {/* Related Projects Link */}
+                  {(() => {
+                    const relatedProjects = getRelatedProjects(service.id)
+                    if (relatedProjects.length > 0) {
+                      return (
+                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                          <Link
+                            href={`/service/${service.id}`}
+                            className="inline-flex items-center text-sm font-mono text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors group"
+                          >
+                            <span>View {relatedProjects.length} related project{relatedProjects.length > 1 ? 's' : ''}</span>
+                            <svg className="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
+                      )
+                    }
+                    return null
+                  })()}
+
                   {/* Hover/Active indicator */}
                   <motion.div
                     className={`absolute bottom-6 right-6 w-6 h-6 border-2 border-black transition-opacity ${
@@ -338,6 +376,7 @@ export function ServicesSection() {
                   </motion.div>
                 </div>
               </motion.div>
+              </Link>
             );
           })}
         </motion.div>

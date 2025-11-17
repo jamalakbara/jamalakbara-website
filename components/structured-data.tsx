@@ -1,7 +1,7 @@
 'use client'
 
 interface StructuredDataProps {
-  type: 'Person' | 'Project' | 'Service'
+  type: 'Person' | 'Project' | 'Service' | 'LocalBusiness'
   data?: ProjectData | ServiceData
 }
 
@@ -38,6 +38,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
         "https://linkedin.com/in/jamalakbara",
         "https://twitter.com/jamalakbara",
         "https://facebook.com/jamalakbara",
+        "https://instagram.com/jamalakbara",
       ],
       "jobTitle": "Creative Developer & Designer",
       "worksFor": {
@@ -49,7 +50,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
         "addressLocality": "Bandung",
         "addressCountry": "Indonesia"
       },
-      "email": "jamalakbaralam@live.com",
+      "email": "hello-im@jamalakbara.com",
       "description": "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy with 5+ years of experience.",
       "knowsAbout": [
         "Web Development",
@@ -86,7 +87,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "dateCreated": project.year,
       "creator": {
         "@type": "Person",
-        "name": "Jamal Akbar",
+        "name": "Jamal Akbar Alam",
         "url": "https://jamalakbara.com"
       },
       "genre": project.category,
@@ -100,7 +101,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "inLanguage": "en",
       "mainEntity": {
         "@type": "WebPage",
-        "name": `${project.title} - Jamal Akbar Portfolio`,
+        "name": `${project.title} - Jamal Akbar Alam Portfolio`,
         "description": project.description
       }
     }
@@ -115,7 +116,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "url": `https://jamalakbara.com/service/${service.id}`,
       "provider": {
         "@type": "Person",
-        "name": "Jamal Akbar",
+        "name": "Jamal Akbar Alam",
         "url": "https://jamalakbara.com"
       },
       "serviceType": service.category || 'Professional Services',
@@ -135,6 +136,76 @@ export function StructuredData({ type, data }: StructuredDataProps) {
     }
   }
 
+  const generateLocalBusinessStructuredData = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "jamalakbara.",
+      "alternateName": "Jamal Akbar Alam Creative Development",
+      "description": "Expert creative development services specializing in web development, mobile development, backend development, and UI/UX design.",
+      "url": "https://jamalakbara.com",
+      "telephone": "+6281321766565",
+      "email": "hello-im@jamalakbara.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Bandung",
+        "addressLocality": "Bandung",
+        "addressRegion": "West Java",
+        "addressCountry": "Indonesia",
+        "postalCode": "40291"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -6.925810544483773,
+        "longitude": 107.66517761280582
+      },
+      "category": "Web Development Services",
+      "services": [
+        "Web Development",
+        "Mobile Development",
+        "Backend Development",
+        "UI/UX Design",
+        "Frontend Development",
+        "Python Development",
+        "React Development",
+        "Next.js Development",
+        "Shopify Development"
+      ],
+      "areaServed": {
+        "@type": "Place",
+        "name": ["Bandung", "Jakarta", "Surabaya", "Indonesia", "Southeast Asia"]
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Development Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Web Development",
+              "description": "Custom web application development using modern technologies"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Mobile Development",
+              "description": "Native and cross-platform mobile app development"
+            }
+          }
+        ]
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "availableChannel": {
+        "@type": "ServiceChannel",
+        "serviceUrl": "https://jamalakbara.com",
+        "servicePhone": "+6281321766565"
+      }
+    }
+  }
+
   const getStructuredData = () => {
     switch (type) {
       case 'Person':
@@ -143,6 +214,8 @@ export function StructuredData({ type, data }: StructuredDataProps) {
         return data && 'image' in data ? generateProjectStructuredData(data) : null
       case 'Service':
         return data && 'icon' in data ? generateServiceStructuredData(data) : null
+      case 'LocalBusiness':
+        return generateLocalBusinessStructuredData()
       default:
         return null
     }
