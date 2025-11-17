@@ -44,7 +44,9 @@ export interface SiteConfig {
   brand: {
     name: string;
     shortName: string;
+    fullName?: string;
     tagline: string;
+    description?: string;
   };
   contact: {
     email: string;
@@ -63,6 +65,7 @@ export interface HeroContent {
   name: string;
   title: string;
   description: string;
+  subtitle?: string;
   cta: {
     primary: {
       text: string;

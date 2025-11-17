@@ -15,7 +15,9 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
   const controls = useAnimation()
   const [isMounted, setIsMounted] = useState(false)
 
-  const isDarkMode = theme === 'dark'
+  // Default to light theme on server to prevent hydration mismatch
+  // After mount, use the actual theme
+  const isDarkMode = isMounted ? theme === 'dark' : false
 
   // Track if component is mounted
   useEffect(() => {

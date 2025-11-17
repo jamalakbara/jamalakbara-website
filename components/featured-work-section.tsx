@@ -6,11 +6,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 
-const projects = getStaticContent.featuredProjects()
+const projects = getStaticContent.homepageShowcaseProjects()
 
 export function FeaturedWorkSection() {
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const isInView = useInView(ref, { once: false, margin: "-100px" })
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [showMagnifier, setShowMagnifier] = useState(false)
   const [headingRect, setHeadingRect] = useState({ left: 0, top: 0, width: 0, height: 0 })
@@ -20,15 +21,23 @@ export function FeaturedWorkSection() {
   const [hoveredImage, setHoveredImage] = useState<string | null>(null)
   const [imageRects, setImageRects] = useState<{[key: string]: DOMRect}>({})
 
+  // Trigger initial animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [])
+
   // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768) // md breakpoint
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
@@ -208,21 +217,21 @@ export function FeaturedWorkSection() {
         <motion.div
           variants={titleVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="text-center mb-20"
         >
           <div 
             className="relative inline-block"
             data-no-cursor="true"
           >
-            <h2 
+            <h2
               ref={headingRef}
               className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white mb-6 relative overflow-hidden cursor-none transition-colors duration-300"
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
               <span className="relative z-10">
-                Featured Work
+                Portfolio Showcase
                 {/* Hide original text in magnified area */}
                 {shouldShowMagnifier && (
                   <span
@@ -254,14 +263,14 @@ export function FeaturedWorkSection() {
                       top: 0,
                     }}
                   >
-                    Featured Work
+                    Portfolio Showcase
                   </span>
                 </div>
               )}
             </h2>
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto transition-colors duration-300">
-            A selection of projects that showcase creativity, technical excellence, and strategic thinking
+            Explore Jamal Akbar Alam&apos;s portfolio featuring innovative web development projects, creative designs, and technical excellence built with modern technologies
           </p>
         </motion.div>
 
@@ -269,7 +278,7 @@ export function FeaturedWorkSection() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="space-y-24"
         >
           {projects.map((project, index) => (
@@ -325,7 +334,7 @@ export function FeaturedWorkSection() {
                           {/* Use Next.js Image for better mobile compatibility and optimization */}
                           <Image
                             src={project.image}
-                            alt={`${project.title} - ${project.category} project showcasing ${project.tech.slice(0, 3).join(', ')} technologies`}
+                            alt={`${project.title} - Portfolio project by Jamal Akbar Alam showcasing ${project.category} development with ${project.tech.slice(0, 3).join(', ')} technologies`}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -344,14 +353,15 @@ export function FeaturedWorkSection() {
                           whileHover={{ y: 0 }}
                         >
                           <Link href={`/project/${project.id}`}>
-                            <motion.div
-                              className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider cursor-pointer"
-                              whileHover={{ scale: 1.05 }}
-                              whileTap={{ scale: 0.95 }}
-                            >
+                            <div className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider cursor-pointer hover:gap-3 transition-all duration-300">
                               VIEW LIVE
-                              <span className="text-xs">→</span>
-                            </motion.div>
+                              <motion.div
+                                className="w-4 h-4 border border-black flex items-center justify-center transition-colors duration-300"
+                                whileHover={{ x: 2 }}
+                              >
+                                →
+                              </motion.div>
+                            </div>
                           </Link>
                         </motion.div>
                       </motion.div>
@@ -378,7 +388,7 @@ export function FeaturedWorkSection() {
                           {/* Use Next.js Image for better mobile compatibility and optimization */}
                           <Image
                             src={project.image}
-                            alt={`${project.title} - ${project.category} project showcasing ${project.tech.slice(0, 3).join(', ')} technologies`}
+                            alt={`${project.title} - Portfolio project by Jamal Akbar Alam showcasing ${project.category} development with ${project.tech.slice(0, 3).join(', ')} technologies`}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -464,23 +474,15 @@ export function FeaturedWorkSection() {
                     className="pt-6"
                   >
                     <Link href={`/project/${project.id}`}>
-                      <motion.div
-                        whileHover={{
-                          x: 10,
-                          backgroundColor: "#000",
-                          color: "#fff"
-                        }}
-                        whileTap={{ scale: 0.95 }}
-                        className="group inline-flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300 cursor-pointer"
-                      >
+                      <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300 cursor-pointer">
                         <span>View Project</span>
                         <motion.div
-                          whileHover={{ x: 5 }}
                           className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                          whileHover={{ x: 5 }}
                         >
                           →
                         </motion.div>
-                      </motion.div>
+                      </div>
                     </Link>
                   </motion.div>
                 </motion.div>
@@ -488,7 +490,27 @@ export function FeaturedWorkSection() {
             </motion.div>
           ))}
         </motion.div>
-        
+
+        {/* View More Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="text-center pt-12"
+        >
+          <Link href="/portfolio">
+            <div className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-black dark:border-white text-black dark:text-white font-mono text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-black hover:text-white cursor-pointer hover:gap-4">
+              <span>View All Projects</span>
+              <motion.div
+                className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                whileHover={{ x: 5 }}
+              >
+                →
+              </motion.div>
+            </div>
+          </Link>
+        </motion.div>
+
         {/* Custom Magnifying Glass Cursor - Desktop only */}
         {shouldShowMagnifier && !isMobile && (
           <motion.div

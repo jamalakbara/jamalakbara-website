@@ -210,7 +210,7 @@ export function Navigation() {
             onMouseEnter={() => !isMobile && setIsLogoHovered(true)}
             onMouseLeave={() => !isMobile && setIsLogoHovered(false)}
             ref={navRef}
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => window.location.href = '/'}
           >
             {/* Animated text transformation */}
             <div className="relative text-xl font-serif font-bold text-black dark:text-white tracking-tight">

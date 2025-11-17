@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -141,19 +142,49 @@ export default function ServicePage({ params }: ServicePageProps) {
             <div className="w-24 h-1 bg-black dark:bg-white mx-auto mb-8" />
           </div>
 
-          <button
+          <motion.button
             onClick={() => {
               const nextSection = document.querySelector('section')
               if (nextSection) {
                 nextSection.scrollIntoView({ behavior: 'smooth' })
               }
             }}
+            whileHover={{
+              scale: 1.1,
+              color: "#000",
+              transition: { type: "spring", stiffness: 300, damping: 20 }
+            }}
+            whileTap={{
+              scale: 0.9,
+              transition: { duration: 0.1 }
+            }}
+            animate={{
+              y: [0, 8, 0],
+              transition: {
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }
+            }}
             className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors cursor-pointer"
           >
-            <svg className="w-6 h-6 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <motion.svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              animate={{
+                y: [0, 3, 0],
+                transition: {
+                  duration: 1.5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-            </svg>
-          </button>
+            </motion.svg>
+          </motion.button>
         </header>
 
         {/* Content */}
