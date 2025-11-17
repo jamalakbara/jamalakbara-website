@@ -1,7 +1,7 @@
 'use client'
 
 interface StructuredDataProps {
-  type: 'Person' | 'Project' | 'Service' | 'LocalBusiness'
+  type: 'Person' | 'Project' | 'Service' | 'LocalBusiness' | 'WebSite' | 'FAQ'
   data?: ProjectData | ServiceData
 }
 
@@ -26,6 +26,94 @@ interface ServiceData {
 }
 
 export function StructuredData({ type, data }: StructuredDataProps) {
+  const generateWebSiteStructuredData = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Portfolio Jamal Akbar Alam",
+      "alternateName": "jamalakbara.",
+      "url": "https://jamalakbara.com",
+      "description": "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "about": {
+        "@type": "Person",
+        "name": "Jamal Akbar Alam",
+        "jobTitle": "Creative Developer & Designer",
+        "url": "https://jamalakbara.com"
+      },
+      "mainEntity": {
+        "@type": "Person",
+        "name": "Jamal Akbar Alam",
+        "description": "Creative developer and designer based in Bandung, Indonesia",
+        "url": "https://jamalakbara.com",
+        "jobTitle": "Creative Developer & Designer"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://jamalakbara.com/search?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
+      "keywords": "portfolio akbar, portfolio jamal akbar alam, creative developer, web development, UI/UX design, React developer, Next.js developer, Bandung, Indonesia",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Potential clients, employers, and collaborators"
+      }
+    }
+  }
+
+  const generateFAQStructuredData = () => {
+    return {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What services does Jamal Akbar Alam offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jamal Akbar Alam offers comprehensive web development, mobile development, backend development, UI/UX design, and brand strategy services. Specializes in React, Next.js, Python, and modern development technologies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is Jamal Akbar Alam based?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jamal Akbar Alam is based in Bandung, Indonesia, and works with clients globally both remotely and locally."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I view Jamal Akbar Alam's portfolio?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can view Jamal Akbar Alam's portfolio at https://jamalakbara.com, featuring web development projects, mobile applications, UI/UX design work, and creative development case studies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What technologies does Jamal Akbar Alam specialize in?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jamal Akbar Alam specializes in React, Next.js, TypeScript, Python, Node.js, UI/UX design, Shopify development, and modern web development frameworks with 5+ years of experience."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I contact Jamal Akbar Alam for projects?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can contact Jamal Akbar Alam through the contact form on the portfolio website, email at hello-im@jamalakbara.com, or through LinkedIn and GitHub profiles."
+          }
+        }
+      ]
+    }
+  }
+
   const generatePersonStructuredData = () => {
     return {
       "@context": "https://schema.org",
@@ -53,17 +141,24 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "email": "hello-im@jamalakbara.com",
       "description": "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy with 5+ years of experience.",
       "knowsAbout": [
+        "Portfolio Development",
         "Web Development",
         "UI/UX Design",
         "Frontend Development",
         "Backend Development",
+        "Mobile Development",
         "Python Development",
         "React Development",
         "Next.js Development",
+        "TypeScript Development",
         "Shopify Development",
         "Brand Strategy",
-        "Creative Direction"
+        "Creative Direction",
+        "Full-Stack Development",
+        "Responsive Design",
+        "Performance Optimization"
       ],
+      "keywords": "portfolio akbar, portfolio jamal akbar alam, creative developer, web development, UI/UX design, React developer, Next.js developer, TypeScript, Python, full-stack developer, Bandung, Indonesia",
       "hasOccupation": {
         "@type": "Occupation",
         "name": "Creative Developer & Designer",
@@ -208,6 +303,10 @@ export function StructuredData({ type, data }: StructuredDataProps) {
 
   const getStructuredData = () => {
     switch (type) {
+      case 'WebSite':
+        return generateWebSiteStructuredData()
+      case 'FAQ':
+        return generateFAQStructuredData()
       case 'Person':
         return generatePersonStructuredData()
       case 'Project':

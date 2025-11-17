@@ -94,14 +94,16 @@ export const getStaticContent = {
   siteConfig: (): SiteConfig => {
     return {
       "brand": {
-        "name": "jamalakbara.",
-        "shortName": "akbar.",
-        "tagline": "Creative Developer & Designer"
+        "name": "Portfolio Jamal Akbar Alam",
+        "shortName": "jamalakbara.",
+        "fullName": "Jamal Akbar Alam",
+        "tagline": "Creative Developer & Designer",
+        "description": "Portfolio showcasing web development, UI/UX design, and creative digital solutions by Jamal Akbar Alam"
       },
       "contact": {
         "email": "hello-im@jamalakbara.com",
-        "phone": "+6281321766565",
-        "location": "Bandung, Indonesia"
+        "location": "Based in Bandung, Indonesia",
+        "phone": "+6281321766565"
       },
       "social": [
         {
@@ -110,13 +112,13 @@ export const getStaticContent = {
           "handle": "@jamalakbara"
         },
         {
-          "platform": "LinkedIn", 
+          "platform": "LinkedIn",
           "url": "https://linkedin.com/in/jamalakbara",
           "handle": "@jamalakbara"
         },
         {
           "platform": "Twitter",
-          "url": "https://twitter.com/jamalakbara", 
+          "url": "https://twitter.com/jamalakbara",
           "handle": "@jamalakbara"
         }
       ]
@@ -135,13 +137,14 @@ export const getStaticContent = {
   
   hero: (): HeroContent => {
     return {
-      "greeting": "Hello, I'm",
-      "name": "Jamal Akbar",
+      "greeting": "Welcome to the portfolio of",
+      "name": "Jamal Akbar Alam",
       "title": "Creative Developer & Designer",
-      "description": "I create digital experiences that blend innovative design with cutting-edge technology. Specializing in web development, brand identity, and user-centered design solutions.",
+      "description": "Explore my portfolio featuring innovative web development, UI/UX design, and digital experiences. As Jamal Akbar Alam, I create exceptional solutions that blend cutting-edge technology with creative design, specializing in React, Next.js, and modern development frameworks.",
+      "subtitle": "Portfolio • Web Development • Creative Design",
       "cta": {
         "primary": {
-          "text": "View My Work",
+          "text": "View Portfolio",
           "action": "scroll-to-work"
         },
         "secondary": {

@@ -1,12 +1,11 @@
 'use client'
 
-import { motion, useScroll, useTransform, useAnimation, useInView } from 'framer-motion'
+import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
 import { useRef, useEffect } from 'react'
 
 export function HeroSection() {
   const ref = useRef(null)
   const controls = useAnimation()
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
   
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -22,66 +21,99 @@ export function HeroSection() {
   const words = heroText.split(' ')
   const subWords = subText.split(' ')
 
+  
   // Auto-animate subtitle words periodically
   useEffect(() => {
     let animationTimeout: NodeJS.Timeout | null = null
-    
+    let isMounted = true
+
     const animateWords = async () => {
-      // Wait for initial load (dipercepat dari 4 detik jadi 3 detik)
+      // Wait for component to fully mount
+      await new Promise(resolve => {
+        animationTimeout = setTimeout(resolve, 100)
+      })
+
+      // Check if component is still mounted
+      if (!isMounted) return
+
+      // Wait for initial load
       await new Promise(resolve => {
         animationTimeout = setTimeout(resolve, 3000)
       })
-      
+
+      if (!isMounted) return
+
       const runAnimation = async () => {
+        if (!isMounted) return
+
         // Animate each word with faster stagger
         for (let i = 0; i < subWords.length; i++) {
-          controls.start((index) => {
-            if (index === i) {
-              const variants = [
-                // Quick glow (dipercepat dari 0.8s jadi 0.5s)
-                { 
-                  scale: [1, 1.08, 1], 
-                  color: ["#6b7280", "#000", "#6b7280"],
-                  textShadow: ["none", "0 0 8px rgba(0,0,0,0.3)", "none"],
-                  transition: { duration: 0.5 }
-                },
-                // Gentle bounce (dipercepat dari 0.6s jadi 0.4s)
-                { 
-                  y: [0, -4, 0], 
-                  scale: [1, 1.03, 1],
-                  color: ["#6b7280", "#333", "#6b7280"],
-                  transition: { duration: 0.4 }
-                },
-                // Pulse effect (dipercepat dari 0.5s jadi 0.3s)
-                { 
-                  scale: [1, 1.06, 1], 
-                  color: ["#6b7280", "#222", "#6b7280"],
-                  transition: { duration: 0.3 }
-                }
-              ]
-              return variants[i % variants.length]
-            }
-            return {}
-          })
-          // Faster delay between words (dipercepat dari 300ms jadi 200ms)
+          if (!isMounted) break
+
+          try {
+            await controls.start((index) => {
+              if (index === i) {
+                const variants = [
+                  // Quick glow
+                  {
+                    scale: [1, 1.08, 1],
+                    color: ["#6b7280", "#000", "#6b7280"],
+                    textShadow: ["none", "0 0 8px rgba(0,0,0,0.3)", "none"],
+                    transition: { duration: 0.5 }
+                  },
+                  // Gentle bounce
+                  {
+                    y: [0, -4, 0],
+                    scale: [1, 1.03, 1],
+                    color: ["#6b7280", "#333", "#6b7280"],
+                    transition: { duration: 0.4 }
+                  },
+                  // Pulse effect
+                  {
+                    scale: [1, 1.06, 1],
+                    color: ["#6b7280", "#222", "#6b7280"],
+                    transition: { duration: 0.3 }
+                  }
+                ]
+                return variants[i % variants.length]
+              }
+              return {}
+            })
+          } catch (error) {
+            console.warn('Animation control error:', error)
+            break
+          }
+
+          // Check if still mounted before continuing
+          if (!isMounted) break
+
+          // Faster delay between words
           await new Promise(resolve => {
             animationTimeout = setTimeout(resolve, 200)
           })
         }
-        
-        // Shorter wait before next cycle (dipercepat dari 5 detik jadi 3 detik)
+
+        // Check if still mounted before next cycle
+        if (!isMounted) return
+
+        // Shorter wait before next cycle
         await new Promise(resolve => {
           animationTimeout = setTimeout(resolve, 3000)
         })
-        runAnimation()
+
+        // Run next cycle only if still mounted
+        if (isMounted) {
+          runAnimation()
+        }
       }
-      
+
       runAnimation()
     }
-    
+
     animateWords()
-    
+
     return () => {
+      isMounted = false
       if (animationTimeout) {
         clearTimeout(animationTimeout)
       }
@@ -144,7 +176,7 @@ export function HeroSection() {
       style={{ y, opacity }}
       className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300"
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate="visible"
       variants={staggerContainer}
     >
       <div className="max-w-4xl mx-auto text-center">

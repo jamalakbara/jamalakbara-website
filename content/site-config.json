@@ -1,12 +1,15 @@
 {
   "brand": {
-    "name": "jamalakbara.",
-    "shortName": "akbar.",
-    "tagline": "Creative Developer & Designer"
+    "name": "Portfolio Jamal Akbar Alam",
+    "shortName": "jamalakbara.",
+    "fullName": "Jamal Akbar Alam",
+    "tagline": "Creative Developer & Designer",
+    "description": "Portfolio showcasing web development, UI/UX design, and creative digital solutions by Jamal Akbar Alam"
   },
   "contact": {
     "email": "hello-im@jamalakbara.com",
-    "location": "Based in Indonesia"
+    "location": "Based in Bandung, Indonesia",
+    "phone": "+6281321766565"
   },
   "social": [
     {

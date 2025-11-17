@@ -7,56 +7,38 @@ import { getStaticContent } from '@/lib/content-manager'
 
 const services = getStaticContent.services()
 
-// Helper function to find projects related to a service
-function getRelatedProjects(serviceId: string) {
-  const projects = getStaticContent.projects()
-
-  // Service to project mapping based on technologies and categories
-  const serviceProjectMap: Record<string, string[]> = {
-    'ui-ux-design': [],
-    'frontend-development': ['1', '3'], // Sonderlab, Green Rebel Foods (React/Shopify)
-    'backend-development': ['2'], // Base Data Dashboard
-    'mobile-development': [] // We'll add mobile projects later
-  }
-
-  const relatedProjectIds = serviceProjectMap[serviceId] || []
-  return projects.filter(project => relatedProjectIds.includes(project.id.toString()))
-}
-
 export function ServicesSection() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const isInView = useInView(ref, { once: false, margin: "-100px" });
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [showMagnifier, setShowMagnifier] = useState(false);
   const [headingRect, setHeadingRect] = useState({ left: 0, top: 0, width: 0, height: 0 });
   const [isMobile, setIsMobile] = useState(false);
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const headingRef = useRef<HTMLHeadingElement>(null);
+
+  // Trigger initial animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasAnimated(true)
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [])
 
   // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768) // md breakpoint
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  // Auto-rotate active card for mobile
-  useEffect(() => {
-    if (isMobile && isInView) {
-      const interval = setInterval(() => {
-        setActiveCardIndex((prev) => (prev + 1) % services.length)
-      }, 2000) // Change every 2 seconds
-      
-      return () => clearInterval(interval)
-    }
-  }, [isMobile, isInView])
-
+  
   // Scroll progress tracking for mobile magnifier
   useEffect(() => {
     const handleScroll = () => {
@@ -175,12 +157,12 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="py-32 px-6 bg-white dark:bg-black transition-colors duration-300" ref={ref}>
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
           variants={titleVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="text-center mb-20"
         >
           <div 
@@ -194,7 +176,7 @@ export function ServicesSection() {
               onMouseLeave={handleMouseLeave}
             >
               <span className="relative z-10">
-                Expertise
+                Expertise & Services
                 {/* Hide original text in magnified area */}
                 {shouldShowMagnifier && (
                   <span
@@ -217,7 +199,7 @@ export function ServicesSection() {
                       : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                   }}
                 >
-                  <span 
+                  <span
                     className="text-5xl md:text-6xl font-serif font-bold text-blue-600 absolute whitespace-nowrap"
                     style={{
                       transform: `scale(1.4)`,
@@ -226,14 +208,14 @@ export function ServicesSection() {
                       top: 0,
                     }}
                   >
-                    Expertise
+                    Expertise & Services
                   </span>
                 </div>
               )}
             </h2>
           </div>
           <p className="text-xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto transition-colors duration-300">
-            Specialized services that transform ideas into meaningful digital experiences
+            Professional services combining creative design with technical excellence to deliver exceptional digital experiences
           </p>
         </motion.div>
         
@@ -283,108 +265,71 @@ export function ServicesSection() {
         <motion.div
           variants={containerVariants}
           initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
+          animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="grid grid-cols-1 md:grid-cols-2 gap-8"
         >
-          {services.map((service, index) => {
-            // Determine if card should be active (for mobile: auto-rotate, for desktop: hover)
-            const isCardActive = isMobile ? activeCardIndex === index : false;
-            
-            return (
-              <Link href={`/service/${service.id}`} key={service.title}>
-                <motion.div
-                  variants={cardVariants}
-                  whileHover={!isMobile ? {
-                    y: -10,
-                    transition: { type: "spring", stiffness: 400, damping: 25 }
-                  } : {}}
-                  animate={isCardActive ? {
-                    y: -10,
-                    transition: { type: "spring", stiffness: 400, damping: 25 }
-                  } : {
-                    y: 0,
-                    transition: { type: "spring", stiffness: 400, damping: 25 }
-                  }}
-                  className="group relative cursor-pointer"
-                  onTouchStart={() => {
-                    if (isMobile) {
-                      setActiveCardIndex(index);
-                    }
-                  }}
+          {services.slice(0, 6).map((service) => (
+            <Link href={`/service/${service.id}`} key={service.id}>
+              <motion.div
+                variants={cardVariants}
+                whileHover={{
+                  y: -10,
+                  transition: { type: "spring" as const, stiffness: 400, damping: 25 }
+                }}
+                className="group relative cursor-pointer bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+              >
+              {/* Service Icon */}
+              <motion.div
+                className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                {service.icon}
+              </motion.div>
+
+              {/* Service Content */}
+              <div className="space-y-4">
+                {/* Category */}
+                <motion.span
+                  className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
                 >
-                <div className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 ${
-                  isCardActive
-                    ? 'border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
-                    : !isMobile
-                      ? 'group-hover:border-black dark:group-hover:border-white group-hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:group-hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
-                      : ''
-                }`}>
-                  {/* Icon */}
-                  <div className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300">
-                    {service.icon}
-                  </div>
-                  
-                  {/* Content */}
-                  <h3 className={`text-2xl font-serif font-bold text-black dark:text-white mb-4 transition-colors ${
-                    isCardActive
-                      ? 'text-black dark:text-white'
-                      : !isMobile
-                        ? 'group-hover:text-black dark:group-hover:text-white'
-                        : ''
-                  }`}>
-                    {service.title}
-                  </h3>
-                  
-                  <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base transition-colors duration-300">
-                    {service.description}
-                  </p>
+                  {service.category}
+                </motion.span>
 
-                  {/* Related Projects Link */}
-                  {(() => {
-                    const relatedProjects = getRelatedProjects(service.id)
-                    if (relatedProjects.length > 0) {
-                      return (
-                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                          <Link
-                            href={`/service/${service.id}`}
-                            className="inline-flex items-center text-sm font-mono text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors group"
-                          >
-                            <span>View {relatedProjects.length} related project{relatedProjects.length > 1 ? 's' : ''}</span>
-                            <svg className="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                          </Link>
-                        </div>
-                      )
-                    }
-                    return null
-                  })()}
+                {/* Title */}
+                <motion.h3
+                  className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                >
+                  {service.title}
+                </motion.h3>
 
-                  {/* Hover/Active indicator */}
+                {/* Description */}
+                <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base">
+                  {service.description}
+                </p>
+
+                {/* Learn More Link */}
+                <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
+                  <span>Learn More</span>
                   <motion.div
-                    className={`absolute bottom-6 right-6 w-6 h-6 border-2 border-black transition-opacity ${
-                      isCardActive
-                        ? 'opacity-100'
-                        : !isMobile
-                          ? 'opacity-0 group-hover:opacity-100'
-                          : 'opacity-0'
-                    }`}
-                    whileHover={!isMobile ? { rotate: 45 } : {}}
-                    animate={isCardActive ? { rotate: 45 } : { rotate: 0 }}
+                    className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                    whileHover={{ x: 5 }}
                   >
-                    <div className="w-full h-full bg-black dark:bg-white transform rotate-45 transition-colors duration-300" />
+                    →
                   </motion.div>
                 </div>
+              </div>
               </motion.div>
               </Link>
-            );
-          })}
+          ))}
         </motion.div>
 
         {/* Bottom Section Divider */}
         <motion.div
           initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+          animate={(isInView || hasAnimated) ? { scaleX: 1 } : { scaleX: 0 }}
           transition={{ delay: 1.2, duration: 1 }}
           className="w-full h-px bg-black dark:bg-white mt-32 origin-left transition-colors duration-300"
         />

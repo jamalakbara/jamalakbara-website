@@ -1,11 +1,12 @@
 {
-  "greeting": "Hello, I'm",
-  "name": "Jamal Akbar",
+  "greeting": "Welcome to the portfolio of",
+  "name": "Jamal Akbar Alam",
   "title": "Creative Developer & Designer",
-  "description": "I create digital experiences that blend innovative design with cutting-edge technology. Specializing in web development, brand identity, and user-centered design solutions.",
+  "description": "Explore my portfolio featuring innovative web development, UI/UX design, and digital experiences. As Jamal Akbar Alam, I create exceptional solutions that blend cutting-edge technology with creative design, specializing in React, Next.js, and modern development frameworks.",
+  "subtitle": "Portfolio • Web Development • Creative Design",
   "cta": {
     "primary": {
-      "text": "View My Work",
+      "text": "View Portfolio",
       "action": "scroll-to-work"
     },
     "secondary": {
