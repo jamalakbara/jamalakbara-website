@@ -120,7 +120,7 @@ export function AboutSection() {
               {aboutContent.profileImage && (
                 <Image
                   src={aboutContent.profileImage}
-                  alt="Profile"
+                  alt="Jamal Akbar - Creative developer and designer based in Bandung, Indonesia with 5+ years of experience"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

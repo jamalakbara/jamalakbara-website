@@ -7,18 +7,27 @@ import "./globals.css";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  fallback: ["system-ui", "Arial"],
 });
 
 const spaceMono = Space_Mono({
   variable: "--font-space-mono",
   weight: ["400", "700"],
   subsets: ["latin"],
+  display: "swap",
+  preload: false, // Load on-demand since it's used for accent text
+  fallback: ["Courier New", "monospace"],
 });
 
 const dmSerifDisplay = DM_Serif_Display({
   variable: "--font-dm-serif-display",
   weight: "400",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
+  fallback: ["serif", "Georgia"],
 });
 
 export const metadata: Metadata = {
@@ -27,8 +36,8 @@ export const metadata: Metadata = {
     default: "jamalakbara. - Creative Developer",
     template: "%s | jamalakbara."
   },
-  description: "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia with 5+ years of experience delivering exceptional digital experiences.",
-  keywords: ["creative developer", "web designer", "UI/UX design", "frontend development", "brand strategy", "portfolio", "web developer Bandung", "Indonesia", "React developer", "Next.js developer", "Shopify developer"],
+  description: "Expert creative developer specializing in modern web development, backend development, mobile development, and UI/UX design. Based in Bandung, Indonesia with 5+ years of experience building exceptional digital experiences with React, Next.js, and Python technologies.",
+  keywords: ["creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer"],
   authors: [{ name: "Jamal Akbar", url: "https://jamalakbara.com" }],
   creator: "Jamal Akbar",
   publisher: "Jamal Akbar",
@@ -104,6 +113,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
         <StructuredData type="Person" />
+        <StructuredData type="LocalBusiness" />
       </head>
       <body
         className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}

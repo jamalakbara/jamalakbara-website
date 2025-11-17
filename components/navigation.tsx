@@ -204,12 +204,13 @@ export function Navigation() {
           
           {/* Logo/Brand */}
           <motion.div
-            className="cursor-hover group relative h-8 w-32 overflow-hidden flex items-center"
+            className="cursor-pointer group relative h-8 w-32 overflow-hidden flex items-center"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => !isMobile && setIsLogoHovered(true)}
             onMouseLeave={() => !isMobile && setIsLogoHovered(false)}
             ref={navRef}
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             {/* Animated text transformation */}
             <div className="relative text-xl font-serif font-bold text-black dark:text-white tracking-tight">

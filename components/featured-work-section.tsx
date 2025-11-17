@@ -324,7 +324,7 @@ export function FeaturedWorkSection() {
                           {/* Use Next.js Image for better mobile compatibility and optimization */}
                           <Image
                             src={project.image}
-                            alt={project.title}
+                            alt={`${project.title} - ${project.category} project showcasing ${project.tech.slice(0, 3).join(', ')} technologies`}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -378,7 +378,7 @@ export function FeaturedWorkSection() {
                           {/* Use Next.js Image for better mobile compatibility and optimization */}
                           <Image
                             src={project.image}
-                            alt={project.title}
+                            alt={`${project.title} - ${project.category} project showcasing ${project.tech.slice(0, 3).join(', ')} technologies`}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

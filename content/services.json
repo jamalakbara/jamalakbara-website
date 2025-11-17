@@ -21,10 +21,10 @@
     "category": "Development"
   },
   {
-    "id": "creative-direction",
-    "title": "Creative Direction",
-    "description": "Guiding creative projects from concept to completion with strategic thinking and artistic vision.",
-    "icon": "◊",
-    "category": "Strategy"
+    "id": "mobile-development",
+    "title": "Mobile Development",
+    "description": "Creating native and cross-platform mobile applications with React Native and Flutter, delivering seamless user experiences across iOS and Android devices.",
+    "icon": "▫",
+    "category": "Development"
   }
 ]

@@ -2,9 +2,26 @@
 
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
+import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 
 const services = getStaticContent.services()
+
+// Helper function to find projects related to a service
+function getRelatedProjects(serviceId: string) {
+  const projects = getStaticContent.projects()
+
+  // Service to project mapping based on technologies and categories
+  const serviceProjectMap: Record<string, string[]> = {
+    'ui-ux-design': [],
+    'frontend-development': ['1', '3'], // Sonderlab, Green Rebel Foods (React/Shopify)
+    'backend-development': ['2'], // Base Data Dashboard
+    'mobile-development': [] // We'll add mobile projects later
+  }
+
+  const relatedProjectIds = serviceProjectMap[serviceId] || []
+  return projects.filter(project => relatedProjectIds.includes(project.id.toString()))
+}
 
 export function ServicesSection() {
   const ref = useRef(null);
@@ -321,6 +338,27 @@ export function ServicesSection() {
                   <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base transition-colors duration-300">
                     {service.description}
                   </p>
+
+                  {/* Related Projects Link */}
+                  {(() => {
+                    const relatedProjects = getRelatedProjects(service.id)
+                    if (relatedProjects.length > 0) {
+                      return (
+                        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+                          <Link
+                            href={`/service/${service.id}`}
+                            className="inline-flex items-center text-sm font-mono text-black dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors group"
+                          >
+                            <span>View {relatedProjects.length} related project{relatedProjects.length > 1 ? 's' : ''}</span>
+                            <svg className="w-4 h-4 ml-2 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                            </svg>
+                          </Link>
+                        </div>
+                      )
+                    }
+                    return null
+                  })()}
 
                   {/* Hover/Active indicator */}
                   <motion.div
