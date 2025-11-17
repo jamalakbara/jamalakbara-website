@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 import { StructuredData } from '@/components/structured-data'
 import { CustomCursor } from '@/components/custom-cursor'
+import { LoadingScreen } from '@/components/loading-screen'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -18,8 +19,8 @@ interface ServicePageProps {
 
 export default function ServicePage({ params }: ServicePageProps) {
   const [service, setService] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
-  const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -42,20 +43,19 @@ export default function ServicePage({ params }: ServicePageProps) {
       } catch {
         setError('Error loading service')
       } finally {
-        setLoading(false)
+        // Add a small delay to show loading screen for better UX
+        setTimeout(() => setShowLoadingScreen(false), 300)
       }
     }
 
     loadService()
   }, [params])
 
-  if (loading) {
+  if (showLoadingScreen) {
     return (
       <>
         <CustomCursor />
-        <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
-          <div className="text-black dark:text-white text-xl">Loading...</div>
-        </div>
+        <LoadingScreen onLoadingComplete={() => {}} />
       </>
     )
   }
@@ -327,7 +327,7 @@ export default function ServicePage({ params }: ServicePageProps) {
                     </a>
                     <Link
                       href="/"
-                      className="block w-full text-center px-4 py-3 border border-gray-300 text-gray-700 font-mono text-sm hover:border-gray-400 transition-colors"
+                      className="block w-full text-center px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono text-sm hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
                     >
                       View All Services
                     </Link>

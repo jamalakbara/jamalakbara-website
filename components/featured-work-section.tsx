@@ -3,6 +3,7 @@
 import { motion, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 
 const projects = getStaticContent.featuredProjects()
@@ -342,17 +343,16 @@ export function FeaturedWorkSection() {
                           initial={{ y: 10 }}
                           whileHover={{ y: 0 }}
                         >
-                          <motion.a
-                            href={project.livePreview}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                          >
-                            VIEW LIVE
-                            <span className="text-xs">→</span>
-                          </motion.a>
+                          <Link href={`/project/${project.id}`}>
+                            <motion.div
+                              className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider cursor-pointer"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                            >
+                              VIEW LIVE
+                              <span className="text-xs">→</span>
+                            </motion.div>
+                          </Link>
                         </motion.div>
                       </motion.div>
                     ) : (
@@ -463,26 +463,25 @@ export function FeaturedWorkSection() {
                     transition={{ delay: 0.7 * index }}
                     className="pt-6"
                   >
-                    <motion.a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{
-                        x: 10,
-                        backgroundColor: "#000",
-                        color: "#fff"
-                      }}
-                      whileTap={{ scale: 0.95 }}
-                      className="group inline-flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300"
-                    >
-                      <span>View Project</span>
+                    <Link href={`/project/${project.id}`}>
                       <motion.div
-                        whileHover={{ x: 5 }}
-                        className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                        whileHover={{
+                          x: 10,
+                          backgroundColor: "#000",
+                          color: "#fff"
+                        }}
+                        whileTap={{ scale: 0.95 }}
+                        className="group inline-flex items-center gap-3 text-black dark:text-white font-sans font-medium border-b border-black dark:border-white pb-1 transition-colors duration-300 cursor-pointer"
                       >
-                        →
+                        <span>View Project</span>
+                        <motion.div
+                          whileHover={{ x: 5 }}
+                          className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                        >
+                          →
+                        </motion.div>
                       </motion.div>
-                    </motion.a>
+                    </Link>
                   </motion.div>
                 </motion.div>
               </div>

@@ -7,7 +7,7 @@ interface ProjectPageProps {
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { id } = await params
-  const project = getStaticContent.projects().find(p => p.id === parseInt(id))
+  const project = getStaticContent.projects().find(p => p.id === id)
 
   if (!project) {
     return {

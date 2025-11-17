@@ -77,7 +77,7 @@ export const ContentManager = {
   },
 
   // Get project by ID
-  getProjectById: async (id: number): Promise<Project | null> => {
+  getProjectById: async (id: string): Promise<Project | null> => {
     const projects = await loadContent<Project[]>('projects.json')
     return projects.find(project => project.id === id) || null
   },
@@ -188,7 +188,7 @@ export const getStaticContent = {
   projects: (): Project[] => {
     return [
       {
-        "id": 1,
+        "id": "sonderlab",
         "title": "Sonderlab",
         "category": "E-Commerce Development",
         "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
@@ -200,7 +200,7 @@ export const getStaticContent = {
         "featured": true
       },
       {
-        "id": 2,
+        "id": "base-data-dashboard",
         "title": "Base Data Dashboard",
         "category": "Backend Development",
         "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
@@ -211,7 +211,7 @@ export const getStaticContent = {
         "featured": true
       },
       {
-        "id": 3,
+        "id": "green-rebel-foods",
         "title": "Green Rebel Foods",
         "category": "E-commerce Development",
         "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
@@ -223,7 +223,7 @@ export const getStaticContent = {
         "featured": true
       },
       {
-        "id": 4,
+        "id": "mobile-banking-app",
         "title": "Mobile Banking App",
         "category": "Mobile Design",
         "description": "Modern mobile banking application design with focus on security and user experience.",

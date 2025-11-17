@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { LoadingProvider } from "@/contexts/loading-context";
 import { StructuredData } from "@/components/structured-data";
 import "./globals.css";
 
@@ -124,7 +125,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <LoadingProvider>
+            {children}
+          </LoadingProvider>
         </ThemeProvider>
       </body>
     </html>

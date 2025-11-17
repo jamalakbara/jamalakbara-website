@@ -291,27 +291,27 @@ export function ServicesSection() {
             const isCardActive = isMobile ? activeCardIndex === index : false;
             
             return (
-              <motion.div
-                key={service.title}
-                variants={cardVariants}
-                whileHover={!isMobile ? {
-                  y: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                } : {}}
-                animate={isCardActive ? {
-                  y: -10,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                } : {
-                  y: 0,
-                  transition: { type: "spring", stiffness: 400, damping: 25 }
-                }}
-                className="group relative"
-                onTouchStart={() => {
-                  if (isMobile) {
-                    setActiveCardIndex(index);
-                  }
-                }}
-              >
+              <Link href={`/service/${service.id}`} key={service.title}>
+                <motion.div
+                  variants={cardVariants}
+                  whileHover={!isMobile ? {
+                    y: -10,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  } : {}}
+                  animate={isCardActive ? {
+                    y: -10,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  } : {
+                    y: 0,
+                    transition: { type: "spring", stiffness: 400, damping: 25 }
+                  }}
+                  className="group relative cursor-pointer"
+                  onTouchStart={() => {
+                    if (isMobile) {
+                      setActiveCardIndex(index);
+                    }
+                  }}
+                >
                 <div className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 ${
                   isCardActive
                     ? 'border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]'
@@ -376,6 +376,7 @@ export function ServicesSection() {
                   </motion.div>
                 </div>
               </motion.div>
+              </Link>
             );
           })}
         </motion.div>
