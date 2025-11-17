@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 
-const projects = getStaticContent.featuredProjects()
+const projects = getStaticContent.homepageShowcaseProjects()
 
 export function FeaturedWorkSection() {
   const ref = useRef(null)

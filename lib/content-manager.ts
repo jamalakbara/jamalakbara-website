@@ -203,6 +203,18 @@ export const getStaticContent = {
         "featured": true
       },
       {
+        "id": "nawaclo",
+        "title": "Nawaclo",
+        "category": "E-Commerce Development",
+        "description": "Modern e-commerce platform developed with Shopify, featuring custom theme development, advanced product catalog management, and optimized shopping experience. Built with scalable architecture to handle high-volume transactions and seamless customer interactions across all devices.",
+        "image": "/nawaclo.png",
+        "year": "2024",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "url": "https://nawaclo.com",
+        "livePreview": "https://nawaclo.com",
+        "featured": true
+      },
+      {
         "id": "base-data-dashboard",
         "title": "Base Data Dashboard",
         "category": "Backend Development",
@@ -211,6 +223,30 @@ export const getStaticContent = {
         "year": "2024",
         "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
         "url": "https://bdd.ai",
+        "featured": true
+      },
+      {
+        "id": "state-medical-equipment",
+        "title": "State Medical Equipment",
+        "category": "E-Commerce Development",
+        "description": "E-commerce platform development for State Medical Equipment, featuring custom Shopify theme with product catalog management, medical equipment specifications, and integrated B2B commerce solutions tailored for healthcare industry needs.",
+        "image": "/state-medical-equipement.png",
+        "year": "2020",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "url": "https://statemedicalequipment.com/",
+        "livePreview": "https://statemedicalequipment.com/",
+        "featured": true
+      },
+      {
+        "id": "aza-wear",
+        "title": "Aza Wear",
+        "category": "E-Commerce Development",
+        "description": "E-commerce platform development for Aza Wear, featuring modern Shopify theme with fashion-focused product presentation, size and variant management, and seamless shopping experience. Built with scalable architecture to handle fashion inventory and provide elegant customer journey across all devices.",
+        "image": "/aza-wear.png",
+        "year": "2020",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "url": "https://azawear.com/",
+        "livePreview": "https://azawear.com/",
         "featured": true
       },
       {
@@ -226,15 +262,38 @@ export const getStaticContent = {
         "featured": true
       },
       {
-        "id": "mobile-banking-app",
-        "title": "Mobile Banking App",
-        "category": "Mobile Design",
-        "description": "Modern mobile banking application design with focus on security and user experience.",
-        "image": "/api/placeholder/600/400",
-        "year": "2023",
-        "tech": ["React Native", "Figma", "Fintech"],
-        "url": "#",
-        "featured": false
+        "id": "duma",
+        "title": "Duma",
+        "category": "E-Commerce Development",
+        "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
+        "image": "/duma.png",
+        "year": "2021",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "url": "https://dumaofficial.com/",
+        "livePreview": "https://dumaofficial.com/",
+        "featured": true
+      },
+      {
+        "id": "combo",
+        "title": "Combo",
+        "category": "Backend Development",
+        "description": "A comprehensive backend development project featuring modern Python technologies for building scalable server-side applications with efficient data management, secure authentication systems, and containerized deployment strategies.",
+        "image": "/combo.png",
+        "year": "2024",
+        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
+        "featured": true
+      },
+      {
+        "id": "split-bill-app",
+        "title": "Split Bill App",
+        "category": "Mobile Development • UI/UX Design",
+        "description": "A modern mobile application for iOS built with Swift and SwiftUI, featuring intuitive bill splitting functionality with comprehensive UI/UX design. The app demonstrates advanced mobile development skills with seamless user experience design, perfect for group dining scenarios and shared expense management. Created with focus on native iOS performance and intuitive user interface.",
+        "image": "/split-bill.png",
+        "year": "2025",
+        "tech": ["Swift", "SwiftUI", "iOS", "Figma", "Mobile Design"],
+        "url": "https://apps.apple.com/split-bill-app",
+        "livePreview": "https://apps.apple.com/split-bill-app",
+        "featured": true
       }
     ]
   },
@@ -242,6 +301,12 @@ export const getStaticContent = {
   featuredProjects: (): Project[] => {
     const projects = getStaticContent.projects()
     return projects.filter(project => project.featured)
+  },
+
+  homepageShowcaseProjects: (): Project[] => {
+    const projects = getStaticContent.projects()
+    const showcaseIds = ['sonderlab', 'combo', 'split-bill-app']
+    return projects.filter(project => showcaseIds.includes(project.id))
   },
   
   about: (): AboutContent => {
