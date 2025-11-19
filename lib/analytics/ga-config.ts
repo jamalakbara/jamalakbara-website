@@ -37,7 +37,7 @@ export class GoogleAnalyticsConfig {
       typeof window !== 'undefined' &&
       !!this.measurementId &&
       this.measurementId.startsWith('G-') &&
-      process.env.NODE_ENV === 'production'
+      (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'development')
     )
   }
 
