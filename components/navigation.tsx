@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useScroll } from 'framer-motion'
 import { useState, useEffect, useRef } from 'react'
 import { useTheme } from '@/contexts/theme-context'
 import { getStaticContent } from '@/lib/content-manager'
+import { useAnalytics } from '@/hooks/useAnalytics'
 
 const navigationItems = getStaticContent.navigation()
 
@@ -16,7 +17,16 @@ export function Navigation() {
   const [isMobile, setIsMobile] = useState(false)
   const [scrollProgress, setScrollProgress] = useState(0)
   const navRef = useRef(null)
-  
+
+  // Analytics
+  const { trackNavigationClick, trackThemeToggle } = useAnalytics()
+
+  // Theme toggle with analytics tracking
+  const handleThemeToggle = () => {
+    toggleTheme()
+    trackThemeToggle(theme === 'dark' ? 'light' : 'dark')
+  }
+
   // Check if mobile
   useEffect(() => {
     const checkMobile = () => {
@@ -286,7 +296,10 @@ export function Navigation() {
                 className="relative"
               >
                 <motion.button
-                  onClick={() => scrollToSection(item.id)}
+                  onClick={() => {
+                    scrollToSection(item.id)
+                    trackNavigationClick(item.label, item.id)
+                  }}
                   className="relative px-1 py-2 text-black dark:text-white font-sans font-medium text-base transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -331,7 +344,7 @@ export function Navigation() {
               }}
             >
               <motion.button
-                onClick={toggleTheme}
+                onClick={handleThemeToggle}
                 className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -434,7 +447,7 @@ export function Navigation() {
                   }}
                 >
                   <motion.button
-                    onClick={toggleTheme}
+                    onClick={handleThemeToggle}
                     className="p-3 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
                     whileTap={{ scale: 0.95 }}
                     aria-label="Toggle theme"

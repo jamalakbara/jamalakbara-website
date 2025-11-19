@@ -5,6 +5,7 @@ import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
+import { useProjectAnalytics } from '@/hooks/useAnalytics'
 
 const projects = getStaticContent.homepageShowcaseProjects()
 
@@ -20,6 +21,18 @@ export function FeaturedWorkSection() {
   const headingRef = useRef<HTMLHeadingElement>(null)
   const [hoveredImage, setHoveredImage] = useState<string | null>(null)
   const [imageRects, setImageRects] = useState<{[key: string]: DOMRect}>({})
+
+  // Analytics
+  const { onView, onClick } = useProjectAnalytics()
+
+  // Track project views when section is in view
+  useEffect(() => {
+    if (isInView && !hasAnimated) {
+      projects.forEach(project => {
+        onView(project.id)
+      })
+    }
+  }, [isInView, hasAnimated, onView])
 
   // Trigger initial animation on mount
   useEffect(() => {
@@ -352,7 +365,10 @@ export function FeaturedWorkSection() {
                           initial={{ y: 10 }}
                           whileHover={{ y: 0 }}
                         >
-                          <Link href={`/project/${project.id}`}>
+                          <Link
+                            href={`/project/${project.id}`}
+                            onClick={() => onClick(project.id)}
+                          >
                             <div className="inline-flex items-center gap-2 bg-cyan-400 text-black px-4 py-2 font-mono text-xs tracking-wider cursor-pointer hover:gap-3 transition-all duration-300">
                               VIEW LIVE
                               <motion.div
@@ -473,7 +489,10 @@ export function FeaturedWorkSection() {
                     transition={{ delay: 0.7 * index }}
                     className="pt-6"
                   >
-                    <Link href={`/project/${project.id}`}>
+                    <Link
+                      href={`/project/${project.id}`}
+                      onClick={() => onClick(project.id)}
+                    >
                       <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300 cursor-pointer">
                         <span>View Project</span>
                         <motion.div

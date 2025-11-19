@@ -3,6 +3,8 @@ import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LoadingProvider } from "@/contexts/loading-context";
 import { StructuredData } from "@/components/structured-data";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
 import "./globals.css";
 
 const inter = Inter({
@@ -98,6 +100,9 @@ export const metadata: Metadata = {
   category: "technology",
   classification: "Portfolio",
   referrer: "origin-when-cross-origin",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT || '',
+  },
 };
 
 export const viewport = {
@@ -113,6 +118,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Search Console Verification */}
+        {process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT && (
+          <meta
+            name="google-site-verification"
+            content={process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT}
+          />
+        )}
+
         <StructuredData type="WebSite" />
         <StructuredData type="Person" />
         <StructuredData type="LocalBusiness" />
@@ -131,6 +144,10 @@ export default function RootLayout({
             {children}
           </LoadingProvider>
         </ThemeProvider>
+
+        {/* Analytics & Consent */}
+        <GoogleAnalytics />
+        <CookieConsentBanner />
       </body>
     </html>
   );
