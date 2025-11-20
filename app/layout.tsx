@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { LoadingProvider } from "@/contexts/loading-context";
 import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
@@ -140,9 +139,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <LoadingProvider>
-            {children}
-          </LoadingProvider>
+          {children}
         </ThemeProvider>
 
         {/* Analytics & Consent */}

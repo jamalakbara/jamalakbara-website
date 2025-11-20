@@ -8,7 +8,6 @@ import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 import { StructuredData } from '@/components/structured-data'
 import { CustomCursor } from '@/components/custom-cursor'
-import { LoadingScreen } from '@/components/loading-screen'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -21,7 +20,7 @@ interface ServicePageProps {
 export default function ServicePage({ params }: ServicePageProps) {
   const [service, setService] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
   const [error, setError] = useState<string | null>(null)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -44,19 +43,20 @@ export default function ServicePage({ params }: ServicePageProps) {
       } catch {
         setError('Error loading service')
       } finally {
-        // Add a small delay to show loading screen for better UX
-        setTimeout(() => setShowLoadingScreen(false), 300)
+        setIsLoading(false)
       }
     }
 
     loadService()
   }, [params])
 
-  if (showLoadingScreen) {
+  if (isLoading) {
     return (
       <>
         <CustomCursor />
-        <LoadingScreen onLoadingComplete={() => {}} />
+        <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+          <div className="text-black dark:text-white">Loading...</div>
+        </div>
       </>
     )
   }
