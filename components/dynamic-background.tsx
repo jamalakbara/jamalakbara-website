@@ -52,9 +52,15 @@ const sections: Section[] = [
 
 export const DynamicBackground = () => {
   const [currentSection, setCurrentSection] = useState(0)
-  const { theme } = useTheme()
+  const [isMounted, setIsMounted] = useState(false)
+  const { resolvedTheme } = useTheme()
   const { scrollYProgress } = useScroll()
-  
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
   // Transform scroll progress to section index
   const sectionProgress = useTransform(
     scrollYProgress,
@@ -80,11 +86,14 @@ export const DynamicBackground = () => {
     [0, 1]
   )
 
+  // Use resolvedTheme for consistent server/client rendering
+  const actualTheme = isMounted ? resolvedTheme : 'light'
+
   // Background color interpolation
   const backgroundColor = useTransform(
     withinSectionProgress,
     [0, 1],
-    theme === 'light' 
+    actualTheme === 'light'
       ? [currentSectionData.lightColor, nextSectionData.lightColor]
       : [currentSectionData.darkColor, nextSectionData.darkColor]
   )
@@ -98,8 +107,9 @@ export const DynamicBackground = () => {
           backgroundColor
         }}
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: isMounted ? 1 : 0 }}
         transition={{ duration: 0.8 }}
+        suppressHydrationWarning
       />
 
       {/* Gradient Overlay for Smooth Transitions */}
@@ -119,6 +129,7 @@ export const DynamicBackground = () => {
             ]
           )
         }}
+        suppressHydrationWarning
       />
     </>
   )

@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
 import { StructuredData } from '@/components/structured-data'
 import { CustomCursor } from '@/components/custom-cursor'
-import { LoadingScreen } from '@/components/loading-screen'
 
 interface ProjectPageProps {
   params: Promise<{ id: string }>
@@ -16,7 +15,7 @@ interface ProjectPageProps {
 export default function ProjectPage({ params }: ProjectPageProps) {
   const [project, setProject] = useState<any>(null) // eslint-disable-line @typescript-eslint/no-explicit-any
   const [error, setError] = useState<string | null>(null)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     async function loadProject() {
@@ -31,19 +30,20 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       } catch {
         setError('Error loading project')
       } finally {
-        // Add a small delay to show loading screen for better UX
-        setTimeout(() => setShowLoadingScreen(false), 300)
+        setIsLoading(false)
       }
     }
 
     loadProject()
   }, [params])
 
-  if (showLoadingScreen) {
+  if (isLoading) {
     return (
       <>
         <CustomCursor />
-        <LoadingScreen onLoadingComplete={() => {}} />
+        <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+          <div className="text-black dark:text-white">Loading...</div>
+        </div>
       </>
     )
   }
