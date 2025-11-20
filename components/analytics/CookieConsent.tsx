@@ -72,7 +72,7 @@ export function CookieConsentBanner() {
   if (!isVisible) return null
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="popLayout">
       <motion.div
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}

@@ -402,7 +402,7 @@ export function Navigation() {
         </div>
 
         {/* Mobile Menu */}
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -420,30 +420,30 @@ export function Navigation() {
                       setIsMobileMenuOpen(false)
                     }}
                     className={`block w-full text-left py-3 px-4 rounded-lg font-sans font-medium text-lg transition-colors ${
-                      activeSection === item.id 
-                        ? 'bg-black dark:bg-white text-white dark:text-black' 
+                      activeSection === item.id
+                        ? 'bg-black dark:bg-white text-white dark:text-black'
                         : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
                     }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ 
-                      duration: 0.3, 
-                      delay: index * 0.1 
+                    transition={{
+                      duration: 0.3,
+                      delay: index * 0.1
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {item.label}
                   </motion.button>
                 ))}
-                
+
                 {/* Mobile Theme Toggle */}
                 <motion.div
                   className="flex items-center justify-center pt-4"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ 
-                    duration: 0.3, 
-                    delay: navigationItems.length * 0.1 
+                  transition={{
+                    duration: 0.3,
+                    delay: navigationItems.length * 0.1
                   }}
                 >
                   <motion.button

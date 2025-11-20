@@ -209,7 +209,7 @@ export function CTASection() {
       </motion.section>
 
       {/* Success/Error Status Messages */}
-      <AnimatePresence>
+      <AnimatePresence mode="popLayout">
         {showStatus && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
