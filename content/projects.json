@@ -1,1 +1,195 @@
-[]
+[
+  {
+    "id": "ecommerce-platform",
+    "title": "Modern E-Commerce Platform",
+    "category": "Web Development",
+    "description": "A full-stack e-commerce solution built with Next.js 15 and Node.js, featuring real-time inventory management, secure payment processing, and advanced analytics dashboard. This project helped a local Indonesian retailer increase online sales by 300% within 6 months.",
+    "longDescription": "Developed a comprehensive e-commerce platform for a traditional Indonesian retail business looking to expand online. The solution includes inventory management, payment gateway integration with popular Indonesian payment methods (GoPay, OVO, Dana), real-time order tracking, and detailed analytics. The platform handles over 10,000 monthly visitors and processes 500+ orders monthly.",
+    "technologies": ["Next.js 15", "TypeScript", "Node.js", "PostgreSQL", "Stripe", "Tailwind CSS", "Framer Motion"],
+    "features": [
+      "Real-time inventory management",
+      "Multi-payment gateway integration",
+      "Responsive design with mobile-first approach",
+      "SEO-optimized product pages",
+      "Admin dashboard with analytics",
+      "Email notification system"
+    ],
+    "challenges": "Integrating local Indonesian payment methods while maintaining PCI compliance, optimizing performance for mobile users in regions with slower internet speeds, and implementing a scalable architecture to handle seasonal traffic spikes.",
+    "solutions": "Created a microservices architecture with separate services for payments, inventory, and analytics. Implemented progressive loading and image optimization for faster mobile performance. Used Redis caching to reduce database load during peak hours.",
+    "results": {
+      "metrics": [
+        "300% increase in online sales",
+        "65% reduction in page load time",
+        "50% decrease in cart abandonment rate",
+        "4.9/5 customer satisfaction rating"
+      ],
+      "testimonials": "Jamal delivered an exceptional e-commerce solution that transformed our business. The platform is fast, reliable, and our customers love it. Sales increased dramatically within just a few months."
+    },
+    "timeline": "3 months",
+    "clientType": "Retail Business",
+    "location": "Bandung, Indonesia",
+    "liveUrl": "https://example-ecommerce.com",
+    "githubUrl": "https://github.com/jamalakbara/ecommerce-platform",
+    "images": [
+      "/projects/ecommerce-dashboard.jpg",
+      "/projects/ecommerce-mobile.jpg",
+      "/projects/ecommerce-analytics.jpg"
+    ],
+    "tags": ["e-commerce", "next.js", "full-stack", "indonesian-business", "payment-integration"],
+    "completedAt": "2024-06-15"
+  },
+  {
+    "id": "fintech-mobile-app",
+    "title": "Fintech Mobile Banking App",
+    "category": "Mobile Development",
+    "description": "A secure and intuitive mobile banking application built with React Native, featuring biometric authentication, real-time transaction tracking, and AI-powered financial insights. Serves over 50,000 users across Indonesia.",
+    "longDescription": "Led the development of a comprehensive mobile banking solution for a fintech startup targeting the Indonesian market. The app includes features like QRIS payments, bill payments, mobile top-ups, investment tracking, and AI-powered spending insights. Implemented robust security measures including biometric authentication, encryption, and fraud detection algorithms.",
+    "technologies": ["React Native", "TypeScript", "Node.js", "MongoDB", "Redis", "JWT", "AWS"],
+    "features": [
+      "Biometric authentication (Face ID, Fingerprint)",
+      "QRIS payment integration",
+      "Real-time transaction notifications",
+      "AI-powered spending insights",
+      "Investment portfolio tracking",
+      "Multi-language support (Indonesian, English)"
+    ],
+    "challenges": "Ensuring bank-level security compliance, handling offline functionality for areas with poor connectivity, and creating an intuitive UI for users with varying levels of digital literacy.",
+    "solutions": "Implemented end-to-end encryption, offline-first architecture with sync capabilities, and conducted extensive user testing with diverse user groups across Indonesia. Created comprehensive onboarding tutorials and in-app guidance.",
+    "results": {
+      "metrics": [
+        "50,000+ active users",
+        "99.9% uptime",
+        "4.8/5 App Store rating",
+        "Bank-level security certification"
+      ],
+      "testimonials": "Jamal's expertise in mobile development and security was invaluable. He created a robust, user-friendly banking app that our customers trust and love using daily."
+    },
+    "timeline": "6 months",
+    "clientType": "Fintech Startup",
+    "location": "Jakarta, Indonesia",
+    "appStoreUrl": "https://apps.apple.com/example",
+    "playStoreUrl": "https://play.google.com/store/apps/example",
+    "images": [
+      "/projects/fintech-dashboard.jpg",
+      "/projects/fintech-payments.jpg",
+      "/projects/fintech-insights.jpg"
+    ],
+    "tags": ["mobile-app", "react-native", "fintech", "security", "indonesian-market"],
+    "completedAt": "2024-04-20"
+  },
+  {
+    "id": "healthcare-management-system",
+    "title": "Healthcare Management System",
+    "category": "Web Development",
+    "description": "A comprehensive healthcare management platform for clinics and hospitals in Indonesia, featuring patient records, appointment scheduling, telemedicine capabilities, and HIPAA-compliant data handling.",
+    "longDescription": "Designed and developed a scalable healthcare management solution tailored for the Indonesian healthcare system. The platform streamlines patient care workflows, enables telemedicine consultations, manages electronic health records, and provides analytics for healthcare providers. Integrated with BPJS (Indonesian national health insurance) system for seamless claims processing.",
+    "technologies": ["Next.js", "Python", "Django", "PostgreSQL", "Docker", "WebRTC", "Tailwind CSS"],
+    "features": [
+      "Electronic health records (EHR)",
+      "Telemedicine video consultations",
+      "Appointment scheduling system",
+      "BPJS integration",
+      "Prescription management",
+      "Staff and resource management"
+    ],
+    "challenges": "Ensuring HIPAA compliance and Indonesian health data regulations, creating an intuitive interface for healthcare professionals with varying technical skills, and handling sensitive patient data securely.",
+    "solutions": "Implemented comprehensive security protocols including data encryption, audit trails, and role-based access controls. Created extensive training materials and conducted workshops for healthcare staff. Developed custom integration APIs for BPJS and other Indonesian healthcare systems.",
+    "results": {
+      "metrics": [
+        "25+ clinics using the platform",
+        "100,000+ patient records managed",
+        "40% reduction in administrative time",
+        "95% user satisfaction rate"
+      ],
+      "testimonials": "The healthcare platform has revolutionized how we manage patient care. It's intuitive, secure, and has significantly improved our efficiency. Jamal understood our unique needs as Indonesian healthcare providers."
+    },
+    "timeline": "8 months",
+    "clientType": "Healthcare Provider",
+    "location": "Surabaya, Indonesia",
+    "liveUrl": "https://healthcare-system.example.com",
+    "images": [
+      "/projects/healthcare-dashboard.jpg",
+      "/projects/telemedicine-interface.jpg",
+      "/projects/patient-records.jpg"
+    ],
+    "tags": ["healthcare", "telemedicine", "hipaa-compliant", "indonesian-healthcare", "python"],
+    "completedAt": "2024-02-10"
+  },
+  {
+    "id": "saas-dashboard",
+    "title": "Analytics SaaS Dashboard",
+    "category": "SaaS Development",
+    "description": "A real-time analytics dashboard for SaaS companies, providing insights into user behavior, revenue metrics, and performance indicators. Features customizable widgets, white-labeling options, and multi-tenant architecture.",
+    "longDescription": "Built a comprehensive analytics platform as a service targeting SaaS companies in Southeast Asia. The platform processes millions of data points daily, providing real-time insights through interactive dashboards, automated reports, and predictive analytics. Implemented a multi-tenant architecture with strict data isolation and scalability for enterprise clients.",
+    "technologies": ["React", "Node.js", "TypeScript", "Redis", "Apache Kafka", "PostgreSQL", "D3.js"],
+    "features": [
+      "Real-time data processing",
+      "Custom dashboard widgets",
+      "White-label capabilities",
+      "Automated report generation",
+      "Predictive analytics",
+      "Multi-tenant architecture"
+    ],
+    "challenges": "Processing large volumes of real-time data, ensuring data security between tenants, and creating an intuitive interface for non-technical users to understand complex analytics.",
+    "solutions": "Implemented Apache Kafka for real-time data streaming, Redis for caching and session management, and created a library of pre-built dashboard templates. Used WebSockets for real-time updates and implemented comprehensive data visualization components.",
+    "results": {
+      "metrics": [
+        "50+ SaaS companies as clients",
+        "10M+ data points processed daily",
+        "99.95% uptime SLA",
+        "30% average improvement in client metrics"
+      ],
+      "testimonials": "Jamal built an incredibly powerful yet user-friendly analytics platform. Our clients love the insights they can get, and the white-label option perfectly fits our business model."
+    },
+    "timeline": "5 months",
+    "clientType": "SaaS Company",
+    "location": "Singapore",
+    "liveUrl": "https://analytics-saas.example.com",
+    "githubUrl": "https://github.com/jamalakbara/analytics-saas",
+    "images": [
+      "/projects/saas-dashboard-overview.jpg",
+      "/projects/analytics-widgets.jpg",
+      "/projects/real-time-metrics.jpg"
+    ],
+    "tags": ["saas", "analytics", "real-time", "dashboard", "multi-tenant"],
+    "completedAt": "2023-11-15"
+  },
+  {
+    "id": "educational-platform",
+    "title": "Online Learning Platform",
+    "category": "EdTech Development",
+    "description": "An interactive e-learning platform featuring video courses, live sessions, quizzes, and progress tracking. Built for Indonesian students with offline capabilities and mobile-first design.",
+    "longDescription": "Developed a comprehensive educational platform specifically designed for Indonesian students and educators. The platform supports both synchronous and asynchronous learning, with features like live video sessions, interactive quizzes, assignment submissions, and detailed progress tracking. Implemented offline functionality using service workers to accommodate areas with limited internet access.",
+    "technologies": ["Next.js", "React", "WebRTC", "Service Workers", "Node.js", "MongoDB", "FFmpeg"],
+    "features": [
+      "Video streaming with adaptive bitrate",
+      "Live interactive sessions",
+      "Offline course materials",
+      "Progress tracking and analytics",
+      "Gamification elements",
+      "Certificate generation"
+    ],
+    "challenges": "Optimizing video delivery for variable internet speeds across Indonesia, creating engaging interactive content, and ensuring the platform works well on low-end mobile devices.",
+    "solutions": "Implemented adaptive bitrate streaming, created lightweight mobile-optimized interfaces, and used progressive enhancement techniques. Developed comprehensive offline capabilities using service workers and local storage.",
+    "results": {
+      "metrics": [
+        "15,000+ registered students",
+        "200+ courses available",
+        "85% course completion rate",
+        "4.7/5 student rating"
+      ],
+      "testimonials": "The platform has made quality education accessible to students across Indonesia. Jamal understood the unique challenges of our market and built a solution that works perfectly for our needs."
+    },
+    "timeline": "4 months",
+    "clientType": "Educational Institution",
+    "location": "Yogyakarta, Indonesia",
+    "liveUrl": "https://learning-platform.example.com",
+    "images": [
+      "/projects/learning-dashboard.jpg",
+      "/projects/video-player.jpg",
+      "/projects/progress-tracking.jpg"
+    ],
+    "tags": ["edtech", "online-learning", "indonesian-education", "mobile-first", "offline-capable"],
+    "completedAt": "2023-09-01"
+  }
+]

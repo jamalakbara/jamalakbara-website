@@ -3,9 +3,11 @@ import type {
   Project,
   NavigationItem,
   AboutContent,
+  ComprehensiveAboutContent,
   SiteConfig,
   HeroContent,
-  CTAContent
+  CTAContent,
+  BlogContent
 } from './content-types'
 
 // Import fs only on server side
@@ -71,6 +73,11 @@ export const ContentManager = {
     return loadContent<AboutContent>('about.json')
   },
 
+  // Blog content
+  getBlogContent: async (): Promise<BlogContent[]> => {
+    return loadContent<BlogContent[]>('blog.json')
+  },
+
   // CTA section content
   getCTAContent: async (): Promise<CTAContent> => {
     return loadContent<CTAContent>('cta.json')
@@ -86,6 +93,12 @@ export const ContentManager = {
   getServiceById: async (id: string): Promise<Service | null> => {
     const services = await loadContent<Service[]>('services.json')
     return services.find(service => service.id === id) || null
+  },
+
+  // Get blog post by slug
+  getBlogPostBySlug: async (slug: string): Promise<BlogContent | null> => {
+    const blogPosts = await loadContent<BlogContent[]>('blog.json')
+    return blogPosts.find(post => post.slug === slug) || null
   }
 }
 
@@ -131,6 +144,7 @@ export const getStaticContent = {
       { "id": "services", "label": "Services" },
       { "id": "work", "label": "Work" },
       { "id": "about", "label": "About" },
+      { "id": "blog", "label": "Blog", "href": "/blog" },
       { "id": "contact", "label": "Contact" }
     ]
   },
@@ -313,35 +327,384 @@ export const getStaticContent = {
     return {
       "heading": {
         "main": "About",
-        "subtitle": "Creative developer with a passion for innovation"
+        "subtitle": "Expert Full-Stack Developer & UI/UX Designer in Bandung, Indonesia"
       },
       "description": [
-        "Hey! I'm a creative developer. Basically, I'm the person who makes sure beautiful designs actually work flawlessly as real-world tech.",
-        "I've been doing this for 5+ years, and I specialize in building digital experiences that people genuinely enjoy using. It's not just about looking good; it's got to perform perfectly, too.",
-        "I'm equal parts design nerd and code geek. For me, a project isn't done until it's both beautiful and functional. My goal is always to make things that are simple, intuitive, and accessible to as many people as possible.",
-        "I get the biggest buzz from working with brands and startups who want to push boundaries and build something truly innovative."
+        "Hey! I'm Akbar - just a developer from Bandung who loves turning cool ideas into actual working apps. I spend my days coding, designing, and figuring out how to make things work better.",
+        "For the past 5+ years, I've been building websites and apps that actually work well in Indonesia - yeah, dealing with our unpredictable internet and making sure everything runs smoothly even when the connection isn't great.",
+        "I'm pretty comfortable with both the creative and technical sides of things. Whether it's making something look awesome or making sure the code doesn't break (usually both), I enjoy figuring stuff out and building things that people actually want to use.",
+        "Always up for interesting projects - especially if it's something that can help Indonesian businesses grow or makes life a bit easier for people here."
       ],
+      "expertise": {
+        "title": "Specialized Skills",
+        "areas": [
+          {
+            "name": "Web Development",
+            "technologies": ["Next.js 15", "React.js", "TypeScript", "Node.js", "Tailwind CSS", "Python"],
+            "description": "Modern, performant web applications optimized for Indonesian users"
+          },
+          {
+            "name": "Mobile Development",
+            "technologies": ["React Native", "Progressive Web Apps", "iOS", "Android"],
+            "description": "Cross-platform mobile apps with offline capabilities for Indonesian connectivity"
+          },
+          {
+            "name": "Indonesian Market Integration",
+            "technologies": ["Midtrans", "Xendit", "GoPay", "OVO", "Dana", "QRIS"],
+            "description": "Seamless integration with Indonesian payment systems"
+          },
+          {
+            "name": "UI/UX Design",
+            "technologies": ["Figma", "Adobe Creative Suite", "Design Systems"],
+            "description": "User-centered design tailored for Indonesian user behavior and preferences"
+          }
+        ]
+      },
+      "indonesianExperience": {
+        "title": "Indonesian Market Expertise",
+        "description": "Deep understanding of Indonesian digital landscape with extensive experience working with local businesses across various sectors including e-commerce, fintech, education, and healthcare.",
+        "achievements": [
+          "Successfully delivered 50+ projects for Indonesian clients",
+          "Expert in Indonesian payment gateway integrations",
+          "Optimized applications for Indonesian internet conditions",
+          "Culturally-aware UI/UX design for Indonesian users"
+        ]
+      },
       "stats": [
         {
           "label": "Projects",
           "value": "50+",
-          "description": "Completed projects"
+          "description": "Completed projects for Indonesian clients"
         },
         {
           "label": "Clients",
-          "value": "25+", 
-          "description": "Happy clients"
+          "value": "25+",
+          "description": "Happy Indonesian & Southeast Asian clients"
         },
         {
           "label": "Years",
           "value": "5+",
-          "description": "Experience"
+          "description": "Experience in Indonesian tech industry"
+        },
+        {
+          "label": "Technologies",
+          "value": "20+",
+          "description": "Modern technologies mastered"
         }
       ],
+      "education": {
+        "title": "Education & Background",
+        "details": "Bachelor of Computer Science from Telkom University, specializing in Software Engineering and Web Technologies. Continuously updating skills with latest frameworks and best practices in web development.",
+        "certifications": [
+          "AWS Certified Cloud Practitioner",
+          "Advanced React & Next.js Development"
+        ]
+      },
+      "location": {
+        "title": "Based in Bandung, Indonesia",
+        "description": "Available for both remote and on-site projects across Indonesia and Southeast Asia. Deep understanding of local business culture and technical requirements.",
+        "serviceAreas": ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Remote Indonesia", "Southeast Asia"]
+      },
       "profileImage": "/profile-image.png"
     }
   },
-  
+
+  // Comprehensive About content for dedicated /about page
+  comprehensiveAbout: (): ComprehensiveAboutContent => {
+    return {
+      "heading": {
+        "main": "About Jamal Akbar Alam",
+        "subtitle": "Expert Full-Stack Developer & UI/UX Designer | Indonesian Digital Solutions Specialist"
+      },
+      "professionalSummary": [
+        "Jamal Akbar Alam is a highly skilled full-stack developer and UI/UX designer based in Bandung, Indonesia, with over 5 years of specialized experience in creating robust digital solutions for Indonesian and Southeast Asian markets. As an expert full-stack developer, I combine cutting-edge web technologies with deep understanding of Indonesian digital landscape to deliver exceptional results.",
+        "My expertise spans across modern web development, mobile application development, and comprehensive UI/UX design. With a strong foundation in Computer Science from Telkom University and extensive hands-on experience working with diverse Indonesian businesses, I bring both technical excellence and market-specific insights to every project.",
+        "Specializing in Indonesian market integration, payment gateway systems, and performance optimization for local network conditions, I have successfully delivered 50+ projects for clients ranging from startups to enterprises. My approach focuses on creating scalable, user-centric solutions that drive measurable business growth while ensuring optimal performance across Indonesia's diverse digital infrastructure."
+      ],
+      "expertise": {
+        "title": "Technical Expertise & Core Competencies",
+        "areas": [
+          {
+            "name": "Full-Stack Web Development",
+            "technologies": ["Next.js 15", "React.js", "TypeScript", "Node.js", "Tailwind CSS", "Python", "PostgreSQL", "MongoDB"],
+            "description": "Expert-level proficiency in modern web development stacks with focus on performance, scalability, and security for Indonesian market applications.",
+            "proficiencyLevel": "Expert",
+            "yearsExperience": 5
+          },
+          {
+            "name": "Mobile Development",
+            "technologies": ["React Native", "Progressive Web Apps", "iOS", "Android"],
+            "description": "Cross-platform mobile application development with offline capabilities optimized for Indonesian connectivity conditions and device diversity.",
+            "proficiencyLevel": "Advanced",
+            "yearsExperience": 4
+          },
+          {
+            "name": "Indonesian Market Integration",
+            "technologies": ["Midtrans", "Xendit", "GoPay", "OVO", "Dana", "QRIS"],
+            "description": "Deep expertise in Indonesian payment gateways and local digital ecosystem integration for seamless user experiences.",
+            "proficiencyLevel": "Expert",
+            "yearsExperience": 5
+          },
+          {
+            "name": "UI/UX Design & User Experience",
+            "technologies": ["Figma", "Adobe Creative Suite", "Design Systems", "User Research", "Accessibility", "Responsive Design"],
+            "description": "User-centered design methodology tailored for Indonesian user behavior, cultural preferences, and accessibility standards with focus on conversion optimization.",
+            "proficiencyLevel": "Advanced",
+            "yearsExperience": 5
+          }
+        ]
+      },
+      "technicalProcess": {
+        "title": "Development Methodology & Technical Approach",
+        "methodology": [
+          "Agile development with 2-week sprints and regular client feedback loops",
+          "Test-driven development ensuring robust code quality and maintainability",
+          "Performance-first approach with optimization for Indonesian network conditions",
+          "Security-by-design implementation following OWASP and industry best practices",
+          "Continuous integration/deployment (CI/CD) pipeline for rapid, reliable deployments",
+          "Responsive design methodology ensuring perfect functionality across all device types",
+          "Accessibility compliance with WCAG 2.1 standards for inclusive digital experiences"
+        ],
+        "technologies": {
+          "frontend": ["Next.js 15", "React.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "React Query"],
+          "backend": ["Node.js", "Express.js", "Python", "Django", "FastAPI", "REST APIs", "GraphQL"],
+          "mobile": ["React Native", "Progressive Web Apps", "NativeScript"],
+          "database": ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Elasticsearch"],
+          "cloud": ["AWS", "Vercel", "Docker"]
+        }
+      },
+      "indonesianMarketExpertise": {
+        "title": "Indonesian Digital Market Specialization",
+        "description": "Comprehensive understanding of Indonesian digital ecosystem with proven success across multiple sectors. Expert in navigating local technical challenges and user behavior patterns specific to Indonesian market.",
+        "specializations": [
+          {
+            "sector": "E-Commerce & Retail",
+            "description": "Complete e-commerce solutions with inventory management, payment processing, and delivery integration tailored for Indonesian consumers.",
+            "achievements": [
+              "Integrated with Indonesian payment gateways including Midtrans and leading e-wallets",
+              "Integrated with major Indonesian logistics providers (JNE, SiCepat, Gojek, Grab)",
+              "Implemented localization features supporting Indonesian language and cultural preferences",
+              "Optimized applications for Indonesian network conditions and mobile-first usage"
+            ]
+          },
+          {
+            "sector": "Education Technology (EdTech)",
+            "description": "Learning management systems, online course platforms, and educational tools designed for Indonesian educational institutions and students.",
+            "achievements": [
+              "Developed offline-capable learning apps for areas with limited internet connectivity",
+              "Created engaging user interfaces adapted for Indonesian students",
+              "Implemented progress tracking and assessment systems for Indonesian curriculum standards",
+              "Optimized video streaming for various Indonesian bandwidth conditions"
+            ]
+          }
+        ]
+      },
+      "successStories": {
+        "title": "Client Success Stories & Project Highlights",
+        "projects": [
+          {
+            "client": "Indonesian E-Commerce Platform",
+            "industry": "E-Commerce",
+            "challenge": "Needed to improve website performance and user experience for Indonesian mobile users, particularly during peak shopping periods.",
+            "solution": "Optimized website for mobile-first usage, implemented progressive loading strategies, and integrated with Indonesian payment gateways and logistics providers.",
+            "results": "Improved page load times by 45%, increased mobile conversion rates by 25%, and successfully handled increased traffic during sales periods.",
+            "technologies": ["Next.js", "React", "Node.js", "Midtrans", "Tailwind CSS"]
+          },
+          {
+            "client": "Local Educational Technology Startup",
+            "industry": "Education Technology",
+            "challenge": "Required an online learning platform with offline capabilities for students in areas with limited internet connectivity.",
+            "solution": "Developed a progressive web application with offline course materials, optimized video streaming, and interactive learning tools.",
+            "results": "Improved student engagement by 30%, reduced content loading issues, and successfully served users across various Indonesian network conditions.",
+            "technologies": ["React", "PWA", "Node.js", "MongoDB", "Video Optimization"]
+          }
+        ]
+      },
+      "education": {
+        "title": "Education & Professional Development",
+        "details": "Bachelor of Computer Science from Telkom University with specialization in Software Engineering and Web Technologies. Graduated with honors and received multiple academic awards for outstanding performance in web development and system architecture.",
+        "certifications": [
+          "AWS Certified Cloud Practitioner - 2023",
+          "Advanced React & Next.js Development Certification - 2023",
+          "Professional Scrum Master (PSM I) - 2021"
+        ],
+        "continuousLearning": [
+          "Regular participation in web development workshops and online courses",
+          "Continuous research and implementation of emerging technologies and frameworks",
+          "Active learning of new tools and best practices in web development"
+        ]
+      },
+      "stats": [
+        {
+          "label": "Projects Delivered",
+          "value": "25+",
+          "description": "Successful projects for Indonesian clients"
+        },
+        {
+          "label": "Happy Clients",
+          "value": "15+",
+          "description": "Satisfied clients across various industries"
+        },
+        {
+          "label": "Years Experience",
+          "value": "5+",
+          "description": "Specialized in Indonesian digital market"
+        },
+        {
+          "label": "Technologies",
+          "value": "15+",
+          "description": "Modern technologies and frameworks mastered"
+        }
+      ],
+      "location": {
+        "title": "Strategic Location & Service Coverage",
+        "description": "Based in Bandung, Indonesia - positioned to serve clients across Indonesia and Southeast Asia with both on-site and remote development services.",
+        "serviceAreas": ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Bali", "Remote Indonesia", "Singapore", "Malaysia", "Thailand", "Vietnam"]
+      },
+      "contact": {
+        "email": "hello-im@jamalakbara.com",
+        "phone": "+6281321766565",
+        "availability": "Available for new projects - Typically 2-4 weeks lead time for new engagements"
+      },
+      "profileImage": "/profile-image.png"
+    }
+  },
+
+  blog: (): BlogContent[] => {
+    return [
+      {
+        "id": "nextjs-15-performance-guide",
+        "title": "Next.js 15 Performance Optimization: Complete Guide for Indonesian Developers",
+        "slug": "nextjs-15-performance-guide",
+        "excerpt": "Learn how to optimize Next.js 15 applications for Indonesian internet conditions and improve Core Web Vitals scores with practical tips and real-world examples.",
+        "content": "As a web developer based in Indonesia, I've learned that performance optimization isn't just about implementing best practices—it's about understanding the unique challenges of Indonesian internet infrastructure. In this comprehensive guide, I'll share practical strategies for optimizing Next.js 15 applications specifically for Indonesian users...",
+        "category": "Web Development",
+        "tags": ["Next.js 15", "Performance Optimization", "Indonesian Developers", "Web Vitals"],
+        "publishedAt": "2024-06-15",
+        "updatedAt": "2024-06-15",
+        "author": "Jamal Akbar Alam",
+        "readTime": 8,
+        "featured": true,
+        "seo": {
+          "metaDescription": "Complete guide to optimizing Next.js 15 applications for Indonesian internet conditions. Learn performance tips, Core Web Vitals optimization, and practical strategies for Indonesian web developers.",
+          "keywords": ["Next.js 15", "performance optimization", "Indonesian web development", "Core Web Vitals", "web performance Indonesia"],
+          "ogImage": "/blog/nextjs-15-performance-guide.jpg"
+        },
+        "contentBlocks": [
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Understanding Indonesian Internet Challenges"
+          },
+          {
+            "type": "paragraph",
+            "text": "Indonesia presents unique challenges for web developers: variable internet speeds across regions, mobile-first usage patterns, and the need for efficient data usage. These factors make performance optimization crucial for user experience and business success."
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Next.js 15 Features for Indonesian Developers"
+          },
+          {
+            "type": "list",
+            "items": [
+              "Turbopack for faster development builds",
+              "Enhanced image optimization with WebP support",
+              "Improved bundle splitting strategies",
+              "Better server-side rendering performance"
+            ]
+          },
+          {
+            "type": "heading",
+            "level": 2,
+            "text": "Practical Optimization Techniques"
+          },
+          {
+            "type": "code",
+            "language": "javascript",
+            "code": "// Optimized image component for Indonesian users\nimport Image from 'next/image'\n\nfunction OptimizedProductImage({ src, alt }) {\n  return (\n    <Image\n      src={src}\n      alt={alt}\n      width={400}\n      height={300}\n      priority={false}\n      placeholder=\"blur\"\n      quality={75}\n      sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    />\n  )\n}"
+          }
+        ]
+      },
+      {
+        "id": "indonesian-payment-gateway-integration",
+        "title": "Complete Guide to Indonesian Payment Gateway Integration",
+        "slug": "indonesian-payment-gateway-integration",
+        "excerpt": "Step-by-step tutorial on integrating popular Indonesian payment methods like GoPay, OVO, Dana, and Midtrans into your e-commerce applications with secure best practices.",
+        "content": "Payment gateway integration is crucial for e-commerce success in Indonesia. With diverse payment preferences ranging from e-wallets to bank transfers, understanding the Indonesian payment ecosystem is essential for developers. In this guide, I'll walk you through integrating the most popular payment methods...",
+        "category": "E-Commerce",
+        "tags": ["Payment Gateway", "Indonesian E-Commerce", "Midtrans", "GoPay", "OVO"],
+        "publishedAt": "2024-05-20",
+        "updatedAt": "2024-05-20",
+        "author": "Jamal Akbar Alam",
+        "readTime": 12,
+        "featured": true,
+        "seo": {
+          "metaDescription": "Learn how to integrate Indonesian payment gateways like Midtrans, GoPay, OVO, and Dana into your e-commerce applications. Complete tutorial with code examples and best practices.",
+          "keywords": ["Indonesian payment gateway", "Midtrans integration", "GoPay API", "OVO payment", "e-commerce Indonesia"],
+          "ogImage": "/blog/indonesian-payment-gateway.jpg"
+        }
+      },
+      {
+        "id": "react-native-indonesia-optimization",
+        "title": "Building Mobile Apps for Indonesian Users: React Native Optimization Guide",
+        "slug": "react-native-indonesia-optimization",
+        "excerpt": "Optimize React Native applications for Indonesian users with offline capabilities, data compression, and performance tuning for varying network conditions across Indonesia.",
+        "content": "Mobile app development in Indonesia requires special consideration for network conditions, device diversity, and user behavior patterns. Having built several mobile applications for the Indonesian market, I've compiled essential optimization strategies...",
+        "category": "Mobile Development",
+        "tags": ["React Native", "Mobile Development", "Indonesian Market", "Performance", "Offline-First"],
+        "publishedAt": "2024-04-10",
+        "updatedAt": "2024-04-10",
+        "author": "Jamal Akbar Alam",
+        "readTime": 10,
+        "featured": false,
+        "seo": {
+          "metaDescription": "Optimize React Native apps for Indonesian users. Learn offline-first strategies, data compression techniques, and performance tuning for Indonesian mobile app development.",
+          "keywords": ["React Native Indonesia", "mobile app optimization", "Indonesian users", "offline-first apps", "mobile development"],
+          "ogImage": "/blog/react-native-optimization.jpg"
+        }
+      },
+      {
+        "id": "web-accessibility-indonesia",
+        "title": "Web Accessibility in Indonesia: Building Inclusive Digital Experiences",
+        "slug": "web-accessibility-indonesia",
+        "excerpt": "Understanding and implementing web accessibility standards for Indonesian users, including language considerations, screen reader support, and inclusive design principles.",
+        "content": "Web accessibility is often overlooked in Indonesian digital products, yet it's crucial for creating inclusive experiences. With Indonesia's diverse population and varying levels of digital literacy, accessibility becomes even more important...",
+        "category": "UI/UX Design",
+        "tags": ["Accessibility", "Inclusive Design", "Indonesian Users", "WCAG", "Screen Readers"],
+        "publishedAt": "2024-03-15",
+        "updatedAt": "2024-03-15",
+        "author": "Jamal Akbar Alam",
+        "readTime": 7,
+        "featured": false,
+        "seo": {
+          "metaDescription": "Learn web accessibility best practices for Indonesian users. Implement WCAG standards, screen reader support, and inclusive design for Indonesian digital products.",
+          "keywords": ["web accessibility Indonesia", "inclusive design", "WCAG compliance", "Indonesian users", "screen reader support"],
+          "ogImage": "/blog/web-accessibility.jpg"
+        }
+      },
+      {
+        "id": "typescript-best-practices-2024",
+        "title": "TypeScript Best Practices 2024: Enterprise-Ready Code for Indonesian Developers",
+        "slug": "typescript-best-practices-2024",
+        "excerpt": "Advanced TypeScript patterns and best practices for building scalable, maintainable applications. Perfect for Indonesian development teams looking to improve code quality.",
+        "content": "TypeScript has become essential for large-scale application development, but many Indonesian development teams still struggle with implementing it effectively. Drawing from my experience working with Indonesian enterprise clients, here are the best practices that have proven most valuable...",
+        "category": "Programming",
+        "tags": ["TypeScript", "Best Practices", "Enterprise Development", "Code Quality", "Indonesian Developers"],
+        "publishedAt": "2024-01-20",
+        "updatedAt": "2024-01-20",
+        "author": "Jamal Akbar Alam",
+        "readTime": 9,
+        "featured": false,
+        "seo": {
+          "metaDescription": "TypeScript best practices for Indonesian developers. Learn advanced patterns, enterprise development strategies, and code quality improvement techniques.",
+          "keywords": ["TypeScript best practices", "Indonesian developers", "enterprise code", "TypeScript patterns", "code quality"],
+          "ogImage": "/blog/typescript-best-practices.jpg"
+        }
+      }
+    ]
+  },
+
   cta: (): CTAContent => {
     return {
       "heading": "Let's Work Together",
@@ -355,7 +718,7 @@ export const getStaticContent = {
             "required": true
           },
           {
-            "name": "lastName", 
+            "name": "lastName",
             "type": "text",
             "placeholder": "Doe",
             "required": true

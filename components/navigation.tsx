@@ -138,34 +138,51 @@ export function Navigation() {
     }
   }
 
+  const handleNavigationClick = (item: any) => {
+    // Close mobile menu immediately
+    setIsMobileMenuOpen(false)
+
+    // Track navigation click
+    trackNavigationClick(item.label, item.id)
+
+    // If item has an href, navigate to that page
+    if (item.href) {
+      window.location.href = item.href
+      return
+    }
+
+    // Otherwise, scroll to the section
+    scrollToSection(item.id)
+  }
+
   const scrollToSection = (sectionId: string) => {
     console.log('Attempting to scroll to section:', sectionId)
-    
+
     // Wait for any mobile menu animations to complete
     setTimeout(() => {
       const element = document.getElementById(sectionId)
-      
+
       if (element) {
         console.log('Element found:', element)
         console.log('Element offsetTop:', element.offsetTop)
         console.log('Current scroll position:', window.pageYOffset)
-        
+
         // Get optimal offset for this specific section
         const scrollOffset = getSectionScrollOffset(sectionId)
         console.log('Calculated scroll offset for', sectionId, ':', scrollOffset)
-        
+
         // Calculate target position
         const targetPosition = element.offsetTop - scrollOffset
-        
+
         console.log('Target scroll position:', targetPosition)
-        
+
         window.scrollTo({
           top: Math.max(0, targetPosition),
           behavior: 'smooth'
         })
       } else {
         console.log('Element not found with ID:', sectionId)
-        
+
         // Retry logic
         setTimeout(() => {
           const retryElement = document.getElementById(sectionId)
@@ -173,7 +190,7 @@ export function Navigation() {
             console.log('Element found on retry:', retryElement)
             const scrollOffset = getSectionScrollOffset(sectionId)
             const targetPosition = retryElement.offsetTop - scrollOffset
-            
+
             window.scrollTo({
               top: Math.max(0, targetPosition),
               behavior: 'smooth'
@@ -184,9 +201,6 @@ export function Navigation() {
         }, 300)
       }
     }, isMobileMenuOpen ? 400 : 0)
-    
-    // Close mobile menu immediately
-    setIsMobileMenuOpen(false)
   }
 
   return (
@@ -296,10 +310,7 @@ export function Navigation() {
                 className="relative"
               >
                 <motion.button
-                  onClick={() => {
-                    scrollToSection(item.id)
-                    trackNavigationClick(item.label, item.id)
-                  }}
+                  onClick={() => handleNavigationClick(item)}
                   className="relative px-1 py-2 text-black dark:text-white font-sans font-medium text-base transition-colors hover:text-gray-600 dark:hover:text-gray-300"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -415,10 +426,7 @@ export function Navigation() {
                 {navigationItems.map((item, index) => (
                   <motion.button
                     key={item.id}
-                    onClick={() => {
-                      scrollToSection(item.id)
-                      setIsMobileMenuOpen(false)
-                    }}
+                    onClick={() => handleNavigationClick(item)}
                     className={`block w-full text-left py-3 px-4 rounded-lg font-sans font-medium text-lg transition-colors ${
                       activeSection === item.id
                         ? 'bg-black dark:bg-white text-white dark:text-black'
