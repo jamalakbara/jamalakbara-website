@@ -61,7 +61,7 @@ export default function ServicesPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Services Header */}
         <motion.section
-          className="py-20 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -105,7 +105,7 @@ export default function ServicesPage() {
 
         {/* Services Grid */}
         <motion.section
-          className="py-16 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -177,7 +177,7 @@ export default function ServicesPage() {
 
         {/* Back to Home */}
         <motion.section
-          className="py-16 px-6 text-center"
+          className="py-32 px-6 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}

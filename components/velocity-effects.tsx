@@ -10,8 +10,8 @@ interface VelocityScaleProps {
   sensitivity?: number
 }
 
-export const VelocityScale = ({ 
-  children, 
+export const VelocityScale = ({
+  children,
   className = '',
   maxScale = 1.05,
   sensitivity = 1000
@@ -19,7 +19,7 @@ export const VelocityScale = ({
   const ref = useRef(null)
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  
+
   const scale = useTransform(
     scrollVelocity,
     [-sensitivity, 0, sensitivity],
@@ -50,15 +50,15 @@ interface VelocityBlurProps {
   sensitivity?: number
 }
 
-export const VelocityBlur = ({ 
-  children, 
+export const VelocityBlur = ({
+  children,
   className = '',
   maxBlur = 5,
   sensitivity = 1000
 }: VelocityBlurProps) => {
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  
+
   const blur = useTransform(
     scrollVelocity,
     [-sensitivity, 0, sensitivity],
@@ -72,7 +72,7 @@ export const VelocityBlur = ({
 
   return (
     <motion.div
-      style={{ 
+      style={{
         filter: useTransform(smoothBlur, (v) => `blur(${Math.abs(v)}px)`)
       }}
       className={className}
@@ -89,15 +89,15 @@ interface VelocityRotateProps {
   sensitivity?: number
 }
 
-export const VelocityRotate = ({ 
-  children, 
+export const VelocityRotate = ({
+  children,
   className = '',
   maxRotation = 2,
   sensitivity = 500
 }: VelocityRotateProps) => {
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  
+
   const rotate = useTransform(
     scrollVelocity,
     [-sensitivity, 0, sensitivity],
@@ -141,9 +141,9 @@ export const ScrollDirectionIndicator = () => {
 
   return (
     <motion.div
-      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-black/80 dark:bg-white/80 text-white dark:text-black rounded-full backdrop-blur-md"
+      className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-black/80 dark:bg-white/80 text-white dark:text-black backdrop-blur-md"
       initial={{ opacity: 0, y: -20 }}
-      animate={{ 
+      animate={{
         opacity: scrollDirection !== 'idle' ? 1 : 0,
         y: scrollDirection !== 'idle' ? 0 : -20
       }}
@@ -165,8 +165,8 @@ export const ScrollDirectionIndicator = () => {
           ↓
         </motion.span>
         <span>
-          {scrollDirection === 'up' ? 'Scrolling Up' : 
-           scrollDirection === 'down' ? 'Scrolling Down' : 'Idle'}
+          {scrollDirection === 'up' ? 'Scrolling Up' :
+            scrollDirection === 'down' ? 'Scrolling Down' : 'Idle'}
         </span>
       </motion.div>
     </motion.div>
@@ -177,7 +177,7 @@ export const ScrollDirectionIndicator = () => {
 export const VelocityParticles = () => {
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  const [particles, setParticles] = useState<Array<{id: number, x: number, y: number}>>([])
+  const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number }>>([])
 
   useEffect(() => {
     const unsubscribe = scrollVelocity.on('change', (latest) => {
@@ -205,7 +205,7 @@ export const VelocityParticles = () => {
       {particles.map((particle) => (
         <motion.div
           key={particle.id}
-          className="absolute w-2 h-2 bg-black/30 dark:bg-white/30 rounded-full"
+          className="absolute w-2 h-2 bg-black/30 dark:bg-white/30"
           initial={{
             x: particle.x,
             y: particle.y,
@@ -231,7 +231,7 @@ export const VelocityParticles = () => {
 export const SpeedLines = () => {
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
-  
+
   const opacity = useTransform(
     scrollVelocity,
     [-1000, -500, 500, 1000],

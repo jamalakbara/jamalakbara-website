@@ -84,7 +84,7 @@ export default function ProjectsPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Projects Header */}
         <motion.section
-          className="py-20 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -163,11 +163,10 @@ export default function ProjectsPage() {
                     scale: 0.95,
                     transition: { duration: 0.1 }
                   }}
-                  className={`px-6 py-2 rounded-full font-mono text-sm transition-colors duration-300 ${
-                    selectedCategory === category.value
+                  className={`px-6 py-2 rounded-full font-mono text-sm transition-colors duration-300 ${selectedCategory === category.value
                       ? 'bg-black text-white'
                       : 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white'
-                  }`}
+                    }`}
                 >
                   {category.name}
                 </motion.button>
@@ -178,7 +177,7 @@ export default function ProjectsPage() {
 
         {/* Projects Grid */}
         <motion.section
-          className="py-16 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -303,7 +302,7 @@ export default function ProjectsPage() {
 
         {/* Back to Home */}
         <motion.section
-          className="py-16 px-6 text-center"
+          className="py-32 px-6 text-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}

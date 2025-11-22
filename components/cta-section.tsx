@@ -91,9 +91,9 @@ export function CTASection() {
 
   return (
     <>
-      <motion.section 
+      <motion.section
         id="contact"
-        className="pt-20 pb-16 md:pb-24 px-4 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
+        className="pt-20 pb-16 md:pb-24 px-6 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
         ref={ref}
         style={{ y, scale, opacity, rotateX }}
       >
@@ -103,14 +103,14 @@ export function CTASection() {
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
-          
+
           {/* Main CTA Content */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{ duration: 0.8 }}
           >
-            <motion.h2 
+            <motion.h2
               className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-[0.9]"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -128,13 +128,13 @@ export function CTASection() {
               </motion.span>
             </motion.h2>
 
-            <motion.p 
+            <motion.p
               className="text-lg md:text-xl text-emerald-100 dark:text-emerald-200 font-sans max-w-xl mx-auto mb-8 leading-normal"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              Ready to transform your ideas into reality? Let&apos;s discuss your next project 
+              Ready to transform your ideas into reality? Let&apos;s discuss your next project
               and create something that stands out from the crowd.
             </motion.p>
 
@@ -148,7 +148,7 @@ export function CTASection() {
                 variants={pulseVariants}
                 initial="initial"
                 animate="animate"
-                whileHover={{ 
+                whileHover={{
                   scale: 1.1,
                   backgroundColor: "#fff",
                   color: "#065f46",
@@ -159,7 +159,7 @@ export function CTASection() {
                 className="group relative px-10 py-4 border-2 border-white text-white font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
               >
                 <span className="relative z-10">Start a Project</span>
-                
+
                 {/* Button background animation */}
                 <motion.div
                   className="absolute inset-0 bg-white"
@@ -215,11 +215,10 @@ export function CTASection() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${
-              submitStatus === 'success'
-                ? 'bg-green-100 border-2 border-green-500 text-green-800'
-                : 'bg-red-100 border-2 border-red-500 text-red-800'
-            }`}
+            className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${submitStatus === 'success'
+              ? 'bg-green-100 border-2 border-green-500 text-green-800'
+              : 'bg-red-100 border-2 border-red-500 text-red-800'
+              }`}
           >
             {submitStatus === 'success' ? (
               <div className="flex items-center gap-3">
@@ -344,8 +343,8 @@ export function CTASection() {
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         >
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                         </motion.svg>
                         Sending...
                       </motion.span>

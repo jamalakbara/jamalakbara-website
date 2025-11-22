@@ -71,13 +71,6 @@ export default async function BlogPostPage({ params }: BlogPostParams) {
   const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null
   const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    })
-  }
 
   return (
     <>

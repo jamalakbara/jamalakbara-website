@@ -33,32 +33,32 @@ export function Navigation() {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 1280) // xl breakpoint for navigation
     }
-    
+
     checkMobile()
     window.addEventListener('resize', checkMobile)
-    
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
-  
+
   // Scroll progress for mobile animation
   const { scrollYProgress } = useScroll()
-  
+
   // Update scroll progress for mobile animation
   useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (latest) => {
       setScrollProgress(latest)
     })
-    
+
     return () => unsubscribe()
   }, [scrollYProgress])
-  
+
   // Determine if animation should be active
   const shouldAnimate = isMobile ? scrollProgress > 0.1 && scrollProgress < 0.9 : isLogoHovered
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 100)
-      
+
       // Close mobile menu when scrolling
       if (isMobileMenuOpen) {
         setIsMobileMenuOpen(false)
@@ -78,7 +78,7 @@ export function Navigation() {
         return null
       }).filter(Boolean)
 
-      const current = sections.find(section => 
+      const current = sections.find(section =>
         section!.top <= window.innerHeight / 2 && section!.bottom >= window.innerHeight / 2
       )
 
@@ -113,27 +113,27 @@ export function Navigation() {
   const getSectionScrollOffset = (sectionId: string) => {
     const navbar = document.querySelector('nav')
     const navbarHeight = navbar ? navbar.offsetHeight : 80
-    
+
     switch (sectionId) {
       case 'hero':
         return 0 // Hero should be at very top
-        
+
       case 'services':
         // Services has py-32 (8rem = 128px), so we want to show some padding
         return navbarHeight + 60
-        
+
       case 'work':
         // Featured work also has py-32
         return navbarHeight + 60
-        
+
       case 'about':
         // About has py-16 (4rem = 64px)
         return navbarHeight + 40
-        
+
       case 'contact':
         // Contact has pt-32 pb-20
         return navbarHeight + 80
-        
+
       default:
         return navbarHeight + 40
     }
@@ -205,28 +205,27 @@ export function Navigation() {
   }
 
   return (
-    <motion.header 
+    <motion.header
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-4 md:px-6"
+      className="fixed top-0 left-0 right-0 z-50 px-6"
     >
-      <motion.nav 
+      <motion.nav
         animate={{
           width: isScrolled ? "60%" : "100%",
           borderRadius: isScrolled ? "24px" : "0px",
           marginTop: isScrolled ? "12px" : "0px"
         }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`mx-auto transition-all duration-500 ${
-          isScrolled 
-            ? 'bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-lg' 
-            : 'bg-transparent'
-        }`}
+        className={`mx-auto transition-all duration-500 ${isScrolled
+          ? 'bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-lg'
+          : 'bg-transparent'
+          }`}
         style={isScrolled ? {} : {}}
       >
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-          
+
           {/* Logo/Brand */}
           <motion.div
             className="cursor-pointer group relative h-8 w-32 overflow-hidden flex items-center"
@@ -251,7 +250,7 @@ export function Navigation() {
               >
                 jamal
               </motion.span>
-              
+
               {/* "akbar" - transforms */}
               <motion.span
                 className="inline-block relative"
@@ -269,7 +268,7 @@ export function Navigation() {
               >
                 akbar
               </motion.span>
-              
+
               {/* "a" (after akbar) - disappears */}
               <motion.span
                 className="inline-block"
@@ -282,7 +281,7 @@ export function Navigation() {
               >
                 a
               </motion.span>
-              
+
               {/* "." - stays close to akbar */}
               <motion.span
                 className="inline-block"
@@ -303,10 +302,10 @@ export function Navigation() {
                 key={item.id}
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.4, 
+                transition={{
+                  duration: 0.4,
                   delay: index * 0.1,
-                  ease: "easeOut" 
+                  ease: "easeOut"
                 }}
                 className="relative"
               >
@@ -317,42 +316,42 @@ export function Navigation() {
                   whileTap={{ scale: 0.95 }}
                 >
                   {item.label}
-                  
+
                   {/* Active indicator */}
                   <motion.div
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black dark:bg-white origin-left"
                     initial={{ scaleX: 0 }}
-                    animate={{ 
-                      scaleX: activeSection === item.id ? 1 : 0 
+                    animate={{
+                      scaleX: activeSection === item.id ? 1 : 0
                     }}
-                    transition={{ 
-                      duration: 0.3, 
-                      ease: "easeInOut" 
+                    transition={{
+                      duration: 0.3,
+                      ease: "easeInOut"
                     }}
                   />
-                  
+
                   {/* Hover effect underline */}
                   <motion.div
                     className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gray-400 dark:bg-gray-500 origin-left"
                     initial={{ scaleX: 0 }}
                     whileHover={{ scaleX: 1 }}
-                    transition={{ 
-                      duration: 0.2, 
-                      ease: "easeOut" 
+                    transition={{
+                      duration: 0.2,
+                      ease: "easeOut"
                     }}
                   />
                 </motion.button>
               </motion.div>
             ))}
-            
+
             {/* Theme Toggle */}
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ 
-                duration: 0.4, 
+              transition={{
+                duration: 0.4,
                 delay: navigationItems.length * 0.1,
-                ease: "easeOut" 
+                ease: "easeOut"
               }}
             >
               <motion.button
@@ -421,18 +420,17 @@ export function Navigation() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.3 }}
-              className="xl:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 rounded-b-3xl overflow-hidden"
+              className="xl:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden"
             >
               <div className="px-6 py-4 pb-6 space-y-4">
                 {navigationItems.map((item, index) => (
                   <motion.button
                     key={item.id}
                     onClick={() => handleNavigationClick(item)}
-                    className={`block w-full text-left py-3 px-4 rounded-lg font-sans font-medium text-lg transition-colors ${
-                      activeSection === item.id
-                        ? 'bg-black dark:bg-white text-white dark:text-black'
-                        : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
-                    }`}
+                    className={`block w-full text-left py-3 px-4 font-sans font-medium text-lg transition-colors ${activeSection === item.id
+                      ? 'bg-black dark:bg-white text-white dark:text-black'
+                      : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
+                      }`}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{

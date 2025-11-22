@@ -105,13 +105,13 @@ export function CookieConsentBanner() {
               <div className="flex gap-2">
                 <button
                   onClick={handleAcceptAll}
-                  className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+                  className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium  hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
                 >
                   Accept All
                 </button>
                 <button
                   onClick={handleAcceptNecessary}
-                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium rounded-md hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium  hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
                 >
                   Necessary Only
                 </button>
@@ -119,7 +119,7 @@ export function CookieConsentBanner() {
 
               {/* Custom Preferences Toggle */}
               <details className="group relative">
-                <summary className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors list-none">
+                <summary className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium  hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors list-none">
                   Customize
                 </summary>
 
@@ -127,7 +127,7 @@ export function CookieConsentBanner() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg p-4"
+                  className="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-4"
                 >
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
                     Cookie Preferences
@@ -195,13 +195,13 @@ export function CookieConsentBanner() {
                       />
                     </div>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                        Allow enhanced functionality and personalization.
+                      Allow enhanced functionality and personalization.
                     </p>
                   </div>
 
                   <button
                     onClick={handleSavePreferences}
-                    className="w-full mt-4 px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium rounded-md hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+                    className="w-full mt-4 px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium  hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
                   >
                     Save Preferences
                   </button>
