@@ -5,6 +5,7 @@ import { useState, useEffect, useRef } from 'react'
 import { useTheme } from '@/contexts/theme-context'
 import { getStaticContent } from '@/lib/content-manager'
 import { useAnalytics } from '@/hooks/useAnalytics'
+import type { NavigationItem } from '@/lib/content-types'
 
 const navigationItems = getStaticContent.navigation()
 
@@ -138,7 +139,7 @@ export function Navigation() {
     }
   }
 
-  const handleNavigationClick = (item: any) => {
+  const handleNavigationClick = (item: NavigationItem) => {
     // Close mobile menu immediately
     setIsMobileMenuOpen(false)
 

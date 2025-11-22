@@ -13,13 +13,13 @@ import {
   Linkedin
 } from 'lucide-react'
 import { motion } from 'framer-motion'
-import type { BlogPost } from '@/lib/content-types'
+import type { BlogContent } from '@/lib/content-types'
 
 interface BlogPostContentProps {
-  post: BlogPost
-  relatedPosts: BlogPost[]
-  prevPost: BlogPost | null
-  nextPost: BlogPost | null
+  post: BlogContent
+  relatedPosts: BlogContent[]
+  prevPost: BlogContent | null
+  nextPost: BlogContent | null
 }
 
 export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: BlogPostContentProps) {
@@ -48,7 +48,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 80,
         damping: 20,
       },

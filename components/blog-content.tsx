@@ -4,11 +4,11 @@ import Link from 'next/link'
 import { CustomCursor } from '@/components/custom-cursor'
 import { Calendar, Clock, ArrowRight, User, BookOpen } from 'lucide-react'
 import { motion } from 'framer-motion'
-import type { BlogPost } from '@/lib/content-types'
+import type { BlogContent } from '@/lib/content-types'
 
 interface BlogContentProps {
-  featuredPosts: BlogPost[]
-  regularPosts: BlogPost[]
+  featuredPosts: BlogContent[]
+  regularPosts: BlogContent[]
 }
 
 export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
@@ -30,7 +30,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 80,
         damping: 20,
       },
