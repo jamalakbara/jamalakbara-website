@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Image from 'next/image'
 import { getStaticContent } from '@/lib/content-manager'
+import Link from 'next/link'
 
 const aboutContent = getStaticContent.about()
 
@@ -225,8 +226,8 @@ export function AboutSection() {
             </motion.div>
 
             {/* Stats */}
-            <motion.div 
-              className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200"
+            <motion.div
+              className="grid grid-cols-4 gap-8 pt-8 border-t border-gray-200"
               variants={fadeInUp}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
@@ -244,16 +245,37 @@ export function AboutSection() {
             </motion.div>
 
             {/* Philosophy */}
-            <motion.div 
+            <motion.div
               className="bg-gray-50 dark:bg-gray-800 p-8 border-l-4 border-black dark:border-white transition-colors duration-300"
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 30 }}
               transition={{ delay: 1.2, duration: 0.8 }}
             >
               <p className="text-lg font-serif italic text-black dark:text-white leading-relaxed transition-colors duration-300">
-                &ldquo;Great design is not about making something look good. 
+                &ldquo;Great design is not about making something look good.
                 It&apos;s about making something work beautifully.&rdquo;
               </p>
+            </motion.div>
+
+            {/* View More Button */}
+            <motion.div
+              className="pt-8 text-center"
+              variants={fadeInUp}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              transition={{ delay: 1.4, duration: 0.8 }}
+            >
+              <Link href="/about">
+                <div className="group inline-flex items-center gap-3 px-8 py-4 bg-transparent border-2 border-black dark:border-white text-black dark:text-white font-mono text-sm font-medium tracking-wider uppercase transition-all duration-300 hover:bg-black hover:text-white cursor-pointer hover:gap-4">
+                  <span>View More Details</span>
+                  <motion.div
+                    className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                    whileHover={{ x: 5 }}
+                  >
+                    →
+                  </motion.div>
+                </div>
+              </Link>
             </motion.div>
           </motion.div>
           </div>

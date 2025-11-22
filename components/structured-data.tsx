@@ -119,6 +119,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Jamal Akbar Alam",
+      "alternateName": "jamalakbara",
       "url": "https://jamalakbara.com",
       "image": "https://jamalakbara.com/profile-image.png",
       "sameAs": [
@@ -128,45 +129,96 @@ export function StructuredData({ type, data }: StructuredDataProps) {
         "https://facebook.com/jamalakbara",
         "https://instagram.com/jamalakbara",
       ],
-      "jobTitle": "Creative Developer & Designer",
+      "jobTitle": ["Full-Stack Developer", "UI/UX Designer", "Creative Developer", "Mobile Developer"],
       "worksFor": {
         "@type": "Organization",
-        "name": "jamalakbara."
+        "name": "jamalakbara.",
+        "alternateName": "Jamal Akbar Alam Creative Development"
       },
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Bandung",
-        "addressCountry": "Indonesia"
+        "addressRegion": "West Java",
+        "addressCountry": "Indonesia",
+        "postalCode": "40291"
       },
       "email": "hello-im@jamalakbara.com",
-      "description": "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy with 5+ years of experience.",
+      "telephone": "+6281321766565",
+      "description": "Jamal Akbar Alam is an expert full-stack developer and UI/UX designer based in Bandung, Indonesia, with over 5 years of experience specializing in modern web development, mobile applications, and comprehensive digital solutions for Indonesian and Southeast Asian markets. Expert in Next.js 15, React.js, TypeScript, and Indonesian payment gateway integration with proven success across E-Commerce and EdTech sectors.",
       "knowsAbout": [
-        "Portfolio Development",
         "Web Development",
+        "Mobile Development",
         "UI/UX Design",
         "Frontend Development",
         "Backend Development",
-        "Mobile Development",
-        "Python Development",
+        "Full-Stack Development",
         "React Development",
         "Next.js Development",
         "TypeScript Development",
-        "Shopify Development",
-        "Brand Strategy",
-        "Creative Direction",
-        "Full-Stack Development",
+        "Python Development",
+        "Node.js Development",
+        "React Native Development",
+        "E-Commerce Development",
+        "EdTech Development",
+        "Indonesian Market Integration",
+        "Payment Gateway Integration",
+        "Performance Optimization",
         "Responsive Design",
-        "Performance Optimization"
+        "Progressive Web Apps",
+        "API Development",
+        "Database Design",
+        "Cloud Architecture",
+        "DevOps",
+        "SEO Optimization"
       ],
-      "keywords": "portfolio akbar, portfolio jamal akbar alam, creative developer, web development, UI/UX design, React developer, Next.js developer, TypeScript, Python, full-stack developer, Bandung, Indonesia",
+      "keywords": "jamal akbar alam, jamalakbara, web developer bandung, indonesian web developer, full-stack developer indonesia, react developer indonesia, next.js developer, next.js 15 developer, ui/ux designer bandung, mobile app developer indonesia, ecommerce developer, software engineer bandung, freelance developer indonesia, portfolio developer, creative developer, digital solutions indonesia, indonesian payment gateway integration, midtrans integration, gopay integration, ovo integration, dana integration, xendit integration, react native developer, indonesian ecommerce development, bandung software development, jakarta web development, surabaya mobile development, indonesian tech expert, cloud architecture specialist, progressive web apps, performance optimization indonesia, indonesian market expertise, digital transformation indonesia",
       "hasOccupation": {
         "@type": "Occupation",
-        "name": "Creative Developer & Designer",
+        "name": "Full-Stack Developer & UI/UX Designer",
         "occupationLocation": {
           "@type": "Place",
           "name": "Bandung, Indonesia"
         },
-        "description": "Specializes in creating exceptional digital experiences through modern web development and creative design."
+        "description": "Jamal Akbar Alam specializes in creating exceptional digital experiences through modern web development, mobile applications, and UI/UX design for Indonesian and international clients.",
+        "skills": [
+          "React.js",
+          "Next.js 15",
+          "TypeScript",
+          "Python",
+          "Node.js",
+          "React Native",
+          "UI/UX Design",
+          "Database Design",
+          "Cloud Architecture"
+        ]
+      },
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "Telkom University",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Bandung",
+          "addressCountry": "Indonesia"
+        }
+      },
+      "award": [
+        "AWS Certified Cloud Practitioner",
+        "Advanced React & Next.js Development Certification",
+        "Professional Scrum Master (PSM I)",
+        "Bachelor of Computer Science - Telkom University"
+      ],
+      "makesOffer": {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Web Development & Digital Solutions",
+          "description": "Complete web development, mobile development, and UI/UX design services for Indonesian and international clients"
+        }
+      },
+      "seeks": {
+        "@type": "Demand",
+        "name": "New Projects & Collaborations",
+        "description": "Seeking challenging web development, mobile development, and UI/UX design projects"
       }
     }
   }

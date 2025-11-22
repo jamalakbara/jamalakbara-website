@@ -32,11 +32,105 @@ export interface AboutContent {
     subtitle: string;
   };
   description: string[];
+  expertise: {
+    title: string;
+    areas: {
+      name: string;
+      technologies: string[];
+      description: string;
+    }[];
+  };
+  indonesianExperience: {
+    title: string;
+    description: string;
+    achievements: string[];
+  };
   stats: {
     label: string;
     value: string;
     description: string;
   }[];
+  education: {
+    title: string;
+    details: string;
+    certifications: string[];
+  };
+  location: {
+    title: string;
+    description: string;
+    serviceAreas: string[];
+  };
+  profileImage?: string;
+}
+
+export interface ComprehensiveAboutContent {
+  heading: {
+    main: string;
+    subtitle: string;
+  };
+  professionalSummary: string[];
+  expertise: {
+    title: string;
+    areas: {
+      name: string;
+      technologies: string[];
+      description: string;
+      proficiencyLevel: string;
+      yearsExperience: number;
+    }[];
+  };
+  technicalProcess: {
+    title: string;
+    methodology: string[];
+    technologies: {
+      frontend: string[];
+      backend: string[];
+      mobile: string[];
+      database: string[];
+      cloud: string[];
+    };
+  };
+  indonesianMarketExpertise: {
+    title: string;
+    description: string;
+    specializations: {
+      sector: string;
+      description: string;
+      achievements: string[];
+    }[];
+  };
+  successStories: {
+    title: string;
+    projects: {
+      client: string;
+      industry: string;
+      challenge: string;
+      solution: string;
+      results: string;
+      technologies: string[];
+    }[];
+  };
+  education: {
+    title: string;
+    details: string;
+    certifications: string[];
+    continuousLearning: string[];
+  };
+  stats: {
+    label: string;
+    value: string;
+    description: string;
+  }[];
+  location: {
+    title: string;
+    description: string;
+    serviceAreas: string[];
+  };
+  contact: {
+    email: string;
+    phone: string;
+    availability: string;
+  };
   profileImage?: string;
 }
 
@@ -76,6 +170,34 @@ export interface HeroContent {
       action: string;
     };
   };
+}
+
+export interface BlogContent {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  tags: string[];
+  publishedAt: string;
+  updatedAt: string;
+  author: string;
+  readTime: number;
+  featured: boolean;
+  seo: {
+    metaDescription: string;
+    keywords: string[];
+    ogImage?: string;
+  };
+  contentBlocks?: {
+    type: 'heading' | 'paragraph' | 'list' | 'code';
+    text?: string;
+    level?: number;
+    items?: string[];
+    language?: string;
+    code?: string;
+  }[];
 }
 
 export interface CTAContent {

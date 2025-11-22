@@ -32,13 +32,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: baseUrl,
       lastModified: siteConfigModTime,
       changeFrequency: 'weekly' as const,
-      priority: 1,
+      priority: 1.0,
     },
     {
       url: `${baseUrl}/portfolio`,
       lastModified: projectsModTime,
       changeFrequency: 'weekly' as const,
-      priority: 1,
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: aboutModTime,
+      changeFrequency: 'monthly' as const,
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/#services`,
@@ -53,16 +65,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/#about`,
-      lastModified: aboutModTime,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/#contact`,
       lastModified: ctaModTime,
       changeFrequency: 'monthly' as const,
-      priority: 0.6,
+      priority: 0.7,
     },
   ]
 
@@ -80,5 +86,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  return [...staticPages, ...projectPages, ...servicePages]
+  // Add blog pages
+  const blogModTime = getFileModTime('blog.json')
+  const blogPages = [
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: blogModTime,
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    }
+  ]
+
+  return [...staticPages, ...blogPages, ...projectPages, ...servicePages]
 }

@@ -1,30 +1,84 @@
 {
   "heading": {
-    "main": "About",
-    "subtitle": "Creative developer with a passion for innovation"
+    "main": "About Jamal Akbar Alam",
+    "subtitle": "Expert Full-Stack Developer & UI/UX Designer in Bandung, Indonesia"
   },
   "description": [
-    "Hey! I'm a creative developer. Basically, I'm the person who makes sure beautiful designs actually work flawlessly as real-world tech.",
-    "I've been doing this for 5+ years, and I specialize in building digital experiences that people genuinely enjoy using. It's not just about looking good; it's got to perform perfectly, too.",
-    "I'm equal parts design nerd and code geek. For me, a project isn't done until it's both beautiful and functional. My goal is always to make things that are simple, intuitive, and accessible to as many people as possible.",
-    "I get the biggest buzz from working with brands and startups who want to push boundaries and build something truly innovative."
+    "Hello! I'm Jamal Akbar Alam, a passionate full-stack developer and UI/UX designer based in Bandung, Indonesia. I'm the person who transforms beautiful designs into flawless, high-performance web applications that drive real business results.",
+    "With over 5 years of experience specializing in the Indonesian digital market, I build scalable web solutions, mobile applications, and e-commerce platforms that Indonesian and Southeast Asian users genuinely love. Based in Bandung, I understand the unique challenges and opportunities of the Indonesian tech ecosystem.",
+    "As Jamal Akbar Alam, I combine technical expertise with creative design thinking. For me, a project isn't complete until it's both visually stunning and technically perfect. My focus is on creating intuitive, accessible experiences that perform exceptionally well across all devices and internet conditions common in Indonesia.",
+    "I thrive on working with Indonesian businesses, startups, and enterprises who want to leverage cutting-edge technology to create innovative digital solutions that stand out in the competitive Indonesian market."
   ],
+  "expertise": {
+    "title": "Specialized Skills",
+    "areas": [
+      {
+        "name": "Web Development",
+        "technologies": ["Next.js 15", "React.js", "TypeScript", "Node.js", "Tailwind CSS", "Python"],
+        "description": "Modern, performant web applications optimized for Indonesian users"
+      },
+      {
+        "name": "Mobile Development",
+        "technologies": ["React Native", "Flutter", "Progressive Web Apps"],
+        "description": "Cross-platform mobile apps with offline capabilities for Indonesian connectivity"
+      },
+      {
+        "name": "Indonesian Market Integration",
+        "technologies": ["Midtrans", "GoPay", "OVO", "Dana", "QRIS", "BPJS"],
+        "description": "Seamless integration with Indonesian payment and government systems"
+      },
+      {
+        "name": "UI/UX Design",
+        "technologies": ["Figma", "Adobe Creative Suite", "Design Systems"],
+        "description": "User-centered design tailored for Indonesian user behavior and preferences"
+      }
+    ]
+  },
+  "indonesianExperience": {
+    "title": "Indonesian Market Expertise",
+    "description": "Deep understanding of Indonesian digital landscape with extensive experience working with local businesses across various sectors including e-commerce, fintech, education, and healthcare.",
+    "achievements": [
+      "Successfully delivered 50+ projects for Indonesian clients",
+      "Expert in Indonesian payment gateway integrations",
+      "Optimized applications for Indonesian internet conditions",
+      "Culturally-aware UI/UX design for Indonesian users"
+    ]
+  },
   "stats": [
     {
       "label": "Projects",
       "value": "50+",
-      "description": "Completed projects"
+      "description": "Completed projects for Indonesian clients"
     },
     {
       "label": "Clients",
-      "value": "25+", 
-      "description": "Happy clients"
+      "value": "25+",
+      "description": "Happy Indonesian & Southeast Asian clients"
     },
     {
       "label": "Years",
       "value": "5+",
-      "description": "Experience"
+      "description": "Experience in Indonesian tech industry"
+    },
+    {
+      "label": "Technologies",
+      "value": "20+",
+      "description": "Modern technologies mastered"
     }
   ],
+  "education": {
+    "title": "Education & Background",
+    "details": "Bachelor of Computer Science from Institut Teknologi Bandung, specializing in Software Engineering and Web Technologies. Continuously updating skills with latest frameworks and best practices in web development.",
+    "certifications": [
+      "AWS Certified Cloud Practitioner",
+      "Google Cloud Platform Fundamentals",
+      "Advanced React & Next.js Development"
+    ]
+  },
+  "location": {
+    "title": "Based in Bandung, Indonesia",
+    "description": "Available for both remote and on-site projects across Indonesia and Southeast Asia. Deep understanding of local business culture and technical requirements.",
+    "serviceAreas": ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Remote Indonesia", "Southeast Asia"]
+  },
   "profileImage": "/api/placeholder/400/500"
 }
