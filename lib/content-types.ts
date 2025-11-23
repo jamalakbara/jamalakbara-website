@@ -5,6 +5,17 @@ export interface Service {
   description: string;
   icon: string;
   category?: string;
+  // New fields for detailed service page
+  features?: string[];
+  process?: {
+    title: string;
+    desc: string;
+  }[];
+  technologies?: string[];
+  benefits?: {
+    title: string;
+    desc: string;
+  }[];
 }
 
 export interface Project {

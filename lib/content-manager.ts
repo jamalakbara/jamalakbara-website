@@ -176,28 +176,113 @@ export const getStaticContent = {
         "title": "UI/UX Design",
         "description": "Creating intuitive and visually stunning user interfaces that enhance user experience and drive engagement.",
         "icon": "✦",
-        "category": "Design"
+        "category": "Design",
+        "features": [
+          "User Research & Persona Development",
+          "Wireframing & Interactive Prototyping",
+          "Comprehensive Design Systems",
+          "High-Fidelity UI Design",
+          "Usability Testing & Iteration"
+        ],
+        "process": [
+          { "title": "Discovery", "desc": "Understanding your business goals, target audience, and user needs through in-depth research." },
+          { "title": "Definition", "desc": "Structuring the information architecture and creating user flows to ensure a logical journey." },
+          { "title": "Design", "desc": "Crafting visual elements and interactive prototypes that align with your brand identity." },
+          { "title": "Validation", "desc": "Testing designs with real users to identify friction points and refine the experience." }
+        ],
+        "technologies": [
+          "Figma", "Adobe XD", "Sketch", "Principle", "InVision", "Photoshop", "Illustrator"
+        ],
+        "benefits": [
+          { "title": "Higher Conversion Rates", "desc": "Optimized user flows that guide visitors toward your business goals." },
+          { "title": "Brand Consistency", "desc": "A unified visual language that strengthens your brand presence across all touchpoints." },
+          { "title": "User Satisfaction", "desc": "Intuitive interfaces that make your product a joy to use, increasing retention." }
+        ]
       },
       {
         "id": "frontend-development",
         "title": "Frontend Development",
         "description": "Building responsive, performant web applications using modern technologies and best practices.",
         "icon": "◉",
-        "category": "Development"
+        "category": "Development",
+        "features": [
+          "Responsive & Adaptive Design",
+          "Single Page Applications (SPA)",
+          "Progressive Web Apps (PWA)",
+          "Performance Optimization (Core Web Vitals)",
+          "Accessibility Compliance (WCAG)"
+        ],
+        "process": [
+          { "title": "Architecture", "desc": "Planning the component structure and state management strategy for scalability." },
+          { "title": "Development", "desc": "Writing clean, semantic, and modular code using modern frameworks like React and Next.js." },
+          { "title": "Optimization", "desc": "Fine-tuning performance, ensuring fast load times and smooth animations." },
+          { "title": "Integration", "desc": "Connecting with backend APIs and third-party services seamlessly." }
+        ],
+        "technologies": [
+          "React", "Next.js", "TypeScript", "Tailwind CSS", "Styled Components", "Redux", "Zustand"
+        ],
+        "benefits": [
+          { "title": "Blazing Fast Performance", "desc": "Optimized code delivery for instant page loads and smooth interactions." },
+          { "title": "SEO Friendly", "desc": "Server-side rendering and semantic HTML to boost your search engine rankings." },
+          { "title": "Cross-Device Compatibility", "desc": "Flawless experience on desktops, tablets, and mobile devices." }
+        ]
       },
       {
         "id": "backend-development",
         "title": "Backend Development",
         "description": "Building robust server-side applications, APIs, and database systems that power modern web experiences with scalability and security.",
         "icon": "△",
-        "category": "Development"
+        "category": "Development",
+        "features": [
+          "RESTful & GraphQL API Design",
+          "Database Architecture & Optimization",
+          "Authentication & Authorization Systems",
+          "Microservices Architecture",
+          "Cloud Infrastructure Setup"
+        ],
+        "process": [
+          { "title": "System Design", "desc": "Designing scalable database schemas and API architecture." },
+          { "title": "Implementation", "desc": "Developing secure and efficient server-side logic and data processing pipelines." },
+          { "title": "Security", "desc": "Implementing robust security measures including encryption and access controls." },
+          { "title": "Deployment", "desc": "Setting up CI/CD pipelines and cloud infrastructure for reliable hosting." }
+        ],
+        "technologies": [
+          "Python", "FastAPI", "Django", "Node.js", "Express.js",
+          "PostgreSQL", "MongoDB", "MySQL", "Redis", "Docker", "AWS"
+        ],
+        "benefits": [
+          { "title": "Scalability", "desc": "Systems designed to grow with your user base without compromising performance." },
+          { "title": "Data Integrity", "desc": "Reliable data storage and management ensuring accuracy and consistency." },
+          { "title": "Security", "desc": "Enterprise-grade security to protect sensitive user and business data." }
+        ]
       },
       {
         "id": "mobile-development",
         "title": "Mobile Development",
         "description": "Creating native and cross-platform mobile applications with React Native and Flutter, delivering seamless user experiences across iOS and Android devices.",
         "icon": "▫",
-        "category": "Development"
+        "category": "Development",
+        "features": [
+          "Cross-Platform Development",
+          "Native Module Integration",
+          "Offline-First Architecture",
+          "Push Notification Systems",
+          "App Store Optimization & Deployment"
+        ],
+        "process": [
+          { "title": "Strategy", "desc": "Defining the mobile strategy and platform-specific requirements." },
+          { "title": "UI/UX Adaptation", "desc": "Adapting designs for native mobile patterns and gestures." },
+          { "title": "Development", "desc": "Building the app using React Native for code reusability and native performance." },
+          { "title": "Release", "desc": "Managing the submission and approval process for App Store and Google Play." }
+        ],
+        "technologies": [
+          "React Native", "Expo", "TypeScript", "Redux", "Firebase", "SQLite", "Jest"
+        ],
+        "benefits": [
+          { "title": "Wider Reach", "desc": "Launch on both iOS and Android simultaneously to reach maximum audience." },
+          { "title": "Cost Effective", "desc": "Shared codebase reduces development time and maintenance costs." },
+          { "title": "Native Performance", "desc": "Smooth, 60fps animations and native look-and-feel." }
+        ]
       }
     ]
   },

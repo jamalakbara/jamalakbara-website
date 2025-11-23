@@ -62,7 +62,24 @@ export default function ServicePage({ params }: ServicePageProps) {
       <ServicePostContent
         service={service}
         otherServices={otherServices}
+        relatedProjects={getRelatedProjects(service.id)}
       />
     </>
   )
+}
+
+function getRelatedProjects(serviceId: string) {
+  const projects = getStaticContent.projects()
+  switch (serviceId) {
+    case 'mobile-development':
+      return projects.filter(p => p.id === 'split-bill-app')
+    case 'backend-development':
+      return projects.filter(p => ['base-data-dashboard', 'combo'].includes(p.id))
+    case 'ui-ux-design':
+      return projects.filter(p => ['aza-wear', 'duma', 'sonderlab'].includes(p.id)).slice(0, 2)
+    case 'frontend-development':
+      return projects.filter(p => ['sonderlab', 'nawaclo', 'green-rebel-foods'].includes(p.id)).slice(0, 2)
+    default:
+      return projects.filter(p => p.featured).slice(0, 2)
+  }
 }
