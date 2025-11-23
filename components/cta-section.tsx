@@ -1,67 +1,15 @@
 'use client'
 
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+import { motion, useInView, useScroll, useTransform } from 'framer-motion'
 import { useRef, useState } from 'react'
 import { getStaticContent } from '@/lib/content-manager'
 import { ContactModal } from '@/components/contact-modal'
 
 export function CTASection() {
   const ref = useRef(null)
-  const formRef = useRef<HTMLFormElement>(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [showStatus, setShowStatus] = useState(false)
   const siteConfig = getStaticContent.siteConfig()
-
-  // Formspree form endpoint from environment variables
-  const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xjkbvlqd'
-
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
-
-    try {
-      const formData = new FormData(event.currentTarget)
-
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-
-      if (response.ok) {
-        setSubmitStatus('success')
-        setIsModalOpen(false)
-
-        // Show success message briefly
-        setShowStatus(true)
-        setTimeout(() => {
-          setShowStatus(false)
-        }, 3000)
-
-        // Reset form using ref
-        if (formRef.current) {
-          formRef.current.reset()
-        }
-      } else {
-        throw new Error('Form submission failed')
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-      setSubmitStatus('error')
-      setShowStatus(true)
-      setTimeout(() => {
-        setShowStatus(false)
-      }, 5000)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
 
   // Scroll-based animations for stacking effect
   const { scrollYProgress } = useScroll({

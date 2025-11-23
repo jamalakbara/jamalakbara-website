@@ -8,12 +8,15 @@ import {
   Calendar,
   ArrowLeft,
   ArrowRight,
-  Github,
-  ExternalLink,
   Layers,
+  ExternalLink,
+  Github,
   Check,
-  Quote,
-  TrendingUp
+  Share2,
+  Linkedin,
+  Twitter,
+  Facebook,
+  Link as LinkIcon
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { Project } from '@/lib/content-types'
@@ -277,7 +280,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                   Interested in a project like this?
                 </h2>
                 <p className="text-lg text-gray-300 dark:text-gray-700 max-w-2xl mx-auto">
-                  Let's discuss how we can bring your vision to life with the same level of quality and attention to detail.
+                  Let&apos;s discuss how we can bring your vision to life with the same level of quality and attention to detail.
                 </p>
                 <div className="flex flex-wrap justify-center gap-4">
                   <button
