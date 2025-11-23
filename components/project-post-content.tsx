@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { CustomCursor } from '@/components/custom-cursor'
@@ -9,10 +10,14 @@ import {
   ArrowRight,
   Github,
   ExternalLink,
-  Layers
+  Layers,
+  Check,
+  Quote,
+  TrendingUp
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { Project } from '@/lib/content-types'
+import { ContactModal } from '@/components/contact-modal'
 
 interface ProjectPostContentProps {
   project: Project
@@ -22,6 +27,8 @@ interface ProjectPostContentProps {
 }
 
 export function ProjectPostContent({ project, relatedProjects, prevProject, nextProject }: ProjectPostContentProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -149,38 +156,144 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
 
             {/* Project Content */}
             <motion.div variants={itemVariants} className="space-y-12">
-              {/* Description */}
-              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 md:p-12">
-                <h2 className="text-2xl font-serif font-bold text-black dark:text-white mb-6">
-                  Overview
-                </h2>
-                <div className="prose prose-lg max-w-none">
-                  <p className="text-lg md:text-xl text-black dark:text-white leading-relaxed font-serif">
-                    {project.description}
-                  </p>
+              {/* Description & Story */}
+              <div className="grid lg:grid-cols-3 gap-12">
+                <div className="lg:col-span-2 space-y-12">
+                  {/* Overview */}
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-serif font-bold text-black dark:text-white">
+                      Overview
+                    </h2>
+                    <div className="prose prose-lg max-w-none text-gray-600 dark:text-gray-400 leading-relaxed">
+                      <p>{project.description}</p>
+                    </div>
+                  </div>
+
+                  {/* Challenge & Solution */}
+                  {(project.challenge || project.solution) && (
+                    <div className="space-y-12">
+                      {project.challenge && (
+                        <div className="space-y-6">
+                          <h3 className="text-xl font-serif font-bold text-black dark:text-white">
+                            The Challenge
+                          </h3>
+                          <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {project.challenge}
+                          </p>
+                        </div>
+                      )}
+                      {project.solution && (
+                        <div className="space-y-6">
+                          <h3 className="text-xl font-serif font-bold text-black dark:text-white">
+                            The Solution
+                          </h3>
+                          <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
+                            {project.solution}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* Sidebar: Tech & Features */}
+                <div className="space-y-12">
+                  {/* Technologies */}
+                  <div className="space-y-6">
+                    <h3 className="text-lg font-mono font-bold uppercase tracking-wider text-black dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4">
+                      Technologies
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {project.tech.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-sm font-mono text-gray-700 dark:text-gray-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Key Features */}
+                  {project.features && project.features.length > 0 && (
+                    <div className="space-y-6">
+                      <h3 className="text-lg font-mono font-bold uppercase tracking-wider text-black dark:text-white border-b border-gray-200 dark:border-gray-700 pb-4">
+                        Key Features
+                      </h3>
+                      <ul className="space-y-4">
+                        {project.features.map((feature, index) => (
+                          <li key={index} className="flex items-start gap-3 text-gray-600 dark:text-gray-400">
+                            <Check className="h-5 w-5 text-green-500 shrink-0 mt-0.5" />
+                            <span className="text-sm">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Technologies */}
-              <div className="space-y-6">
-                <h2 className="text-2xl font-serif font-bold text-black dark:text-white">
-                  Technologies Used
-                </h2>
-                <div className="flex flex-wrap gap-3">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-sm font-mono text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
-                    >
-                      {tech}
-                    </span>
+              {/* Metrics */}
+              {project.metrics && project.metrics.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 py-12 border-y border-gray-200 dark:border-gray-700">
+                  {project.metrics.map((metric, index) => (
+                    <div key={index} className="text-center space-y-2">
+                      <div className="text-3xl md:text-4xl font-bold font-serif text-black dark:text-white">
+                        {metric.value}
+                      </div>
+                      <div className="text-xs font-mono uppercase tracking-wider text-gray-500">
+                        {metric.label}
+                      </div>
+                    </div>
                   ))}
                 </div>
+              )}
+
+              {/* Gallery */}
+              {project.gallery && project.gallery.length > 0 && (
+                <div className="space-y-8">
+                  <h3 className="text-2xl font-serif font-bold text-black dark:text-white">
+                    Project Gallery
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {project.gallery.map((image, index) => (
+                      <div key={index} className="relative aspect-video bg-gray-100 dark:bg-gray-900 overflow-hidden border border-gray-200 dark:border-gray-700">
+                        <Image
+                          src={image}
+                          alt={`${project.title} screenshot ${index + 1}`}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* CTA Section */}
+              <div className="bg-black dark:bg-white text-white dark:text-black p-12 text-center space-y-8">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold">
+                  Interested in a project like this?
+                </h2>
+                <p className="text-lg text-gray-300 dark:text-gray-700 max-w-2xl mx-auto">
+                  Let's discuss how we can bring your vision to life with the same level of quality and attention to detail.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="px-8 py-4 bg-white dark:bg-black text-black dark:text-white font-mono text-sm font-bold hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    Start a Project
+                  </button>
+                </div>
               </div>
+
+              <ContactModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} projectTitle={project.title} />
 
               {/* Share Project */}
               <div className="pt-12 border-t border-gray-200 dark:border-gray-700 text-center">
-                <h2 className="text-2xl font-serif font-bold text-black dark:text-white mb-8">
+                <h2 className="text-xl font-serif font-bold text-black dark:text-white mb-8">
                   Share This Project
                 </h2>
                 <div className="flex flex-wrap items-center justify-center gap-4">
@@ -188,7 +301,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                     href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(`https://jamalakbara.com/project/${project.id}`)}&text=${encodeURIComponent(`Check out ${project.title} by @jamalakbara`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono text-sm hover:opacity-80 transition-opacity"
+                    className="flex items-center px-6 py-3 bg-gray-100 dark:bg-gray-900 text-black dark:text-white font-mono text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
                   >
                     <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" />

@@ -18,6 +18,20 @@ export interface Project {
   url?: string;
   livePreview?: string;
   featured?: boolean;
+  // New fields for detailed case study
+  challenge?: string;
+  solution?: string;
+  features?: string[];
+  gallery?: string[];
+  testimonial?: {
+    quote: string;
+    author: string;
+    role: string;
+  };
+  metrics?: {
+    label: string;
+    value: string;
+  }[];
 }
 
 export interface NavigationItem {
