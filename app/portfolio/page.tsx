@@ -144,7 +144,7 @@ export default function PortfolioPage() {
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
         {/* Portfolio Header */}
         <motion.section
-          className="py-20 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -225,11 +225,10 @@ export default function PortfolioPage() {
                     scale: 0.95,
                     transition: { duration: 0.1 }
                   }}
-                  className={`px-6 py-2 rounded-full font-mono text-sm transition-colors duration-300 ${
-                    selectedCategory === category.value
-                      ? 'bg-black text-white'
-                      : 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white'
-                  }`}
+                  className={`px-6 py-2 rounded-full font-mono text-sm transition-colors duration-300 ${selectedCategory === category.value
+                    ? 'bg-black text-white'
+                    : 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white'
+                    }`}
                 >
                   {category.name}
                 </motion.button>
@@ -240,7 +239,7 @@ export default function PortfolioPage() {
 
         {/* Projects Grid */}
         <motion.section
-          className="py-16 px-6"
+          className="py-32 px-6"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -252,76 +251,76 @@ export default function PortfolioPage() {
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
               >
                 {filteredProjects.map((project) => (
-                <Link href={`/project/${project.id}`} key={project.id}>
-                  <motion.div
-                    variants={cardVariants}
-                    whileHover={{
-                      y: -10,
-                      transition: { type: "spring" as const, stiffness: 400, damping: 25 }
-                    }}
-                    className="group relative cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-0 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
-                  >
-                    {/* Project Image */}
-                    <div className="aspect-video relative overflow-hidden">
-                      <div
-                        className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                        style={{ backgroundImage: `url(${project.image})` }}
-                        role="img"
-                        aria-label={`${project.title} - Portfolio project by Jamal Akbar Alam in ${project.category}`}
-                      />
-                    </div>
-
-                    {/* Project Content */}
-                    <div className="p-6">
-                      {/* Category & Year */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                          {project.category}
-                        </span>
-                        <div className="w-12 h-px bg-gray-300 dark:bg-gray-600" />
-                        <span className="text-sm font-mono text-gray-700 dark:text-gray-300">
-                          {project.year}
-                        </span>
+                  <Link href={`/project/${project.id}`} key={project.id}>
+                    <motion.div
+                      variants={cardVariants}
+                      whileHover={{
+                        y: -10,
+                        transition: { type: "spring" as const, stiffness: 400, damping: 25 }
+                      }}
+                      className="group relative cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-0 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                    >
+                      {/* Project Image */}
+                      <div className="aspect-video relative overflow-hidden">
+                        <div
+                          className="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                          style={{ backgroundImage: `url(${project.image})` }}
+                          role="img"
+                          aria-label={`${project.title} - Portfolio project by Jamal Akbar Alam in ${project.category}`}
+                        />
                       </div>
 
-                      {/* Title */}
-                      <motion.h3
-                        className="text-xl font-serif font-bold text-black dark:text-white mb-4 transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
-                      >
-                        {project.title}
-                      </motion.h3>
-
-                      {/* Description */}
-                      <p className="text-gray-600 dark:text-gray-400 font-sans text-base leading-relaxed mb-6 line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.tech.slice(0, 3).map((tech) => (
-                          <span
-                            key={tech}
-                            className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono transition-colors duration-300 group-hover:border-black dark:group-hover:border-white"
-                          >
-                            {tech}
+                      {/* Project Content */}
+                      <div className="p-6">
+                        {/* Category & Year */}
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider">
+                            {project.category}
                           </span>
-                        ))}
-                      </div>
+                          <div className="w-12 h-px bg-gray-300 dark:bg-gray-600" />
+                          <span className="text-sm font-mono text-gray-700 dark:text-gray-300">
+                            {project.year}
+                          </span>
+                        </div>
 
-                      {/* View Project Link */}
-                      <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
-                        <span>View Project</span>
-                        <motion.div
-                          className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
-                          whileHover={{ x: 5 }}
+                        {/* Title */}
+                        <motion.h3
+                          className="text-xl font-serif font-bold text-black dark:text-white mb-4 transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
                         >
-                          →
-                        </motion.div>
+                          {project.title}
+                        </motion.h3>
+
+                        {/* Description */}
+                        <p className="text-gray-600 dark:text-gray-400 font-sans text-base leading-relaxed mb-6 line-clamp-3">
+                          {project.description}
+                        </p>
+
+                        {/* Tech Stack */}
+                        <div className="flex flex-wrap gap-2 mb-6">
+                          {project.tech.slice(0, 3).map((tech) => (
+                            <span
+                              key={tech}
+                              className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono transition-colors duration-300 group-hover:border-black dark:group-hover:border-white"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+
+                        {/* View Project Link */}
+                        <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
+                          <span>View Project</span>
+                          <motion.div
+                            className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                            whileHover={{ x: 5 }}
+                          >
+                            →
+                          </motion.div>
+                        </div>
                       </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
+                    </motion.div>
+                  </Link>
+                ))}
               </motion.div>
             ) : (
               <motion.div
@@ -365,7 +364,7 @@ export default function PortfolioPage() {
 
         {/* Services Integration */}
         <motion.section
-          className="py-20 px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
+          className="py-32 px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -409,49 +408,49 @@ export default function PortfolioPage() {
                     }}
                     className="group relative cursor-pointer bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                   >
-                  {/* Service Icon */}
-                  <motion.div
-                    className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ type: "spring", stiffness: 300 }}
-                  >
-                    {service.icon}
-                  </motion.div>
-
-                  {/* Service Content */}
-                  <div className="space-y-4">
-                    {/* Category */}
-                    <motion.span
-                      className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider"
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
+                    {/* Service Icon */}
+                    <motion.div
+                      className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
                     >
-                      {service.category}
-                    </motion.span>
+                      {service.icon}
+                    </motion.div>
 
-                    {/* Title */}
-                    <motion.h3
-                      className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
-                    >
-                      {service.title}
-                    </motion.h3>
-
-                    {/* Description */}
-                    <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base">
-                      {service.description}
-                    </p>
-
-                    {/* Learn More Link */}
-                    <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
-                      <span>Learn More</span>
-                      <motion.div
-                        className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
-                        whileHover={{ x: 5 }}
+                    {/* Service Content */}
+                    <div className="space-y-4">
+                      {/* Category */}
+                      <motion.span
+                        className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider"
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
                       >
-                        →
-                      </motion.div>
+                        {service.category}
+                      </motion.span>
+
+                      {/* Title */}
+                      <motion.h3
+                        className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                      >
+                        {service.title}
+                      </motion.h3>
+
+                      {/* Description */}
+                      <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base">
+                        {service.description}
+                      </p>
+
+                      {/* Learn More Link */}
+                      <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
+                        <span>Learn More</span>
+                        <motion.div
+                          className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                          whileHover={{ x: 5 }}
+                        >
+                          →
+                        </motion.div>
+                      </div>
                     </div>
-                  </div>
                   </motion.div>
                 </Link>
               ))}
@@ -461,7 +460,7 @@ export default function PortfolioPage() {
 
         {/* Call to Action */}
         <motion.section
-          className="pt-20 pb-16 md:pb-24 px-4 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
+          className="pt-20 pb-16 md:pb-24 px-6 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -503,7 +502,8 @@ export default function PortfolioPage() {
                     visible: {
                       opacity: 1,
                       transition: { delay: 0.8, duration: 0.8 }
-                    }}
+                    }
+                  }
                   }
                   className="text-emerald-200 dark:text-emerald-300"
                 >
@@ -622,11 +622,10 @@ export default function PortfolioPage() {
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${
-                submitStatus === 'success'
-                  ? 'bg-green-100 border-2 border-green-500 text-green-800'
-                  : 'bg-red-100 border-2 border-red-500 text-red-800'
-              }`}
+              className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${submitStatus === 'success'
+                ? 'bg-green-100 border-2 border-green-500 text-green-800'
+                : 'bg-red-100 border-2 border-red-500 text-red-800'
+                }`}
             >
               {submitStatus === 'success' ? (
                 <div className="flex items-center gap-3">
@@ -751,8 +750,8 @@ export default function PortfolioPage() {
                             animate={{ rotate: 360 }}
                             transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                           >
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
                           </motion.svg>
                           Sending...
                         </motion.span>

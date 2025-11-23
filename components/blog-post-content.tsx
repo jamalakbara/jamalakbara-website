@@ -59,7 +59,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
     <>
       <CustomCursor />
       <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
-        <article className="max-w-4xl mx-auto px-6 py-32">
+        <article className="max-w-7xl mx-auto px-6 py-32">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -155,7 +155,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
             {/* Article Content */}
             <motion.div variants={itemVariants} className="space-y-8">
               {/* Main Content */}
-              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12">
+              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 md:p-12">
                 <div className="prose prose-lg max-w-none">
                   <p className="text-lg md:text-xl text-black dark:text-white leading-relaxed font-serif">
                     {post.content}
@@ -170,7 +170,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
                     <motion.div
                       key={index}
                       variants={itemVariants}
-                      className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 md:p-12"
+                      className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 md:p-12"
                     >
                       {block.type === 'heading' && (
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-6">
@@ -193,7 +193,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
                         </ul>
                       )}
                       {block.type === 'code' && (
-                        <div className="bg-black dark:bg-white text-white dark:text-black rounded-lg p-4 md:p-6 overflow-x-auto">
+                        <div className="bg-black dark:bg-white text-white dark:text-black p-4 md:p-6 overflow-x-auto">
                           <pre className="text-sm md:text-base font-mono">
                             <code>{block.code}</code>
                           </pre>

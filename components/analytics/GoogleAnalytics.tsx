@@ -61,7 +61,7 @@ export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
         })
       }
     }
-  }, [])
+  }, [measurementId])
 
   // Don't render if no GA ID or not in production
   if (!measurementId || !measurementId.startsWith('G-')) {
