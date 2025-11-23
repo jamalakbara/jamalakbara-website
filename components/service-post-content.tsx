@@ -76,15 +76,68 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
     <>
       <CustomCursor />
       <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
-        <article className="max-w-7xl mx-auto px-6 py-32">
+        {/* Service Hero - Full Width */}
+        <motion.header
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="relative min-h-[60vh] flex items-center justify-center mb-20 pb-20 pt-32"
+        >
+          {/* Background Gradient */}
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black -z-10" />
+
+          <motion.div
+            variants={itemVariants}
+            className="text-center space-y-8 max-w-4xl mx-auto px-6"
+          >
+            {/* Icon */}
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              className="text-8xl md:text-9xl mb-8 inline-block"
+            >
+              {service.icon}
+            </motion.div>
+
+            {/* Title */}
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-black dark:text-white leading-tight">
+              {service.title}
+            </h1>
+
+            {/* Category */}
+            <div className="flex items-center justify-center gap-4">
+              <span className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-sm font-mono font-bold uppercase tracking-wider">
+                {service.category}
+              </span>
+            </div>
+
+            {/* Description */}
+            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
+              {service.description}
+            </p>
+
+            {/* CTA Button */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-8 py-4 bg-black dark:bg-white text-white dark:text-black font-mono text-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+              >
+                Start a Project
+              </button>
+            </div>
+          </motion.div>
+        </motion.header>
+
+        <article className="max-w-7xl mx-auto px-6 pb-32">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={containerVariants}
             className="space-y-16"
           >
-            {/* Back to Home */}
-            <motion.div variants={itemVariants} className="relative z-50">
+            {/* Back to Home - Moved here or can be absolute in hero if preferred, keeping flow for now */}
+            <motion.div variants={itemVariants} className="relative z-50 -mt-12 mb-12">
               <Link
                 href="/"
                 className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-300 group"
@@ -93,55 +146,6 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
                 <span className="font-mono text-sm tracking-wider uppercase">Back to Home</span>
               </Link>
             </motion.div>
-
-            {/* Service Hero */}
-            <motion.header
-              variants={itemVariants}
-              className="relative min-h-[60vh] flex items-center justify-center -mt-32 mb-20 pb-20"
-            >
-              {/* Background Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black -z-10" />
-
-              <div className="text-center space-y-8 max-w-4xl mx-auto px-6 pt-32">
-                {/* Icon */}
-                <motion.div
-                  initial={{ scale: 0, rotate: -180 }}
-                  animate={{ scale: 1, rotate: 0 }}
-                  transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                  className="text-8xl md:text-9xl mb-8 inline-block"
-                >
-                  {service.icon}
-                </motion.div>
-
-                {/* Title */}
-                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif font-bold text-black dark:text-white leading-tight">
-                  {service.title}
-                </h1>
-
-                {/* Category */}
-                <div className="flex items-center justify-center gap-4">
-                  <span className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-sm font-mono font-bold uppercase tracking-wider">
-                    {service.category}
-                  </span>
-                </div>
-
-                {/* Description */}
-                <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-2xl mx-auto">
-                  {service.description}
-                </p>
-
-                {/* CTA Button */}
-                <div className="flex flex-wrap justify-center gap-4">
-                  <button
-                    onClick={() => setIsModalOpen(true)}
-                    className="px-8 py-4 bg-black dark:bg-white text-white dark:text-black font-mono text-sm font-bold hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
-                  >
-                    Start a Project
-                  </button>
-                </div>
-              </div>
-            </motion.header>
-
 
             {/* Service Content */}
             <motion.div variants={itemVariants} className="space-y-24">
@@ -235,28 +239,47 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
 
               {/* Related Projects */}
               {relatedProjects && relatedProjects.length > 0 && (
-                <div className="space-y-12 pt-12 border-t border-gray-200 dark:border-gray-700">
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white text-center">
+                <div className="space-y-8 pt-12 border-t border-gray-200 dark:border-gray-700">
+                  <h2 className="text-4xl md:text-5xl font-serif font-bold text-black dark:text-white">
                     Featured Projects
                   </h2>
                   <div className="grid md:grid-cols-2 gap-8">
                     {relatedProjects.map((project) => (
-                      <Link key={project.id} href={`/project/${project.id}`} className="group block">
-                        <div className="relative aspect-video overflow-hidden bg-gray-100 dark:bg-gray-900 mb-6">
-                          <Image
-                            src={project.image}
-                            alt={project.title}
-                            fill
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        </div>
-                        <h3 className="text-2xl font-serif font-bold mb-2 group-hover:underline decoration-2 underline-offset-4">
-                          {project.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-400 line-clamp-2">
-                          {project.description}
-                        </p>
-                      </Link>
+                      <motion.article
+                        key={project.id}
+                        variants={itemVariants}
+                        whileHover={{
+                          scale: 1.02,
+                          y: -5,
+                          boxShadow: "8px 8px 0px 0px rgba(0,0,0,1)"
+                        }}
+                        transition={{ type: "spring", stiffness: 100, damping: 20 }}
+                        className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                      >
+                        <Link href={`/project/${project.id}`} className="block">
+                          <div className="relative aspect-video overflow-hidden mb-6">
+                            <Image
+                              src={project.image}
+                              alt={project.title}
+                              fill
+                              className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider mb-4 inline-block">
+                            {project.category}
+                          </span>
+                          <h4 className="text-xl md:text-2xl font-serif font-bold text-black dark:text-white mb-3 group-hover:text-gray-600 dark:group-hover:text-gray-300 transition-colors">
+                            {project.title}
+                          </h4>
+                          <p className="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                            {project.description}
+                          </p>
+                          <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-500">
+                            <span className="font-mono">{project.year}</span>
+                            <span className="font-mono">{project.tech.length} Techs</span>
+                          </div>
+                        </Link>
+                      </motion.article>
                     ))}
                   </div>
                 </div>
