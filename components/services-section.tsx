@@ -38,7 +38,7 @@ export function ServicesSection() {
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
-  
+
   // Scroll progress tracking for mobile magnifier
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +75,7 @@ export function ServicesSection() {
 
   const handleMouseEnter = () => {
     if (isMobile) return // Disable on mobile
-    
+
     if (headingRef.current) {
       const rect = headingRef.current.getBoundingClientRect();
       setHeadingRect({
@@ -92,7 +92,7 @@ export function ServicesSection() {
 
   const handleMouseLeave = () => {
     if (isMobile) return // Disable on mobile
-    
+
     setShowMagnifier(false);
     // Re-enable global cursor effects
     document.body.removeAttribute('data-disable-cursor');
@@ -100,18 +100,18 @@ export function ServicesSection() {
 
   // Determine if magnifier should show (mobile: scroll-based, desktop: hover)
   const shouldShowMagnifier = isMobile ? (scrollProgress > 0.3 && scrollProgress < 0.7) : showMagnifier
-  
+
   // Calculate horizontal position for mobile magnifier animation (left to right)
   const getMagnifierPosition = () => {
     if (!isMobile || !shouldShowMagnifier) return { x: '50%', y: '50%' }
-    
+
     // Map scroll progress (0.3 to 0.7) to horizontal movement (10% to 90%)
     const normalizedProgress = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.4))
     const xPosition = 10 + (normalizedProgress * 80) // 10% to 90%
-    
+
     return { x: `${xPosition}%`, y: '50%' }
   }
-  
+
   const magnifierPos = getMagnifierPosition()
 
   const containerVariants = {
@@ -125,7 +125,7 @@ export function ServicesSection() {
   }
 
   const cardVariants = {
-    hidden: { 
+    hidden: {
       opacity: 0,
       y: 50,
       scale: 0.9
@@ -145,10 +145,10 @@ export function ServicesSection() {
 
   const titleVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.8,
         ease: "easeOut" as const
       }
@@ -156,7 +156,7 @@ export function ServicesSection() {
   }
 
   return (
-    <section id="services" className="py-32 px-6 bg-white dark:bg-black transition-colors duration-300" ref={ref}>
+    <section id="services" className="py-32 px-6 bg-transparent transition-colors duration-300" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -165,11 +165,11 @@ export function ServicesSection() {
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="text-center mb-20"
         >
-          <div 
+          <div
             className="relative inline-block"
             data-no-cursor="true"
           >
-            <h2 
+            <h2
               ref={headingRef}
               className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white mb-6 relative overflow-hidden cursor-none transition-colors duration-300"
               onMouseEnter={handleMouseEnter}
@@ -182,8 +182,8 @@ export function ServicesSection() {
                   <span
                     className="absolute inset-0 bg-white dark:bg-black pointer-events-none z-10 transition-colors duration-300"
                     style={{
-                      clipPath: isMobile 
-                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                      clipPath: isMobile
+                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})`
                         : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                     }}
                   />
@@ -194,8 +194,8 @@ export function ServicesSection() {
                 <div
                   className="absolute inset-0 pointer-events-none z-20"
                   style={{
-                    clipPath: isMobile 
-                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                    clipPath: isMobile
+                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})`
                       : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                   }}
                 >
@@ -218,7 +218,7 @@ export function ServicesSection() {
             Professional services combining creative design with technical excellence to deliver exceptional digital experiences
           </p>
         </motion.div>
-        
+
         {/* Custom Magnifying Glass Cursor - Desktop only */}
         {shouldShowMagnifier && !isMobile && (
           <motion.div
@@ -276,53 +276,53 @@ export function ServicesSection() {
                   y: -10,
                   transition: { type: "spring" as const, stiffness: 400, damping: 25 }
                 }}
-                className="group relative cursor-pointer bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                className="group relative cursor-pointer bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 h-full transition-all duration-300 hover:bg-white/80 dark:hover:bg-black/80 hover:border-white/40 dark:hover:border-white/20 hover:shadow-xl"
               >
-              {/* Service Icon */}
-              <motion.div
-                className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
-                {service.icon}
-              </motion.div>
-
-              {/* Service Content */}
-              <div className="space-y-4">
-                {/* Category */}
-                <motion.span
-                  className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider"
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 1 }}
+                {/* Service Icon */}
+                <motion.div
+                  className="text-4xl mb-6 text-black dark:text-white font-mono transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  {service.category}
-                </motion.span>
+                  {service.icon}
+                </motion.div>
 
-                {/* Title */}
-                <motion.h3
-                  className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
-                >
-                  {service.title}
-                </motion.h3>
-
-                {/* Description */}
-                <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base">
-                  {service.description}
-                </p>
-
-                {/* Learn More Link */}
-                <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
-                  <span>Learn More</span>
-                  <motion.div
-                    className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
-                    whileHover={{ x: 5 }}
+                {/* Service Content */}
+                <div className="space-y-4">
+                  {/* Category */}
+                  <motion.span
+                    className="text-sm font-mono text-gray-700 dark:text-gray-300 uppercase tracking-wider"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
                   >
-                    →
-                  </motion.div>
+                    {service.category}
+                  </motion.span>
+
+                  {/* Title */}
+                  <motion.h3
+                    className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300 group-hover:text-black dark:group-hover:text-white"
+                  >
+                    {service.title}
+                  </motion.h3>
+
+                  {/* Description */}
+                  <p className="text-gray-600 dark:text-gray-400 font-sans leading-relaxed text-base">
+                    {service.description}
+                  </p>
+
+                  {/* Learn More Link */}
+                  <div className="inline-flex items-center gap-3 text-black dark:text-white font-medium border-b border-black dark:border-white pb-1 group-hover:gap-4 transition-all duration-300">
+                    <span>Learn More</span>
+                    <motion.div
+                      className="w-6 h-6 border border-black dark:border-white flex items-center justify-center transition-colors duration-300"
+                      whileHover={{ x: 5 }}
+                    >
+                      →
+                    </motion.div>
+                  </div>
                 </div>
-              </div>
               </motion.div>
-              </Link>
+            </Link>
           ))}
         </motion.div>
 

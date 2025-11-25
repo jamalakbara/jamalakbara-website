@@ -6,7 +6,7 @@ import { useRef, useEffect } from 'react'
 export function HeroSection() {
   const ref = useRef(null)
   const controls = useAnimation()
-  
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
@@ -21,7 +21,7 @@ export function HeroSection() {
   const words = heroText.split(' ')
   const subWords = subText.split(' ')
 
-  
+
   // Auto-animate subtitle words periodically
   useEffect(() => {
     let animationTimeout: NodeJS.Timeout | null = null
@@ -120,7 +120,7 @@ export function HeroSection() {
     }
   }, [controls, subWords.length])
 
-  
+
   const child = {
     visible: {
       opacity: 1,
@@ -140,11 +140,11 @@ export function HeroSection() {
   // Scroll-triggered animations
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
-        duration: 0.8, 
+      transition: {
+        duration: 0.8,
         ease: "easeOut" as const
       }
     }
@@ -174,7 +174,7 @@ export function HeroSection() {
       id="hero"
       ref={ref}
       style={{ y, opacity }}
-      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300"
+      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-transparent transition-colors duration-300"
       initial="hidden"
       animate="visible"
       variants={staggerContainer}

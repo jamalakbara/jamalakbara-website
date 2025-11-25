@@ -7,9 +7,9 @@ import { ServicesSection } from '@/components/services-section'
 import { FeaturedWorkSection } from '@/components/featured-work-section'
 import { AboutSection } from '@/components/about-section'
 import { CTASection } from '@/components/cta-section'
-import { DynamicBackground } from '@/components/dynamic-background'
 import { ParallaxContainer } from '@/components/parallax-layers'
 import { VelocityParticles } from '@/components/velocity-effects'
+import { SceneryBackground } from '@/components/scenery-background'
 import { useTheme } from '@/contexts/theme-context'
 import { motion, useScroll } from 'framer-motion'
 import { useState, useEffect } from 'react'
@@ -58,7 +58,7 @@ export default function Home() {
     return (
       <>
         {/* Advanced Scroll Effects */}
-        <DynamicBackground />
+        <SceneryBackground />
         <ParallaxContainer />
         <VelocityParticles />
 
@@ -78,7 +78,7 @@ export default function Home() {
   return (
     <>
       {/* Advanced Scroll Effects */}
-      <DynamicBackground />
+      <SceneryBackground />
       <ParallaxContainer />
       <VelocityParticles />
 

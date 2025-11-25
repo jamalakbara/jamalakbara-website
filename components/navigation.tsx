@@ -224,7 +224,7 @@ export function Navigation() {
         }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={`mx-auto transition-all duration-500 ${isScrolled
-          ? 'bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-lg'
+          ? 'bg-white/40 dark:bg-black/40 backdrop-blur-xl border-2 border-black dark:border-white shadow-lg'
           : 'bg-transparent'
           }`}
         style={isScrolled ? {} : {}}
@@ -260,7 +260,11 @@ export function Navigation() {
               <motion.span
                 className="inline-block relative"
                 style={{
-                  background: shouldAnimate ? 'linear-gradient(45deg, #000000, #404040, #000000)' : 'transparent',
+                  background: shouldAnimate
+                    ? theme === 'dark'
+                      ? 'linear-gradient(45deg, #ffffff, #d0d0d0, #ffffff)'
+                      : 'linear-gradient(45deg, #000000, #404040, #000000)'
+                    : 'transparent',
                   WebkitBackgroundClip: shouldAnimate ? 'text' : 'unset',
                   backgroundClip: shouldAnimate ? 'text' : 'unset',
                   color: shouldAnimate ? 'transparent' : 'inherit'
@@ -361,9 +365,9 @@ export function Navigation() {
             >
               <motion.button
                 onClick={handleThemeToggle}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-200"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
                 aria-label="Toggle theme"
               >
                 <motion.div
@@ -465,7 +469,7 @@ export function Navigation() {
                 >
                   <motion.button
                     onClick={handleThemeToggle}
-                    className="p-3 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-200"
+                    className="p-3 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-200"
                     whileTap={{ scale: 0.95 }}
                     aria-label="Toggle theme"
                   >

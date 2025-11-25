@@ -9,18 +9,12 @@ import {
   CheckCircle2,
   Zap,
   Shield,
-  Clock,
-  Layers,
-  Code,
-  Smartphone,
-  Palette
+  Clock
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { Service, Project } from '@/lib/content-types'
-import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { ContactModal } from '@/components/contact-modal'
-import { getStaticContent } from '@/lib/content-manager'
 
 interface ServicePostContentProps {
   service: Service
@@ -59,17 +53,6 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
         damping: 20,
       },
     },
-  }
-
-  const icons = {
-    Zap,
-    Shield,
-    Clock,
-    CheckCircle2,
-    Layers,
-    Code,
-    Smartphone,
-    Palette
   }
 
   return (

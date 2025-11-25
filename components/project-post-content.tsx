@@ -11,12 +11,7 @@ import {
   Layers,
   ExternalLink,
   Github,
-  Check,
-  Share2,
-  Linkedin,
-  Twitter,
-  Facebook,
-  Link as LinkIcon
+  Check
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { Project } from '@/lib/content-types'

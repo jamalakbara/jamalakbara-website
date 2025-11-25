@@ -20,7 +20,7 @@ export function FeaturedWorkSection() {
   const [scrollProgress, setScrollProgress] = useState(0)
   const headingRef = useRef<HTMLHeadingElement>(null)
   const [hoveredImage, setHoveredImage] = useState<string | null>(null)
-  const [imageRects, setImageRects] = useState<{[key: string]: DOMRect}>({})
+  const [imageRects, setImageRects] = useState<{ [key: string]: DOMRect }>({})
 
   // Analytics
   const { onView, onClick } = useProjectAnalytics()
@@ -91,7 +91,7 @@ export function FeaturedWorkSection() {
   // Track image positions for color restoration effect
   useEffect(() => {
     const updateImageRects = () => {
-      const rects: {[key: string]: DOMRect} = {}
+      const rects: { [key: string]: DOMRect } = {}
       projects.forEach(project => {
         const element = document.getElementById(`project-${project.id}`)
         if (element) {
@@ -124,7 +124,7 @@ export function FeaturedWorkSection() {
 
   const handleMouseEnter = () => {
     if (isMobile) return // Disable on mobile
-    
+
     if (headingRef.current) {
       const rect = headingRef.current.getBoundingClientRect()
       setHeadingRect({
@@ -141,7 +141,7 @@ export function FeaturedWorkSection() {
 
   const handleMouseLeave = () => {
     if (isMobile) return // Disable on mobile
-    
+
     setShowMagnifier(false)
     // Re-enable global cursor effects
     document.body.removeAttribute('data-disable-cursor')
@@ -167,18 +167,18 @@ export function FeaturedWorkSection() {
 
     updateCursorPosition()
   }, [mousePosition, hoveredImage, imageRects])
-  
+
   // Calculate horizontal position for mobile magnifier animation (left to right)
   const getMagnifierPosition = () => {
     if (!isMobile || !shouldShowMagnifier) return { x: '50%', y: '50%' }
-    
+
     // Map scroll progress (0.3 to 0.7) to horizontal movement (10% to 90%)
     const normalizedProgress = Math.max(0, Math.min(1, (scrollProgress - 0.3) / 0.4))
     const xPosition = 10 + (normalizedProgress * 80) // 10% to 90%
-    
+
     return { x: `${xPosition}%`, y: '50%' }
   }
-  
+
   const magnifierPos = getMagnifierPosition()
 
   const containerVariants = {
@@ -193,8 +193,8 @@ export function FeaturedWorkSection() {
   }
 
   const projectVariants = {
-    hidden: { 
-      opacity: 0, 
+    hidden: {
+      opacity: 0,
       y: 80,
       scale: 0.95
     },
@@ -213,10 +213,10 @@ export function FeaturedWorkSection() {
 
   const titleVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
-      transition: { 
+      transition: {
         duration: 0.8,
         ease: "easeOut" as const
       }
@@ -224,7 +224,7 @@ export function FeaturedWorkSection() {
   }
 
   return (
-    <section id="work" className="py-32 px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-300" ref={ref}>
+    <section id="work" className="py-32 px-6 bg-transparent transition-colors duration-300" ref={ref}>
       <div className="max-w-7xl mx-auto">
         {/* Section Header */}
         <motion.div
@@ -233,7 +233,7 @@ export function FeaturedWorkSection() {
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
           className="text-center mb-20"
         >
-          <div 
+          <div
             className="relative inline-block"
             data-no-cursor="true"
           >
@@ -250,8 +250,8 @@ export function FeaturedWorkSection() {
                   <span
                     className="absolute inset-0 bg-gray-50 dark:bg-gray-900 pointer-events-none z-10 transition-colors duration-300"
                     style={{
-                      clipPath: isMobile 
-                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                      clipPath: isMobile
+                        ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})`
                         : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                     }}
                   />
@@ -262,12 +262,12 @@ export function FeaturedWorkSection() {
                 <div
                   className="absolute inset-0 pointer-events-none z-20"
                   style={{
-                    clipPath: isMobile 
-                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})` 
+                    clipPath: isMobile
+                      ? `circle(50px at ${magnifierPos.x} ${magnifierPos.y})`
                       : `circle(35px at ${mousePosition.x - headingRect.left}px ${mousePosition.y - headingRect.top}px)`,
                   }}
                 >
-                  <span 
+                  <span
                     className="text-5xl md:text-6xl font-serif font-bold text-blue-600 absolute whitespace-nowrap"
                     style={{
                       transform: `scale(1.4)`,
@@ -298,7 +298,11 @@ export function FeaturedWorkSection() {
             <motion.div
               key={project.id}
               variants={projectVariants}
-              className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center`}
+              className={`flex flex-col ${index % 2 === 1 ? 'lg:flex-row-reverse' : 'lg:flex-row'} gap-12 items-center bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 sticky`}
+              style={{
+                top: `calc(120px + ${index * 40}px)`,
+                zIndex: index + 1
+              }}
             >
               {/* Project Image */}
               <motion.div
@@ -357,7 +361,7 @@ export function FeaturedWorkSection() {
                             }}
                           />
 
-                          </motion.div>
+                        </motion.div>
 
                         {/* Visit button outside image area */}
                         <motion.div
@@ -414,11 +418,11 @@ export function FeaturedWorkSection() {
                             }}
                           />
 
-                          </motion.div>
-
                         </motion.div>
+
+                      </motion.div>
                     )}
-                </div>
+                  </div>
                 </motion.div>
               </motion.div>
 
@@ -431,7 +435,7 @@ export function FeaturedWorkSection() {
                 >
                   {/* Category & Year */}
                   <div className="flex items-center gap-4 mb-4">
-                    <motion.span 
+                    <motion.span
                       className="text-sm font-mono tracking-wider text-gray-500 uppercase"
                       initial={{ opacity: 0 }}
                       animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -446,7 +450,7 @@ export function FeaturedWorkSection() {
                   </div>
 
                   {/* Title */}
-                  <motion.h3 
+                  <motion.h3
                     className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-4 transition-colors duration-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -456,7 +460,7 @@ export function FeaturedWorkSection() {
                   </motion.h3>
 
                   {/* Description */}
-                  <motion.p 
+                  <motion.p
                     className="text-gray-600 dark:text-gray-400 font-sans text-lg leading-relaxed mb-6 transition-colors duration-300"
                     initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -466,7 +470,7 @@ export function FeaturedWorkSection() {
                   </motion.p>
 
                   {/* Tech Stack */}
-                  <motion.div 
+                  <motion.div
                     className="flex flex-wrap gap-3"
                     initial={{ opacity: 0 }}
                     animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -561,7 +565,7 @@ export function FeaturedWorkSection() {
                 transform: 'rotate(45deg)',
               }}
             />
-            </motion.div>
+          </motion.div>
         )}
       </div>
     </section>
