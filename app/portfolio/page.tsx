@@ -1,6 +1,6 @@
 'use client'
 
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence, useScroll } from 'framer-motion'
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import { getStaticContent } from '@/lib/content-manager'
@@ -11,6 +11,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { ParallaxContainer } from '@/components/parallax-layers'
+import { VelocityParticles } from '@/components/velocity-effects'
+import { StaticSceneryBackground } from '@/components/static-scenery-background'
+import { useTheme } from '@/contexts/theme-context'
 
 export default function PortfolioPage() {
   const projects = getStaticContent.projects()
@@ -28,7 +32,13 @@ export default function PortfolioPage() {
   // Formspree form endpoint
   const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xjkbvlqd'
 
+  const { theme } = useTheme()
+  const { scrollYProgress } = useScroll()
+
   const [selectedCategory, setSelectedCategory] = useState('all')
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  const [buttonOnDarkSection, setButtonOnDarkSection] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -105,6 +115,40 @@ export default function PortfolioPage() {
     return () => clearTimeout(timer)
   }, [])
 
+  // Track scroll position for floating button
+  useEffect(() => {
+    setMounted(true)
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setShowBackToTop(scrollTop > 100)
+
+      const buttonRect = {
+        top: window.innerHeight - 64 - 32,
+        left: window.innerWidth - 64 - 32,
+        right: window.innerWidth - 32,
+        bottom: window.innerHeight - 32
+      }
+
+      const darkSections = document.querySelectorAll('.bg-black, [class*="dark:bg-white"], .bg-emerald-700, .bg-emerald-600')
+      let isOverDark = false
+
+      darkSections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        const isOverlapping = !(buttonRect.bottom < rect.top ||
+          buttonRect.top > rect.bottom ||
+          buttonRect.right < rect.left ||
+          buttonRect.left > rect.right)
+        if (isOverlapping) isOverDark = true
+      })
+
+      setButtonOnDarkSection(isOverDark)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -137,11 +181,14 @@ export default function PortfolioPage() {
 
   return (
     <>
+      <StaticSceneryBackground />
+      <ParallaxContainer />
+      <VelocityParticles />
       <CustomCursor />
       <Navigation />
       <StructuredData type="WebSite" />
       <StructuredData type="Person" />
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen bg-transparent relative z-10">
         {/* Portfolio Header */}
         <motion.section
           className="py-32 px-6"
@@ -225,9 +272,9 @@ export default function PortfolioPage() {
                     scale: 0.95,
                     transition: { duration: 0.1 }
                   }}
-                  className={`px-6 py-2 rounded-full font-mono text-sm transition-colors duration-300 ${selectedCategory === category.value
-                    ? 'bg-black text-white'
-                    : 'border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white'
+                  className={`px-6 py-3 rounded-sm font-mono text-sm border transition-all duration-300 backdrop-blur-md ${selectedCategory === category.value
+                    ? 'bg-black/80 dark:bg-white/80 text-white dark:text-black border-transparent'
+                    : 'bg-white/10 dark:bg-black/10 text-gray-800 dark:text-gray-200 border-white/20 hover:bg-white/20'
                     }`}
                 >
                   {category.name}
@@ -258,7 +305,7 @@ export default function PortfolioPage() {
                         y: -10,
                         transition: { type: "spring" as const, stiffness: 400, damping: 25 }
                       }}
-                      className="group relative cursor-pointer bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-0 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                      className="group relative cursor-pointer bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-0 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                     >
                       {/* Project Image */}
                       <div className="aspect-video relative overflow-hidden">
@@ -300,7 +347,7 @@ export default function PortfolioPage() {
                           {project.tech.slice(0, 3).map((tech) => (
                             <span
                               key={tech}
-                              className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-mono transition-colors duration-300 group-hover:border-black dark:group-hover:border-white"
+                              className="px-3 py-1 text-sm font-mono backdrop-blur-md bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10 text-gray-700 dark:text-gray-300 transition-colors duration-300 group-hover:bg-white/20 dark:group-hover:bg-black/20"
                             >
                               {tech}
                             </span>
@@ -364,7 +411,7 @@ export default function PortfolioPage() {
 
         {/* Services Integration */}
         <motion.section
-          className="py-32 px-6 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700"
+          className="py-32 px-6 bg-transparent border-b border-gray-200 dark:border-gray-700"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
@@ -406,7 +453,7 @@ export default function PortfolioPage() {
                       y: -10,
                       transition: { type: "spring" as const, stiffness: 400, damping: 25 }
                     }}
-                    className="group relative cursor-pointer bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                    className="group relative cursor-pointer bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 h-full transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                   >
                     {/* Service Icon */}
                     <motion.div
@@ -460,15 +507,11 @@ export default function PortfolioPage() {
 
         {/* Call to Action */}
         <motion.section
-          className="pt-20 pb-16 md:pb-24 px-6 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
+          className="pt-20 pb-16 md:pb-24 px-6 bg-black/80 dark:bg-white/80 backdrop-blur-xl text-white dark:text-black relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300 border border-white/20 dark:border-black/20"
           ref={ref}
           initial="hidden"
           animate={(isInView || hasAnimated) ? "visible" : "hidden"}
         >
-          {/* Background Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
-          </div>
 
           <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
 
@@ -505,14 +548,14 @@ export default function PortfolioPage() {
                     }
                   }
                   }
-                  className="text-emerald-200 dark:text-emerald-300"
+                  className="text-gray-300 dark:text-gray-700"
                 >
                   Something Amazing
                 </motion.span>
               </motion.h2>
 
               <motion.p
-                className="text-lg md:text-xl text-emerald-100 dark:text-emerald-200 font-sans max-w-xl mx-auto mb-8 leading-normal"
+                className="text-lg md:text-xl text-gray-300 dark:text-gray-700 font-sans max-w-xl mx-auto mb-8 leading-normal"
                 variants={{
                   hidden: { opacity: 0, y: 30 },
                   visible: {
@@ -554,7 +597,7 @@ export default function PortfolioPage() {
                   whileHover={{
                     scale: 1.1,
                     backgroundColor: "#fff",
-                    color: "#065f46",
+                    color: "#000",
                     boxShadow: "0 20px 40px rgba(255,255,255,0.3)"
                   }}
                   whileTap={{ scale: 0.95 }}
@@ -576,7 +619,7 @@ export default function PortfolioPage() {
 
             {/* Contact Info */}
             <motion.div
-              className="mt-20 pt-12 border-t border-emerald-500 dark:border-emerald-400 relative z-10 mb-20"
+              className="mt-20 pt-12 border-t border-gray-500 dark:border-gray-600 relative z-10 mb-20"
               variants={{
                 hidden: { opacity: 0 },
                 visible: {
@@ -590,7 +633,7 @@ export default function PortfolioPage() {
                   <div className="text-lg font-serif font-bold mb-2">Email</div>
                   <a
                     href={`mailto:${siteConfig.contact?.email}`}
-                    className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                    className="text-gray-300 dark:text-gray-700 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
                   >
                     {siteConfig.contact?.email}
                   </a>
@@ -601,14 +644,14 @@ export default function PortfolioPage() {
                     href={`https://wa.me/${(siteConfig.contact?.phone || '+6281321766565').replace(/\D/g, '')}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                    className="text-gray-300 dark:text-gray-700 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
                   >
                     {siteConfig.contact?.phone || '+6281321766565'}
                   </a>
                 </div>
                 <div className="relative">
                   <div className="text-lg font-serif font-bold mb-2">Location</div>
-                  <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.location}</div>
+                  <div className="text-gray-300 dark:text-gray-700 font-mono">{siteConfig.contact.location}</div>
                 </div>
               </div>
             </motion.div>
@@ -786,6 +829,119 @@ export default function PortfolioPage() {
           </DialogContent>
         </Dialog>
       </div>
+
+      {/* Global Floating Scroll Button with Integrated Progress Ring */}
+      {mounted && (
+        <div className="fixed bottom-8 right-8 z-[9999]">
+          <svg className="absolute -inset-6 w-28 h-28 animate-spin" style={{ animationDuration: '12s' }}>
+            <defs>
+              <path
+                id="circle-portfolio"
+                d="M 56,56 m -40,0 a 40,40 0 0,1 80,0 a 40,40 0 0,1 -80,0"
+              />
+            </defs>
+            <motion.text
+              key={showBackToTop ? 'top' : 'scroll'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className={`text-[8px] font-sans font-bold uppercase tracking-[0.5px] transition-colors duration-300 ${buttonOnDarkSection
+                ? 'fill-white'
+                : theme === 'dark'
+                  ? 'fill-white'
+                  : 'fill-black'
+                }`}
+            >
+              <textPath href="#circle-portfolio" startOffset="0%" spacing="auto">
+                {showBackToTop
+                  ? 'BACK TO TOP • BACK TO TOP • BACK TO TOP • BACK TO TOP • '
+                  : 'SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • '
+                }
+              </textPath>
+            </motion.text>
+          </svg>
+
+          <div className="absolute -inset-4 w-24 h-24">
+            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
+              <circle
+                cx="48"
+                cy="48"
+                r="34"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className={`transition-colors duration-300 opacity-20 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
+                    ? 'text-white'
+                    : 'text-black'
+                  }`}
+              />
+              <motion.circle
+                cx="48"
+                cy="48"
+                r="34"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className={`transition-colors duration-300 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
+                    ? 'text-white'
+                    : 'text-black'
+                  }`}
+                strokeLinecap="round"
+                style={{
+                  pathLength: scrollYProgress
+                }}
+                strokeDasharray="213.628"
+                strokeDashoffset="213.628"
+              />
+            </svg>
+          </div>
+
+          <motion.button
+            className={`relative w-16 h-16 bg-transparent rounded-full transition-all duration-300 flex items-center justify-center hover:bg-opacity-20 ${buttonOnDarkSection
+              ? 'text-white hover:bg-white'
+              : theme === 'dark'
+                ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
+                : 'text-black hover:bg-black/20'
+              }`}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1, type: "spring", stiffness: 300, damping: 25 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              if (showBackToTop) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+              }
+            }}
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <motion.div
+              animate={{
+                y: showBackToTop ? [0, -3, 0] : [0, 3, 0],
+                rotate: showBackToTop ? 0 : 180
+              }}
+              transition={{
+                y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+                rotate: { duration: 0.3 }
+              }}
+              className={`text-xl transition-colors duration-300 ${buttonOnDarkSection
+                ? 'text-white'
+                : theme === 'dark'
+                  ? 'text-white'
+                  : 'text-black'
+                }`}
+            >
+              ↑
+            </motion.div>
+          </motion.button>
+        </div>
+      )}
     </>
   )
 }
