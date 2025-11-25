@@ -55,7 +55,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
+      <main className="min-h-screen font-sans antialiased relative z-10">
         {/* Project Hero - Full Width */}
         <motion.header
           initial="hidden"
@@ -63,8 +63,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
           variants={containerVariants}
           className="relative min-h-[60vh] flex items-center justify-center mb-20 pb-20 pt-32"
         >
-          {/* Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black -z-10" />
+
 
           <motion.div
             variants={itemVariants}
@@ -218,7 +217,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-sm font-mono text-gray-700 dark:text-gray-300"
+                          className="px-3 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-sm font-mono text-gray-700 dark:text-gray-300"
                         >
                           {tech}
                         </span>
@@ -269,7 +268,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                   </h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     {project.gallery.map((image, index) => (
-                      <div key={index} className="relative aspect-video bg-gray-100 dark:bg-gray-900 overflow-hidden border border-gray-200 dark:border-gray-700">
+                      <div key={index} className="relative aspect-video bg-white/40 dark:bg-black/40 backdrop-blur-xl overflow-hidden border border-white/20 dark:border-white/10">
                         <Image
                           src={image}
                           alt={`${project.title} screenshot ${index + 1}`}
@@ -283,7 +282,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
               )}
 
               {/* CTA Section */}
-              <div className="bg-black dark:bg-white text-white dark:text-black p-12 text-center space-y-8">
+              <div className="bg-black/80 dark:bg-white/80 backdrop-blur-xl text-white dark:text-black p-12 text-center space-y-8 border border-white/20 dark:border-black/20">
                 <h2 className="text-3xl md:text-4xl font-serif font-bold">
                   Interested in a project like this?
                 </h2>
@@ -351,7 +350,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                         boxShadow: "8px 8px 0px 0px rgba(0,0,0,1)"
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                      className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                     >
                       <Link href={`/project/${relatedProject.id}`} className="block">
                         <div className="relative aspect-video overflow-hidden mb-6">

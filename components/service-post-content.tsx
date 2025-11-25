@@ -58,7 +58,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
+      <main className="min-h-screen font-sans antialiased relative z-10">
         {/* Service Hero - Full Width */}
         <motion.header
           initial="hidden"
@@ -66,8 +66,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
           variants={containerVariants}
           className="relative min-h-[60vh] flex items-center justify-center mb-20 pb-20 pt-32"
         >
-          {/* Background Gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-black -z-10" />
+
 
           <motion.div
             variants={itemVariants}
@@ -141,7 +140,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
                   </h2>
                   <div className="grid md:grid-cols-3 gap-8">
                     {service.benefits.map((benefit, index) => (
-                      <div key={index} className="p-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-black dark:hover:border-white transition-colors duration-300">
+                      <div key={index} className="p-8 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 hover:border-black dark:hover:border-white transition-all duration-300">
                         <div className="mb-6">
                           {index === 0 && <Zap className="w-10 h-10 text-black dark:text-white" />}
                           {index === 1 && <Shield className="w-10 h-10 text-black dark:text-white" />}
@@ -211,7 +210,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
                     {service.technologies.map((tech) => (
                       <span
                         key={tech}
-                        className="px-6 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-base font-mono text-gray-700 dark:text-gray-300 hover:border-black dark:hover:border-white transition-colors"
+                        className="px-6 py-3 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-base font-mono text-gray-700 dark:text-gray-300 hover:border-black dark:hover:border-white transition-all"
                       >
                         {tech}
                       </span>
@@ -237,7 +236,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
                           boxShadow: "8px 8px 0px 0px rgba(0,0,0,1)"
                         }}
                         transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                        className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                        className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                       >
                         <Link href={`/project/${project.id}`} className="block">
                           <div className="relative aspect-video overflow-hidden mb-6">
@@ -281,7 +280,7 @@ export function ServicePostContent({ service, otherServices, relatedProjects = [
                     <Link
                       key={otherService.id}
                       href={`/service/${otherService.id}`}
-                      className="group p-8 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 hover:border-black dark:hover:border-white transition-all duration-300"
+                      className="group p-8 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 hover:border-black dark:hover:border-white transition-all duration-300"
                     >
                       <div className="flex items-start gap-6">
                         <div className="text-4xl group-hover:scale-110 transition-transform duration-300">{otherService.icon}</div>

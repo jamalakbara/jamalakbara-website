@@ -132,6 +132,7 @@ export default function RootLayout({
       </head>
       <body
         className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"

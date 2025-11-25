@@ -40,9 +40,9 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
+      <main className="min-h-screen font-sans antialiased relative z-10">
         {/* Hero Section */}
-        <section className="py-32 px-6 bg-white dark:bg-black">
+        <section className="py-32 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -66,7 +66,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 * index, type: "spring", stiffness: 100 }}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-mono bg-gray-50 dark:bg-gray-900 text-black dark:text-white"
+                    className="px-4 py-2 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-sm font-mono text-black dark:text-white"
                   >
                     {tag}
                   </motion.span>
@@ -78,7 +78,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
 
         {/* Featured Posts Section */}
         {featuredPosts.length > 0 && (
-          <section className="py-32 px-6 bg-gray-50 dark:bg-gray-900">
+          <section className="py-32 px-6">
             <div className="max-w-7xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -107,7 +107,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
                   <motion.article
                     key={post.id}
                     variants={itemVariants}
-                    className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-8 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                     whileHover={{
                       scale: 1.02,
                       y: -10,
@@ -161,7 +161,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 border border-gray-300 dark:border-gray-600 text-xs font-mono bg-gray-50 dark:bg-gray-900 text-gray-700 dark:text-gray-300"
+                            className="px-3 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-xs font-mono text-gray-700 dark:text-gray-300"
                           >
                             {tag}
                           </span>
@@ -184,7 +184,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
         )}
 
         {/* All Posts Section */}
-        <section className="py-32 px-6 bg-white dark:bg-black">
+        <section className="py-32 px-6">
           <div className="max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -212,7 +212,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
                 <motion.article
                   key={post.id}
                   variants={itemVariants}
-                  className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                  className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                   whileHover={{
                     scale: 1.01,
                     y: -5,
@@ -267,7 +267,7 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
                         {post.tags.slice(0, 3).map((tag) => (
                           <span
                             key={tag}
-                            className="px-3 py-1 border border-gray-300 dark:border-gray-600 text-xs font-mono bg-white dark:bg-black text-gray-700 dark:text-gray-300"
+                            className="px-3 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-xs font-mono text-gray-700 dark:text-gray-300"
                           >
                             {tag}
                           </span>
@@ -289,14 +289,14 @@ export function BlogContent({ featuredPosts, regularPosts }: BlogContentProps) {
         </section>
 
         {/* Newsletter Section */}
-        <section className="py-32 px-6 bg-gray-50 dark:bg-gray-900">
+        <section className="py-32 px-6">
           <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, type: "spring", stiffness: 60, damping: 20 }}
-              className="bg-white dark:bg-black border-2 border-black dark:border-white p-12 text-center"
+              className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border-2 border-black/30 dark:border-white/30 p-12 text-center"
             >
               <h2 className="text-5xl md:text-6xl font-serif font-bold text-black dark:text-white mb-6">
                 Stay Updated

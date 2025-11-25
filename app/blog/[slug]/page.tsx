@@ -1,94 +1,250 @@
-import { Metadata } from 'next'
+'use client'
+
+import React, { useState, useEffect } from 'react'
 import { notFound } from 'next/navigation'
+import { motion, useScroll } from 'framer-motion'
 import { getStaticContent } from '@/lib/content-manager'
 import { StructuredData } from '@/components/structured-data'
+import { CustomCursor } from '@/components/custom-cursor'
+import { Navigation } from '@/components/navigation'
 import { BlogPostContent } from '@/components/blog-post-content'
+import { ParallaxContainer } from '@/components/parallax-layers'
+import { VelocityParticles } from '@/components/velocity-effects'
+import { StaticSceneryBackground } from '@/components/static-scenery-background'
+import { useTheme } from '@/contexts/theme-context'
+import type { BlogContent } from '@/lib/content-types'
 
 interface BlogPostParams {
   params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: BlogPostParams): Promise<Metadata> {
-  const blogPosts = getStaticContent.blog()
-  const { slug } = await params
-  const post = blogPosts.find(p => p.slug === slug)
+export default function BlogPostPage({ params }: BlogPostParams) {
+  const { theme } = useTheme()
+  const { scrollYProgress } = useScroll()
+  const [post, setPost] = useState<BlogContent | null>(null)
+  const [relatedPosts, setRelatedPosts] = useState<BlogContent[]>([])
+  const [prevPost, setPrevPost] = useState<BlogContent | null>(null)
+  const [nextPost, setNextPost] = useState<BlogContent | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [showBackToTop, setShowBackToTop] = useState(false)
+  const [buttonOnDarkSection, setButtonOnDarkSection] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
-  if (!post) {
-    return {
-      title: 'Post Not Found',
+  // Track scroll position for floating button
+  useEffect(() => {
+    setMounted(true)
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setShowBackToTop(scrollTop > 100)
+
+      const buttonRect = {
+        top: window.innerHeight - 64 - 32,
+        left: window.innerWidth - 64 - 32,
+        right: window.innerWidth - 32,
+        bottom: window.innerHeight - 32
+      }
+
+      const darkSections = document.querySelectorAll('.bg-black, [class*="dark:bg-white"]')
+      let isOverDark = false
+
+      darkSections.forEach(section => {
+        const rect = section.getBoundingClientRect()
+        const isOverlapping = !(buttonRect.bottom < rect.top ||
+          buttonRect.top > rect.bottom ||
+          buttonRect.right < rect.left ||
+          buttonRect.left > rect.right)
+        if (isOverlapping) isOverDark = true
+      })
+
+      setButtonOnDarkSection(isOverDark)
     }
-  }
 
-  return {
-    title: `${post.title} - Jamal Akbar Alam Blog`,
-    description: post.excerpt,
-    keywords: post.tags.join(', '),
-    authors: [{ name: post.author }],
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      url: `https://jamalakbara.com/blog/${post.slug}`,
-      type: 'article',
-      publishedTime: post.publishedAt,
-      modifiedTime: post.updatedAt,
-      authors: [post.author],
-      section: post.category,
-      tags: post.tags,
-      images: post.seo?.ogImage ? [
-        {
-          url: post.seo.ogImage,
-          width: 1200,
-          height: 630,
-          alt: post.title,
+    window.addEventListener('scroll', handleScroll)
+    handleScroll()
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    async function loadBlogPost() {
+      try {
+        const { slug } = await params
+        const blogPosts = getStaticContent.blog()
+        const foundPost = blogPosts.find(p => p.slug === slug)
+
+        if (foundPost) {
+          setPost(foundPost)
+
+          const related = blogPosts
+            .filter(p => p.category === foundPost.category && p.id !== foundPost.id)
+            .slice(0, 3)
+          setRelatedPosts(related)
+
+          const currentIndex = blogPosts.findIndex(p => p.id === foundPost.id)
+          setPrevPost(currentIndex > 0 ? blogPosts[currentIndex - 1] : null)
+          setNextPost(currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null)
+        } else {
+          setError('Post not found')
         }
-      ] : [],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.title,
-      description: post.excerpt,
-      creator: '@jamalakbara',
-      images: post.seo?.ogImage ? [post.seo.ogImage] : [],
-    },
+      } catch {
+        setError('Error loading post')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadBlogPost()
+  }, [params])
+
+  if (isLoading) {
+    return (
+      <>
+        <StaticSceneryBackground />
+        <ParallaxContainer />
+        <VelocityParticles />
+        <CustomCursor />
+        <Navigation />
+        <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+          <div className="text-black dark:text-white">Loading...</div>
+        </div>
+      </>
+    )
   }
-}
 
-export default async function BlogPostPage({ params }: BlogPostParams) {
-  const blogPosts = getStaticContent.blog()
-  const { slug } = await params
-  const post = blogPosts.find(p => p.slug === slug)
-
-  if (!post) {
+  if (error || !post) {
     notFound()
   }
 
-  // Find related posts (same category, excluding current post)
-  const relatedPosts = blogPosts
-    .filter(p => p.category === post.category && p.id !== post.id)
-    .slice(0, 3)
-
-  const currentIndex = blogPosts.findIndex(p => p.id === post.id)
-  const prevPost = currentIndex > 0 ? blogPosts[currentIndex - 1] : null
-  const nextPost = currentIndex < blogPosts.length - 1 ? blogPosts[currentIndex + 1] : null
-
-
   return (
     <>
-      <StructuredData type="WebSite" />
-      <BlogPostContent
-        post={post}
-        relatedPosts={relatedPosts}
-        prevPost={prevPost}
-        nextPost={nextPost}
-      />
+      <StaticSceneryBackground />
+      <ParallaxContainer />
+      <VelocityParticles />
+
+      <div className="relative min-h-screen">
+        <CustomCursor />
+        <Navigation />
+        <StructuredData type="WebSite" />
+
+        <BlogPostContent
+          post={post}
+          relatedPosts={relatedPosts}
+          prevPost={prevPost}
+          nextPost={nextPost}
+        />
+      </div>
+
+      {mounted && (
+        <div className="fixed bottom-8 right-8 z-[9999]">
+          <svg className="absolute -inset-6 w-28 h-28 animate-spin" style={{ animationDuration: '12s' }}>
+            <defs>
+              <path
+                id="circle-blog"
+                d="M 56,56 m -40,0 a 40,40 0 0,1 80,0 a 40,40 0 0,1 -80,0"
+              />
+            </defs>
+            <motion.text
+              key={showBackToTop ? 'top' : 'scroll'}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5 }}
+              className={`text-[8px] font-sans font-bold uppercase tracking-[0.5px] transition-colors duration-300 ${buttonOnDarkSection
+                ? 'fill-white'
+                : theme === 'dark'
+                  ? 'fill-white'
+                  : 'fill-black'
+                }`}
+            >
+              <textPath href="#circle-blog" startOffset="0%" spacing="auto">
+                {showBackToTop
+                  ? 'BACK TO TOP • BACK TO TOP • BACK TO TOP • BACK TO TOP • '
+                  : 'SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • '
+                }
+              </textPath>
+            </motion.text>
+          </svg>
+
+          <div className="absolute -inset-4 w-24 h-24">
+            <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
+              <circle
+                cx="48"
+                cy="48"
+                r="34"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className={`transition-colors duration-300 opacity-20 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
+                    ? 'text-white'
+                    : 'text-black'
+                  }`}
+              />
+              <motion.circle
+                cx="48"
+                cy="48"
+                r="34"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                className={`transition-colors duration-300 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
+                    ? 'text-white'
+                    : 'text-black'
+                  }`}
+                strokeLinecap="round"
+                style={{
+                  pathLength: scrollYProgress
+                }}
+                strokeDasharray="213.628"
+                strokeDashoffset="213.628"
+              />
+            </svg>
+          </div>
+
+          <motion.button
+            className={`relative w-16 h-16 bg-transparent rounded-full transition-all duration-300 flex items-center justify-center hover:bg-opacity-20 ${buttonOnDarkSection
+              ? 'text-white hover:bg-white'
+              : theme === 'dark'
+                ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
+                : 'text-black hover:bg-black/20'
+              }`}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 1, type: "spring", stiffness: 300, damping: 25 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              if (showBackToTop) {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else {
+                window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+              }
+            }}
+            style={{ backgroundColor: 'transparent' }}
+          >
+            <motion.div
+              animate={{
+                y: showBackToTop ? [0, -3, 0] : [0, 3, 0],
+                rotate: showBackToTop ? 0 : 180
+              }}
+              transition={{
+                y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
+                rotate: { duration: 0.3 }
+              }}
+              className={`text-xl transition-colors duration-300 ${buttonOnDarkSection
+                ? 'text-white'
+                : theme === 'dark'
+                  ? 'text-white'
+                  : 'text-black'
+                }`}
+            >
+              ↑
+            </motion.div>
+          </motion.button>
+        </div>
+      )}
     </>
   )
-}
-
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const blogPosts = getStaticContent.blog()
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }))
 }
