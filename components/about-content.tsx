@@ -51,7 +51,7 @@ export function AboutContent() {
           </motion.div>
 
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8">
                 Professional Summary
               </h2>
@@ -74,7 +74,7 @@ export function AboutContent() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12 text-center">
                 Key Performance Metrics
               </h2>
@@ -111,7 +111,7 @@ export function AboutContent() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
                 <Code className="h-8 w-8 text-black dark:text-white" />
                 {about.expertise.title}
@@ -120,7 +120,7 @@ export function AboutContent() {
                 {about.expertise.areas.map((area, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-lg p-6 space-y-4 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-4 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                     variants={fadeInUp}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -130,9 +130,9 @@ export function AboutContent() {
                         {area.name}
                       </h3>
                       <div className="flex flex-col items-end gap-1">
-                        <span className={`text-xs font-mono px-2 py-1 rounded ${area.proficiencyLevel === 'Expert'
+                        <span className={`text-xs font-mono px-2 py-1 ${area.proficiencyLevel === 'Expert'
                           ? 'bg-black text-white dark:bg-white dark:text-black'
-                          : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                          : 'bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10'
                           }`}>
                           {area.proficiencyLevel}
                         </span>
@@ -148,7 +148,7 @@ export function AboutContent() {
                       {area.technologies.map((tech) => (
                         <span
                           key={tech}
-                          className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded"
+                          className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
                         >
                           {tech}
                         </span>
@@ -169,7 +169,7 @@ export function AboutContent() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12">
                 {about.technicalProcess.title}
               </h2>
@@ -185,7 +185,7 @@ export function AboutContent() {
                         className="flex items-start gap-4"
                         variants={fadeInUp}
                       >
-                        <div className="w-2 h-2 bg-black dark:bg-white rounded-full mt-2 flex-shrink-0" />
+                        <div className="w-2 h-2 bg-black dark:bg-white  mt-2 flex-shrink-0" />
                         <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
                           {method}
                         </span>
@@ -203,7 +203,7 @@ export function AboutContent() {
                       <motion.div
                         key={category}
                         variants={fadeInUp}
-                        className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-lg p-4 transition-all duration-300 hover:border-black dark:hover:border-white"
+                        className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-4 transition-all duration-300 hover:border-black dark:hover:border-white"
                       >
                         <h4 className="font-sans font-medium text-black dark:text-white mb-4 capitalize">
                           {category}
@@ -212,7 +212,7 @@ export function AboutContent() {
                           {techs.map((tech) => (
                             <span
                               key={tech}
-                              className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded"
+                              className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
                             >
                               {tech}
                             </span>
@@ -235,7 +235,7 @@ export function AboutContent() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
                 <Globe className="h-8 w-8 text-black dark:text-white" />
                 {about.indonesianMarketExpertise.title}
@@ -248,7 +248,7 @@ export function AboutContent() {
                 {about.indonesianMarketExpertise.specializations.map((specialization, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-lg p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                     variants={fadeInUp}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -266,7 +266,7 @@ export function AboutContent() {
                       <div className="space-y-3">
                         {specialization.achievements.map((achievement, achIndex) => (
                           <div key={achIndex} className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0" />
+                            <div className="w-1.5 h-1.5 bg-green-500  mt-2 flex-shrink-0" />
                             <span className="text-xs text-gray-600 dark:text-gray-400 font-sans">
                               {achievement}
                             </span>
@@ -289,7 +289,7 @@ export function AboutContent() {
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
               <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12">
                 {about.successStories.title}
               </h2>
@@ -297,7 +297,7 @@ export function AboutContent() {
                 {about.successStories.projects.map((project, index) => (
                   <motion.div
                     key={index}
-                    className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 rounded-lg p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
+                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
                     variants={fadeInUp}
                     whileHover={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -307,7 +307,7 @@ export function AboutContent() {
                         <h3 className="font-sans font-semibold text-lg text-black dark:text-white">
                           {project.client}
                         </h3>
-                        <span className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded mt-2 inline-block">
+                        <span className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10 mt-2 inline-block">
                           {project.industry}
                         </span>
                       </div>
@@ -349,7 +349,7 @@ export function AboutContent() {
                             {project.technologies.map((tech) => (
                               <span
                                 key={tech}
-                                className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded"
+                                className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
                               >
                                 {tech}
                               </span>
@@ -374,7 +374,7 @@ export function AboutContent() {
         >
           <div className="grid lg:grid-cols-2 gap-12">
             <motion.div variants={fadeInUp}>
-              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+              <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
                 <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
                   <Award className="h-6 w-6 text-black dark:text-white" />
                   {about.education.title}
@@ -391,7 +391,7 @@ export function AboutContent() {
                     <div className="space-y-3">
                       {about.education.certifications.map((cert, index) => (
                         <div key={index} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-green-500 rounded-full" />
+                          <div className="w-2 h-2 bg-green-500 " />
                           <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
                             {cert}
                           </span>
@@ -407,7 +407,7 @@ export function AboutContent() {
                     <div className="space-y-3">
                       {about.education.continuousLearning.map((learning, index) => (
                         <div key={index} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-blue-500 rounded-full" />
+                          <div className="w-2 h-2 bg-blue-500 " />
                           <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
                             {learning}
                           </span>
@@ -421,7 +421,7 @@ export function AboutContent() {
 
             <div className="space-y-8">
               <motion.div variants={fadeInUp}>
-                <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+                <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
                   <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
                     <MapPin className="h-6 w-6 text-black dark:text-white" />
                     {about.location.title}
@@ -434,7 +434,7 @@ export function AboutContent() {
                       {about.location.serviceAreas.map((area) => (
                         <span
                           key={area}
-                          className="text-xs font-mono px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 rounded"
+                          className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
                         >
                           {area}
                         </span>
@@ -445,7 +445,7 @@ export function AboutContent() {
               </motion.div>
 
               <motion.div variants={fadeInUp}>
-                <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
+                <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
                   <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8">
                     Contact Information
                   </h2>
