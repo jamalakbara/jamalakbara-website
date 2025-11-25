@@ -58,7 +58,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
+      <main className="min-h-screen font-sans antialiased relative z-10">
         <article className="max-w-7xl mx-auto px-6 py-32">
           <motion.div
             initial="hidden"
@@ -127,7 +127,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
                   <motion.button
                     whileHover={{ scale: 1.05, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-black dark:text-white font-mono text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center gap-2"
+                    className="px-4 py-2 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-black dark:text-white font-mono text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center gap-2"
                   >
                     <Twitter className="h-4 w-4" />
                     Twitter
@@ -155,7 +155,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
             {/* Article Content */}
             <motion.div variants={itemVariants} className="space-y-8">
               {/* Main Content */}
-              <div className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 md:p-12">
+              <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 md:p-12">
                 <div className="prose prose-lg max-w-none">
                   <p className="text-lg md:text-xl text-black dark:text-white leading-relaxed font-serif">
                     {post.content}
@@ -170,7 +170,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
                     <motion.div
                       key={index}
                       variants={itemVariants}
-                      className="bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-8 md:p-12"
+                      className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 md:p-12"
                     >
                       {block.type === 'heading' && (
                         <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-6">
@@ -210,7 +210,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="px-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-xs font-mono text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
+                  className="px-4 py-2 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-xs font-mono text-gray-700 dark:text-gray-300 hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300"
                 >
                   #{tag}
                 </span>
@@ -234,7 +234,7 @@ export function BlogPostContent({ post, relatedPosts, prevPost, nextPost }: Blog
                         boxShadow: "8px 8px 0px 0px rgba(0,0,0,1)"
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                      className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                     >
                       <Link href={`/blog/${relatedPost.slug}`} className="block">
                         <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider mb-4 inline-block">

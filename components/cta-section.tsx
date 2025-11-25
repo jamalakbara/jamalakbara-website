@@ -38,13 +38,13 @@ export function CTASection() {
     <>
       <motion.section
         id="contact"
-        className="pt-20 pb-16 md:pb-24 px-6 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
+        className="pt-20 pb-16 md:pb-24 px-6 bg-black dark:bg-white text-white dark:text-black relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
         ref={ref}
         style={{ y, scale, opacity, rotateX }}
       >
         {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
+        <div className="absolute inset-0 opacity-5 dark:opacity-10">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.2),transparent_70%)]" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
@@ -67,14 +67,14 @@ export function CTASection() {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-emerald-200 dark:text-emerald-300"
+                className="text-gray-400 dark:text-gray-600"
               >
                 Something Amazing
               </motion.span>
             </motion.h2>
 
             <motion.p
-              className="text-lg md:text-xl text-emerald-100 dark:text-emerald-200 font-sans max-w-xl mx-auto mb-8 leading-normal"
+              className="text-lg md:text-xl text-gray-400 dark:text-gray-600 font-sans max-w-xl mx-auto mb-8 leading-normal"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -95,30 +95,19 @@ export function CTASection() {
                 animate="animate"
                 whileHover={{
                   scale: 1.1,
-                  backgroundColor: "#fff",
-                  color: "#065f46",
-                  boxShadow: "0 20px 40px rgba(255,255,255,0.3)"
                 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsModalOpen(true)}
-                className="group relative px-10 py-4 border-2 border-white text-white font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
+                className="group relative px-10 py-4 border-2 border-white dark:border-black text-white dark:text-black font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
               >
                 <span className="relative z-10">Start a Project</span>
-
-                {/* Button background animation */}
-                <motion.div
-                  className="absolute inset-0 bg-white"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ type: "tween", duration: 0.3 }}
-                />
               </motion.button>
             </motion.div>
           </motion.div>
 
           {/* Contact Info */}
           <motion.div
-            className="mt-20 pt-12 border-t border-emerald-500 dark:border-emerald-400 relative z-10 mb-20"
+            className="mt-20 pt-12 border-t border-gray-800 dark:border-gray-200 relative z-10 mb-20"
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : { opacity: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
@@ -128,7 +117,7 @@ export function CTASection() {
                 <div className="text-lg font-serif font-bold mb-2">Email</div>
                 <a
                   href={`mailto:${siteConfig.contact?.email}`}
-                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                  className="text-gray-400 dark:text-gray-600 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
                 >
                   {siteConfig.contact?.email}
                 </a>
@@ -139,14 +128,14 @@ export function CTASection() {
                   href={`https://wa.me/${(siteConfig.contact?.phone || '+6281321766565').replace(/\D/g, '')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
+                  className="text-gray-400 dark:text-gray-600 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
                 >
                   {siteConfig.contact?.phone || '+6281321766565'}
                 </a>
               </div>
               <div className="relative">
                 <div className="text-lg font-serif font-bold mb-2">Location</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.location}</div>
+                <div className="text-gray-400 dark:text-gray-600 font-mono">{siteConfig.contact.location}</div>
               </div>
             </div>
           </motion.div>

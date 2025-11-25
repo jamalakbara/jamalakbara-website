@@ -11,12 +11,7 @@ import {
   Layers,
   ExternalLink,
   Github,
-  Check,
-  Share2,
-  Linkedin,
-  Twitter,
-  Facebook,
-  Link as LinkIcon
+  Check
 } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { Project } from '@/lib/content-types'
@@ -60,8 +55,87 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
   return (
     <>
       <CustomCursor />
-      <main className="min-h-screen bg-white dark:bg-black font-sans antialiased">
-        <article className="max-w-7xl mx-auto px-6 py-32">
+      <main className="min-h-screen font-sans antialiased relative z-10">
+        {/* Project Hero - Full Width */}
+        <motion.header
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="relative min-h-[60vh] flex items-center justify-center mb-20 pb-20 pt-32"
+        >
+
+
+          <motion.div
+            variants={itemVariants}
+            className="text-center space-y-8 max-w-4xl mx-auto px-6"
+          >
+            {/* Category */}
+            <div className="flex items-center justify-center gap-4">
+              <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider">
+                {project.category}
+              </span>
+              {project.featured && (
+                <>
+                  <span className="text-gray-400">•</span>
+                  <span className="px-3 py-1 bg-yellow-500 text-black text-xs font-mono font-bold uppercase tracking-wider">
+                    ⭐ Featured
+                  </span>
+                </>
+              )}
+            </div>
+
+            {/* Title */}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-black dark:text-white leading-tight">
+              {project.title}
+            </h1>
+
+            {/* Project Meta */}
+            <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-gray-500 dark:text-gray-500">
+              <div className="flex items-center gap-2">
+                <Calendar className="h-4 w-4" />
+                <span className="font-mono">{project.year}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Layers className="h-4 w-4" />
+                <span className="font-mono">{project.tech.length} Technologies</span>
+              </div>
+            </div>
+
+            {/* Project Links */}
+            <div className="flex items-center justify-center gap-6 pt-4">
+              <div className="flex gap-3">
+                {project.livePreview && (
+                  <motion.a
+                    href={project.livePreview}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 flex items-center gap-2"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Live Preview
+                  </motion.a>
+                )}
+                {project.url && (
+                  <motion.a
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="px-6 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-black dark:text-white font-mono text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center gap-2"
+                  >
+                    <Github className="h-4 w-4" />
+                    View Code
+                  </motion.a>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        </motion.header>
+
+        <article className="max-w-7xl mx-auto px-6 pb-32">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -69,7 +143,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
             className="space-y-16"
           >
             {/* Back to Projects */}
-            <motion.div variants={itemVariants} className="relative z-50">
+            <motion.div variants={itemVariants} className="relative z-50 -mt-12 mb-12">
               <Link
                 href="/"
                 className="inline-flex items-center gap-3 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors duration-300 group"
@@ -78,73 +152,6 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                 <span className="font-mono text-sm tracking-wider uppercase">Back to Home</span>
               </Link>
             </motion.div>
-
-            {/* Project Header */}
-            <motion.header variants={itemVariants} className="space-y-8">
-              {/* Category */}
-              <div className="flex items-center gap-4">
-                <span className="px-3 py-1 bg-black dark:bg-white text-white dark:text-black text-xs font-mono font-bold uppercase tracking-wider">
-                  {project.category}
-                </span>
-                {project.featured && (
-                  <>
-                    <span className="text-gray-400">•</span>
-                    <span className="px-3 py-1 bg-yellow-500 text-black text-xs font-mono font-bold uppercase tracking-wider">
-                      ⭐ Featured
-                    </span>
-                  </>
-                )}
-              </div>
-
-              {/* Title */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-black dark:text-white leading-tight">
-                {project.title}
-              </h1>
-
-              {/* Project Meta */}
-              <div className="flex flex-wrap items-center gap-8 text-sm text-gray-500 dark:text-gray-500 pb-8 border-b border-gray-200 dark:border-gray-700">
-                <div className="flex items-center gap-2">
-                  <Calendar className="h-4 w-4" />
-                  <span className="font-mono">{project.year}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Layers className="h-4 w-4" />
-                  <span className="font-mono">{project.tech.length} Technologies</span>
-                </div>
-              </div>
-
-              {/* Project Links */}
-              <div className="flex items-center gap-6 pt-4">
-                <div className="flex gap-3">
-                  {project.livePreview && (
-                    <motion.a
-                      href={project.livePreview}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-3 bg-black dark:bg-white text-white dark:text-black font-mono text-sm hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-300 flex items-center gap-2"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      Live Preview
-                    </motion.a>
-                  )}
-                  {project.url && (
-                    <motion.a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      whileHover={{ scale: 1.05, y: -2 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-6 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-black text-black dark:text-white font-mono text-sm hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black transition-all duration-300 flex items-center gap-2"
-                    >
-                      <Github className="h-4 w-4" />
-                      View Code
-                    </motion.a>
-                  )}
-                </div>
-              </div>
-            </motion.header>
 
             {/* Featured Image */}
             <motion.div variants={itemVariants} className="relative aspect-video w-full overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -210,7 +217,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                       {project.tech.map((tech) => (
                         <span
                           key={tech}
-                          className="px-3 py-1 bg-gray-100 dark:bg-gray-900 text-sm font-mono text-gray-700 dark:text-gray-300"
+                          className="px-3 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 text-sm font-mono text-gray-700 dark:text-gray-300"
                         >
                           {tech}
                         </span>
@@ -261,7 +268,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                   </h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     {project.gallery.map((image, index) => (
-                      <div key={index} className="relative aspect-video bg-gray-100 dark:bg-gray-900 overflow-hidden border border-gray-200 dark:border-gray-700">
+                      <div key={index} className="relative aspect-video bg-white/40 dark:bg-black/40 backdrop-blur-xl overflow-hidden border border-white/20 dark:border-white/10">
                         <Image
                           src={image}
                           alt={`${project.title} screenshot ${index + 1}`}
@@ -275,7 +282,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
               )}
 
               {/* CTA Section */}
-              <div className="bg-black dark:bg-white text-white dark:text-black p-12 text-center space-y-8">
+              <div className="bg-black/80 dark:bg-white/80 backdrop-blur-xl text-white dark:text-black p-12 text-center space-y-8 border border-white/20 dark:border-black/20">
                 <h2 className="text-3xl md:text-4xl font-serif font-bold">
                   Interested in a project like this?
                 </h2>
@@ -343,7 +350,7 @@ export function ProjectPostContent({ project, relatedProjects, prevProject, next
                         boxShadow: "8px 8px 0px 0px rgba(0,0,0,1)"
                       }}
                       transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                      className="bg-white dark:bg-black border border-gray-200 dark:border-gray-700 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
+                      className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 hover:border-black dark:hover:border-white transition-all duration-300 group cursor-pointer"
                     >
                       <Link href={`/project/${relatedProject.id}`} className="block">
                         <div className="relative aspect-video overflow-hidden mb-6">

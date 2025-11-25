@@ -178,15 +178,19 @@ export const VelocityParticles = () => {
   const { scrollY } = useScroll()
   const scrollVelocity = useVelocity(scrollY)
   const [particles, setParticles] = useState<Array<{ id: number, x: number, y: number }>>([])
+  const particleIdCounter = useRef(0)
 
   useEffect(() => {
     const unsubscribe = scrollVelocity.on('change', (latest) => {
       if (Math.abs(latest) > 200) {
-        const newParticles = Array.from({ length: 5 }, (_, i) => ({
-          id: Date.now() + Math.random() + i, // More unique with random addition
-          x: Math.random() * window.innerWidth,
-          y: Math.random() * window.innerHeight
-        }))
+        const newParticles = Array.from({ length: 5 }, () => {
+          particleIdCounter.current += 1
+          return {
+            id: particleIdCounter.current,
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight
+          }
+        })
 
         setParticles(prev => [...prev, ...newParticles].slice(-20)) // Keep max 20 particles
 
