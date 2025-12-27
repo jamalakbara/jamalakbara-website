@@ -1,6 +1,6 @@
 'use client'
 
-import { getStaticContent } from '@/lib/content-manager'
+import { getStaticContent } from '@/lib/static-content'
 import { motion, Variants } from 'framer-motion'
 import { MapPin, Mail, Phone, Award, Users, Code, Globe } from 'lucide-react'
 import { CTASection } from '@/components/cta-section'

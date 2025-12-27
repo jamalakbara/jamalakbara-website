@@ -1,144 +1,161 @@
 'use client'
 
-import { motion, useInView, useScroll, useTransform } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { getStaticContent } from '@/lib/content-manager'
+import { useRef, useState, useEffect } from 'react'
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion'
+import { getStaticContent } from '@/lib/static-content'
 import { ContactModal } from '@/components/contact-modal'
+import { ArrowUpRight } from 'lucide-react'
 
 export function CTASection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
+  const containerRef = useRef<HTMLDivElement>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const siteConfig = getStaticContent.siteConfig()
+  const [time, setTime] = useState<string>('')
 
-  // Scroll-based animations for stacking effect
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  })
+  // Mouse tracking for magnetic button
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-  const y = useTransform(scrollYProgress, [0, 0.5], [200, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0])
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    // Calculate normalized position (-1 to 1)
+    const x = (e.clientX - left - width / 2) / (width / 2)
+    const y = (e.clientY - top - height / 2) / (height / 2)
 
-  const pulseVariants = {
-    initial: { scale: 1 },
-    animate: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut" as const
-      }
-    }
+    mouseX.set(x * 50) // Max movement 50px
+    mouseY.set(y * 50)
   }
 
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+  }
+
+  // Spring physics for smooth movement
+  const springConfig = { damping: 15, stiffness: 150, mass: 0.1 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
+
+  useEffect(() => {
+    const updateTime = () => {
+      setTime(new Date().toLocaleTimeString('en-US', {
+        timeZone: 'Asia/Jakarta',
+        hour: '2-digit',
+        minute: '2-digit'
+      }))
+    }
+    updateTime()
+    const interval = setInterval(updateTime, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
   return (
-    <>
-      <motion.section
-        id="contact"
-        className="pt-20 pb-16 md:pb-24 px-6 bg-black/80 dark:bg-white/80 backdrop-blur-xl text-white dark:text-black relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300 border border-white/20 dark:border-black/20"
-        ref={ref}
-        style={{ y, scale, opacity, rotateX }}
-      >
+    <div
+      className="relative h-screen w-full"
+      style={{ clipPath: "inset(0 0 0 0)" }}
+      ref={containerRef}
+    >
+      <div className="relative h-full w-full fixed bottom-0 left-0 right-0 -z-10 flex flex-col justify-between bg-[#0a0a0a] text-white px-6 py-12 md:p-20 overflow-hidden">
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
+        {/* Background Gradients */}
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-30">
+          <div className="absolute top-[20%] left-[20%] w-[500px] h-[500px] bg-purple-900 rounded-full blur-[150px] mix-blend-screen animate-pulse duration-[5000ms]" />
+          <div className="absolute bottom-[20%] right-[20%] w-[500px] h-[500px] bg-blue-900 rounded-full blur-[150px] mix-blend-screen animate-pulse duration-[7000ms]" />
+        </div>
 
-          {/* Main CTA Content */}
+        {/* Top Info */}
+        <div className="relative z-10 flex justify-between items-start w-full">
+          <div className="hidden md:block">
+            <span className="block text-xs font-mono uppercase tracking-widest text-white/40 mb-2">Current Status</span>
+            <span className="flex items-center gap-2 text-sm text-green-400">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+              </span>
+              Available for work
+            </span>
+          </div>
+          <div className="text-right">
+            <span className="block text-xs font-mono uppercase tracking-widest text-white/40 mb-2">Local Time</span>
+            <span className="text-sm font-mono">{time} WIB {time.includes('AM') || parseInt(time) < 18 ? '☀️' : '🌙'}</span>
+          </div>
+        </div>
+
+        {/* Dynamic Center Interaction */}
+        <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full">
+          <p className="text-lg md:text-xl text-white/60 mb-8 font-light tracking-wide uppercase">Have an idea?</p>
+
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8 }}
+            className="relative cursor-pointer group"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => setIsModalOpen(true)}
+            whileHover="hover"
           >
-            <motion.h2
-              className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-[0.9]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-            >
-              <span>Let&apos;s Create</span>
-              <br />
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-gray-300 dark:text-gray-700"
-              >
-                Something Amazing
-              </motion.span>
-            </motion.h2>
-
-            <motion.p
-              className="text-lg md:text-xl text-gray-300 dark:text-gray-700 font-sans max-w-xl mx-auto mb-8 leading-normal"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              Ready to transform your ideas into reality? Let&apos;s discuss your next project
-              and create something that stands out from the crowd.
-            </motion.p>
-
-            {/* Animated CTA Button */}
+            {/* Magnetic Circle Background */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
+              style={{ x, y }}
+              className="absolute inset-0 bg-blue-600 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
+            />
+
+            {/* Main Text */}
+            <h2 className="relative text-[13vw] md:text-[11vw] font-bold tracking-tighter leading-none text-white mix-blend-difference group-hover:scale-[1.02] transition-transform duration-500 ease-out">
+              LET&apos;S TALK
+            </h2>
+
+            {/* Hover Reveal Button */}
+            <motion.div
+              style={{ x, y, left: '50%', top: '50%', translateX: '-50%', translateY: '-50%' }}
+              className="absolute w-32 h-32 md:w-48 md:h-48 bg-blue-600 rounded-full flex items-center justify-center opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 pointer-events-none"
             >
-              <motion.button
-                variants={pulseVariants}
-                initial="initial"
-                animate="animate"
-                whileHover={{
-                  scale: 1.1,
-                }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsModalOpen(true)}
-                className="group relative px-10 py-4 border-2 border-white dark:border-black text-white dark:text-black font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
-              >
-                <span className="relative z-10">Start a Project</span>
-              </motion.button>
+              <ArrowUpRight className="w-12 h-12 md:w-20 md:h-20 text-white" />
             </motion.div>
           </motion.div>
-
-          {/* Contact Info */}
-          <motion.div
-            className="mt-20 pt-12 border-t border-gray-500 dark:border-gray-600 relative z-10 mb-20"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Email</div>
-                <a
-                  href={`mailto:${siteConfig.contact?.email}`}
-                  className="text-gray-300 dark:text-gray-700 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
-                >
-                  {siteConfig.contact?.email}
-                </a>
-              </div>
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Phone</div>
-                <a
-                  href={`https://wa.me/${(siteConfig.contact?.phone || '+6281321766565').replace(/\D/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 dark:text-gray-700 font-mono hover:text-white dark:hover:text-black transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
-                >
-                  {siteConfig.contact?.phone || '+6281321766565'}
-                </a>
-              </div>
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Location</div>
-                <div className="text-gray-300 dark:text-gray-700 font-mono">{siteConfig.contact.location}</div>
-              </div>
-            </div>
-          </motion.div>
         </div>
-      </motion.section>
+
+        {/* Bottom Footer Info */}
+        <div className="relative z-10 w-full pt-8 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-end">
+            {/* Copyright / Brand */}
+            <div className="md:col-span-4">
+              <h3 className="text-2xl font-bold tracking-tight mb-2">jamalakbara.</h3>
+              <p className="text-white/40 text-sm">
+                &copy; {new Date().getFullYear()} Jamal Akbar Alam.<br />
+                Crafted with Next.js & GSAP.
+              </p>
+            </div>
+
+            {/* Main Contact Email - Massive */}
+            <div className="md:col-span-4 text-center md:text-left">
+              <a
+                href={`mailto:${siteConfig.contact.email}`}
+                className="block text-2xl md:text-3xl font-light hover:text-blue-400 transition-colors border-b border-transparent hover:border-blue-400 pb-1"
+              >
+                {siteConfig.contact.email}
+              </a>
+            </div>
+
+            {/* Socials */}
+            <div className="md:col-span-4 flex justify-end gap-6">
+              {siteConfig.social.map(s => (
+                <a
+                  key={s.platform}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener"
+                  className="group flex flex-col items-center gap-1"
+                >
+                  <span className="text-xs font-mono uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
+                    {s.platform}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
 
       <ContactModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
-    </>
+    </div>
   )
 }

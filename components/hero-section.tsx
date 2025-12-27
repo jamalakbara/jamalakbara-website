@@ -1,246 +1,125 @@
 'use client'
 
-import { motion, useScroll, useTransform, useAnimation } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { gsap } from 'gsap'
+import { useStore } from '@/lib/store'
 
 export function HeroSection() {
-  const ref = useRef(null)
-  const controls = useAnimation()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleRef = useRef<HTMLHeadingElement>(null)
+  const isLoaded = useStore((state) => state.isLoaded)
+  const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false)
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-
-  const heroText = "Creative Developer & Designer"
-  const subText = "Crafting digital experiences with precision and artistry"
-
-  const words = heroText.split(' ')
-  const subWords = subText.split(' ')
-
-
-  // Auto-animate subtitle words periodically
   useEffect(() => {
-    let animationTimeout: NodeJS.Timeout | null = null
-    let isMounted = true
+    if (!isLoaded || !containerRef.current) return
 
-    const animateWords = async () => {
-      // Wait for component to fully mount
-      await new Promise(resolve => {
-        animationTimeout = setTimeout(resolve, 100)
-      })
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
 
-      // Check if component is still mounted
-      if (!isMounted) return
-
-      // Wait for initial load
-      await new Promise(resolve => {
-        animationTimeout = setTimeout(resolve, 3000)
-      })
-
-      if (!isMounted) return
-
-      const runAnimation = async () => {
-        if (!isMounted) return
-
-        // Animate each word with faster stagger
-        for (let i = 0; i < subWords.length; i++) {
-          if (!isMounted) break
-
-          try {
-            await controls.start((index) => {
-              if (index === i) {
-                const variants = [
-                  // Quick glow
-                  {
-                    scale: [1, 1.08, 1],
-                    color: ["#6b7280", "#000", "#6b7280"],
-                    textShadow: ["none", "0 0 8px rgba(0,0,0,0.3)", "none"],
-                    transition: { duration: 0.5 }
-                  },
-                  // Gentle bounce
-                  {
-                    y: [0, -4, 0],
-                    scale: [1, 1.03, 1],
-                    color: ["#6b7280", "#333", "#6b7280"],
-                    transition: { duration: 0.4 }
-                  },
-                  // Pulse effect
-                  {
-                    scale: [1, 1.06, 1],
-                    color: ["#6b7280", "#222", "#6b7280"],
-                    transition: { duration: 0.3 }
-                  }
-                ]
-                return variants[i % variants.length]
-              }
-              return {}
-            })
-          } catch (error) {
-            console.warn('Animation control error:', error)
-            break
-          }
-
-          // Check if still mounted before continuing
-          if (!isMounted) break
-
-          // Faster delay between words
-          await new Promise(resolve => {
-            animationTimeout = setTimeout(resolve, 200)
-          })
+      // Animate lines up
+      tl.fromTo(".hero-line",
+        { y: 100, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1.2,
+          stagger: 0.15,
+          delay: 0.3
         }
+      )
+        // Animate subtitle
+        .fromTo(".subtitle",
+          { y: 30, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1 },
+          "-=0.6"
+        )
+        // Animate scroll indicator
+        .fromTo(".scroll-indicator",
+          { opacity: 0 },
+          { opacity: 1, duration: 1 },
+          "-=0.5"
+        )
+    }, containerRef)
 
-        // Check if still mounted before next cycle
-        if (!isMounted) return
-
-        // Shorter wait before next cycle
-        await new Promise(resolve => {
-          animationTimeout = setTimeout(resolve, 3000)
-        })
-
-        // Run next cycle only if still mounted
-        if (isMounted) {
-          runAnimation()
-        }
+    // Scroll listener for indicator
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrollIndicatorHidden(true)
+      } else {
+        setScrollIndicatorHidden(false)
       }
-
-      runAnimation()
     }
 
-    animateWords()
+    // Interactive parallax effect for text
+    const handleMouseMove = (e: MouseEvent) => {
+      const { clientX, clientY } = e
+      const x = (clientX / window.innerWidth - 0.5) * 15
+      const y = (clientY / window.innerHeight - 0.5) * 15
+
+      if (titleRef.current) {
+        gsap.to(titleRef.current, {
+          x: x,
+          y: y,
+          duration: 1.2,
+          ease: "power3.out"
+        })
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('mousemove', handleMouseMove)
 
     return () => {
-      isMounted = false
-      if (animationTimeout) {
-        clearTimeout(animationTimeout)
-      }
+      ctx.revert()
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('mousemove', handleMouseMove)
     }
-  }, [controls, subWords.length])
-
-
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring" as const,
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-    },
-  }
-
-  // Scroll-triggered animations
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut" as const
-      }
-    }
-  }
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
-  }
-
-  const hoverVariant = {
-    scale: 1.05,
-    rotate: [-1, 1, -1, 0],
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut" as const
-    }
-  }
+  }, [isLoaded])
 
   return (
-    <motion.section
+    <section
+      ref={containerRef}
+      className="min-h-screen flex flex-col items-center justify-center relative px-4 md:px-8 overflow-hidden bg-[#0a0a0a]"
       id="hero"
-      ref={ref}
-      style={{ y, opacity }}
-      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-transparent transition-colors duration-300"
-      initial="hidden"
-      animate="visible"
-      variants={staggerContainer}
     >
-      <div className="max-w-4xl mx-auto text-center">
-        {/* Main Headline with Staggered Animation */}
-        <motion.h1
-          variants={fadeInUp}
-          className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-black dark:text-white leading-tight mb-8 transition-colors duration-300"
+      {/* Main Content */}
+      <div className="relative z-10 text-center">
+        <h1
+          ref={titleRef}
+          className="font-bold tracking-tighter leading-[0.85] uppercase mb-8 flex flex-col items-center justify-center"
         >
-          {words.map((word, index) => (
-            <motion.span
-              key={index}
-              variants={child}
-              whileHover={hoverVariant}
-              className="inline-block mr-4 cursor-hover"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.h1>
+          <div className="overflow-hidden">
+            <span className="hero-line block text-[14vw] md:text-[10vw] lg:text-[9vw] text-white">
+              CREATIVE
+            </span>
+          </div>
+          <div className="overflow-hidden">
+            <span className="hero-line block text-[14vw] md:text-[10vw] lg:text-[9vw] text-transparent" style={{ WebkitTextStroke: '2px white' }}>
+              DEVELOPER
+            </span>
+          </div>
+        </h1>
 
-        {/* Subtitle with Staggered Animation */}
-        <motion.p
-          variants={fadeInUp}
-          className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto leading-relaxed transition-colors duration-300"
-        >
-          {subWords.map((word, index) => (
-            <motion.span
-              key={index}
-              custom={index}
-              variants={child}
-              animate={controls}
-              className="inline-block mr-2"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.p>
-
-        {/* CTA Button with Subtle Animation */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-12 mb-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const workSection = document.getElementById('work')
-              if (workSection) {
-                workSection.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-            className="px-8 py-4 border-2 border-black dark:border-white text-black dark:text-white bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black font-sans font-medium text-lg transition-all duration-300 cursor-hover"
-          >
-            View My Work
-          </motion.button>
-        </motion.div>
-
+        <p className="subtitle max-w-2xl mx-auto text-lg md:text-xl font-light tracking-wide text-white/60">
+          Crafting immersive digital experiences with precision, artistry, and physics-driven interaction.
+        </p>
       </div>
 
-      {/* Background Texture (Optional) */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+      {/* Scroll Down Indicator */}
+      <div
+        className={`scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 transition-opacity duration-500 ${scrollIndicatorHidden ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-xs uppercase tracking-[0.2em] text-white/40 font-mono">Scroll</span>
+          <div className="w-px h-16 bg-gradient-to-b from-white/50 to-transparent" />
+        </div>
       </div>
-    </motion.section>
+
+      {/* Subtle Background Gradient */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-1/3 left-1/4 w-[50vw] h-[50vw] bg-purple-900/20 rounded-full blur-[150px]" />
+        <div className="absolute bottom-1/3 right-1/4 w-[40vw] h-[40vw] bg-blue-900/15 rounded-full blur-[150px]" />
+      </div>
+    </section>
   )
 }
