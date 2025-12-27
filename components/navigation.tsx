@@ -1,499 +1,118 @@
 'use client'
 
-import { motion, AnimatePresence, useScroll } from 'framer-motion'
-import { useState, useEffect, useRef } from 'react'
-import { useTheme } from '@/contexts/theme-context'
-import { getStaticContent } from '@/lib/content-manager'
-import { useAnalytics } from '@/hooks/useAnalytics'
-import type { NavigationItem } from '@/lib/content-types'
-
-const navigationItems = getStaticContent.navigation()
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { useState } from 'react'
+import { useStore } from '@/lib/store'
+import Link from 'next/link'
 
 export function Navigation() {
-  const { theme, toggleTheme } = useTheme()
-  const [activeSection, setActiveSection] = useState('hero')
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [isLogoHovered, setIsLogoHovered] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
-  const [scrollProgress, setScrollProgress] = useState(0)
-  const [mounted, setMounted] = useState(false)
-  const navRef = useRef(null)
+  const [hidden, setHidden] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
+  const { scrollY } = useScroll()
+  // const { trackNavigationClick, trackThemeToggle } = useAnalytics() // Analytics
+  const { isMenuOpen, setIsMenuOpen } = useStore()
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  // Smart Hide Logic
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() || 0
+    if (latest > previous && latest > 150) {
+      setHidden(true)
+    } else {
+      setHidden(false)
+    }
 
-  // Analytics
-  const { trackNavigationClick, trackThemeToggle } = useAnalytics()
+    if (latest > 50) {
+      setHasScrolled(true)
+    } else {
+      setHasScrolled(false)
+    }
+  })
 
-  // Theme toggle with analytics tracking
-  const handleThemeToggle = () => {
-    toggleTheme()
-    trackThemeToggle(theme === 'dark' ? 'light' : 'dark')
+  // Staggered Text Hover Component
+  const StaggeredText = ({ text, href }: { text: string; href: string }) => {
+    return (
+      <Link
+        href={href}
+        className="relative overflow-hidden block text-xl font-medium uppercase tracking-tight group"
+      >
+        <div className="relative transition-transform duration-500 ease-out group-hover:-translate-y-[100%]">
+          {text}
+        </div>
+        <div className="absolute top-0 left-0 transition-transform duration-500 ease-out translate-y-[100%] group-hover:translate-y-0">
+          {text}
+        </div>
+      </Link>
+    )
   }
 
-  // Check if mobile
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1280) // xl breakpoint for navigation
-    }
-
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-
-  // Scroll progress for mobile animation
-  const { scrollYProgress } = useScroll()
-
-  // Update scroll progress for mobile animation
-  useEffect(() => {
-    const unsubscribe = scrollYProgress.on('change', (latest) => {
-      setScrollProgress(latest)
-    })
-
-    return () => unsubscribe()
-  }, [scrollYProgress])
-
-  // Determine if animation should be active
-  const shouldAnimate = isMobile ? scrollProgress > 0.1 && scrollProgress < 0.9 : isLogoHovered
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100)
-
-      // Close mobile menu when scrolling
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false)
-      }
-
-      // Determine active section based on scroll position
-      const sections = navigationItems.map(item => {
-        const element = document.getElementById(item.id)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return {
-            id: item.id,
-            top: rect.top,
-            bottom: rect.bottom
-          }
-        }
-        return null
-      }).filter(Boolean)
-
-      const current = sections.find(section =>
-        section!.top <= window.innerHeight / 2 && section!.bottom >= window.innerHeight / 2
-      )
-
-      if (current) {
-        setActiveSection(current.id)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [isMobileMenuOpen])
-
-  // Close mobile menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const nav = document.querySelector('nav')
-      if (nav && !nav.contains(event.target as Node) && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false)
-      }
-    }
-
-    if (isMobileMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside)
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [isMobileMenuOpen])
-
-  // Helper function to get optimal scroll offset for each section
-  const getSectionScrollOffset = (sectionId: string) => {
-    const navbar = document.querySelector('nav')
-    const navbarHeight = navbar ? navbar.offsetHeight : 80
-
-    switch (sectionId) {
-      case 'hero':
-        return 0 // Hero should be at very top
-
-      case 'services':
-        // Services has py-32 (8rem = 128px), so we want to show some padding
-        return navbarHeight + 60
-
-      case 'work':
-        // Featured work also has py-32
-        return navbarHeight + 60
-
-      case 'about':
-        // About has py-16 (4rem = 64px)
-        return navbarHeight + 40
-
-      case 'contact':
-        // Contact has pt-32 pb-20
-        return navbarHeight + 80
-
-      default:
-        return navbarHeight + 40
-    }
-  }
-
-  const handleNavigationClick = (item: NavigationItem) => {
-    // Close mobile menu immediately
-    setIsMobileMenuOpen(false)
-
-    // Track navigation click
-    trackNavigationClick(item.label, item.id)
-
-    // If item has an href, navigate to that page
-    if (item.href) {
-      window.location.href = item.href
-      return
-    }
-
-    // Otherwise, scroll to the section
-    scrollToSection(item.id)
-  }
-
-  const scrollToSection = (sectionId: string) => {
-    console.log('Attempting to scroll to section:', sectionId)
-
-    // Wait for any mobile menu animations to complete
-    setTimeout(() => {
-      const element = document.getElementById(sectionId)
-
-      if (element) {
-        console.log('Element found:', element)
-        console.log('Element offsetTop:', element.offsetTop)
-        console.log('Current scroll position:', window.pageYOffset)
-
-        // Get optimal offset for this specific section
-        const scrollOffset = getSectionScrollOffset(sectionId)
-        console.log('Calculated scroll offset for', sectionId, ':', scrollOffset)
-
-        // Calculate target position
-        const targetPosition = element.offsetTop - scrollOffset
-
-        console.log('Target scroll position:', targetPosition)
-
-        window.scrollTo({
-          top: Math.max(0, targetPosition),
-          behavior: 'smooth'
-        })
-      } else {
-        console.log('Element not found with ID:', sectionId)
-
-        // Retry logic
-        setTimeout(() => {
-          const retryElement = document.getElementById(sectionId)
-          if (retryElement) {
-            console.log('Element found on retry:', retryElement)
-            const scrollOffset = getSectionScrollOffset(sectionId)
-            const targetPosition = retryElement.offsetTop - scrollOffset
-
-            window.scrollTo({
-              top: Math.max(0, targetPosition),
-              behavior: 'smooth'
-            })
-          } else {
-            console.log('Element still not found after retry')
-          }
-        }, 300)
-      }
-    }, isMobileMenuOpen ? 400 : 0)
-  }
+  const navLinks = [
+    { label: 'Work', href: '#work' },
+    { label: 'About', href: '#about' },
+    { label: 'Contact', href: '#contact' }
+  ]
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
-      className="fixed top-0 left-0 right-0 z-50 px-6"
-    >
+    <>
       <motion.nav
-        animate={{
-          width: isScrolled ? "60%" : "100%",
-          borderRadius: isScrolled ? "24px" : "0px",
-          marginTop: isScrolled ? "12px" : "0px"
+        variants={{
+          visible: { y: 0 },
+          hidden: { y: "-100%" },
         }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className={`mx-auto transition-all duration-500 ${isScrolled
-          ? 'bg-white/40 dark:bg-black/40 backdrop-blur-xl border-2 border-black dark:border-white shadow-lg'
-          : 'bg-transparent'
+        animate={hidden ? "hidden" : "visible"}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className={`fixed top-0 left-0 w-full z-50 px-6 md:px-12 py-6 flex justify-between items-center transition-colors duration-300 ${hasScrolled ? 'bg-background/80 backdrop-blur-md' : 'bg-transparent'
           }`}
-        style={isScrolled ? {} : {}}
       >
-        <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="z-50 text-2xl font-bold tracking-tighter uppercase">
+          Jamal
+        </Link>
 
-          {/* Logo/Brand */}
-          <motion.div
-            className="cursor-pointer group relative h-8 w-32 overflow-hidden flex items-center"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onMouseEnter={() => !isMobile && setIsLogoHovered(true)}
-            onMouseLeave={() => !isMobile && setIsLogoHovered(false)}
-            ref={navRef}
-            onClick={() => window.location.href = '/'}
-          >
-            {/* Animated text transformation */}
-            <div className="relative text-xl font-serif font-bold text-black dark:text-white tracking-tight">
-              {/* "jamal" - disappears */}
-              <motion.span
-                className="inline-block"
-                animate={{
-                  opacity: shouldAnimate ? 0 : 1,
-                  x: shouldAnimate ? -20 : 0,
-                  scale: shouldAnimate ? 0.8 : 1
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                jamal
-              </motion.span>
-
-              {/* "akbar" - transforms */}
-              <motion.span
-                className="inline-block relative"
-                style={{
-                  background: shouldAnimate
-                    ? theme === 'dark'
-                      ? 'linear-gradient(45deg, #ffffff, #d0d0d0, #ffffff)'
-                      : 'linear-gradient(45deg, #000000, #404040, #000000)'
-                    : 'transparent',
-                  WebkitBackgroundClip: shouldAnimate ? 'text' : 'unset',
-                  backgroundClip: shouldAnimate ? 'text' : 'unset',
-                  color: shouldAnimate ? 'transparent' : 'inherit'
-                }}
-                animate={{
-                  x: shouldAnimate ? -25 : 0,
-                  scale: shouldAnimate ? 1.1 : 1
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
-              >
-                akbar
-              </motion.span>
-
-              {/* "a" (after akbar) - disappears */}
-              <motion.span
-                className="inline-block"
-                animate={{
-                  opacity: shouldAnimate ? 0 : 1,
-                  x: shouldAnimate ? 20 : 0,
-                  scale: shouldAnimate ? 0.8 : 1
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                a
-              </motion.span>
-
-              {/* "." - stays close to akbar */}
-              <motion.span
-                className="inline-block"
-                animate={{
-                  x: shouldAnimate ? -25 : 0
-                }}
-                transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
-              >
-                .
-              </motion.span>
-            </div>
-          </motion.div>
-
-          {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center space-x-8">
-            {navigationItems.map((item, index) => (
-              <motion.div
-                key={item.id}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.1,
-                  ease: "easeOut"
-                }}
-                className="relative"
-              >
-                <motion.button
-                  onClick={() => handleNavigationClick(item)}
-                  className="relative px-1 py-2 text-black dark:text-white font-sans font-medium text-base transition-colors hover:text-gray-600 dark:hover:text-gray-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {item.label}
-
-                  {/* Active indicator */}
-                  <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-black dark:bg-white origin-left"
-                    initial={{ scaleX: 0 }}
-                    animate={{
-                      scaleX: activeSection === item.id ? 1 : 0
-                    }}
-                    transition={{
-                      duration: 0.3,
-                      ease: "easeInOut"
-                    }}
-                  />
-
-                  {/* Hover effect underline */}
-                  <motion.div
-                    className="absolute -bottom-1 left-0 right-0 h-0.5 bg-gray-400 dark:bg-gray-500 origin-left"
-                    initial={{ scaleX: 0 }}
-                    whileHover={{ scaleX: 1 }}
-                    transition={{
-                      duration: 0.2,
-                      ease: "easeOut"
-                    }}
-                  />
-                </motion.button>
-              </motion.div>
-            ))}
-
-            {/* Theme Toggle */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.4,
-                delay: navigationItems.length * 0.1,
-                ease: "easeOut"
-              }}
-            >
-              <motion.button
-                onClick={handleThemeToggle}
-                className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-200"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                aria-label="Toggle theme"
-              >
-                <motion.div
-                  animate={{ rotate: mounted && theme === 'dark' ? 180 : 0 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {mounted && (theme === 'dark' ? (
-                    <svg className="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                  ))}
-                  {!mounted && (
-                    <svg className="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                  )}
-                </motion.div>
-              </motion.button>
-            </motion.div>
-          </div>
-
-          {/* Mobile Hamburger Button */}
-          <motion.button
-            className="xl:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            whileTap={{ scale: 0.95 }}
-            aria-label="Toggle mobile menu"
-          >
-            <motion.span
-              className="w-6 h-0.5 bg-black dark:bg-white block"
-              animate={{
-                rotate: isMobileMenuOpen ? 45 : 0,
-                y: isMobileMenuOpen ? 4 : 0
-              }}
-              transition={{ duration: 0.2 }}
-            />
-            <motion.span
-              className="w-6 h-0.5 bg-black dark:bg-white block"
-              animate={{
-                opacity: isMobileMenuOpen ? 0 : 1
-              }}
-              transition={{ duration: 0.2 }}
-            />
-            <motion.span
-              className="w-6 h-0.5 bg-black dark:bg-white block"
-              animate={{
-                rotate: isMobileMenuOpen ? -45 : 0,
-                y: isMobileMenuOpen ? -4 : 0
-              }}
-              transition={{ duration: 0.2 }}
-            />
-          </motion.button>
+        {/* Desktop Links */}
+        <div className="hidden md:flex gap-8 items-center">
+          {navLinks.map((link) => (
+            <StaggeredText key={link.label} text={link.label} href={link.href} />
+          ))}
         </div>
 
-        {/* Mobile Menu */}
-        <AnimatePresence mode="popLayout">
-          {isMobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              className="xl:hidden border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 overflow-hidden"
-            >
-              <div className="px-6 py-4 pb-6 space-y-4">
-                {navigationItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => handleNavigationClick(item)}
-                    className={`block w-full text-left py-3 px-4 font-sans font-medium text-lg transition-colors ${activeSection === item.id
-                      ? 'bg-black dark:bg-white text-white dark:text-black'
-                      : 'text-black dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800'
-                      }`}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: index * 0.1
-                    }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    {item.label}
-                  </motion.button>
-                ))}
-
-                {/* Mobile Theme Toggle */}
-                <motion.div
-                  className="flex items-center justify-center pt-4"
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: navigationItems.length * 0.1
-                  }}
-                >
-                  <motion.button
-                    onClick={handleThemeToggle}
-                    className="p-3 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors duration-200"
-                    whileTap={{ scale: 0.95 }}
-                    aria-label="Toggle theme"
-                  >
-                    <motion.div
-                      animate={{ rotate: theme === 'dark' ? 180 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      {theme === 'dark' ? (
-                        <svg className="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                        </svg>
-                      ) : (
-                        <svg className="w-6 h-6 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                        </svg>
-                      )}
-                    </motion.div>
-                  </motion.button>
-                </motion.div>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Mobile Menu Button - Minimal */}
+        <button
+          className="md:hidden z-50 flex flex-col gap-1.5"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          <motion.div
+            animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+            className="w-8 h-0.5 bg-foreground"
+          />
+          <motion.div
+            animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+            className="w-8 h-0.5 bg-foreground"
+          />
+          <motion.div
+            animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+            className="w-8 h-0.5 bg-foreground"
+          />
+        </button>
       </motion.nav>
-    </motion.header>
+
+      {/* Mobile Menu Overlay */}
+      <motion.div
+        initial={{ clipPath: "circle(0% at 100% 0%)" }}
+        animate={{ clipPath: isMenuOpen ? "circle(150% at 100% 0%)" : "circle(0% at 100% 0%)" }}
+        transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1] }}
+        className="fixed inset-0 z-40 bg-foreground text-background flex flex-col justify-center items-center gap-8 md:hidden"
+      >
+        {navLinks.map((link) => (
+          <Link
+            key={link.label}
+            href={link.href}
+            onClick={() => setIsMenuOpen(false)}
+            className="text-4xl font-bold uppercase tracking-tight text-white mix-blend-difference"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </motion.div>
+    </>
   )
 }

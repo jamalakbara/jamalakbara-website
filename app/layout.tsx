@@ -4,6 +4,9 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
+import { LenisProvider } from "@/components/lenis-provider";
+import { NoiseOverlay } from "@/components/noise-overlay";
+import { Preloader } from "@/components/preloader";
 import "./globals.css";
 
 const inter = Inter({
@@ -136,11 +139,15 @@ export default function RootLayout({
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          {children}
+          <LenisProvider>
+            <Preloader />
+            <NoiseOverlay />
+            {children}
+          </LenisProvider>
         </ThemeProvider>
 
         {/* Analytics & Consent */}
