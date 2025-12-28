@@ -1,101 +1,38 @@
 import { MetadataRoute } from 'next'
-import { getStaticContent } from '@/lib/content-manager'
-import fs from 'fs'
-import path from 'path'
-
-// Get file modification time for better sitemap accuracy
-function getFileModTime(filename: string): Date {
-  try {
-    const filePath = path.join(process.cwd(), 'content', filename)
-    const stats = fs.statSync(filePath)
-    return stats.mtime
-  } catch {
-    console.warn(`Could not get modification time for ${filename}, using current time`)
-    return new Date()
-  }
-}
+import { getStaticContent } from '@/lib/static-content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://jamalakbara.com'
-  const projects = getStaticContent.projects()
-  const services = getStaticContent.services()
 
-  // Get content file modification times
-  const siteConfigModTime = getFileModTime('site-config.json')
-  const servicesModTime = getFileModTime('services.json')
-  const projectsModTime = getFileModTime('projects.json')
-  const aboutModTime = getFileModTime('about.json')
-  const ctaModTime = getFileModTime('cta.json')
-
-  const staticPages = [
-    {
-      url: baseUrl,
-      lastModified: siteConfigModTime,
-      changeFrequency: 'weekly' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/portfolio`,
-      lastModified: projectsModTime,
-      changeFrequency: 'weekly' as const,
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: aboutModTime,
-      changeFrequency: 'monthly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#services`,
-      lastModified: servicesModTime,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/#work`,
-      lastModified: projectsModTime,
-      changeFrequency: 'weekly' as const,
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/#contact`,
-      lastModified: ctaModTime,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    },
-  ]
-
-  const projectPages = projects.map((project) => ({
-    url: `${baseUrl}/project/${project.id}`,
-    lastModified: projectsModTime,
+  // Base routes
+  const routes = [
+    '',
+    '/about',
+    '/work',
+    '/blog',
+    '/contact',
+  ].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    priority: route === '' ? 1 : 0.8,
   }))
 
-  const servicePages = services.map((service) => ({
-    url: `${baseUrl}/service/${service.id}`,
-    lastModified: servicesModTime,
+  // Projects
+  const projects = getStaticContent.projects().map((project) => ({
+    url: `${baseUrl}/work/${project.id}`,
+    lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))
 
-  // Add blog pages
-  const blogModTime = getFileModTime('blog.json')
-  const blogPages = [
-    {
-      url: `${baseUrl}/blog`,
-      lastModified: blogModTime,
-      changeFrequency: 'weekly' as const,
-      priority: 0.8,
-    }
-  ]
+  // Blog Posts
+  const blogs = getStaticContent.blog().map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
 
-  return [...staticPages, ...blogPages, ...projectPages, ...servicePages]
+  return [...routes, ...projects, ...blogs]
 }

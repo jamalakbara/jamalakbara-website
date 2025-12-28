@@ -22,8 +22,8 @@ export function CTASection() {
     const x = (e.clientX - left - width / 2) / (width / 2)
     const y = (e.clientY - top - height / 2) / (height / 2)
 
-    mouseX.set(x * 50) // Max movement 50px
-    mouseY.set(y * 50)
+    mouseX.set(x * 150) // Max movement 150px for wider reach
+    mouseY.set(y * 150)
   }
 
   const handleMouseLeave = () => {
@@ -83,32 +83,31 @@ export function CTASection() {
 
         {/* Dynamic Center Interaction */}
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center w-full">
-          <p className="text-lg md:text-xl text-white/60 mb-8 font-light tracking-wide uppercase">Have an idea?</p>
+          <p className="text-xl md:text-2xl text-transparent font-bold tracking-tighter uppercase select-none pointer-events-none mb-12"
+            style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}>
+            Have an idea?
+          </p>
 
           <motion.div
-            className="relative cursor-pointer group"
+            className="relative cursor-pointer group p-10 md:p-20"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
             onClick={() => setIsModalOpen(true)}
             whileHover="hover"
           >
-            {/* Magnetic Circle Background */}
-            <motion.div
-              style={{ x, y }}
-              className="absolute inset-0 bg-blue-600 rounded-full blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-500"
-            />
-
             {/* Main Text */}
-            <h2 className="relative text-[13vw] md:text-[11vw] font-bold tracking-tighter leading-none text-white mix-blend-difference group-hover:scale-[1.02] transition-transform duration-500 ease-out">
+            <h2 className="relative text-[13vw] md:text-[11vw] font-bold tracking-tighter leading-none text-white mix-blend-difference z-20 transition-transform duration-300 group-hover:scale-95">
               LET&apos;S TALK
             </h2>
 
-            {/* Hover Reveal Button */}
+            {/* Hover Reveal Button - Independent Magnetic Layer */}
             <motion.div
-              style={{ x, y, left: '50%', top: '50%', translateX: '-50%', translateY: '-50%' }}
-              className="absolute w-32 h-32 md:w-48 md:h-48 bg-blue-600 rounded-full flex items-center justify-center opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 pointer-events-none"
+              style={{ x, y }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 z-10 pointer-events-none"
             >
-              <ArrowUpRight className="w-12 h-12 md:w-20 md:h-20 text-white" />
+              <div className="w-full h-full bg-blue-600 rounded-full flex items-center justify-center opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 ease-out shadow-2xl shadow-blue-900/40">
+                <ArrowUpRight className="w-12 h-12 md:w-20 md:h-20 text-white" />
+              </div>
             </motion.div>
           </motion.div>
         </div>
