@@ -1,17 +1,57 @@
 'use client'
 
-import { useRef, useState, MouseEvent } from 'react'
-import { motion, useScroll, useTransform, useSpring, useMotionTemplate, useMotionValue } from 'framer-motion'
+import { useRef, useState, MouseEvent, useEffect } from 'react'
+import { motion, useSpring, useMotionValue } from 'framer-motion'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { getStaticContent } from '@/lib/static-content'
 import type { Project } from '@/lib/content-types'
+import { DistortedImage } from '@/components/distorted-image'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const projects = getStaticContent.projects()
 
 export function BentoGrid() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      // Header text reveal animation
+      gsap.fromTo(".bento-header-line",
+        { y: 100, opacity: 0, rotateX: 45 },
+        {
+          y: 0, opacity: 1, rotateX: 0, duration: 1.2, stagger: 0.2, ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      )
+
+      // Description reveal
+      gsap.fromTo(".bento-description",
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 1, ease: "power3.out",
+          scrollTrigger: {
+            trigger: headerRef.current,
+            start: "top 70%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      )
+    }, containerRef)
+
+    return () => ctx.revert()
+  }, [])
 
   return (
     <section id="work" className="py-32 px-4 md:px-8 bg-[#0a0a0a] relative z-10 overflow-hidden" ref={containerRef}>
@@ -22,29 +62,28 @@ export function BentoGrid() {
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        {/* Section Header with GSAP Animation */}
+        <div
+          ref={headerRef}
           className="mb-24 md:mb-32 flex flex-col md:flex-row md:items-end justify-between gap-8"
+          style={{ perspective: '1000px' }}
         >
-          <div>
-            <h2 className="text-[12vw] md:text-[7vw] font-bold tracking-tighter uppercase leading-[0.85] text-white">
-              Selected<br />Works
+          <div className="overflow-hidden">
+            <h2 className="font-bold tracking-tighter uppercase leading-[0.85] text-white">
+              <span className="bento-header-line block text-[12vw] md:text-[7vw]">Selected</span>
+              <span className="bento-header-line block text-[12vw] md:text-[7vw]">Works</span>
             </h2>
           </div>
           <div className="md:max-w-md md:pb-4">
-            <p className="text-lg text-white/60 font-light leading-relaxed">
+            <p className="bento-description text-lg text-white/60 font-light leading-relaxed">
               A collection of digital experiences crafted with precision, focusing on interaction, performance, and aesthetic excellence.
             </p>
           </div>
-        </motion.div>
+        </div>
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-          {projects.slice(0, 5).map((project, index) => (
+          {projects.map((project, index) => (
             <BentoCard key={project.id} project={project} index={index} />
           ))}
         </div>
@@ -54,18 +93,25 @@ export function BentoGrid() {
 }
 
 function BentoCard({ project, index }: { project: Project, index: number }) {
-  // Layout logic: 
-  // Index 0: Full width (12 cols)
-  // Index 1, 2: Half width (6 cols)
-  // Index 3: 8 cols
-  // Index 4: 4 cols
-  const colSpanClass =
-    index === 0 ? 'md:col-span-12 aspect-[16/9] md:aspect-[2.2/1]' :
-      index === 1 || index === 2 ? 'md:col-span-6 aspect-[4/3] md:aspect-[16/10]' :
-        index === 3 ? 'md:col-span-7 aspect-[4/3] md:aspect-[16/10]' :
-          'md:col-span-5 aspect-[4/3] md:aspect-[16/10]'
+  // Define layout pattern for dynamic grid
+  // Pattern: Hero(12) -> Half(6,6) -> Asym(7,5) -> Asym(5,7) -> Half(6,6)
+  const pattern = [
+    { col: 'md:col-span-12', aspect: 'aspect-[16/9] md:aspect-[2.2/1]' },
+    { col: 'md:col-span-6', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-6', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-7', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-5', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-5', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-7', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-6', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+    { col: 'md:col-span-6', aspect: 'aspect-[4/3] md:aspect-[16/10]' },
+  ]
+
+  const layout = pattern[index % pattern.length]
+  const colSpanClass = `${layout.col} ${layout.aspect}`
 
   const cardRef = useRef<HTMLDivElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
   // Mouse tracking for magnetic effect
   const mouseX = useMotionValue(0)
@@ -85,25 +131,39 @@ function BentoCard({ project, index }: { project: Project, index: number }) {
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
       onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       className={`group relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/5 ${colSpanClass}`}
     >
       <Link href={`/work/${project.id}`} className="block h-full w-full cursor-none">
 
-        {/* Background Image with Zoom Effect */}
+        {/* Background Image Logic */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <motion.div
-            className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
-          >
-            <Image
+          {/* Desktop: WebGL Distortion */}
+          <div className="hidden md:block absolute inset-0 w-full h-full">
+            <DistortedImage
               src={project.image || '/placeholder.jpg'}
               alt={project.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              isHovered={isHovered}
+              className="w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
             />
-          </motion.div>
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80" />
+          </div>
+
+          {/* Mobile: Standard Optimized Image */}
+          <div className="block md:hidden absolute inset-0 w-full h-full">
+            <div className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
+              <Image
+                src={project.image || '/placeholder.jpg'}
+                alt={project.title}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
+            </div>
+          </div>
+
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 pointer-events-none" />
         </div>
 
         {/* Content Container */}
