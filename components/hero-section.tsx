@@ -3,6 +3,7 @@
 import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { useStore } from '@/lib/store'
+import { AmbientBackground } from '@/components/ambient-background'
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -27,17 +28,8 @@ export function HeroSection() {
       // but for "Awwwards" level, we want char-by-char reveal.
       // We will select chars by class below.
 
-      // 2. Animate Background Orbs (Continuous)
-      gsap.to(".orb", {
-        y: "random(-20, 20)",
-        x: "random(-20, 20)",
-        opacity: "random(0.3, 0.6)",
-        duration: "random(3, 5)",
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        stagger: 1
-      })
+      // 2. Animate Background Orbs (Moved to AmbientBackground component)
+
 
       // 3. Entrance Animation (Wait for Preloader if needed, 
       // but here we just start after a small delay for dramatic effect)
@@ -103,16 +95,6 @@ export function HeroSection() {
         duration: 2,
         ease: "power2.out"
       })
-
-      // Move background orbs more for depth (parallax)
-      if (orbsRef.current) {
-        gsap.to(orbsRef.current, {
-          x: -x * 60,
-          y: -y * 60,
-          duration: 3,
-          ease: "power2.out"
-        })
-      }
     }
 
     // Scroll listener
@@ -155,11 +137,9 @@ export function HeroSection() {
       id="hero"
     >
       {/* Ambient Floating Elements (Background) */}
-      <div ref={orbsRef} className="absolute inset-0 z-0 pointer-events-none">
-        <div className="orb absolute top-[20%] left-[20%] w-[40vw] h-[40vw] bg-purple-900/10 rounded-full blur-[100px]" />
-        <div className="orb absolute top-[60%] right-[10%] w-[35vw] h-[35vw] bg-blue-900/10 rounded-full blur-[100px]" />
-        {/* Adds subtle "dust" or small particles if needed, keeping it minimal for now */}
-        <div className="orb absolute top-[40%] left-[60%] w-[200px] h-[200px] bg-indigo-500/5 rounded-full blur-[80px]" />
+      {/* Ambient Floating Elements (Background) - Using Shared Component */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AmbientBackground />
       </div>
 
       {/* Main Content */}
