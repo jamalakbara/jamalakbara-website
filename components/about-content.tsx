@@ -2,18 +2,21 @@
 
 import { getStaticContent } from '@/lib/static-content'
 import { motion, Variants } from 'framer-motion'
-import { MapPin, Mail, Phone, Award, Users, Code, Globe } from 'lucide-react'
+import { MapPin, Mail, Phone, Award, Users, Code, ArrowRight } from 'lucide-react'
 import { CTASection } from '@/components/cta-section'
+import { DistortedImage } from '@/components/distorted-image'
+import { SpotlightCard } from '@/components/ui/spotlight-card'
+import { CounterAnimated } from '@/components/ui/counter-animated'
 
 // Animation variants
 const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 60 },
+  hidden: { opacity: 0, y: 40 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
       duration: 0.8,
-      ease: "easeOut"
+      ease: [0.22, 1, 0.36, 1] // Custom ease for snappier feel
     }
   }
 }
@@ -22,7 +25,7 @@ const staggerContainer: Variants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.15,
       delayChildren: 0.1
     }
   }
@@ -33,447 +36,261 @@ export function AboutContent() {
 
   return (
     <>
-      <div className="max-w-6xl mx-auto px-6 py-32">
-        {/* Professional Summary Section */}
+      <div className="max-w-7xl mx-auto px-6 py-32">
+        {/* Massive Hero Section */}
         <motion.section
-          className="mb-24"
+          className="mb-32 flex flex-col items-center justify-center min-h-[50vh]"
           initial="hidden"
           animate="visible"
           variants={staggerContainer}
         >
-          <motion.div className="text-center mb-16" variants={fadeInUp}>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-black dark:text-white mb-6">
-              {about.heading.main}
+          <motion.div className="text-center relative z-10" variants={fadeInUp}>
+            <h1 className="font-bold tracking-tighter leading-[0.85] uppercase mb-12 flex flex-col items-center justify-center select-none">
+              <div className="overflow-hidden mb-2 md:mb-4">
+                <span className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-white mix-blend-difference">
+                  JAMAL
+                </span>
+              </div>
+              <div className="overflow-hidden">
+                <span className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-transparent"
+                  style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)' }}>
+                  AKBAR
+                </span>
+              </div>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-sans mb-8">
+
+            <p className="text-xl md:text-2xl text-gray-400 font-sans max-w-2xl mx-auto tracking-wide">
               {about.heading.subtitle}
             </p>
           </motion.div>
+        </motion.section>
 
+        {/* Professional Summary Section */}
+        <motion.section
+          className="mb-32"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={staggerContainer}
+        >
           <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8">
-                Professional Summary
-              </h2>
-              <div className="space-y-6">
-                {about.professionalSummary.map((paragraph, index) => (
-                  <p key={index} className="text-lg text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
-                    {paragraph}
-                  </p>
-                ))}
+            <div className="grid md:grid-cols-12 gap-12 items-start">
+              <div className="md:col-span-7 space-y-8">
+                <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-8">
+                  Professional Summary
+                </h2>
+                <div className="space-y-6 text-lg text-gray-400 leading-relaxed font-sans">
+                  {about.professionalSummary.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                  ))}
+                </div>
+              </div>
+              <div className="md:col-span-5 relative mt-8 md:mt-0">
+                <div className="aspect-[4/5] w-full relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+                  <DistortedImage
+                    src="/profile-image.png"
+                    alt="Jamal Akbar Alam"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
         </motion.section>
 
-        {/* Stats Section */}
+        {/* Stats Section: "Digital Pulse" */}
         <motion.section
-          className="mb-24"
+          className="mb-32"
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
           variants={staggerContainer}
         >
           <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12 text-center">
-                Key Performance Metrics
-              </h2>
-              <div className="flex flex-wrap justify-center gap-8 md:gap-12 text-center">
-                {about.stats.map((stat, index) => (
-                  <motion.div
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {about.stats.map((stat, index) => {
+                // Extract numeric part for animation
+                const numValue = parseInt(stat.value.replace(/\D/g, '')) || 0;
+                const suffix = stat.value.replace(/[0-9]/g, '');
+
+                return (
+                  <SpotlightCard
                     key={index}
-                    className="text-center flex flex-col items-center min-w-[120px] sm:min-w-[140px]"
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ duration: 0.2 }}
+                    className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 flex flex-col items-center justify-center text-center group"
+                    spotlightColor="rgba(255, 255, 255, 0.1)"
                   >
-                    <div className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-2">
-                      {stat.value}
+                    <div className="text-4xl md:text-5xl font-bold text-white mb-2 font-serif group-hover:scale-110 transition-transform duration-300">
+                      <CounterAnimated to={numValue} />{suffix}
                     </div>
-                    <div className="text-sm font-sans font-medium text-gray-700 dark:text-gray-300 mb-1">
+                    <div className="text-sm font-sans font-medium text-gray-300 mb-1">
                       {stat.label}
                     </div>
-                    <div className="text-xs font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                      {stat.description}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+                  </SpotlightCard>
+                );
+              })}
             </div>
           </motion.div>
         </motion.section>
 
-        {/* Technical Expertise Section */}
+        {/* Technical Expertise: "Interactive Bento Grid" */}
         <motion.section
-          className="mb-24"
+          className="mb-32"
           initial="hidden"
-          animate="visible"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
           variants={staggerContainer}
         >
-          <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
-                <Code className="h-8 w-8 text-black dark:text-white" />
-                {about.expertise.title}
-              </h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {about.expertise.areas.map((area, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-4 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="flex justify-between items-start">
-                      <h3 className="font-sans font-semibold text-lg text-black dark:text-white">
-                        {area.name}
-                      </h3>
-                      <div className="flex flex-col items-end gap-1">
-                        <span className={`text-xs font-mono px-2 py-1 ${area.proficiencyLevel === 'Expert'
-                          ? 'bg-black text-white dark:bg-white dark:text-black'
-                          : 'bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10'
-                          }`}>
-                          {area.proficiencyLevel}
-                        </span>
-                        <span className="text-xs font-mono text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                          {area.yearsExperience} years
-                        </span>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
-                      {area.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {area.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          <motion.div variants={fadeInUp} className="mb-12">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white flex items-center gap-4">
+              <Code className="h-8 w-8 md:h-12 md:w-12 text-white" />
+              {about.expertise.title}
+            </h2>
           </motion.div>
-        </motion.section>
 
-        {/* Technical Process Section */}
-        <motion.section
-          className="mb-24"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12">
-                {about.technicalProcess.title}
-              </h2>
-              <div className="space-y-12">
-                <div>
-                  <h3 className="font-sans font-semibold text-xl text-black dark:text-white mb-6">
-                    Development Methodology
-                  </h3>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    {about.technicalProcess.methodology.map((method, index) => (
-                      <motion.div
-                        key={index}
-                        className="flex items-start gap-4"
-                        variants={fadeInUp}
-                      >
-                        <div className="w-2 h-2 bg-black dark:bg-white  mt-2 flex-shrink-0" />
-                        <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
-                          {method}
-                        </span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <h3 className="font-sans font-semibold text-xl text-black dark:text-white mb-6">
-                    Technology Stack
-                  </h3>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {Object.entries(about.technicalProcess.technologies).map(([category, techs]) => (
-                      <motion.div
-                        key={category}
-                        variants={fadeInUp}
-                        className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-4 transition-all duration-300 hover:border-black dark:hover:border-white"
-                      >
-                        <h4 className="font-sans font-medium text-black dark:text-white mb-4 capitalize">
-                          {category}
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {techs.map((tech) => (
-                            <span
-                              key={tech}
-                              className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </motion.section>
-
-        {/* Indonesian Market Expertise Section */}
-        <motion.section
-          className="mb-24"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
-                <Globe className="h-8 w-8 text-black dark:text-white" />
-                {about.indonesianMarketExpertise.title}
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 font-sans mb-12 leading-relaxed">
-                {about.indonesianMarketExpertise.description}
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                {about.indonesianMarketExpertise.specializations.map((specialization, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h3 className="font-sans font-semibold text-lg text-black dark:text-white">
-                      {specialization.sector}
+          <div className="grid md:grid-cols-3 gap-6 auto-rows-[minmax(250px,auto)]">
+            {about.expertise.areas.map((area, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className={`${index === 0 || index === 3 ? "md:col-span-2" : "md:col-span-1"}`}
+              >
+                <SpotlightCard className="h-full bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:border-white/30 transition-colors group">
+                  <div className="flex justify-between items-start mb-6">
+                    <h3 className="text-2xl font-bold text-white font-sans group-hover:translate-x-2 transition-transform">
+                      {area.name}
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
-                      {specialization.description}
-                    </p>
-                    <div>
-                      <h4 className="font-sans font-medium text-black dark:text-white mb-3">
-                        Key Achievements
-                      </h4>
-                      <div className="space-y-3">
-                        {specialization.achievements.map((achievement, achIndex) => (
-                          <div key={achIndex} className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 bg-green-500  mt-2 flex-shrink-0" />
-                            <span className="text-xs text-gray-600 dark:text-gray-400 font-sans">
-                              {achievement}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.section>
+                    <span className="text-xs font-mono px-3 py-1 bg-white/10 rounded-full text-white border border-white/10">
+                      {area.yearsExperience} YEARS
+                    </span>
+                  </div>
 
-        {/* Success Stories Section */}
-        <motion.section
-          className="mb-24"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <motion.div variants={fadeInUp}>
-            <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-              <h2 className="text-3xl md:text-4xl font-serif font-bold text-black dark:text-white mb-12">
-                {about.successStories.title}
-              </h2>
-              <div className="space-y-8">
-                {about.successStories.projects.map((project, index) => (
-                  <motion.div
-                    key={index}
-                    className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-6 space-y-6 transition-all duration-300 hover:border-black dark:hover:border-white hover:shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:hover:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)]"
-                    variants={fadeInUp}
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-sans font-semibold text-lg text-black dark:text-white">
-                          {project.client}
-                        </h3>
-                        <span className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10 mt-2 inline-block">
-                          {project.industry}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-sans font-medium text-sm text-black dark:text-white mb-2">
-                            Challenge
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 font-sans">
-                            {project.challenge}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-sans font-medium text-sm text-black dark:text-white mb-2">
-                            Solution
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 font-sans">
-                            {project.solution}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="space-y-4">
-                        <div>
-                          <h4 className="font-sans font-medium text-sm text-black dark:text-white mb-2">
-                            Results
-                          </h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 font-sans font-semibold">
-                            {project.results}
-                          </p>
-                        </div>
-                        <div>
-                          <h4 className="font-sans font-medium text-sm text-black dark:text-white mb-2">
-                            Technologies
-                          </h4>
-                          <div className="flex flex-wrap gap-2">
-                            {project.technologies.map((tech) => (
-                              <span
-                                key={tech}
-                                className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
-                              >
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        </motion.section>
-
-        {/* Education & Location Section */}
-        <motion.section
-          className="mb-24"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
-          <div className="grid lg:grid-cols-2 gap-12">
-            <motion.div variants={fadeInUp}>
-              <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-                <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
-                  <Award className="h-6 w-6 text-black dark:text-white" />
-                  {about.education.title}
-                </h2>
-                <div className="space-y-8">
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
-                    {about.education.details}
+                  <p className="text-gray-400 mb-6 leading-relaxed text-sm md:text-base">
+                    {area.description}
                   </p>
 
-                  <div>
-                    <h3 className="font-sans font-medium text-black dark:text-white mb-4">
-                      Professional Certifications
-                    </h3>
-                    <div className="space-y-3">
-                      {about.education.certifications.map((cert, index) => (
-                        <div key={index} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-green-500 " />
-                          <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
-                            {cert}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
+                  <div className="flex flex-wrap gap-2 mt-auto">
+                    {area.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="text-xs font-mono px-2 py-1 bg-black/20 text-gray-300 border border-white/5 rounded-md hover:bg-white/10 transition-colors"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-
-                  <div>
-                    <h3 className="font-sans font-medium text-black dark:text-white mb-4">
-                      Continuous Learning
-                    </h3>
-                    <div className="space-y-3">
-                      {about.education.continuousLearning.map((learning, index) => (
-                        <div key={index} className="flex items-center gap-3">
-                          <div className="w-2 h-2 bg-blue-500 " />
-                          <span className="text-sm text-gray-600 dark:text-gray-400 font-sans">
-                            {learning}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
-            <div className="space-y-8">
-              <motion.div variants={fadeInUp}>
-                <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-                  <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8 flex items-center gap-4">
-                    <MapPin className="h-6 w-6 text-black dark:text-white" />
-                    {about.location.title}
-                  </h2>
-                  <div className="space-y-6">
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-sans leading-relaxed">
-                      {about.location.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {about.location.serviceAreas.map((area) => (
-                        <span
-                          key={area}
-                          className="text-xs font-mono px-2 py-1 bg-white/40 dark:bg-black/40 backdrop-blur-xl text-gray-700 dark:text-gray-300 border border-white/20 dark:border-white/10"
-                        >
-                          {area}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                </SpotlightCard>
               </motion.div>
+            ))}
+          </div>
+        </motion.section>
 
-              <motion.div variants={fadeInUp}>
-                <div className="bg-white/40 dark:bg-black/40 backdrop-blur-xl border border-white/20 dark:border-white/10 p-8 transition-all duration-300 hover:border-black dark:hover:border-white">
-                  <h2 className="text-2xl md:text-3xl font-serif font-bold text-black dark:text-white mb-8">
-                    Contact Information
-                  </h2>
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-4 text-sm">
-                      <Mail className="h-4 w-4 text-black dark:text-white" />
-                      <span className="text-gray-600 dark:text-gray-400 font-sans">
-                        {about.contact.email}
+        {/* Technical Process: "The Methodology Pipeline" */}
+        <motion.section
+          className="mb-32"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={staggerContainer}
+        >
+          <motion.div variants={fadeInUp} className="mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
+              {about.technicalProcess.title}
+            </h2>
+            <div className="h-1 w-24 bg-white/20 rounded-full" />
+          </motion.div>
+
+          {/* Tech Stack Only - Enhanced Grid Layout */}
+          <div className="space-y-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {Object.entries(about.technicalProcess.technologies).map(([category, techs], index) => (
+                <motion.div
+                  key={category}
+                  variants={fadeInUp}
+                  className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-colors group"
+                >
+                  <h4 className="text-lg font-bold text-white mb-4 capitalize flex items-center gap-2">
+                    <span className="w-2 h-2 bg-white rounded-full opacity-50 group-hover:opacity-100 transition-opacity" />
+                    {category}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {techs.map(tech => (
+                      <span key={tech} className="px-2.5 py-1 bg-black/20 border border-white/5 rounded-md text-xs font-mono text-gray-300 group-hover:border-white/20 transition-colors">
+                        {tech}
                       </span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm">
-                      <Phone className="h-4 w-4 text-black dark:text-white" />
-                      <span className="text-gray-600 dark:text-gray-400 font-sans">
-                        {about.contact.phone}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-4 text-sm">
-                      <Users className="h-4 w-4 text-black dark:text-white" />
-                      <span className="text-gray-600 dark:text-gray-400 font-sans">
-                        {about.contact.availability}
-                      </span>
-                    </div>
+                    ))}
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </motion.section>
+
+
+
+        {/* Education & Contact Grid */}
+        <motion.section
+          className="mb-24"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={staggerContainer}
+        >
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Education */}
+            <SpotlightCard className="bg-white/5 border border-white/10 rounded-2xl p-8 h-full">
+              <h2 className="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
+                <Award className="w-6 h-6" /> {about.education.title}
+              </h2>
+              <p className="text-gray-400 mb-8 leading-relaxed">{about.education.details}</p>
+              <div className="space-y-6">
+                <div>
+                  <h3 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Certifications</h3>
+                  <ul className="space-y-2">
+                    {about.education.certifications.map((c, i) => (
+                      <li key={i} className="text-sm text-gray-400 flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 bg-green-500 rounded-full" /> {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </SpotlightCard>
+
+            {/* Contact & Location */}
+            <div className="space-y-8">
+              <SpotlightCard className="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 className="text-2xl font-serif font-bold text-white mb-6 flex items-center gap-3">
+                  <MapPin className="w-6 h-6" /> {about.location.title}
+                </h2>
+                <p className="text-gray-400 mb-4">{about.location.description}</p>
+                <div className="flex flex-wrap gap-2">
+                  {about.location.serviceAreas.map(area => (
+                    <span key={area} className="text-xs px-2 py-1 rounded bg-white/10 text-gray-300 font-mono">{area}</span>
+                  ))}
+                </div>
+              </SpotlightCard>
+
+              <SpotlightCard className="bg-white/5 border border-white/10 rounded-2xl p-8">
+                <h2 className="text-2xl font-serif font-bold text-white mb-6">Get In Touch</h2>
+                <ul className="space-y-4">
+                  <li className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
+                    <div className="p-2 bg-white/5 rounded-full group-hover:bg-white/20 transition-colors"><Mail className="w-4 h-4" /></div>
+                    {about.contact.email}
+                  </li>
+                  <li className="flex items-center gap-4 text-gray-300 hover:text-white transition-colors cursor-pointer group">
+                    <div className="p-2 bg-white/5 rounded-full group-hover:bg-white/20 transition-colors"><Phone className="w-4 h-4" /></div>
+                    {about.contact.phone}
+                  </li>
+                  <li className="flex items-center gap-4 text-gray-300">
+                    <div className="p-2 bg-white/5 rounded-full"><Users className="w-4 h-4" /></div>
+                    {about.contact.availability}
+                  </li>
+                </ul>
+              </SpotlightCard>
+            </div>
+          </div>
+        </motion.section>
+
       </div>
       <CTASection />
     </>

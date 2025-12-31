@@ -9,7 +9,7 @@ import { Navigation } from '@/components/navigation'
 import { AboutContent } from '@/components/about-content'
 import { ParallaxContainer } from '@/components/parallax-layers'
 import { VelocityParticles } from '@/components/velocity-effects'
-import { StaticSceneryBackground } from '@/components/static-scenery-background'
+import { AmbientBackground } from '@/components/ambient-background'
 import { useTheme } from '@/contexts/theme-context'
 
 export default function AboutPage() {
@@ -54,7 +54,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <StaticSceneryBackground />
+      <AmbientBackground />
       <ParallaxContainer />
       <VelocityParticles />
       <StructuredData type="Person" />
@@ -79,10 +79,10 @@ export default function AboutPage() {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
               className={`text-[8px] font-sans font-bold uppercase tracking-[0.5px] transition-colors duration-300 ${buttonOnDarkSection
+                ? 'fill-white'
+                : theme === 'dark'
                   ? 'fill-white'
-                  : theme === 'dark'
-                    ? 'fill-white'
-                    : 'fill-black'
+                  : 'fill-black'
                 }`}
             >
               <textPath href="#circle-about" startOffset="0%" spacing="auto">
@@ -104,10 +104,10 @@ export default function AboutPage() {
                 stroke="currentColor"
                 strokeWidth="2"
                 className={`transition-colors duration-300 opacity-20 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
                     ? 'text-white'
-                    : theme === 'dark'
-                      ? 'text-white'
-                      : 'text-black'
+                    : 'text-black'
                   }`}
               />
               <motion.circle
@@ -118,10 +118,10 @@ export default function AboutPage() {
                 stroke="currentColor"
                 strokeWidth="2"
                 className={`transition-colors duration-300 ${buttonOnDarkSection
+                  ? 'text-white'
+                  : theme === 'dark'
                     ? 'text-white'
-                    : theme === 'dark'
-                      ? 'text-white'
-                      : 'text-black'
+                    : 'text-black'
                   }`}
                 strokeLinecap="round"
                 style={{
@@ -135,10 +135,10 @@ export default function AboutPage() {
 
           <motion.button
             className={`relative w-16 h-16 bg-transparent rounded-full transition-all duration-300 flex items-center justify-center hover:bg-opacity-20 ${buttonOnDarkSection
-                ? 'text-white hover:bg-white'
-                : theme === 'dark'
-                  ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
-                  : 'text-black hover:bg-black/20'
+              ? 'text-white hover:bg-white'
+              : theme === 'dark'
+                ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
+                : 'text-black hover:bg-black/20'
               }`}
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -164,10 +164,10 @@ export default function AboutPage() {
                 rotate: { duration: 0.3 }
               }}
               className={`text-xl transition-colors duration-300 ${buttonOnDarkSection
+                ? 'text-white'
+                : theme === 'dark'
                   ? 'text-white'
-                  : theme === 'dark'
-                    ? 'text-white'
-                    : 'text-black'
+                  : 'text-black'
                 }`}
             >
               ↑

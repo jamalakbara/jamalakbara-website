@@ -532,157 +532,100 @@ export const getStaticContent = {
     return {
       "heading": {
         "main": "About Jamal Akbar Alam",
-        "subtitle": "Expert Full-Stack Developer & UI/UX Designer | Indonesian Digital Solutions Specialist"
+        "subtitle": "Creative Developer & Designer"
       },
       "professionalSummary": [
-        "Jamal Akbar Alam is a highly skilled full-stack developer and UI/UX designer based in Bandung, Indonesia, with over 5 years of specialized experience in creating robust digital solutions for Indonesian and Southeast Asian markets. As an expert full-stack developer, I combine cutting-edge web technologies with deep understanding of Indonesian digital landscape to deliver exceptional results.",
-        "My expertise spans across modern web development, mobile application development, and comprehensive UI/UX design. With a strong foundation in Computer Science from Telkom University and extensive hands-on experience working with diverse Indonesian businesses, I bring both technical excellence and market-specific insights to every project.",
-        "Specializing in Indonesian market integration, payment gateway systems, and performance optimization for local network conditions, I have successfully delivered 50+ projects for clients ranging from startups to enterprises. My approach focuses on creating scalable, user-centric solutions that drive measurable business growth while ensuring optimal performance across Indonesia's diverse digital infrastructure."
+        "Hey, I'm Akbar. I'm a developer based in Bandung who loves building things for the web. I've spent the last 5+ years figuring out how to make websites look good and run fast—even when the internet isn't great.",
+        "I'm not just about writing code; I care about the whole experience. From the first pixel in the design to the final deploy, I want everything to feel right. I mostly work with React and Next.js, but I'm always picking up new tools to solve whatever problem is in front of me.",
+        "At the end of the day, I just want to build cool stuff that works. Whether it's a complex dashboard, an e-commerce site, or a simple landing page, I try to keep it clean, fast, and useful."
       ],
       "expertise": {
-        "title": "Technical Expertise & Core Competencies",
+        "title": "What I Actually Do",
         "areas": [
           {
-            "name": "Full-Stack Web Development",
-            "technologies": ["Next.js 15", "React.js", "TypeScript", "Node.js", "Tailwind CSS", "Python", "PostgreSQL", "MongoDB"],
-            "description": "Expert-level proficiency in modern web development stacks with focus on performance, scalability, and security for Indonesian market applications.",
+            "name": "Full-Stack Web",
+            "technologies": ["Next.js", "React", "TypeScript", "Node.js", "Tailwind", "PostgreSQL"],
+            "description": "Building full web apps from scratch. Frontend, backend, database—the whole thing.",
             "proficiencyLevel": "Expert",
             "yearsExperience": 5
           },
           {
-            "name": "Mobile Development",
-            "technologies": ["React Native", "Progressive Web Apps", "iOS", "Android"],
-            "description": "Cross-platform mobile application development with offline capabilities optimized for Indonesian connectivity conditions and device diversity.",
+            "name": "Mobile Apps",
+            "technologies": ["React Native", "Expo", "iOS", "Android"],
+            "description": "Making apps for phones. I focus on keeping them smooth and usable offline.",
             "proficiencyLevel": "Advanced",
             "yearsExperience": 4
           },
           {
-            "name": "Indonesian Market Integration",
-            "technologies": ["Midtrans", "Xendit", "GoPay", "OVO", "Dana", "QRIS"],
-            "description": "Deep expertise in Indonesian payment gateways and local digital ecosystem integration for seamless user experiences.",
+            "name": "Payment Tech",
+            "technologies": ["Midtrans", "Xendit", "E-Wallets", "QRIS"],
+            "description": "Hooking up payments so companies can actually get paid. I know the local gateways inside out.",
             "proficiencyLevel": "Expert",
             "yearsExperience": 5
           },
           {
-            "name": "UI/UX Design & User Experience",
-            "technologies": ["Figma", "Adobe Creative Suite", "Design Systems", "User Research", "Accessibility", "Responsive Design"],
-            "description": "User-centered design methodology tailored for Indonesian user behavior, cultural preferences, and accessibility standards with focus on conversion optimization.",
+            "name": "UI/UX Design",
+            "technologies": ["Figma", "Design Systems", "Prototyping"],
+            "description": "Designing how it looks and feels. I like things to be simple and easy to use.",
             "proficiencyLevel": "Advanced",
             "yearsExperience": 5
           }
         ]
       },
       "technicalProcess": {
-        "title": "Development Methodology & Technical Approach",
-        "methodology": [
-          "Agile development with 2-week sprints and regular client feedback loops",
-          "Test-driven development ensuring robust code quality and maintainability",
-          "Performance-first approach with optimization for Indonesian network conditions",
-          "Security-by-design implementation following OWASP and industry best practices",
-          "Continuous integration/deployment (CI/CD) pipeline for rapid, reliable deployments",
-          "Responsive design methodology ensuring perfect functionality across all device types",
-          "Accessibility compliance with WCAG 2.1 standards for inclusive digital experiences"
-        ],
+        "title": "My Stack",
+        "methodology": [], // Kept empty or removed as we don't display it anymore
         "technologies": {
-          "frontend": ["Next.js 15", "React.js", "TypeScript", "Tailwind CSS", "Redux Toolkit", "React Query"],
-          "backend": ["Node.js", "Express.js", "Python", "Django", "FastAPI", "REST APIs", "GraphQL"],
-          "mobile": ["React Native", "Progressive Web Apps", "NativeScript"],
-          "database": ["PostgreSQL", "MongoDB", "Redis", "MySQL", "Elasticsearch"],
-          "cloud": ["AWS", "Vercel", "Docker"]
+          "frontend": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+          "backend": ["Node.js", "Python", "FastAPI", "PostgreSQL", "Supabase"],
+          "mobile": ["React Native", "Expo"],
+          "tools": ["Git", "Docker", "Figma", "VS Code"]
         }
-      },
-      "indonesianMarketExpertise": {
-        "title": "Indonesian Digital Market Specialization",
-        "description": "Comprehensive understanding of Indonesian digital ecosystem with proven success across multiple sectors. Expert in navigating local technical challenges and user behavior patterns specific to Indonesian market.",
-        "specializations": [
-          {
-            "sector": "E-Commerce & Retail",
-            "description": "Complete e-commerce solutions with inventory management, payment processing, and delivery integration tailored for Indonesian consumers.",
-            "achievements": [
-              "Integrated with Indonesian payment gateways including Midtrans and leading e-wallets",
-              "Integrated with major Indonesian logistics providers (JNE, SiCepat, Gojek, Grab)",
-              "Implemented localization features supporting Indonesian language and cultural preferences",
-              "Optimized applications for Indonesian network conditions and mobile-first usage"
-            ]
-          },
-          {
-            "sector": "Education Technology (EdTech)",
-            "description": "Learning management systems, online course platforms, and educational tools designed for Indonesian educational institutions and students.",
-            "achievements": [
-              "Developed offline-capable learning apps for areas with limited internet connectivity",
-              "Created engaging user interfaces adapted for Indonesian students",
-              "Implemented progress tracking and assessment systems for Indonesian curriculum standards",
-              "Optimized video streaming for various Indonesian bandwidth conditions"
-            ]
-          }
-        ]
-      },
-      "successStories": {
-        "title": "Client Success Stories & Project Highlights",
-        "projects": [
-          {
-            "client": "Indonesian E-Commerce Platform",
-            "industry": "E-Commerce",
-            "challenge": "Needed to improve website performance and user experience for Indonesian mobile users, particularly during peak shopping periods.",
-            "solution": "Optimized website for mobile-first usage, implemented progressive loading strategies, and integrated with Indonesian payment gateways and logistics providers.",
-            "results": "Improved page load times by 45%, increased mobile conversion rates by 25%, and successfully handled increased traffic during sales periods.",
-            "technologies": ["Next.js", "React", "Node.js", "Midtrans", "Tailwind CSS"]
-          },
-          {
-            "client": "Local Educational Technology Startup",
-            "industry": "Education Technology",
-            "challenge": "Required an online learning platform with offline capabilities for students in areas with limited internet connectivity.",
-            "solution": "Developed a progressive web application with offline course materials, optimized video streaming, and interactive learning tools.",
-            "results": "Improved student engagement by 30%, reduced content loading issues, and successfully served users across various Indonesian network conditions.",
-            "technologies": ["React", "PWA", "Node.js", "MongoDB", "Video Optimization"]
-          }
-        ]
-      },
-      "education": {
-        "title": "Education & Professional Development",
-        "details": "Bachelor of Computer Science from Telkom University with specialization in Software Engineering and Web Technologies. Graduated with honors and received multiple academic awards for outstanding performance in web development and system architecture.",
-        "certifications": [
-          "AWS Certified Cloud Practitioner - 2023",
-          "Advanced React & Next.js Development Certification - 2023",
-          "Professional Scrum Master (PSM I) - 2021"
-        ],
-        "continuousLearning": [
-          "Regular participation in web development workshops and online courses",
-          "Continuous research and implementation of emerging technologies and frameworks",
-          "Active learning of new tools and best practices in web development"
-        ]
       },
       "stats": [
         {
-          "label": "Projects Delivered",
-          "value": "25+",
-          "description": "Successful projects for Indonesian clients"
+          "label": "Shipped Projects",
+          "value": "50+",
+          "description": "Real apps in the wild"
         },
         {
           "label": "Happy Clients",
-          "value": "15+",
-          "description": "Satisfied clients across various industries"
+          "value": "25+",
+          "description": "People I've helped"
         },
         {
-          "label": "Years Experience",
+          "label": "Years Coding",
           "value": "5+",
-          "description": "Specialized in Indonesian digital market"
+          "description": "and counting"
         },
         {
-          "label": "Technologies",
+          "label": "Tech Stack",
           "value": "15+",
-          "description": "Modern technologies and frameworks mastered"
+          "description": "Tools I use daily"
         }
       ],
+      "education": {
+        "title": "Background",
+        "details": "I studied Computer Science at Telkom University. It gave me a solid foundation in how computers actually work, which helps when debugging weird issues.",
+        "certifications": [
+          "AWS Certified Cloud Practitioner",
+          "Advanced React & Next.js"
+        ],
+        "continuousLearning": [
+          "Building side projects",
+          "Reading docs (lots of them)",
+          "Exploring new tech"
+        ]
+      },
       "location": {
-        "title": "Strategic Location & Service Coverage",
-        "description": "Based in Bandung, Indonesia - positioned to serve clients across Indonesia and Southeast Asia with both on-site and remote development services.",
-        "serviceAreas": ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Bali", "Remote Indonesia", "Singapore", "Malaysia", "Thailand", "Vietnam"]
+        "title": "Where I'm At",
+        "description": "Currently based in Bandung, Indonesia. I'm available for remote work or coffee if you're in town.",
+        "serviceAreas": ["Bandung", "Remote Worldwide"]
       },
       "contact": {
         "email": "hello-im@jamalakbara.com",
         "phone": "+6281321766565",
-        "availability": "Available for new projects - Typically 2-4 weeks lead time for new engagements"
+        "availability": "Open to interesting projects."
       },
       "profileImage": "/profile-image.png"
     }
