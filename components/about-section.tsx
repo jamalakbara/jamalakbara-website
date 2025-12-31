@@ -122,7 +122,7 @@ export function AboutSection() {
               <div ref={servicesRef}>
                 <h4 className="text-xs font-mono uppercase tracking-widest text-white/50 mb-6">Services</h4>
                 <ul className="space-y-4">
-                  {['Creative Direction', 'Web Development', 'WebGL Experiences', 'Interaction Design'].map(item => (
+                  {['Frontend', 'Backend', 'UI/UX', 'Mobile Development'].map(item => (
                     <li key={item} className="service-item flex items-center justify-between group cursor-pointer border-b border-white/5 pb-2 hover:border-white/20 transition-colors">
                       <span className="text-lg text-white/80 group-hover:text-white transition-colors">{item}</span>
                       <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
