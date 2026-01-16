@@ -2,188 +2,209 @@
 
 import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
-import { useStore } from '@/lib/store'
 import { AmbientBackground } from '@/components/ambient-background'
+import { useStore } from '@/lib/store'
+import { motion } from 'framer-motion'
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const titleContainerRef = useRef<HTMLHeadingElement>(null)
-  const creativeRef = useRef<HTMLSpanElement>(null)
-  const developerRef = useRef<HTMLSpanElement>(null)
-  const isLoaded = useStore((state) => state.isLoaded)
-  const [scrollIndicatorHidden, setScrollIndicatorHidden] = useState(false)
+  const [currentTime, setCurrentTime] = useState('')
+  const { goToSection } = useStore()
 
-  // Floating elements refs
-  const orbsRef = useRef<HTMLDivElement>(null)
+  // RAF throttling refs
+  const mouseRafId = useRef<number | null>(null)
+  const mousePos = useRef({ x: 0.5, y: 0.5 })
+
+  // Update time every minute
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      setCurrentTime(now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Jakarta'
+      }))
+    }
+    updateTime()
+    const interval = setInterval(updateTime, 60000)
+    return () => clearInterval(interval)
+  }, [])
 
   useEffect(() => {
-    // Only run animation when preloader is done
     if (!containerRef.current) return
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
 
-      // 1. Initial State Set
-      // Split text logic is manual here to avoid extra dependencies, 
-      // but for "Awwwards" level, we want char-by-char reveal.
-      // We will select chars by class below.
-
-      // 2. Animate Background Orbs (Moved to AmbientBackground component)
-
-
-      // 3. Entrance Animation (Wait for Preloader if needed, 
-      // but here we just start after a small delay for dramatic effect)
-
-      // Animate "CREATIVE" chars
+      // Stagger reveal for main title
       tl.fromTo(".char-creative",
-        { y: 120, rotateY: 10, opacity: 0 },
+        { y: 120, rotateX: 90, opacity: 0 },
         {
           y: 0,
-          rotateY: 0,
+          rotateX: 0,
           opacity: 1,
-          duration: 1.2,
-          stagger: 0.04,
-          ease: "back.out(1.7)"
+          duration: 1,
+          stagger: 0.03,
+          ease: "back.out(1.2)"
         },
-        "+=0.5"
+        "+=0.3"
       )
-
-        // Animate "DEVELOPER" chars
         .fromTo(".char-developer",
-          { y: 120, rotateY: -10, opacity: 0 },
+          { y: 120, rotateX: -90, opacity: 0 },
           {
             y: 0,
-            rotateY: 0,
+            rotateX: 0,
             opacity: 1,
-            duration: 1.2,
-            stagger: 0.04,
-            ease: "back.out(1.7)"
+            duration: 1,
+            stagger: 0.03,
+            ease: "back.out(1.2)"
           },
-          "-=1.0"
+          "-=0.8"
         )
-
-        // Animate Subtitle
-        .fromTo(".subtitle",
+        // Subtitle fade in
+        .fromTo(".hero-subtitle",
+          { y: 30, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8 },
+          "-=0.5"
+        )
+        // Metadata fade in
+        .fromTo(".hero-meta",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6 },
+          "-=0.3"
+        )
+        // CTA button
+        .fromTo(".hero-cta",
           { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.5"
-        )
-
-        // Animate Scroll Indicator
-        .fromTo(".scroll-indicator",
-          { y: -20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 1 },
-          "-=0.5"
+          { y: 0, opacity: 1, duration: 0.6 },
+          "-=0.2"
         )
 
     }, containerRef)
 
-    // Magnetic / Parallax Effect on Mouse Move
+    // RAF-throttled Magnetic Effect
     const handleMouseMove = (e: MouseEvent) => {
-      if (!titleContainerRef.current) return
+      mousePos.current = {
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight
+      }
 
-      const { clientX, clientY } = e
-      const x = (clientX / window.innerWidth - 0.5) * 2 // -1 to 1
-      const y = (clientY / window.innerHeight - 0.5) * 2 // -1 to 1
+      if (mouseRafId.current === null) {
+        mouseRafId.current = requestAnimationFrame(() => {
+          if (!titleContainerRef.current) {
+            mouseRafId.current = null
+            return
+          }
 
-      // Move the whole title block slightly
-      gsap.to(titleContainerRef.current, {
-        x: x * 30, // 30px movement range
-        y: y * 30,
-        rotationX: -y * 5, // Subtle 3D tilt
-        rotationY: x * 5,
-        duration: 2,
-        ease: "power2.out"
-      })
-    }
+          const x = (mousePos.current.x - 0.5) * 2
+          const y = (mousePos.current.y - 0.5) * 2
 
-    // Scroll listener
-    const handleScroll = () => {
-      setScrollIndicatorHidden(window.scrollY > 100)
+          gsap.to(titleContainerRef.current, {
+            x: x * 20,
+            y: y * 15,
+            rotationX: -y * 3,
+            rotationY: x * 3,
+            duration: 1.5,
+            ease: "power2.out",
+            overwrite: 'auto'
+          })
 
-      // Parallax scroll effect for title
-      if (titleContainerRef.current) {
-        gsap.to(titleContainerRef.current, {
-          y: window.scrollY * 0.5, // Move down at half speed
-          opacity: 1 - (window.scrollY / 700), // Fade out
-          overwrite: 'auto'
+          mouseRafId.current = null
         })
       }
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
 
     return () => {
       ctx.revert()
       window.removeEventListener('mousemove', handleMouseMove)
-      window.removeEventListener('scroll', handleScroll)
+      if (mouseRafId.current !== null) cancelAnimationFrame(mouseRafId.current)
     }
-  }, [isLoaded])
+  }, [])
 
   // Helper to split text into chars
   const splitText = (text: string, className: string) => {
     return text.split('').map((char, i) => (
-      <span key={i} className={`inline-block ${className} ${char === ' ' ? 'w-[4vw]' : ''}`}>
+      <span
+        key={i}
+        className={`inline-block ${className} ${char === ' ' ? 'w-[2vw]' : ''}`}
+        style={{ willChange: 'transform, opacity' }}
+      >
         {char === ' ' ? '\u00A0' : char}
       </span>
     ))
   }
 
   return (
-    <section
-      ref={containerRef}
-      className="min-h-screen flex flex-col items-center justify-center relative px-4 md:px-8 overflow-hidden bg-[#0a0a0a] perspective-1000"
-      id="hero"
-    >
-      {/* Ambient Floating Elements (Background) */}
-      {/* Ambient Floating Elements (Background) - Using Shared Component */}
+    <div ref={containerRef} className="w-full h-full flex flex-col relative overflow-hidden pt-20">
+      {/* Ambient Background */}
       <div className="absolute inset-0 z-0 pointer-events-none">
         <AmbientBackground />
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 text-center" style={{ perspective: '1000px' }}>
-        <h1
-          ref={titleContainerRef}
-          className="font-bold tracking-tighter leading-[0.85] uppercase mb-16 md:mb-24 flex flex-col items-center justify-center select-none"
-        >
-          {/* Row 1: CREATIVE */}
-          <div className="overflow-hidden mb-2 md:mb-4">
-            <span ref={creativeRef} className="block text-[13vw] md:text-[10vw] lg:text-[9vw] text-white mix-blend-difference">
-              {splitText("CREATIVE", "char-creative")}
-            </span>
-          </div>
+      {/* Main Content - Centered */}
+      <div className="flex-1 flex items-center justify-center relative z-10" style={{ perspective: '1000px' }}>
+        <div className="text-center px-4">
+          <h1
+            ref={titleContainerRef}
+            className="font-bold tracking-tighter leading-[0.85] uppercase flex flex-col items-center justify-center select-none will-change-transform"
+            style={{ transformStyle: 'preserve-3d' }}
+          >
+            {/* Row 1: CREATIVE */}
+            <div className="overflow-hidden mb-2 md:mb-4">
+              <span className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-white">
+                {splitText("CREATIVE", "char-creative")}
+              </span>
+            </div>
 
-          {/* Row 2: DEVELOPER (Outlined) */}
-          <div className="overflow-hidden">
-            <span ref={developerRef} className="block text-[13vw] md:text-[10vw] lg:text-[9vw] text-transparent"
-              style={{ WebkitTextStroke: '1px rgba(255,255,255,0.8)' }}>
-              {splitText("DEVELOPER", "char-developer")}
-            </span>
-          </div>
-        </h1>
+            {/* Row 2: DEVELOPER (Outlined) */}
+            <div className="overflow-hidden">
+              <span
+                className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-transparent"
+                style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.7)' }}
+              >
+                {splitText("DEVELOPER", "char-developer")}
+              </span>
+            </div>
+          </h1>
 
-        <p className="subtitle max-w-2xl mx-auto text-lg md:text-xl font-light tracking-wide text-white/50 mix-blend-plus-lighter mt-8">
-          Crafting immersive digital experiences with precision, artistry, and physics-driven interaction.
-        </p>
-      </div>
+          {/* Subtitle */}
+          <p className="hero-subtitle max-w-xl mx-auto text-base md:text-lg font-light tracking-wide text-white/50 mt-8 md:mt-12">
+            I make the web feel new again.
+          </p>
 
-      {/* Enhanced Scroll Indicator */}
-      <div
-        className={`scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 transition-all duration-700 ${scrollIndicatorHidden ? 'opacity-0 translate-y-10' : 'opacity-100 translate-y-0'}`}
-      >
-        <div className="flex flex-col items-center gap-3">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-mono animate-pulse">
-            Scroll
-          </span>
-          {/* Looping line animation */}
-          <div className="relative w-[1px] h-16 bg-white/10 overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-transparent via-white/50 to-transparent animate-scroll-line" />
+          {/* CTA Button */}
+          <div className="hero-cta mt-10 md:mt-14">
+            <button
+              onClick={() => goToSection(1)}
+              className="group relative px-8 py-4 rounded-full border border-white/20 text-sm font-medium uppercase tracking-widest text-white/80 hover:text-white hover:border-white/40 transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10">View Selected Works</span>
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </button>
           </div>
         </div>
       </div>
 
-    </section>
+      {/* Bottom hint - Animated */}
+      <div className="hero-meta relative z-20 flex justify-center pb-8">
+        <motion.div
+          className="flex flex-col items-center gap-2 text-white/30 cursor-pointer"
+          onClick={() => goToSection(1)}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll or swipe</span>
+          <motion.div
+            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
+            animate={{ scaleY: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
+        </motion.div>
+      </div>
+    </div>
   )
 }

@@ -1,9 +1,10 @@
 'use client'
 
-import { useRef, useState, useMemo } from 'react'
+import { useRef, useState, useMemo, Suspense } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
+import Image from 'next/image'
 
 // Custom Shader Material for Liquid Distortion
 const LiquidShaderMaterial = {
@@ -109,8 +110,12 @@ function ImagePlane({ src, isHovered }: { src: string, isHovered: boolean }) {
 
   // Scale plane to cover viewport (cover style)
   const scale = useMemo(() => {
-    const tex = texture as THREE.Texture
-    const imageAspect = tex.image.width / tex.image.height
+    const image = texture.image as HTMLImageElement
+    if (!image || !image.width || !image.height) {
+      return [viewport.width, viewport.height, 1] as [number, number, number]
+    }
+
+    const imageAspect = image.width / image.height
     const canvasAspect = viewport.width / viewport.height
 
     // Analogous to object-fit: cover
@@ -130,25 +135,84 @@ function ImagePlane({ src, isHovered }: { src: string, isHovered: boolean }) {
   )
 }
 
+// Fallback image component shown before WebGL loads
+function FallbackImage({ src, alt }: { src: string; alt: string }) {
+  return (
+    <div className="absolute inset-0 w-full h-full">
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover transition-transform duration-700 ease-out"
+        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        loading="lazy"
+      />
+    </div>
+  )
+}
+
+// WebGL Canvas wrapper with error boundary behavior
+function WebGLCanvas({ src, alt, isHovered }: { src: string; alt: string; isHovered: boolean }) {
+  return (
+    <Canvas
+      camera={{ position: [0, 0, 1], fov: 50 }}
+      style={{ width: '100%', height: '100%' }}
+      dpr={[1, 1.5]} // Reduced from [1, 2] for better performance
+      gl={{
+        antialias: false, // Disable for performance
+        powerPreference: 'high-performance',
+        alpha: false,
+      }}
+    >
+      <Suspense fallback={null}>
+        <ImagePlane src={src} isHovered={isHovered} />
+      </Suspense>
+    </Canvas>
+  )
+}
+
 export function DistortedImage({ src, alt, className, isHovered }: { src: string, alt: string, className?: string, isHovered?: boolean }) {
   const [internalHover, setInternalHover] = useState(false)
+  const [showWebGL, setShowWebGL] = useState(false)
 
   // Logic: If isHovered prop is provided, use it. Otherwise use internal hover state.
   const activeHover = isHovered !== undefined ? isHovered : internalHover
 
+  // Lazy-load WebGL only when hovered (with small delay to ensure it's intentional)
+  const hoverTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+
+  const handleMouseEnter = () => {
+    setInternalHover(true)
+    // Start loading WebGL after a brief delay to avoid loading on quick mouse passes
+    hoverTimeoutRef.current = setTimeout(() => {
+      setShowWebGL(true)
+    }, 100)
+  }
+
+  const handleMouseLeave = () => {
+    setInternalHover(false)
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+    // Keep WebGL loaded for smooth re-hover, but could optionally unload
+    // setShowWebGL(false)
+  }
+
   return (
     <div
       className={`relative w-full h-full overflow-hidden ${className || ''}`}
-      onMouseEnter={() => setInternalHover(true)}
-      onMouseLeave={() => setInternalHover(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
-      <Canvas
-        camera={{ position: [0, 0, 1], fov: 50 }}
-        style={{ width: '100%', height: '100%' }}
-        dpr={[1, 2]} // Support high-res displays
-      >
-        <ImagePlane src={src} isHovered={activeHover} />
-      </Canvas>
+      {/* Base image - always visible as fallback */}
+      <FallbackImage src={src} alt={alt} />
+
+      {/* WebGL overlay - only loaded when user hovers */}
+      {showWebGL && (
+        <div className="absolute inset-0 w-full h-full z-10">
+          <WebGLCanvas src={src} alt={alt} isHovered={activeHover} />
+        </div>
+      )}
     </div>
   )
 }

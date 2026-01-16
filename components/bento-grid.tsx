@@ -4,7 +4,6 @@ import { useRef, useState, MouseEvent, useEffect } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowUpRight } from 'lucide-react'
 import { getStaticContent } from '@/lib/static-content'
@@ -133,9 +132,10 @@ function BentoCard({ project, index }: { project: Project, index: number }) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`group relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/5 ${colSpanClass}`}
+      className={`group relative rounded-3xl overflow-hidden bg-zinc-900 border border-white/5 cursor-none ${colSpanClass}`}
     >
-      <Link href={`/work/${project.id}`} className="block h-full w-full cursor-none">
+      {/* Project Card - Non-navigating showcase */}
+      <div className="block h-full w-full">
 
         {/* Background Image Logic */}
         <div className="absolute inset-0 z-0 overflow-hidden">
@@ -158,6 +158,7 @@ function BentoCard({ project, index }: { project: Project, index: number }) {
                 fill
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                loading="lazy"
               />
             </div>
           </div>
@@ -179,9 +180,9 @@ function BentoCard({ project, index }: { project: Project, index: number }) {
                 {project.category}
               </span>
             </div>
-            {/* View Project Button (Custom Cursor target) */}
-            <div className="md:hidden w-10 h-10 rounded-full bg-white flex items-center justify-center">
-              <ArrowUpRight className="w-5 h-5 text-black" />
+            {/* Info Button (Mobile) */}
+            <div className="md:hidden w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20">
+              <ArrowUpRight className="w-5 h-5 text-white/80" />
             </div>
           </div>
 
@@ -208,15 +209,15 @@ function BentoCard({ project, index }: { project: Project, index: number }) {
           </div>
         </div>
 
-        {/* Floating "View" Button that follows mouse (Desktop only) */}
+        {/* Floating Cursor Follower (Desktop only) */}
         <CursorFollower mouseX={mouseX} mouseY={mouseY} />
 
-      </Link>
+      </div>
     </motion.div>
   )
 }
 
-function CursorFollower({ mouseX, mouseY }: { mouseX: any, mouseY: any }) {
+function CursorFollower({ mouseX, mouseY }: { mouseX: ReturnType<typeof useMotionValue<number>>, mouseY: ReturnType<typeof useMotionValue<number>> }) {
   // Optimized spring physics for snappy, smooth following
   // Reduced mass for less inertia, increased stiffness for faster tracking
   const springConfig = { damping: 28, stiffness: 500, mass: 0.5 };

@@ -4,8 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
-import { LenisProvider } from "@/components/lenis-provider";
-import { NoiseOverlay } from "@/components/noise-overlay";
+// LenisProvider removed - using scroll-jacking instead of smooth scroll
 import { Preloader } from "@/components/preloader";
 import "./globals.css";
 
@@ -143,11 +142,8 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <LenisProvider>
-            <Preloader />
-            <NoiseOverlay />
-            {children}
-          </LenisProvider>
+          <Preloader />
+          {children}
         </ThemeProvider>
 
         {/* Analytics & Consent */}

@@ -579,7 +579,8 @@ export const getStaticContent = {
           "frontend": ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"],
           "backend": ["Node.js", "Python", "FastAPI", "PostgreSQL", "Supabase"],
           "mobile": ["React Native", "Expo"],
-          "tools": ["Git", "Docker", "Figma", "VS Code"]
+          "database": ["PostgreSQL", "MongoDB", "Redis", "MySQL"],
+          "cloud": ["AWS", "Vercel", "Docker"]
         }
       },
       "stats": [

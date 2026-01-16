@@ -7,6 +7,10 @@ interface GlobalState {
   setIsMenuOpen: (status: boolean) => void
   theme: 'light' | 'dark'
   setTheme: (theme: 'light' | 'dark') => void
+  // Section navigation
+  targetSection: number | null
+  goToSection: (index: number) => void
+  clearTargetSection: () => void
 }
 
 export const useStore = create<GlobalState>((set) => ({
@@ -14,6 +18,9 @@ export const useStore = create<GlobalState>((set) => ({
   setIsLoaded: (status) => set({ isLoaded: status }),
   isMenuOpen: false,
   setIsMenuOpen: (status) => set({ isMenuOpen: status }),
-  theme: 'dark', // Default to dark as per PRD
+  theme: 'dark',
   setTheme: (theme) => set({ theme }),
+  targetSection: null,
+  goToSection: (index) => set({ targetSection: index, isMenuOpen: false }),
+  clearTargetSection: () => set({ targetSection: null }),
 }))
