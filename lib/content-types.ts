@@ -111,8 +111,29 @@ export interface ComprehensiveAboutContent {
       frontend: string[];
       backend: string[];
       mobile: string[];
-      tools: string[];
+      database: string[];
+      cloud: string[];
     };
+  };
+  indonesianMarketExpertise?: {
+    title: string;
+    description: string;
+    specializations: {
+      sector: string;
+      description: string;
+      achievements: string[];
+    }[];
+  };
+  successStories?: {
+    title: string;
+    projects: {
+      client: string;
+      industry: string;
+      challenge: string;
+      solution: string;
+      results: string;
+      technologies: string[];
+    }[];
   };
   education: {
     title: string;

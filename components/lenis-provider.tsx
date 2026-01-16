@@ -10,12 +10,12 @@ interface LenisProviderProps {
 export function LenisProvider({ children }: LenisProviderProps) {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0, // Slightly reduced from 1.2 for snappier feel
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: 'vertical',
       gestureOrientation: 'vertical',
       smoothWheel: true,
-      wheelMultiplier: 1,
+      wheelMultiplier: 0.8, // Slightly reduced for smoother scrolling
       touchMultiplier: 2,
     })
 

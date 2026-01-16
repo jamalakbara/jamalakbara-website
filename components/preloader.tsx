@@ -11,10 +11,18 @@ export function Preloader() {
   const [count, setCount] = useState(0)
 
   useEffect(() => {
+    // Failsafe: Always complete after 3 seconds max
+    const failsafe = setTimeout(() => {
+      setIsLoaded(true)
+      if (containerRef.current) {
+        containerRef.current.style.display = 'none'
+      }
+    }, 3000)
+
     const tl = gsap.timeline({
       onComplete: () => {
+        clearTimeout(failsafe)
         setIsLoaded(true)
-        // Optional: Remove from DOM or just hide
         if (containerRef.current) {
           containerRef.current.style.display = 'none'
         }
@@ -25,7 +33,7 @@ export function Preloader() {
     const counter = { value: 0 }
     tl.to(counter, {
       value: 100,
-      duration: 2,
+      duration: 1.5,
       ease: "power2.out",
       onUpdate: () => {
         setCount(Math.round(counter.value))
@@ -35,12 +43,13 @@ export function Preloader() {
       // Curtain Reveal
       .to(containerRef.current, {
         y: '-100%',
-        duration: 1,
+        duration: 0.8,
         ease: "power4.inOut",
-        delay: 0.2
+        delay: 0.1
       })
 
     return () => {
+      clearTimeout(failsafe)
       tl.kill()
     }
   }, [setIsLoaded])
@@ -59,3 +68,4 @@ export function Preloader() {
     </div>
   )
 }
+

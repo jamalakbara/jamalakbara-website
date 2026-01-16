@@ -6,16 +6,43 @@
   --foreground: #fafafa;
 }
 
-html {
-  scroll-behavior: smooth;
+/* Typography - Consistent font usage */
+/* Sans: Inter - for body text, UI elements */
+/* Serif: DM Serif Display - for headlines, accents */
+.font-sans {
+  font-family: var(--font-inter), system-ui, sans-serif;
 }
 
+.font-serif {
+  font-family: var(--font-dm-serif-display), Georgia, serif;
+}
+
+.font-mono {
+  font-family: var(--font-space-mono), 'Courier New', monospace;
+}
+
+html,
 body {
+  overflow: hidden;
+  height: 100vh;
+  height: 100dvh;
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
   font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  cursor: none;
+}
+
+/* Hide cursor on all interactive elements too */
+a,
+button,
+[role="button"],
+input,
+select,
+textarea {
+  cursor: none;
 }
 
 ::selection {
@@ -29,4 +56,58 @@ body {
 
 .text-foreground {
   color: var(--foreground);
+}
+
+/* Marquee Animations - GPU accelerated */
+@keyframes marquee-left {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-marquee-left {
+  animation: marquee-left linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right linear infinite;
+}
+
+/* Pause on hover for marquee */
+.group\/marquee:hover .group-hover\/marquee\:pause {
+  animation-play-state: paused;
+}
+
+/* Scroll Indicator Animation */
+@keyframes scroll-line {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.animate-scroll-line {
+  animation: scroll-line 1.5s ease-in-out infinite;
+}
+
+/* Perspective utility for 3D transforms */
+.perspective-1000 {
+  perspective: 1000px;
 }
