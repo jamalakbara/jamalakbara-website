@@ -7,14 +7,22 @@ export function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const followerRef = useRef<HTMLDivElement>(null)
   const [isHovering, setIsHovering] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
 
   // RAF throttling ref
   const rafId = useRef<number | null>(null)
   const mousePos = useRef({ x: 0, y: 0 })
 
+  // Track mounted state for SSR
   useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMounted) return
+
     // Check for touch devices - don't show custom cursor
-    if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
+    if (window.matchMedia('(hover: none)').matches) {
       return
     }
 
@@ -92,10 +100,15 @@ export function CustomCursor() {
         cancelAnimationFrame(rafId.current)
       }
     }
-  }, [isHovering])
+  }, [isMounted, isHovering])
+
+  // Don't render until mounted (prevents hydration mismatch)
+  if (!isMounted) {
+    return null
+  }
 
   // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches) {
+  if (window.matchMedia('(hover: none)').matches) {
     return null
   }
 
