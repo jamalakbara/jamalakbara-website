@@ -1,352 +1,167 @@
 'use client'
 
-import { motion, useInView, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { useRef, useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { getStaticContent } from '@/lib/content-manager'
+import { useRef, useEffect, useState } from 'react'
+import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { gsap } from 'gsap'
+import { getStaticContent } from '@/lib/static-content'
+
+const siteConfig = getStaticContent.siteConfig()
 
 export function CTASection() {
-  const ref = useRef(null)
-  const formRef = useRef<HTMLFormElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [showStatus, setShowStatus] = useState(false)
-  const siteConfig = getStaticContent.siteConfig()
+  const containerRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLDivElement>(null)
+  const [isHovered, setIsHovered] = useState(false)
 
-  // Formspree form endpoint from environment variables
-  const FORMSPREE_ENDPOINT = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT || 'https://formspree.io/f/xjkbvlqd'
+  // Mouse position for magnetic effect
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
+  // Spring physics for smooth movement
+  const springConfig = { damping: 20, stiffness: 150 }
+  const x = useSpring(mouseX, springConfig)
+  const y = useSpring(mouseY, springConfig)
 
-    try {
-      const formData = new FormData(event.currentTarget)
+  useEffect(() => {
+    if (!containerRef.current) return
 
-      const response = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
+    const ctx = gsap.context(() => {
+      gsap.fromTo(".cta-headline",
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 }
+      )
 
-      if (response.ok) {
-        setSubmitStatus('success')
-        setIsModalOpen(false)
+      gsap.fromTo(".cta-button",
+        { scale: 0.5, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 }
+      )
 
-        // Show success message briefly
-        setShowStatus(true)
-        setTimeout(() => {
-          setShowStatus(false)
-        }, 3000)
+      gsap.fromTo(".cta-footer",
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.7 }
+      )
+    }, containerRef)
 
-        // Reset form using ref
-        if (formRef.current) {
-          formRef.current.reset()
-        }
-      } else {
-        throw new Error('Form submission failed')
-      }
-    } catch (error) {
-      console.error('Form submission error:', error)
-      setSubmitStatus('error')
-      setShowStatus(true)
-      setTimeout(() => {
-        setShowStatus(false)
-      }, 5000)
-    } finally {
-      setIsSubmitting(false)
-    }
+    return () => ctx.revert()
+  }, [])
+
+  // Magnetic button effect
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!buttonRef.current) return
+
+    const rect = buttonRef.current.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+
+    const distanceX = e.clientX - centerX
+    const distanceY = e.clientY - centerY
+
+    const pull = 0.4
+    mouseX.set(distanceX * pull)
+    mouseY.set(distanceY * pull)
   }
 
-  // Scroll-based animations for stacking effect
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  })
-
-  const y = useTransform(scrollYProgress, [0, 0.5], [200, 0])
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.85, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.3], [0.6, 1])
-  const rotateX = useTransform(scrollYProgress, [0, 0.5], [15, 0])
-
-  const pulseVariants = {
-    initial: { scale: 1 },
-    animate: {
-      scale: [1, 1.05, 1],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut" as const
-      }
-    }
+  const handleMouseLeave = () => {
+    mouseX.set(0)
+    mouseY.set(0)
+    setIsHovered(false)
   }
 
   return (
-    <>
-      <motion.section 
-        id="contact"
-        className="pt-20 pb-16 md:pb-24 px-4 bg-emerald-700 dark:bg-emerald-600 text-white dark:text-white relative overflow-hidden min-h-[85vh] z-10 rounded-t-3xl shadow-2xl transition-colors duration-300"
-        ref={ref}
-        style={{ y, scale, opacity, rotateX }}
-      >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.2),transparent_70%)]" />
-        </div>
+    <div ref={containerRef} className="w-full h-full flex flex-col relative overflow-hidden">
+      {/* Subtle gradient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-radial from-white/[0.03] via-transparent to-transparent" />
+      </div>
 
-        <div className="max-w-4xl mx-auto text-center relative z-10 pb-safe">
-          
-          {/* Main CTA Content */}
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{ duration: 0.8 }}
+      {/* Main Content */}
+      <div className="flex-1 flex items-center justify-center px-6">
+        <div className="text-center">
+          {/* Massive Headline */}
+          <h2 className="cta-headline text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold tracking-tighter leading-[0.9] uppercase mb-16">
+            <span className="block text-white">Let&apos;s</span>
+            <span
+              className="block text-transparent"
+              style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}
+            >
+              Work
+            </span>
+          </h2>
+
+          {/* Magnetic Button with rotating border */}
+          <div
+            ref={buttonRef}
+            className="cta-button inline-block"
+            onMouseMove={handleMouseMove}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={handleMouseLeave}
           >
-            <motion.h2 
-              className="text-5xl md:text-7xl font-serif font-bold mb-6 leading-[0.9]"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
+            <motion.a
+              href={`mailto:${siteConfig.contact.email}`}
+              style={{ x, y }}
+              className="relative inline-flex items-center justify-center w-40 h-40 md:w-48 md:h-48 rounded-full group"
             >
-              <span>Let&apos;s Create</span>
-              <br />
-              <motion.span
-                initial={{ opacity: 0 }}
-                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-                transition={{ delay: 0.8, duration: 0.8 }}
-                className="text-emerald-200 dark:text-emerald-300"
-              >
-                Something Amazing
-              </motion.span>
-            </motion.h2>
-
-            <motion.p 
-              className="text-lg md:text-xl text-emerald-100 dark:text-emerald-200 font-sans max-w-xl mx-auto mb-8 leading-normal"
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-            >
-              Ready to transform your ideas into reality? Let&apos;s discuss your next project 
-              and create something that stands out from the crowd.
-            </motion.p>
-
-            {/* Animated CTA Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-            >
-              <motion.button
-                variants={pulseVariants}
-                initial="initial"
-                animate="animate"
-                whileHover={{ 
-                  scale: 1.1,
-                  backgroundColor: "#fff",
-                  color: "#065f46",
-                  boxShadow: "0 20px 40px rgba(255,255,255,0.3)"
+              {/* Rotating border - blue gradient */}
+              <motion.div
+                className="absolute inset-0 rounded-full"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                style={{
+                  background: `conic-gradient(from 0deg, transparent, rgba(80, 160, 255, 0.5), rgba(120, 200, 255, 0.3), transparent, transparent)`,
                 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setIsModalOpen(true)}
-                className="group relative px-10 py-4 border-2 border-white text-white font-sans font-medium text-lg transition-all duration-300 overflow-hidden"
-              >
-                <span className="relative z-10">Start a Project</span>
-                
-                {/* Button background animation */}
-                <motion.div
-                  className="absolute inset-0 bg-white"
-                  initial={{ x: "-100%" }}
-                  whileHover={{ x: 0 }}
-                  transition={{ type: "tween", duration: 0.3 }}
-                />
-              </motion.button>
-            </motion.div>
-          </motion.div>
+              />
 
-          {/* Contact Info */}
-          <motion.div
-            className="mt-20 pt-12 border-t border-emerald-500 dark:border-emerald-400 relative z-10 mb-20"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Email</div>
-                <a
-                  href={`mailto:${siteConfig.contact?.email}`}
-                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
-                >
-                  {siteConfig.contact?.email}
-                </a>
-              </div>
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Phone</div>
-                <a
-                  href={`https://wa.me/${(siteConfig.contact?.phone || '+6281321766565').replace(/\D/g, '')}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-300 dark:text-emerald-200 font-mono hover:text-white dark:hover:text-white transition-colors duration-200 cursor-pointer underline-offset-4 hover:underline"
-                >
-                  {siteConfig.contact?.phone || '+6281321766565'}
-                </a>
-              </div>
-              <div className="relative">
-                <div className="text-lg font-serif font-bold mb-2">Location</div>
-                <div className="text-emerald-300 dark:text-emerald-200 font-mono">{siteConfig.contact.location}</div>
-              </div>
-            </div>
-          </motion.div>
+              {/* Inner circle - glassy blue */}
+              <div
+                className={`absolute inset-[2px] rounded-full transition-all duration-500 backdrop-blur-sm ${isHovered
+                    ? 'bg-white'
+                    : 'bg-gradient-to-br from-blue-900/60 via-blue-950/80 to-slate-900/90 border border-blue-400/20'
+                  }`}
+              />
+
+              {/* Text */}
+              <span className={`relative z-10 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${isHovered ? 'text-blue-900' : 'text-white/90'
+                }`}>
+                Get in touch
+              </span>
+
+              {/* Expand ring on hover - blue tint */}
+              <motion.div
+                className="absolute inset-0 rounded-full border border-blue-400/30"
+                animate={{
+                  scale: isHovered ? 1.3 : 1,
+                  opacity: isHovered ? 0 : 1
+                }}
+                transition={{ duration: 0.4 }}
+              />
+            </motion.a>
+          </div>
         </div>
-      </motion.section>
+      </div>
 
-      {/* Success/Error Status Messages */}
-      <AnimatePresence>
-        {showStatus && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className={`fixed top-8 right-8 z-[10000] p-4 rounded-lg shadow-lg max-w-sm ${
-              submitStatus === 'success'
-                ? 'bg-green-100 border-2 border-green-500 text-green-800'
-                : 'bg-red-100 border-2 border-red-500 text-red-800'
-            }`}
-          >
-            {submitStatus === 'success' ? (
-              <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 00016 0zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 01-1.414 1.414l2 2a1 1 0 001.414 0l-4-4z" clipRule="evenodd" />
-                </svg>
-                <span className="font-medium">Thank you! I&apos;ll get back to you soon.</span>
-              </div>
-            ) : (
-              <div className="flex items-center gap-3">
-                <svg className="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
-                </svg>
-                <div>
-                  <div className="font-medium">Something went wrong.</div>
-                  <div className="text-sm opacity-75">Please try again or email me directly.</div>
-                </div>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Footer */}
+      <div className="cta-footer border-t border-white/10 px-6 md:px-12 py-6">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+          {/* Left: Copyright */}
+          <p className="text-sm text-white/30 font-sans tracking-wide">
+            © {new Date().getFullYear()} {siteConfig.brand.name}
+          </p>
 
-      {/* Contact Modal */}
-      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="sm:max-w-md bg-white dark:bg-gray-900 border-2 border-black dark:border-white shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] dark:shadow-[8px_8px_0px_0px_rgba(255,255,255,1)] z-[9999] transition-colors duration-300">
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          >
-            <DialogHeader className="mb-6">
-              <DialogTitle className="text-2xl font-serif font-bold text-black dark:text-white transition-colors duration-300">
-                Let&apos;s Start Something Great
-              </DialogTitle>
-            </DialogHeader>
-
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-              <input type="hidden" name="form_name" value="Project Inquiry" />
-              <input type="hidden" name="_subject" value="New Project Request from Portfolio" />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
-                    First Name
-                  </label>
-                  <Input
-                    id="firstName"
-                    name="firstName"
-                    className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
-                    placeholder="John"
-                    required
-                  />
-                </div>
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
-                    Last Name
-                  </label>
-                  <Input
-                    id="lastName"
-                    name="lastName"
-                    className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
-                    placeholder="Doe"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
-                  Email
-                </label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white"
-                  placeholder="john@example.com"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="projectDetails" className="block text-sm font-sans font-medium text-black dark:text-white mb-2">
-                  Project Details
-                </label>
-                <Textarea
-                  id="projectDetails"
-                  name="projectDetails"
-                  className="border-2 border-gray-300 dark:border-gray-600 focus:border-black dark:focus:border-white bg-white dark:bg-gray-800 text-black dark:text-white min-h-[120px]"
-                  placeholder="Tell me about your project... What are your goals? Timeline? Budget considerations?"
-                  required
-                />
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-3 pt-4">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 bg-black text-white hover:bg-gray-800 font-sans font-medium disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24">
-                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-0V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
-                      </svg>
-                      Sending...
-                    </span>
-                  ) : (
-                    'Send Message'
-                  )}
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  onClick={() => setIsModalOpen(false)}
-                  className="border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-sans font-medium"
-                  disabled={isSubmitting}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </form>
-          </motion.div>
-        </DialogContent>
-      </Dialog>
-    </>
+          {/* Right: Social links */}
+          <div className="flex items-center gap-8">
+            {siteConfig.social.map((social) => (
+              <a
+                key={social.platform}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-white/30 hover:text-white transition-colors font-sans uppercase tracking-wider"
+              >
+                {social.platform}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

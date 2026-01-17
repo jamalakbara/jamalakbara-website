@@ -1,214 +1,210 @@
 'use client'
 
-import { motion, useScroll, useTransform, useAnimation, useInView } from 'framer-motion'
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { gsap } from 'gsap'
+import { AmbientBackground } from '@/components/ambient-background'
+import { useStore } from '@/lib/store'
+import { motion } from 'framer-motion'
 
 export function HeroSection() {
-  const ref = useRef(null)
-  const controls = useAnimation()
-  const isInView = useInView(ref, { once: true, margin: "-100px" })
-  
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"]
-  })
+  const containerRef = useRef<HTMLDivElement>(null)
+  const titleContainerRef = useRef<HTMLHeadingElement>(null)
+  const [currentTime, setCurrentTime] = useState('')
+  const { goToSection } = useStore()
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // RAF throttling refs
+  const mouseRafId = useRef<number | null>(null)
+  const mousePos = useRef({ x: 0.5, y: 0.5 })
 
-  const heroText = "Creative Developer & Designer"
-  const subText = "Crafting digital experiences with precision and artistry"
-
-  const words = heroText.split(' ')
-  const subWords = subText.split(' ')
-
-  // Auto-animate subtitle words periodically
+  // Update time every minute
   useEffect(() => {
-    let animationTimeout: NodeJS.Timeout | null = null
-    
-    const animateWords = async () => {
-      // Wait for initial load (dipercepat dari 4 detik jadi 3 detik)
-      await new Promise(resolve => {
-        animationTimeout = setTimeout(resolve, 3000)
-      })
-      
-      const runAnimation = async () => {
-        // Animate each word with faster stagger
-        for (let i = 0; i < subWords.length; i++) {
-          controls.start((index) => {
-            if (index === i) {
-              const variants = [
-                // Quick glow (dipercepat dari 0.8s jadi 0.5s)
-                { 
-                  scale: [1, 1.08, 1], 
-                  color: ["#6b7280", "#000", "#6b7280"],
-                  textShadow: ["none", "0 0 8px rgba(0,0,0,0.3)", "none"],
-                  transition: { duration: 0.5 }
-                },
-                // Gentle bounce (dipercepat dari 0.6s jadi 0.4s)
-                { 
-                  y: [0, -4, 0], 
-                  scale: [1, 1.03, 1],
-                  color: ["#6b7280", "#333", "#6b7280"],
-                  transition: { duration: 0.4 }
-                },
-                // Pulse effect (dipercepat dari 0.5s jadi 0.3s)
-                { 
-                  scale: [1, 1.06, 1], 
-                  color: ["#6b7280", "#222", "#6b7280"],
-                  transition: { duration: 0.3 }
-                }
-              ]
-              return variants[i % variants.length]
-            }
-            return {}
+    const updateTime = () => {
+      const now = new Date()
+      setCurrentTime(now.toLocaleTimeString('en-US', {
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'Asia/Jakarta'
+      }))
+    }
+    updateTime()
+    const interval = setInterval(updateTime, 60000)
+    return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
+
+      // Stagger reveal for main title
+      tl.fromTo(".char-creative",
+        { y: 120, rotateX: 90, opacity: 0 },
+        {
+          y: 0,
+          rotateX: 0,
+          opacity: 1,
+          duration: 1,
+          stagger: 0.03,
+          ease: "back.out(1.2)"
+        },
+        "+=0.3"
+      )
+        .fromTo(".char-developer",
+          { y: 120, rotateX: -90, opacity: 0 },
+          {
+            y: 0,
+            rotateX: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.03,
+            ease: "back.out(1.2)"
+          },
+          "-=0.8"
+        )
+        // Subtitle fade in
+        .fromTo(".hero-subtitle",
+          { y: 30, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8 },
+          "-=0.5"
+        )
+        // Metadata fade in
+        .fromTo(".hero-meta",
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6 },
+          "-=0.3"
+        )
+        // CTA button
+        .fromTo(".hero-cta",
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.6 },
+          "-=0.2"
+        )
+
+    }, containerRef)
+
+    // RAF-throttled Magnetic Effect
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = {
+        x: e.clientX / window.innerWidth,
+        y: e.clientY / window.innerHeight
+      }
+
+      if (mouseRafId.current === null) {
+        mouseRafId.current = requestAnimationFrame(() => {
+          if (!titleContainerRef.current) {
+            mouseRafId.current = null
+            return
+          }
+
+          const x = (mousePos.current.x - 0.5) * 2
+          const y = (mousePos.current.y - 0.5) * 2
+
+          gsap.to(titleContainerRef.current, {
+            x: x * 20,
+            y: y * 15,
+            rotationX: -y * 3,
+            rotationY: x * 3,
+            duration: 1.5,
+            ease: "power2.out",
+            overwrite: 'auto'
           })
-          // Faster delay between words (dipercepat dari 300ms jadi 200ms)
-          await new Promise(resolve => {
-            animationTimeout = setTimeout(resolve, 200)
-          })
-        }
-        
-        // Shorter wait before next cycle (dipercepat dari 5 detik jadi 3 detik)
-        await new Promise(resolve => {
-          animationTimeout = setTimeout(resolve, 3000)
+
+          mouseRafId.current = null
         })
-        runAnimation()
       }
-      
-      runAnimation()
     }
-    
-    animateWords()
-    
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+
     return () => {
-      if (animationTimeout) {
-        clearTimeout(animationTimeout)
-      }
+      ctx.revert()
+      window.removeEventListener('mousemove', handleMouseMove)
+      if (mouseRafId.current !== null) cancelAnimationFrame(mouseRafId.current)
     }
-  }, [controls, subWords.length])
+  }, [])
 
-  
-  const child = {
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring" as const,
-        damping: 12,
-        stiffness: 100,
-      },
-    },
-    hidden: {
-      opacity: 0,
-      y: 20,
-    },
-  }
-
-  // Scroll-triggered animations
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 60 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { 
-        duration: 0.8, 
-        ease: "easeOut" as const
-      }
-    }
-  }
-
-  const staggerContainer = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1
-      }
-    }
-  }
-
-  const hoverVariant = {
-    scale: 1.05,
-    rotate: [-1, 1, -1, 0],
-    transition: {
-      duration: 0.3,
-      ease: "easeInOut" as const
-    }
+  // Helper to split text into chars
+  const splitText = (text: string, className: string) => {
+    return text.split('').map((char, i) => (
+      <span
+        key={i}
+        className={`inline-block ${className} ${char === ' ' ? 'w-[2vw]' : ''}`}
+        style={{ willChange: 'transform, opacity' }}
+      >
+        {char === ' ' ? '\u00A0' : char}
+      </span>
+    ))
   }
 
   return (
-    <motion.section
-      id="hero"
-      ref={ref}
-      style={{ y, opacity }}
-      className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300"
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={staggerContainer}
-    >
-      <div className="max-w-4xl mx-auto text-center">
-        {/* Main Headline with Staggered Animation */}
-        <motion.h1
-          variants={fadeInUp}
-          className="text-6xl md:text-8xl lg:text-9xl font-serif font-bold text-black dark:text-white leading-tight mb-8 transition-colors duration-300"
-        >
-          {words.map((word, index) => (
-            <motion.span
-              key={index}
-              variants={child}
-              whileHover={hoverVariant}
-              className="inline-block mr-4 cursor-hover"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.h1>
+    <div ref={containerRef} className="w-full h-full flex flex-col relative overflow-hidden pt-20">
+      {/* Ambient Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <AmbientBackground />
+      </div>
 
-        {/* Subtitle with Staggered Animation */}
-        <motion.p
-          variants={fadeInUp}
-          className="text-xl md:text-2xl text-gray-600 dark:text-gray-400 font-sans max-w-2xl mx-auto leading-relaxed transition-colors duration-300"
-        >
-          {subWords.map((word, index) => (
-            <motion.span
-              key={index}
-              custom={index}
-              variants={child}
-              animate={controls}
-              className="inline-block mr-2"
-            >
-              {word}
-            </motion.span>
-          ))}
-        </motion.p>
-
-        {/* CTA Button with Subtle Animation */}
-        <motion.div
-          variants={fadeInUp}
-          className="mt-12 mb-16"
-        >
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => {
-              const workSection = document.getElementById('work')
-              if (workSection) {
-                workSection.scrollIntoView({ behavior: 'smooth' })
-              }
-            }}
-            className="px-8 py-4 border-2 border-black dark:border-white text-black dark:text-white bg-transparent hover:bg-black hover:text-white dark:hover:bg-white dark:hover:text-black font-sans font-medium text-lg transition-all duration-300 cursor-hover"
+      {/* Main Content - Centered */}
+      <div className="flex-1 flex items-center justify-center relative z-10" style={{ perspective: '1000px' }}>
+        <div className="text-center px-4">
+          <h1
+            ref={titleContainerRef}
+            className="font-bold tracking-tighter leading-[0.85] uppercase flex flex-col items-center justify-center select-none will-change-transform"
+            style={{ transformStyle: 'preserve-3d' }}
           >
-            View My Work
-          </motion.button>
+            {/* Row 1: CREATIVE */}
+            <div className="overflow-hidden mb-2 md:mb-4">
+              <span className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-white">
+                {splitText("CREATIVE", "char-creative")}
+              </span>
+            </div>
+
+            {/* Row 2: DEVELOPER (Outlined) */}
+            <div className="overflow-hidden">
+              <span
+                className="block text-[15vw] md:text-[12vw] lg:text-[10vw] text-transparent"
+                style={{ WebkitTextStroke: '1.5px rgba(255,255,255,0.7)' }}
+              >
+                {splitText("DEVELOPER", "char-developer")}
+              </span>
+            </div>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="hero-subtitle max-w-xl mx-auto text-base md:text-lg font-light tracking-wide text-white/50 mt-8 md:mt-12">
+            I make the web feel new again.
+          </p>
+
+          {/* CTA Button */}
+          <div className="hero-cta mt-10 md:mt-14">
+            <button
+              onClick={() => goToSection(1)}
+              className="group relative px-8 py-4 rounded-full border border-white/20 text-sm font-medium uppercase tracking-widest text-white/80 hover:text-white hover:border-white/40 transition-all duration-300 overflow-hidden"
+            >
+              <span className="relative z-10">View Selected Works</span>
+              <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom hint - Animated */}
+      <div className="hero-meta relative z-20 flex justify-center pb-8">
+        <motion.div
+          className="flex flex-col items-center gap-2 text-white/30 cursor-pointer"
+          onClick={() => goToSection(1)}
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em]">Scroll or swipe</span>
+          <motion.div
+            className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent"
+            animate={{ scaleY: [1, 1.3, 1], opacity: [0.4, 0.8, 0.4] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          />
         </motion.div>
-
       </div>
-
-      {/* Background Texture (Optional) */}
-      <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1),transparent_70%)] dark:bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
-      </div>
-    </motion.section>
+    </div>
   )
 }

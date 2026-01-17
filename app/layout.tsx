@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { LoadingProvider } from "@/contexts/loading-context";
 import { StructuredData } from "@/components/structured-data";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
+// LenisProvider removed - using scroll-jacking instead of smooth scroll
+import { Preloader } from "@/components/preloader";
 import "./globals.css";
 
 const inter = Inter({
@@ -34,14 +37,14 @@ const dmSerifDisplay = DM_Serif_Display({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jamalakbara.com'),
   title: {
-    default: "jamalakbara. - Creative Developer",
-    template: "%s | jamalakbara."
+    default: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+    template: "%s | Portfolio Jamal Akbar Alam"
   },
-  description: "Expert creative developer specializing in modern web development, backend development, mobile development, and UI/UX design. Based in Bandung, Indonesia with 5+ years of experience building exceptional digital experiences with React, Next.js, and Python technologies.",
-  keywords: ["creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer"],
-  authors: [{ name: "Jamal Akbar", url: "https://jamalakbara.com" }],
-  creator: "Jamal Akbar",
-  publisher: "Jamal Akbar",
+  description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia with 5+ years of experience building exceptional digital experiences with React, Next.js, and Python technologies.",
+  keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
+  authors: [{ name: "Jamal Akbar Alam", url: "https://jamalakbara.com" }],
+  creator: "Jamal Akbar Alam",
+  publisher: "Jamal Akbar Alam",
   robots: {
     index: true,
     follow: true,
@@ -57,23 +60,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://jamalakbara.com",
-    siteName: "jamalakbara.",
-    title: "jamalakbara. - Creative Developer",
-    description: "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia.",
+    siteName: "Portfolio Jamal Akbar Alam",
+    title: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+    description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Jamal Akbar - Creative Developer & Designer Portfolio",
+        alt: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "jamalakbara. - Creative Developer",
-    description: "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
+    title: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+    description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
     images: ["/twitter-image.jpg"],
     creator: "@jamalakbara",
     site: "@jamalakbara",
@@ -98,6 +101,9 @@ export const metadata: Metadata = {
   category: "technology",
   classification: "Portfolio",
   referrer: "origin-when-cross-origin",
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT || '',
+  },
 };
 
 export const viewport = {
@@ -113,22 +119,36 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Google Search Console Verification */}
+        {process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT && (
+          <meta
+            name="google-site-verification"
+            content={process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT}
+          />
+        )}
+
+        <StructuredData type="WebSite" />
         <StructuredData type="Person" />
         <StructuredData type="LocalBusiness" />
+        <StructuredData type="FAQ" />
       </head>
       <body
         className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
+        suppressHydrationWarning
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
-          <LoadingProvider>
-            {children}
-          </LoadingProvider>
+          <Preloader />
+          {children}
         </ThemeProvider>
+
+        {/* Analytics & Consent */}
+        <GoogleAnalytics />
+        <CookieConsentBanner />
       </body>
     </html>
   );

@@ -1,232 +1,159 @@
 'use client'
 
-import { CustomCursor } from '@/components/custom-cursor'
-import { Navigation } from '@/components/navigation'
+import { useState } from 'react'
+import Link from 'next/link'
+import { motion, AnimatePresence } from 'framer-motion'
+import { SectionManager, Section } from '@/components/section-manager'
 import { HeroSection } from '@/components/hero-section'
-import { ServicesSection } from '@/components/services-section'
-import { FeaturedWorkSection } from '@/components/featured-work-section'
+import { ProjectCarousel3D } from '@/components/project-carousel-3d'
 import { AboutSection } from '@/components/about-section'
 import { CTASection } from '@/components/cta-section'
-import { LoadingScreen } from '@/components/loading-screen'
-import { DynamicBackground } from '@/components/dynamic-background'
-import { ParallaxContainer } from '@/components/parallax-layers'
-import { VelocityParticles } from '@/components/velocity-effects'
-import { useTheme } from '@/contexts/theme-context'
-import { useLoading } from '@/contexts/loading-context'
-import { motion, useScroll } from 'framer-motion'
-import { useState, useEffect } from 'react'
+import { CustomCursor } from '@/components/custom-cursor'
+import { NoiseOverlay } from '@/components/noise-overlay'
+import { LiquidBackground } from '@/components/liquid-background'
+import { useStore } from '@/lib/store'
+
+const menuItems = [
+  { label: 'Home', index: 0 },
+  { label: 'Works', index: 1 },
+  { label: 'About', index: 2 },
+  { label: 'Contact', index: 3 },
+]
 
 export default function Home() {
-  const { theme } = useTheme()
-  const { setLoading } = useLoading()
-  const { scrollYProgress } = useScroll()
-  const [showBackToTop, setShowBackToTop] = useState(false)
-  const [buttonOnDarkSection, setButtonOnDarkSection] = useState(false)
-  const [showLoadingScreen, setShowLoadingScreen] = useState(true)
+  const [currentSectionName, setCurrentSectionName] = useState('Hero')
+  const { isMenuOpen, setIsMenuOpen, goToSection } = useStore()
 
-  const handleLoadingComplete = () => {
-    setLoading(false)
-    // Add a small delay for smooth transition
-    setTimeout(() => setShowLoadingScreen(false), 300)
+  const handleSectionChange = (index: number, name: string) => {
+    setCurrentSectionName(name)
   }
-
-  // Initialize loading state
-  useEffect(() => {
-    setLoading(true, "Loading experience...", 5000)
-    return () => setLoading(false)
-  }, [setLoading])
-
-  // Track scroll position for floating button and detect dark sections
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      setShowBackToTop(scrollTop > 100)
-      
-      // Detect if button is over dark section
-      const buttonRect = {
-        top: window.innerHeight - 64 - 32, // bottom-8 = 32px from bottom, button height 64px
-        left: window.innerWidth - 64 - 32, // right-8 = 32px from right, button width 64px
-        right: window.innerWidth - 32,
-        bottom: window.innerHeight - 32
-      }
-      
-      // Check if button overlaps with CTA section (which is dark)
-      const ctaSection = document.getElementById('contact')
-      if (ctaSection) {
-        const ctaRect = ctaSection.getBoundingClientRect()
-        const isOverlapping = !(buttonRect.bottom < ctaRect.top || 
-                                buttonRect.top > ctaRect.bottom || 
-                                buttonRect.right < ctaRect.left || 
-                                buttonRect.left > ctaRect.right)
-        setButtonOnDarkSection(isOverlapping)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    handleScroll() // Check initial position
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   return (
     <>
-      {/* Loading Screen */}
-      {showLoadingScreen && <LoadingScreen onLoadingComplete={handleLoadingComplete} />}
+      <LiquidBackground />
+      <CustomCursor />
+      <NoiseOverlay />
 
-      {/* Main Content */}
-      {!showLoadingScreen && (
-        <>
-          {/* Advanced Scroll Effects */}
-          <DynamicBackground />
-          <ParallaxContainer />
-          <VelocityParticles />
-          
-          <div className="relative min-h-screen">
-            {/* Custom Cursor */}
-            <CustomCursor />
-            
-            {/* Navigation */}
-            <Navigation />
-            
-            {/* Main Portfolio Sections */}
-            <HeroSection />
-            <ServicesSection />
-            <FeaturedWorkSection />
-            <AboutSection />
-            <CTASection />
-          </div>
+      {/* Menu Overlay - Awwwards Level */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ clipPath: 'circle(0% at calc(100% - 48px) 48px)' }}
+            animate={{ clipPath: 'circle(150% at calc(100% - 48px) 48px)' }}
+            exit={{ clipPath: 'circle(0% at calc(100% - 48px) 48px)' }}
+            transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
+            className="fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col"
+          >
+            {/* Main navigation area */}
+            <div className="flex-1 flex items-center px-6 md:px-16 lg:px-24">
+              <nav className="w-full">
+                {menuItems.map((item, i) => (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -100 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 50 }}
+                    transition={{ delay: 0.1 + i * 0.08, duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
+                    className="group"
+                  >
+                    <button
+                      onClick={() => goToSection(item.index)}
+                      className="w-full flex items-center justify-between py-4 md:py-6 border-b border-white/10 group-hover:border-white/30 transition-colors"
+                    >
+                      {/* Index number */}
+                      <span className="text-xs md:text-sm font-mono text-white/30 group-hover:text-white/60 transition-colors">
+                        0{item.index + 1}
+                      </span>
 
-          {/* Global Floating Scroll Button with Integrated Progress Ring */}
-          <div className="fixed bottom-8 right-8 z-[9999]">
-            {/* SVG Circular Text */}
-            <svg className="absolute -inset-6 w-28 h-28 animate-spin" style={{ animationDuration: '12s' }}>
-              <defs>
-                <path
-                  id="circle"
-                  d="M 56,56 m -40,0 a 40,40 0 0,1 80,0 a 40,40 0 0,1 -80,0"
-                />
-              </defs>
-              <motion.text
-                key={showBackToTop ? 'top' : 'scroll'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className={`text-[8px] font-sans font-bold uppercase tracking-[0.5px] transition-colors duration-300 ${
-                  buttonOnDarkSection 
-                    ? 'fill-white' 
-                    : theme === 'dark' 
-                      ? 'fill-white' 
-                      : 'fill-black'
-                }`}
-              >
-                <textPath href="#circle" startOffset="0%" spacing="auto">
-                  {showBackToTop 
-                    ? 'BACK TO TOP • BACK TO TOP • BACK TO TOP • BACK TO TOP • ' 
-                    : 'SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • SCROLL DOWN • '
-                  }
-                </textPath>
-              </motion.text>
-            </svg>
-            
-            {/* Progress Ring (Inner Layer - Below Text) */}
-            <div className="absolute -inset-4 w-24 h-24">
-              <svg className="w-full h-full transform -rotate-90" viewBox="0 0 96 96">
-                {/* Background ring */}
-                <circle
-                  cx="48"
-                  cy="48"
-                  r="34"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className={`transition-colors duration-300 opacity-20 ${
-                    buttonOnDarkSection 
-                      ? 'text-white' 
-                      : theme === 'dark' 
-                        ? 'text-white' 
-                        : 'text-black'
-                  }`}
-                />
-                {/* Progress ring */}
-                <motion.circle
-                  cx="48"
-                  cy="48"
-                  r="34"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className={`transition-colors duration-300 ${
-                    buttonOnDarkSection 
-                      ? 'text-white' 
-                      : theme === 'dark' 
-                        ? 'text-white' 
-                        : 'text-black'
-                  }`}
-                  strokeLinecap="round"
-                  style={{
-                    pathLength: scrollYProgress
-                  }}
-                  strokeDasharray="213.628"
-                  strokeDashoffset="213.628"
-                />
-              </svg>
+                      {/* Label - massive with outline effect */}
+                      <span
+                        className="text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold uppercase tracking-tighter leading-none transition-all duration-500 text-transparent group-hover:text-white"
+                        style={{
+                          WebkitTextStroke: '1px rgba(255,255,255,0.3)',
+                        }}
+                        onMouseEnter={(e) => {
+                          (e.currentTarget.style as unknown as Record<string, string>).webkitTextStroke = '0'
+                        }}
+                        onMouseLeave={(e) => {
+                          (e.currentTarget.style as unknown as Record<string, string>).webkitTextStroke = '1px rgba(255,255,255,0.3)'
+                        }}
+                      >
+                        {item.label}
+                      </span>
+
+                      {/* Arrow */}
+                      <motion.span
+                        className="text-white/30 group-hover:text-white transition-colors"
+                        initial={{ x: 0 }}
+                        whileHover={{ x: 10 }}
+                      >
+                        <svg className="w-6 h-6 md:w-8 md:h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </motion.span>
+                    </button>
+                  </motion.div>
+                ))}
+              </nav>
             </div>
 
-            {/* Center Button */}
-            <motion.button
-              className={`relative w-16 h-16 bg-transparent rounded-full transition-all duration-300 flex items-center justify-center hover:bg-opacity-20 ${
-                buttonOnDarkSection 
-                  ? 'text-white hover:bg-white' 
-                  : theme === 'dark'
-                    ? 'text-white hover:bg-white/20 dark:text-white dark:hover:bg-white/20'
-                    : 'text-black hover:bg-black/20'
-              }`}
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1, type: "spring", stiffness: 300, damping: 25 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                if (showBackToTop) {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                } else {
-                  const servicesSection = document.getElementById('services');
-                  if (servicesSection) {
-                    const navbar = document.querySelector('nav')
-                    const navbarHeight = navbar ? navbar.offsetHeight + 20 : 100
-                    const targetPosition = servicesSection.offsetTop - navbarHeight
-                    
-                    window.scrollTo({
-                      top: Math.max(0, targetPosition),
-                      behavior: 'smooth'
-                    })
-                  }
-                }
-              }}
-              style={{ backgroundColor: 'transparent' }}
+            {/* Footer */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              className="px-6 md:px-16 lg:px-24 py-8 border-t border-white/10 flex justify-between items-center"
             >
-              <motion.div
-                animate={{ 
-                  y: showBackToTop ? [0, -3, 0] : [0, 3, 0],
-                  rotate: showBackToTop ? 0 : 180 
-                }}
-                transition={{ 
-                  y: { repeat: Infinity, duration: 2, ease: "easeInOut" },
-                  rotate: { duration: 0.3 }
-                }}
-                className={`text-xl transition-colors duration-300 ${
-                  buttonOnDarkSection 
-                    ? 'text-white' 
-                    : theme === 'dark'
-                      ? 'text-white'
-                      : 'text-black'
-                }`}
+              <span className="text-sm text-white/40">Available for work</span>
+              <a
+                href="mailto:hello@jamalakbara.com"
+                className="text-sm text-white/40 hover:text-white transition-colors"
               >
-                ↑
-              </motion.div>
-            </motion.button>
-          </div>
-        </>
-      )}
+                hello@jamalakbara.com
+              </a>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Fixed Header */}
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 flex justify-between items-center pointer-events-none">
+        {/* Logo */}
+        <Link href="/" className="pointer-events-auto text-sm font-bold text-white tracking-tight">
+          jamalakbara<span className="text-white/50">.</span>
+        </Link>
+
+        {/* Menu button */}
+        <button
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="pointer-events-auto text-xs font-mono uppercase tracking-widest text-white/50 hover:text-white transition-colors"
+        >
+          {isMenuOpen ? 'Close' : 'Menu'}
+        </button>
+      </header>
+
+      {/* Section-based Navigation */}
+      <SectionManager onSectionChange={handleSectionChange}>
+        {/* Section 0: Hero */}
+        <Section name="Hero">
+          <HeroSection />
+        </Section>
+
+        {/* Section 1: Selected Works */}
+        <Section name="Works">
+          <ProjectCarousel3D />
+        </Section>
+
+        {/* Section 2: About */}
+        <Section name="About">
+          <AboutSection />
+        </Section>
+
+        {/* Section 3: Contact */}
+        <Section name="Contact">
+          <CTASection />
+        </Section>
+      </SectionManager>
     </>
   )
 }
