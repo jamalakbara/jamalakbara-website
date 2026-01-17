@@ -10,6 +10,7 @@ import { AboutSection } from '@/components/about-section'
 import { CTASection } from '@/components/cta-section'
 import { CustomCursor } from '@/components/custom-cursor'
 import { NoiseOverlay } from '@/components/noise-overlay'
+import { LiquidBackground } from '@/components/liquid-background'
 import { useStore } from '@/lib/store'
 
 const menuItems = [
@@ -29,6 +30,7 @@ export default function Home() {
 
   return (
     <>
+      <LiquidBackground />
       <CustomCursor />
       <NoiseOverlay />
 

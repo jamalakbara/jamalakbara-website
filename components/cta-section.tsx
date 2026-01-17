@@ -67,7 +67,7 @@ export function CTASection() {
   }
 
   return (
-    <div ref={containerRef} className="w-full h-full flex flex-col relative overflow-hidden bg-[#0a0a0a]">
+    <div ref={containerRef} className="w-full h-full flex flex-col relative overflow-hidden">
       {/* Subtle gradient glow */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-gradient-radial from-white/[0.03] via-transparent to-transparent" />
@@ -100,29 +100,33 @@ export function CTASection() {
               style={{ x, y }}
               className="relative inline-flex items-center justify-center w-40 h-40 md:w-48 md:h-48 rounded-full group"
             >
-              {/* Rotating border */}
+              {/* Rotating border - blue gradient */}
               <motion.div
                 className="absolute inset-0 rounded-full"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
                 style={{
-                  background: `conic-gradient(from 0deg, transparent, rgba(255,255,255,0.3), transparent, transparent)`,
+                  background: `conic-gradient(from 0deg, transparent, rgba(80, 160, 255, 0.5), rgba(120, 200, 255, 0.3), transparent, transparent)`,
                 }}
               />
 
-              {/* Inner circle */}
-              <div className={`absolute inset-[2px] rounded-full transition-all duration-500 ${isHovered ? 'bg-white' : 'bg-[#0a0a0a]'
-                }`} />
+              {/* Inner circle - glassy blue */}
+              <div
+                className={`absolute inset-[2px] rounded-full transition-all duration-500 backdrop-blur-sm ${isHovered
+                    ? 'bg-white'
+                    : 'bg-gradient-to-br from-blue-900/60 via-blue-950/80 to-slate-900/90 border border-blue-400/20'
+                  }`}
+              />
 
               {/* Text */}
-              <span className={`relative z-10 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${isHovered ? 'text-black' : 'text-white/70'
+              <span className={`relative z-10 text-sm md:text-base font-medium uppercase tracking-[0.2em] transition-colors duration-500 ${isHovered ? 'text-blue-900' : 'text-white/90'
                 }`}>
                 Get in touch
               </span>
 
-              {/* Expand ring on hover */}
+              {/* Expand ring on hover - blue tint */}
               <motion.div
-                className="absolute inset-0 rounded-full border border-white/10"
+                className="absolute inset-0 rounded-full border border-blue-400/30"
                 animate={{
                   scale: isHovered ? 1.3 : 1,
                   opacity: isHovered ? 0 : 1
