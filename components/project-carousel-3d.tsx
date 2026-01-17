@@ -299,9 +299,22 @@ export function ProjectCarousel3D() {
               </div>
             </div>
 
-            <h2 className="text-2xl md:text-5xl font-bold text-white mb-1 md:mb-2 tracking-tight leading-tight">
-              {currentProject.title}
-            </h2>
+            {currentProject.url ? (
+              <a
+                href={currentProject.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-fit group"
+              >
+                <h2 className="text-2xl md:text-5xl font-bold text-white mb-1 md:mb-2 tracking-tight leading-tight group-hover:text-white/80 transition-colors">
+                  {currentProject.title}
+                </h2>
+              </a>
+            ) : (
+              <h2 className="text-2xl md:text-5xl font-bold text-white mb-1 md:mb-2 tracking-tight leading-tight">
+                {currentProject.title}
+              </h2>
+            )}
             <p className="text-xs md:text-sm text-white/40 mb-3 md:mb-4">{currentProject.year}</p>
 
             <div className="flex flex-wrap gap-1.5 md:gap-2 mb-3 md:mb-5">
