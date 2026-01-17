@@ -111,3 +111,12 @@ textarea {
 .perspective-1000 {
   perspective: 1000px;
 }
+
+/* iOS Safari safe area support */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pb-safe-6 {
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+}
