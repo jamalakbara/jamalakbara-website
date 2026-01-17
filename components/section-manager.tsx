@@ -172,32 +172,40 @@ export function SectionManager({ children, onSectionChange }: SectionManagerProp
     }
   }, [targetSection, transitionTo, clearTargetSection])
 
+  // Ref to track if scroll is locked (survives re-renders)
+  const scrollLocked = useRef(false)
+
   // Handle wheel events
   useEffect(() => {
-    let canScroll = true // Prevent rapid consecutive scrolls
-
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault()
 
-      // Block scroll during animation AND for a short cooldown after
-      if (isAnimating || !canScroll) return
+      // STRICT: Block if animating OR scroll is locked
+      if (isAnimating || scrollLocked.current) {
+        return
+      }
 
-      // Higher threshold to prevent accidental triggers
-      if (Math.abs(e.deltaY) < 30) return
+      // Ignore very small scroll movements
+      if (Math.abs(e.deltaY) < 20) return
 
-      canScroll = false
+      // LOCK immediately to prevent any more scrolls
+      scrollLocked.current = true
 
-      // Allow next scroll after animation completes + extra buffer
-      setTimeout(() => {
-        canScroll = true
-      }, 600) // Wait for animation (350ms) + buffer
-
-      // Only move ONE section at a time
+      // Determine direction and transition
       if (e.deltaY > 0 && currentSection < sectionsRef.current.length - 1) {
         transitionTo(currentSection + 1)
       } else if (e.deltaY < 0 && currentSection > 0) {
         transitionTo(currentSection - 1)
+      } else {
+        // No transition happened (at boundary), unlock immediately
+        scrollLocked.current = false
+        return
       }
+
+      // Unlock after animation completes + generous buffer
+      setTimeout(() => {
+        scrollLocked.current = false
+      }, 800) // Animation is ~350ms, so 800ms total ensures next scroll only happens after
     }
 
     // Handle touch events for mobile
@@ -209,19 +217,27 @@ export function SectionManager({ children, onSectionChange }: SectionManagerProp
       const touchEndY = e.changedTouches[0].clientY
       const deltaY = touchStartY.current - touchEndY
 
-      // Throttle
-      const now = Date.now()
-      if (now - lastScrollTime.current < 1000) return
-      lastScrollTime.current = now
+      // Block if animating or locked
+      if (isAnimating || scrollLocked.current) return
 
-      if (isAnimating) return
+      // Require significant swipe
+      if (Math.abs(deltaY) < 50) return
+
+      scrollLocked.current = true
 
       // Swipe up = next section, swipe down = previous
-      if (deltaY > 50 && currentSection < sectionsRef.current.length - 1) {
+      if (deltaY > 0 && currentSection < sectionsRef.current.length - 1) {
         transitionTo(currentSection + 1)
-      } else if (deltaY < -50 && currentSection > 0) {
+      } else if (deltaY < 0 && currentSection > 0) {
         transitionTo(currentSection - 1)
+      } else {
+        scrollLocked.current = false
+        return
       }
+
+      setTimeout(() => {
+        scrollLocked.current = false
+      }, 800)
     }
 
     // Add listeners
@@ -270,7 +286,7 @@ export function SectionManager({ children, onSectionChange }: SectionManagerProp
     >
       <div
         ref={containerRef}
-        className="fixed inset-0 w-screen h-screen overflow-hidden bg-[#0a0a0a]"
+        className="fixed inset-0 w-screen h-screen overflow-hidden"
       >
         {children}
       </div>
