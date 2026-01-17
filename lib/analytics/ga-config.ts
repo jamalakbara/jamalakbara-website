@@ -69,16 +69,6 @@ export class GoogleAnalyticsConfig {
       category: 'portfolio'
     },
 
-    // Contact and conversions
-    CONTACT_FORM_VIEW: {
-      action: 'view_contact_form',
-      category: 'conversion'
-    },
-    CONTACT_FORM_SUBMIT: {
-      action: 'submit_contact_form',
-      category: 'conversion'
-    },
-
     // Navigation
     NAVIGATION_CLICK: {
       action: 'click_navigation',
@@ -87,16 +77,6 @@ export class GoogleAnalyticsConfig {
     THEME_TOGGLE: {
       action: 'toggle_theme',
       category: 'ui_interaction'
-    },
-
-    // Service engagement
-    SERVICE_VIEW: {
-      action: 'view_service',
-      category: 'services'
-    },
-    SERVICE_CLICK: {
-      action: 'click_service',
-      category: 'services'
     },
 
     // Page engagement

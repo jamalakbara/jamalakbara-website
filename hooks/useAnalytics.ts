@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef } from 'react'
 import { GAEvents } from '@/lib/analytics/events'
-import { getStaticContent } from '@/lib/content-manager'
+import { getStaticContent } from '@/lib/static-content'
 
 interface UseAnalyticsOptions {
   trackPageView?: boolean
@@ -57,33 +57,6 @@ export function useAnalytics(options: UseAnalyticsOptions = {}) {
     }
   }, [])
 
-  // Track service interactions
-  const trackServiceView = useCallback((serviceId: string) => {
-    const services = getStaticContent.services()
-    const service = services.find(s => s.id === serviceId)
-
-    if (service) {
-      GAEvents.trackServiceView(service.id, service.title)
-    }
-  }, [])
-
-  const trackServiceClick = useCallback((serviceId: string) => {
-    const services = getStaticContent.services()
-    const service = services.find(s => s.id === serviceId)
-
-    if (service) {
-      GAEvents.trackServiceClick(service.id, service.title)
-    }
-  }, [])
-
-  // Track contact form interactions
-  const trackContactFormView = useCallback(() => {
-    GAEvents.trackContactFormView()
-  }, [])
-
-  const trackContactFormSubmit = useCallback((formData?: { name?: string; email?: string }) => {
-    GAEvents.trackContactFormSubmit(formData)
-  }, [])
 
   // Track navigation
   const trackNavigationClick = useCallback((item: string, section?: string) => {
@@ -166,14 +139,6 @@ export function useAnalytics(options: UseAnalyticsOptions = {}) {
     trackProjectClick,
     trackLivePreview,
 
-    // Service tracking
-    trackServiceView,
-    trackServiceClick,
-
-    // Contact tracking
-    trackContactFormView,
-    trackContactFormSubmit,
-
     // Navigation tracking
     trackNavigationClick,
 
@@ -194,25 +159,5 @@ export function useProjectAnalytics() {
     onView: trackProjectView,
     onClick: trackProjectClick,
     onPreviewClick: trackLivePreview
-  }
-}
-
-// Hook for easy service tracking
-export function useServiceAnalytics() {
-  const { trackServiceView, trackServiceClick } = useAnalytics()
-
-  return {
-    onView: trackServiceView,
-    onClick: trackServiceClick
-  }
-}
-
-// Hook for easy contact form tracking
-export function useContactAnalytics() {
-  const { trackContactFormView, trackContactFormSubmit } = useAnalytics()
-
-  return {
-    onView: trackContactFormView,
-    onSubmit: trackContactFormSubmit
   }
 }

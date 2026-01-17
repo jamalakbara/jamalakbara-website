@@ -75,40 +75,6 @@ export class GoogleAnalyticsEvents {
     })
   }
 
-  // Service related events
-  public trackServiceView(serviceId: string, serviceTitle: string): void {
-    this.trackEvent({
-      action: GoogleAnalyticsConfig.EVENTS.SERVICE_VIEW.action,
-      category: GoogleAnalyticsConfig.EVENTS.SERVICE_VIEW.category,
-      label: `${serviceTitle} | ${serviceId}`,
-      nonInteraction: true
-    })
-  }
-
-  public trackServiceClick(serviceId: string, serviceTitle: string): void {
-    this.trackEvent({
-      action: GoogleAnalyticsConfig.EVENTS.SERVICE_CLICK.action,
-      category: GoogleAnalyticsConfig.EVENTS.SERVICE_CLICK.category,
-      label: `${serviceTitle} | ${serviceId}`
-    })
-  }
-
-  // Contact and conversion events
-  public trackContactFormView(): void {
-    this.trackEvent({
-      action: GoogleAnalyticsConfig.EVENTS.CONTACT_FORM_VIEW.action,
-      category: GoogleAnalyticsConfig.EVENTS.CONTACT_FORM_VIEW.category,
-      nonInteraction: true
-    })
-  }
-
-  public trackContactFormSubmit(formData?: { name?: string; email?: string }): void {
-    this.trackEvent({
-      action: GoogleAnalyticsConfig.EVENTS.CONTACT_FORM_SUBMIT.action,
-      category: GoogleAnalyticsConfig.EVENTS.CONTACT_FORM_SUBMIT.category,
-      label: formData?.email || 'contact_form_submission'
-    })
-  }
 
   // Navigation events
   public trackNavigationClick(navigationItem: string, section?: string): void {
