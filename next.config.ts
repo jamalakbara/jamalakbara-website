@@ -5,10 +5,9 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  eslint: {
-    ignoreDuringBuilds: false,
-  },
-  // Bundle optimization
+  // Turbopack is now default in Next.js 16
+  turbopack: {},
+  // Bundle optimization (for webpack fallback)
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.optimization.splitChunks = {
@@ -55,3 +54,4 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
