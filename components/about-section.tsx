@@ -1,45 +1,115 @@
 'use client'
 
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
+import { useSectionManager } from './section-manager'
 
 export function AboutSection() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const { currentSection } = useSectionManager()
 
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  // Set initial hidden state for elements (before animation)
+  useEffect(() => {
+    if (!containerRef.current || prefersReducedMotion) return
+
+    // Initially hide all animated elements
+    gsap.set(containerRef.current.querySelectorAll(".about-header, .bio-word, .service-section-title, .service-item, .tech-marquee"), {
+      opacity: 0, y: 30, filter: "blur(10px)"
+    })
+  }, [prefersReducedMotion])
+
+  // Trigger animation when section becomes visible
   useEffect(() => {
     if (!containerRef.current) return
 
+    // Only animate when About section is active (section index 2) and hasn't animated yet
+    const isAboutActive = currentSection === 2
+    if (!isAboutActive || hasAnimated) return
+
     const ctx = gsap.context(() => {
-      // Animate on mount (when section becomes visible)
-      gsap.fromTo(".about-header",
-        { y: 50, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 }
+      // Skip complex animations if user prefers reduced motion
+      if (prefersReducedMotion) {
+        gsap.set([
+          ".about-header", ".about-section-label", ".bio-word",
+          ".service-section-title", ".service-item", ".tech-marquee"
+        ], {
+          opacity: 1, y: 0, x: 0, filter: "blur(0px)"
+        })
+        setHasAnimated(true)
+        return
+      }
+
+      // Master timeline with blur + slide for ALL elements
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
+          duration: 0.7
+        },
+        onComplete: () => setHasAnimated(true)
+      })
+
+      // === SECTION HEADER - First element ===
+      tl.fromTo(".about-header",
+        { y: 40, opacity: 0, filter: "blur(10px)" },
+        { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6 },
+        "+=0.1"
       )
 
-      gsap.fromTo(".bio-word",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, stagger: 0.02, ease: "power3.out", delay: 0.4 }
-      )
+        // === BIO TEXT - Word by word with blur ===
+        .fromTo(".bio-word",
+          { y: 30, opacity: 0, filter: "blur(10px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.5,
+            stagger: 0.04,
+            ease: "power2.out"
+          },
+          "-=0.3"
+        )
 
-      gsap.fromTo(".service-item",
-        { x: -30, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 0.6 }
-      )
+        // === "WHAT I DO" SECTION TITLE ===
+        .fromTo(".service-section-title",
+          { y: 20, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5 },
+          "-=0.2"
+        )
 
-      gsap.fromTo(".recognition-item",
-        { x: 30, opacity: 0 },
-        { x: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", delay: 0.7 }
-      )
+        // === SERVICE BADGES - Staggered with blur ===
+        .fromTo(".service-item",
+          { y: 25, opacity: 0, filter: "blur(8px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.5,
+            stagger: 0.08,
+            ease: "power2.out"
+          },
+          "-=0.3"
+        )
 
-      gsap.fromTo(".tech-marquee",
-        { opacity: 0 },
-        { opacity: 1, duration: 0.8, delay: 0.8 }
-      )
+        // === TECH MARQUEE - Last element ===
+        .fromTo(".tech-marquee",
+          { y: 20, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6 },
+          "-=0.2"
+        )
 
     }, containerRef)
-
-    return () => ctx.revert()
-  }, [])
+  }, [currentSection, hasAnimated, prefersReducedMotion])
 
   // Helper to split bio text into words
   const splitBioText = (text: string) => {
@@ -74,7 +144,7 @@ export function AboutSection() {
 
               {/* Services - Single column, minimal */}
               <div className="border-t border-white/10 pt-10">
-                <h4 className="text-xs font-mono uppercase tracking-widest text-white/40 mb-6">What I Do</h4>
+                <h4 className="service-section-title text-xs font-mono uppercase tracking-widest text-white/40 mb-6">What I Do</h4>
                 <div className="flex flex-wrap gap-3">
                   {['Frontend', 'Backend', 'UI/UX', 'Mobile'].map(item => (
                     <span

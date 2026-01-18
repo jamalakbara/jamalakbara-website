@@ -4,6 +4,7 @@ import { useRef, useEffect, useState } from 'react'
 import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { gsap } from 'gsap'
 import { getStaticContent } from '@/lib/static-content'
+import { useSectionManager } from './section-manager'
 
 const siteConfig = getStaticContent.siteConfig()
 
@@ -11,6 +12,9 @@ export function CTASection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLDivElement>(null)
   const [isHovered, setIsHovered] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const { currentSection } = useSectionManager()
 
   // Mouse position for magnetic effect
   const mouseX = useMotionValue(0)
@@ -21,28 +25,99 @@ export function CTASection() {
   const x = useSpring(mouseX, springConfig)
   const y = useSpring(mouseY, springConfig)
 
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  // Set initial hidden state for elements (before animation)
+  useEffect(() => {
+    if (!containerRef.current || prefersReducedMotion) return
+
+    // Initially hide all animated elements
+    gsap.set(containerRef.current.querySelectorAll(".cta-headline-line, .cta-button, .cta-copyright, .cta-social-link"), {
+      opacity: 0, y: 30, filter: "blur(10px)"
+    })
+  }, [prefersReducedMotion])
+
+  // Trigger animation when section becomes visible
   useEffect(() => {
     if (!containerRef.current) return
 
+    // Only animate when CTA section is active (section index 3) and hasn't animated yet
+    const isCTAActive = currentSection === 3
+    if (!isCTAActive || hasAnimated) return
+
     const ctx = gsap.context(() => {
-      gsap.fromTo(".cta-headline",
-        { y: 80, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.2 }
+      // Skip complex animations if user prefers reduced motion
+      if (prefersReducedMotion) {
+        gsap.set([
+          ".cta-headline-line", ".cta-button", ".cta-footer",
+          ".cta-copyright", ".cta-social-link"
+        ], {
+          opacity: 1, y: 0, scale: 1, filter: "blur(0px)"
+        })
+        setHasAnimated(true)
+        return
+      }
+
+      // Master timeline with blur + slide for ALL elements
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
+          duration: 0.7
+        },
+        onComplete: () => setHasAnimated(true)
+      })
+
+      // === HEADLINE LINES - Blur + slide with stagger ===
+      tl.fromTo(".cta-headline-line",
+        { y: 50, opacity: 0, filter: "blur(10px)" },
+        {
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power2.out"
+        },
+        "+=0.1"
       )
 
-      gsap.fromTo(".cta-button",
-        { scale: 0.5, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 0.8, ease: "back.out(1.7)", delay: 0.5 }
-      )
+        // === BUTTON - Blur + slide + slight scale ===
+        .fromTo(".cta-button",
+          { y: 40, opacity: 0, filter: "blur(10px)", scale: 0.95 },
+          { y: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.8 },
+          "-=0.4"
+        )
 
-      gsap.fromTo(".cta-footer",
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.7 }
-      )
+        // === FOOTER COPYRIGHT ===
+        .fromTo(".cta-copyright",
+          { y: 20, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5 },
+          "-=0.3"
+        )
+
+        // === SOCIAL LINKS - Staggered ===
+        .fromTo(".cta-social-link",
+          { y: 15, opacity: 0, filter: "blur(6px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.4,
+            stagger: 0.08,
+            ease: "power2.out"
+          },
+          "-=0.3"
+        )
+
     }, containerRef)
-
-    return () => ctx.revert()
-  }, [])
+  }, [currentSection, hasAnimated, prefersReducedMotion])
 
   // Magnetic button effect
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -78,9 +153,9 @@ export function CTASection() {
         <div className="text-center">
           {/* Massive Headline */}
           <h2 className="cta-headline text-[12vw] md:text-[10vw] lg:text-[8vw] font-bold tracking-tighter leading-[0.9] uppercase mb-16">
-            <span className="block text-white">Let&apos;s</span>
+            <span className="cta-headline-line block text-white overflow-hidden">Let&apos;s</span>
             <span
-              className="block text-transparent"
+              className="cta-headline-line block text-transparent overflow-hidden"
               style={{ WebkitTextStroke: '1px rgba(255,255,255,0.5)' }}
             >
               Work
@@ -96,7 +171,9 @@ export function CTASection() {
             onMouseLeave={handleMouseLeave}
           >
             <motion.a
-              href={`mailto:${siteConfig.contact.email}`}
+              href="https://wa.me/6281321766565"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ x, y }}
               className="relative inline-flex items-center justify-center w-40 h-40 md:w-48 md:h-48 rounded-full group"
             >
@@ -113,8 +190,8 @@ export function CTASection() {
               {/* Inner circle - glassy blue */}
               <div
                 className={`absolute inset-[2px] rounded-full transition-all duration-500 backdrop-blur-sm ${isHovered
-                    ? 'bg-white'
-                    : 'bg-gradient-to-br from-blue-900/60 via-blue-950/80 to-slate-900/90 border border-blue-400/20'
+                  ? 'bg-white'
+                  : 'bg-gradient-to-br from-blue-900/60 via-blue-950/80 to-slate-900/90 border border-blue-400/20'
                   }`}
               />
 
@@ -142,7 +219,7 @@ export function CTASection() {
       <div className="cta-footer border-t border-white/10 px-6 md:px-12 py-6">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
           {/* Left: Copyright */}
-          <p className="text-sm text-white/30 font-sans tracking-wide">
+          <p className="cta-copyright text-sm text-white/30 font-sans tracking-wide">
             © {new Date().getFullYear()} {siteConfig.brand.name}
           </p>
 
@@ -154,7 +231,7 @@ export function CTASection() {
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm text-white/30 hover:text-white transition-colors font-sans uppercase tracking-wider"
+                className="cta-social-link text-sm text-white/30 hover:text-white transition-colors font-sans uppercase tracking-wider"
               >
                 {social.platform}
               </a>

@@ -5,7 +5,9 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
+import { gsap } from 'gsap'
 import { getStaticContent } from '@/lib/static-content'
+import { useSectionManager } from './section-manager'
 
 const projects = getStaticContent.projects()
 
@@ -215,6 +217,95 @@ export function ProjectCarousel3D() {
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef(0)
   const maxProjects = Math.min(projects.length, 6)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const { currentSection } = useSectionManager()
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
+  // Set initial hidden state for elements (before animation)
+  useEffect(() => {
+    if (!containerRef.current || prefersReducedMotion) return
+
+    // Initially hide all animated elements
+    gsap.set(containerRef.current.querySelectorAll(".carousel-section-label, .carousel-project-info, .carousel-counter, .carousel-nav-arrow"), {
+      opacity: 0, y: 30, filter: "blur(10px)"
+    })
+  }, [prefersReducedMotion])
+
+  // Trigger animation when section becomes visible
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    // Only animate when Projects section is active (section index 1) and hasn't animated yet
+    const isProjectsActive = currentSection === 1
+    if (!isProjectsActive || hasAnimated) return
+
+    const ctx = gsap.context(() => {
+      // Skip complex animations if user prefers reduced motion
+      if (prefersReducedMotion) {
+        gsap.set([
+          ".carousel-section-label", ".carousel-project-info",
+          ".carousel-counter", ".carousel-nav-arrow"
+        ], {
+          opacity: 1, y: 0, filter: "blur(0px)"
+        })
+        setHasAnimated(true)
+        return
+      }
+
+      // Master timeline with blur + slide for ALL elements
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
+          duration: 0.7
+        },
+        onComplete: () => setHasAnimated(true)
+      })
+
+      // === SECTION LABEL ===
+      tl.fromTo(".carousel-section-label",
+        { y: 20, opacity: 0, filter: "blur(8px)" },
+        { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5 },
+        "+=0.1"
+      )
+
+        // === PROJECT INFO ===
+        .fromTo(".carousel-project-info",
+          { y: 40, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.7 },
+          "-=0.3"
+        )
+
+        // === COUNTER (Desktop) ===
+        .fromTo(".carousel-counter",
+          { y: 30, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6 },
+          "-=0.4"
+        )
+
+        // === NAV ARROWS ===
+        .fromTo(".carousel-nav-arrow",
+          { y: 20, opacity: 0, filter: "blur(6px)" },
+          {
+            y: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.5,
+            stagger: 0.1
+          },
+          "-=0.4"
+        )
+
+    }, containerRef)
+  }, [currentSection, hasAnimated, prefersReducedMotion])
 
   // Arrow key navigation (desktop) and touch swipe (mobile)
   useEffect(() => {
@@ -273,7 +364,7 @@ export function ProjectCarousel3D() {
       </div>
 
       {/* Project info - Mobile: bottom center with safe area padding, Desktop: bottom left */}
-      <div className="absolute left-0 right-0 bottom-0 md:left-16 md:right-auto md:bottom-16 z-10 px-4 pb-safe-6 md:px-0 md:pb-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-none">
+      <div className="carousel-project-info absolute left-0 right-0 bottom-0 md:left-16 md:right-auto md:bottom-16 z-10 px-4 pb-safe-6 md:px-0 md:pb-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent md:bg-none">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeProject}
@@ -356,7 +447,7 @@ export function ProjectCarousel3D() {
       </div>
 
       {/* Counter - Desktop only */}
-      <div className="hidden md:block absolute right-16 bottom-16 z-10">
+      <div className="carousel-counter hidden md:block absolute right-16 bottom-16 z-10">
         <div className="text-right mb-4">
           <span className="text-7xl font-bold text-white">
             {String(activeProject + 1).padStart(2, '0')}
@@ -380,12 +471,12 @@ export function ProjectCarousel3D() {
       </div>
 
       {/* Section label */}
-      <div className="absolute top-24 left-6 md:left-16 z-10">
+      <div className="carousel-section-label absolute top-24 left-6 md:left-16 z-10">
         <span className="text-[10px] md:text-xs font-mono uppercase tracking-widest text-white/40">Selected Works</span>
       </div>
 
       {/* Navigation Arrows - centered with the carousel image */}
-      <div className="absolute left-4 md:left-16 top-[45%] md:top-1/2 -translate-y-1/2 z-20">
+      <div className="carousel-nav-arrow absolute left-4 md:left-16 top-[45%] md:top-1/2 -translate-y-1/2 z-20">
         <button
           onClick={() => activeProject > 0 && setActiveProject(activeProject - 1)}
           disabled={activeProject === 0}
@@ -401,7 +492,7 @@ export function ProjectCarousel3D() {
         </button>
       </div>
 
-      <div className="absolute right-4 md:right-16 top-[45%] md:top-1/2 -translate-y-1/2 z-20">
+      <div className="carousel-nav-arrow absolute right-4 md:right-16 top-[45%] md:top-1/2 -translate-y-1/2 z-20">
         <button
           onClick={() => activeProject < maxProjects - 1 && setActiveProject(activeProject + 1)}
           disabled={activeProject === maxProjects - 1}

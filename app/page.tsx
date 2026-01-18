@@ -11,6 +11,7 @@ import { CTASection } from '@/components/cta-section'
 import { CustomCursor } from '@/components/custom-cursor'
 import { NoiseOverlay } from '@/components/noise-overlay'
 import { LiquidBackground } from '@/components/liquid-background'
+import { ParticleBackground } from '@/components/particle-background'
 import { useStore } from '@/lib/store'
 
 const menuItems = [
@@ -31,6 +32,7 @@ export default function Home() {
   return (
     <>
       <LiquidBackground />
+      <ParticleBackground />
       <CustomCursor />
       <NoiseOverlay />
 
@@ -42,7 +44,7 @@ export default function Home() {
             animate={{ clipPath: 'circle(150% at calc(100% - 48px) 48px)' }}
             exit={{ clipPath: 'circle(0% at calc(100% - 48px) 48px)' }}
             transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 z-40 bg-[#0a0a0a] flex flex-col"
+            className="fixed inset-0 z-40 bg-[#030812] flex flex-col"
           >
             {/* Main navigation area */}
             <div className="flex-1 flex items-center px-6 md:px-16 lg:px-24">

@@ -202,7 +202,7 @@ export const getStaticContent = {
         "title": "Sonderlab",
         "category": "E-Commerce Development",
         "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
-        "image": "/sonderlab-project.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/sonderlab-project_y86tym.png",
         "year": "2024",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
         "url": "https://sonderlab.co",
@@ -220,7 +220,7 @@ export const getStaticContent = {
           { "label": "Traffic Increase", "value": "150%" },
           { "label": "Conversion Rate", "value": "3.2%" }
         ],
-        "gallery": ["/sonderlab-project.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/sonderlab-project_y86tym.png"],
         "featured": true
       },
       {
@@ -228,7 +228,7 @@ export const getStaticContent = {
         "title": "Nawaclo",
         "category": "E-Commerce Development",
         "description": "Modern e-commerce platform developed with Shopify, featuring custom theme development, advanced product catalog management, and optimized shopping experience. Built with scalable architecture to handle high-volume transactions and seamless customer interactions across all devices.",
-        "image": "/nawaclo.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/nawaclo_jktw8f.png",
         "year": "2024",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
         "url": "https://nawaclo.com",
@@ -246,7 +246,7 @@ export const getStaticContent = {
           { "label": "Page Load Speed", "value": "0.8s" },
           { "label": "Sales Growth", "value": "45%" }
         ],
-        "gallery": ["/nawaclo.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/nawaclo_jktw8f.png"],
         "featured": true
       },
       {
@@ -254,7 +254,7 @@ export const getStaticContent = {
         "title": "Base Data Dashboard",
         "category": "Backend Development",
         "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
-        "image": "/base-data-dashboard.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/base-data-dashboard_hqhfn6.png",
         "year": "2024",
         "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
         "url": "https://bdd.ai",
@@ -271,7 +271,7 @@ export const getStaticContent = {
           { "label": "Data Processing", "value": "1M+ rows/s" },
           { "label": "Query Time", "value": "<200ms" }
         ],
-        "gallery": ["/base-data-dashboard.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/base-data-dashboard_hqhfn6.png"],
         "featured": true
       },
       {
@@ -279,7 +279,7 @@ export const getStaticContent = {
         "title": "State Medical Equipment",
         "category": "E-Commerce Development",
         "description": "E-commerce platform development for State Medical Equipment, featuring custom Shopify theme with product catalog management, medical equipment specifications, and integrated B2B commerce solutions tailored for healthcare industry needs.",
-        "image": "/state-medical-equipement.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/state-medical-equipement_msplk1.png",
         "year": "2020",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
         "url": "https://statemedicalequipment.com/",
@@ -297,7 +297,7 @@ export const getStaticContent = {
           { "label": "B2B Orders", "value": "+60%" },
           { "label": "Quote Conversion", "value": "28%" }
         ],
-        "gallery": ["/state-medical-equipement.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/state-medical-equipement_msplk1.png"],
         "featured": true
       },
       {
@@ -305,7 +305,7 @@ export const getStaticContent = {
         "title": "Aza Wear",
         "category": "E-Commerce Development",
         "description": "E-commerce platform development for Aza Wear, featuring modern Shopify theme with fashion-focused product presentation, size and variant management, and seamless shopping experience. Built with scalable architecture to handle fashion inventory and provide elegant customer journey across all devices.",
-        "image": "/aza-wear.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/aza-wear_oukmwo.png",
         "year": "2020",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
         "url": "https://azawear.com/",
@@ -323,7 +323,7 @@ export const getStaticContent = {
           { "label": "Avg. Session", "value": "4m 30s" },
           { "label": "Mobile Sales", "value": "70%" }
         ],
-        "gallery": ["/aza-wear.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/aza-wear_oukmwo.png"],
         "featured": true
       },
       {
@@ -331,7 +331,7 @@ export const getStaticContent = {
         "title": "Green Rebel Foods",
         "category": "E-commerce Development",
         "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
-        "image": "/green-rebel-foods-v2.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698829/green-rebel-foods-v2_vsewje.png",
         "year": "2021",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "React", "GraphQL"],
         "url": "https://greenrebelfoods.com",
@@ -349,7 +349,7 @@ export const getStaticContent = {
           { "label": "Subscribers", "value": "2k+" },
           { "label": "Retention Rate", "value": "85%" }
         ],
-        "gallery": ["/green-rebel-foods-v2.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698829/green-rebel-foods-v2_vsewje.png"],
         "featured": true
       },
       {

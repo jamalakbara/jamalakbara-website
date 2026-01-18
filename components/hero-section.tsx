@@ -4,17 +4,30 @@ import { useRef, useEffect, useState } from 'react'
 import { gsap } from 'gsap'
 import { AmbientBackground } from '@/components/ambient-background'
 import { useStore } from '@/lib/store'
+import { useSectionManager } from './section-manager'
 import { motion } from 'framer-motion'
 
 export function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const titleContainerRef = useRef<HTMLHeadingElement>(null)
   const [currentTime, setCurrentTime] = useState('')
-  const { goToSection } = useStore()
+  const { goToSection, isLoaded } = useStore()
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [hasAnimated, setHasAnimated] = useState(false)
+  const { currentSection } = useSectionManager()
 
   // RAF throttling refs
   const mouseRafId = useRef<number | null>(null)
   const mousePos = useRef({ x: 0.5, y: 0.5 })
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    const handleChange = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
 
   // Update time every minute
   useEffect(() => {
@@ -32,59 +45,102 @@ export function HeroSection() {
     return () => clearInterval(interval)
   }, [])
 
+  // Set initial hidden state for elements (before animation)
+  useEffect(() => {
+    if (!containerRef.current || prefersReducedMotion) return
+
+    // Initially hide all animated elements
+    gsap.set(containerRef.current.querySelectorAll(".char-creative, .char-developer, .hero-subtitle, .hero-meta, .hero-cta"), {
+      opacity: 0, y: 30, filter: "blur(10px)"
+    })
+  }, [prefersReducedMotion])
+
+  // Trigger animation when section becomes visible
   useEffect(() => {
     if (!containerRef.current) return
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
+    // Only animate when Hero section is active (section index 0), preloader is done, and hasn't animated yet
+    const isHeroActive = currentSection === 0
+    if (!isHeroActive || !isLoaded || hasAnimated) return
 
-      // Stagger reveal for main title
+    const ctx = gsap.context(() => {
+      // Skip complex animations if user prefers reduced motion
+      if (prefersReducedMotion) {
+        gsap.set([
+          ".char-creative", ".char-developer", ".hero-subtitle",
+          ".hero-meta", ".hero-cta", ".hero-scroll-hint",
+          ".hero-name", ".hero-tagline"
+        ], {
+          opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)"
+        })
+        setHasAnimated(true)
+        return
+      }
+
+      // Master timeline with staggered reveals for ALL elements
+      const tl = gsap.timeline({
+        defaults: {
+          ease: "power3.out",
+          duration: 0.8
+        },
+        onComplete: () => setHasAnimated(true)
+      })
+
+      // === TITLE CHARACTERS - Letter by letter with blur ===
       tl.fromTo(".char-creative",
-        { y: 120, rotateX: 90, opacity: 0 },
+        { y: 50, opacity: 0, filter: "blur(10px)" },
         {
           y: 0,
-          rotateX: 0,
           opacity: 1,
-          duration: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
           stagger: 0.03,
-          ease: "back.out(1.2)"
+          ease: "power2.out"
         },
-        "+=0.3"
+        "+=0.1"
       )
+
         .fromTo(".char-developer",
-          { y: 120, rotateX: -90, opacity: 0 },
+          { y: 50, opacity: 0, filter: "blur(10px)" },
           {
             y: 0,
-            rotateX: 0,
             opacity: 1,
-            duration: 1,
+            filter: "blur(0px)",
+            duration: 0.6,
             stagger: 0.03,
-            ease: "back.out(1.2)"
+            ease: "power2.out"
           },
-          "-=0.8"
-        )
-        // Subtitle fade in
-        .fromTo(".hero-subtitle",
-          { y: 30, opacity: 0, filter: "blur(10px)" },
-          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8 },
           "-=0.5"
         )
-        // Metadata fade in
-        .fromTo(".hero-meta",
-          { opacity: 0 },
-          { opacity: 1, duration: 0.6 },
+
+        // === SUBTITLE - Blur + slide up ===
+        .fromTo(".hero-subtitle",
+          { y: 40, opacity: 0, filter: "blur(10px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.8 },
           "-=0.3"
         )
-        // CTA button
+
+        // === CTA BUTTON - Blur + slide + slight scale ===
         .fromTo(".hero-cta",
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          "-=0.2"
+          { y: 30, opacity: 0, filter: "blur(8px)", scale: 0.95 },
+          { y: 0, opacity: 1, filter: "blur(0px)", scale: 1, duration: 0.7 },
+          "-=0.4"
+        )
+
+        // === SCROLL HINT - Bottom element last ===
+        .fromTo(".hero-meta",
+          { y: 20, opacity: 0, filter: "blur(8px)" },
+          { y: 0, opacity: 1, filter: "blur(0px)", duration: 0.6 },
+          "-=0.3"
         )
 
     }, containerRef)
+  }, [currentSection, isLoaded, hasAnimated, prefersReducedMotion])
 
-    // RAF-throttled Magnetic Effect
+  // RAF-throttled Magnetic Effect - separate from animation to persist after hasAnimated
+  useEffect(() => {
+    if (prefersReducedMotion) return
+
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = {
         x: e.clientX / window.innerWidth,
@@ -104,8 +160,8 @@ export function HeroSection() {
           gsap.to(titleContainerRef.current, {
             x: x * 20,
             y: y * 15,
-            rotationX: -y * 3,
-            rotationY: x * 3,
+            rotationX: -y * 8,
+            rotationY: x * 8,
             duration: 1.5,
             ease: "power2.out",
             overwrite: 'auto'
@@ -119,11 +175,10 @@ export function HeroSection() {
     window.addEventListener('mousemove', handleMouseMove, { passive: true })
 
     return () => {
-      ctx.revert()
       window.removeEventListener('mousemove', handleMouseMove)
       if (mouseRafId.current !== null) cancelAnimationFrame(mouseRafId.current)
     }
-  }, [])
+  }, [prefersReducedMotion])
 
   // Helper to split text into chars
   const splitText = (text: string, className: string) => {

@@ -120,3 +120,45 @@ textarea {
 .pb-safe-6 {
   padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
 }
+
+/* Accessibility: Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-scroll-line {
+    animation: none !important;
+  }
+}
+
+/* GPU-accelerated animation utilities */
+.will-animate {
+  will-change: transform, opacity;
+}
+
+.will-animate-filter {
+  will-change: transform, opacity, filter;
+}
+
+/* Smooth blur transition utility */
+.blur-transition {
+  transition: filter 0.3s ease-out;
+}
+
+/* Clip-path reveal animation base */
+.reveal-mask {
+  clip-path: inset(0% 0 0 0);
+}
+
+.reveal-mask-hidden {
+  clip-path: inset(100% 0 0 0);
+}
