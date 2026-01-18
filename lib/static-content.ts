@@ -202,9 +202,10 @@ export const getStaticContent = {
         "title": "Sonderlab",
         "category": "E-Commerce Development",
         "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/sonderlab-project_y86tym.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/sonderlab-project_y86tym.png",
+        "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1768708989/sonderlab_w9ag7c.webm",
         "year": "2024",
-        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://sonderlab.co",
         "livePreview": "https://sonderlab.co",
         "challenge": "Sonderlab needed a distinct digital presence that matched their curated fashion aesthetic while handling complex inventory management and high-volume traffic during drops. The standard Shopify themes were too limiting for their unique brand identity.",
@@ -220,7 +221,7 @@ export const getStaticContent = {
           { "label": "Traffic Increase", "value": "150%" },
           { "label": "Conversion Rate", "value": "3.2%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/sonderlab-project_y86tym.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/sonderlab-project_y86tym.png"],
         "featured": true
       },
       {
@@ -228,9 +229,9 @@ export const getStaticContent = {
         "title": "Nawaclo",
         "category": "E-Commerce Development",
         "description": "Modern e-commerce platform developed with Shopify, featuring custom theme development, advanced product catalog management, and optimized shopping experience. Built with scalable architecture to handle high-volume transactions and seamless customer interactions across all devices.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/nawaclo_jktw8f.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/nawaclo_jktw8f.png",
         "year": "2024",
-        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://nawaclo.com",
         "livePreview": "https://nawaclo.com",
         "challenge": "Nawaclo needed to transition from a standard template to a fully custom brand experience that could handle their growing inventory and complex product variations. They required a system that could maintain high performance while showcasing high-resolution product imagery.",
@@ -246,7 +247,7 @@ export const getStaticContent = {
           { "label": "Page Load Speed", "value": "0.8s" },
           { "label": "Sales Growth", "value": "45%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/nawaclo_jktw8f.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/nawaclo_jktw8f.png"],
         "featured": true
       },
       {
@@ -254,9 +255,9 @@ export const getStaticContent = {
         "title": "Base Data Dashboard",
         "category": "Backend Development",
         "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/base-data-dashboard_hqhfn6.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698827/base-data-dashboard_hqhfn6.png",
         "year": "2024",
-        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
+        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis"],
         "url": "https://bdd.ai",
         "challenge": "The client needed to visualize massive datasets from multiple sources in real-time. The existing solution was slow and difficult to navigate, making it hard for stakeholders to make quick data-driven decisions.",
         "solution": "Developed a high-performance dashboard using Python/FastAPI for the backend and React for the frontend. Utilized MongoDB for flexible data storage and Redis for caching frequently accessed data, ensuring sub-second response times.",
@@ -271,7 +272,7 @@ export const getStaticContent = {
           { "label": "Data Processing", "value": "1M+ rows/s" },
           { "label": "Query Time", "value": "<200ms" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/base-data-dashboard_hqhfn6.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698827/base-data-dashboard_hqhfn6.png"],
         "featured": true
       },
       {
@@ -279,9 +280,9 @@ export const getStaticContent = {
         "title": "State Medical Equipment",
         "category": "E-Commerce Development",
         "description": "E-commerce platform development for State Medical Equipment, featuring custom Shopify theme with product catalog management, medical equipment specifications, and integrated B2B commerce solutions tailored for healthcare industry needs.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/state-medical-equipement_msplk1.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/state-medical-equipement_msplk1.png",
         "year": "2020",
-        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://statemedicalequipment.com/",
         "livePreview": "https://statemedicalequipment.com/",
         "challenge": "State Medical Equipment required a B2B-focused e-commerce platform that could handle complex medical specifications, bulk ordering, and strict compliance requirements while remaining user-friendly for hospital procurement teams.",
@@ -297,7 +298,7 @@ export const getStaticContent = {
           { "label": "B2B Orders", "value": "+60%" },
           { "label": "Quote Conversion", "value": "28%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698828/state-medical-equipement_msplk1.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/state-medical-equipement_msplk1.png"],
         "featured": true
       },
       {
@@ -305,9 +306,9 @@ export const getStaticContent = {
         "title": "Aza Wear",
         "category": "E-Commerce Development",
         "description": "E-commerce platform development for Aza Wear, featuring modern Shopify theme with fashion-focused product presentation, size and variant management, and seamless shopping experience. Built with scalable architecture to handle fashion inventory and provide elegant customer journey across all devices.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/aza-wear_oukmwo.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698827/aza-wear_oukmwo.png",
         "year": "2020",
-        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://azawear.com/",
         "livePreview": "https://azawear.com/",
         "challenge": "Aza Wear needed a high-end digital flagship store that reflected their luxury positioning. The challenge was to create an immersive shopping experience that felt like a boutique visit, with high-quality visuals and smooth interactions.",
@@ -323,7 +324,7 @@ export const getStaticContent = {
           { "label": "Avg. Session", "value": "4m 30s" },
           { "label": "Mobile Sales", "value": "70%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698827/aza-wear_oukmwo.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698827/aza-wear_oukmwo.png"],
         "featured": true
       },
       {
@@ -331,7 +332,7 @@ export const getStaticContent = {
         "title": "Green Rebel Foods",
         "category": "E-commerce Development",
         "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698829/green-rebel-foods-v2_vsewje.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698829/green-rebel-foods-v2_vsewje.png",
         "year": "2021",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "React", "GraphQL"],
         "url": "https://greenrebelfoods.com",
@@ -349,7 +350,7 @@ export const getStaticContent = {
           { "label": "Subscribers", "value": "2k+" },
           { "label": "Retention Rate", "value": "85%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1768698829/green-rebel-foods-v2_vsewje.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698829/green-rebel-foods-v2_vsewje.png"],
         "featured": true
       },
       {
@@ -357,9 +358,9 @@ export const getStaticContent = {
         "title": "Duma",
         "category": "E-Commerce Development",
         "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
-        "image": "/duma.png",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/duma_cs2cwx.png",
         "year": "2021",
-        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL", "React"],
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://dumaofficial.com/",
         "livePreview": "https://dumaofficial.com/",
         "challenge": "Duma required a scalable e-commerce solution to handle their rapid international expansion. They needed a platform that could support multiple languages, currencies, and regional inventory management without compromising performance.",
@@ -375,7 +376,7 @@ export const getStaticContent = {
           { "label": "Global Reach", "value": "12 Countries" },
           { "label": "Load Time", "value": "0.5s" }
         ],
-        "gallery": ["/duma.png"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/duma_cs2cwx.png"],
         "featured": true
       },
       {
@@ -396,10 +397,12 @@ export const getStaticContent = {
           { "label": "API Latency", "value": "<50ms" },
           { "label": "Uptime", "value": "99.9%" }
         ],
-        "image": "/combo.png",
-        "gallery": ["/combo.png"],
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701442/combo_tlrapz.png",
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701442/combo_tlrapz.png"],
         "year": "2024",
-        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis", "Docker"],
+        "tech": ["Python", "FastAPI", "MongoDB", "MySQL", "JWT", "Redis"],
+        "url": "https://combo.co.id/",
+        "livePreview": "https://combo.co.id/",
         "featured": true
       },
       {
@@ -423,8 +426,116 @@ export const getStaticContent = {
         "image": "/split-bill.png",
         "gallery": ["/split-bill.png"],
         "year": "2023",
-        "tech": ["React Native", "TypeScript", "Redux", "Node.js", "Firebase"],
+        "tech": ["Swift", "SwiftUI", "Figma"],
         "url": "https://github.com/jamalakbara/split-bill",
+        "featured": true
+      },
+      {
+        "id": "bions-bni",
+        "title": "BIONS by BNI",
+        "category": "Backend Development",
+        "description": "Backend development for BIONS, BNI's integrated business and operational system. Built robust server-side infrastructure to handle enterprise-level banking operations, transaction processing, and data management with high security standards and performance requirements.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/bions_kupcsz.png",
+        "year": "2023",
+        "tech": ["CodeIgniter 4", "PHP", "MySQL", "Redis", "REST API", "JWT"],
+        "url": "https://www.bions.id/",
+        "livePreview": "https://www.bions.id/",
+        "challenge": "BNI required a scalable backend system that could handle high-volume banking transactions while maintaining strict security protocols and compliance with banking regulations. The system needed to support multiple user roles, real-time data processing, and seamless integration with existing banking infrastructure.",
+        "solution": "Developed a robust backend using CodeIgniter 4 with optimized database architecture and caching strategies. Implemented multi-layered security with JWT authentication, role-based access control, and encrypted data transmission. Utilized Redis for session management and high-speed data caching to ensure sub-second response times.",
+        "features": [
+          "Enterprise Authentication System",
+          "Real-time Transaction Processing",
+          "Role-Based Access Control",
+          "RESTful API Architecture",
+          "Advanced Caching with Redis",
+          "Secure Data Encryption"
+        ],
+        "metrics": [
+          { "label": "Response Time", "value": "<100ms" },
+          { "label": "Concurrent Users", "value": "10k+" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/bions_kupcsz.png"],
+        "featured": true
+      },
+      {
+        "id": "hmns",
+        "title": "HMNS",
+        "category": "E-Commerce Development",
+        "description": "E-commerce platform development for HMNS, a premium Indonesian perfumery brand. Features elegant Shopify theme with sophisticated product presentation, fragrance discovery tools, and seamless shopping experience designed to reflect the brand's artistic approach to scent.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701442/hmns_u8usyc.png",
+        "year": "2021",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
+        "url": "https://madeforhmns.com/",
+        "livePreview": "https://madeforhmns.com/",
+        "challenge": "HMNS needed a digital presence that could convey the artistry and sensory experience of their perfumes through a screen. The challenge was to create an immersive e-commerce experience that educates customers about fragrance notes while maintaining a clean, luxury aesthetic suitable for a premium perfume brand.",
+        "solution": "Built a custom Shopify theme with an emphasis on visual storytelling and sensory language. Implemented a fragrance finder tool that helps customers discover scents based on preferences, integrated a rich content section for fragrance education, and created a smooth, app-like browsing experience with subtle animations that complement the brand's premium positioning.",
+        "features": [
+          "Custom Fragrance Finder Tool",
+          "Rich Content Integration",
+          "Scent Profile Visualization",
+          "Wishlist & Favorites",
+          "Store Locator Integration",
+          "Educational Content Hub"
+        ],
+        "metrics": [
+          { "label": "Engagement Rate", "value": "5m+ avg" },
+          { "label": "Conversion Rate", "value": "4.1%" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701442/hmns_u8usyc.png"],
+        "featured": true
+      },
+      {
+        "id": "lakon-indonesia",
+        "title": "Lakon Indonesia",
+        "category": "E-Commerce Development",
+        "description": "E-commerce platform development for Lakon Indonesia, a contemporary Indonesian fashion brand celebrating local culture and craftsmanship. Built with custom Shopify theme featuring curated collections, storytelling elements, and seamless shopping experience that showcases Indonesia's rich textile heritage.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/lakon-indonesia_nakm7f.png",
+        "year": "2024",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
+        "url": "https://lakonindonesia.com/",
+        "livePreview": "https://lakonindonesia.com/",
+        "challenge": "Lakon Indonesia required an e-commerce platform that could tell the story behind each collection while showcasing their made-to-order and upcycled products. The brand needed to communicate their commitment to sustainability and Indonesian craftsmanship, requiring a platform that balanced commercial functionality with rich storytelling.",
+        "solution": "Created a custom Shopify theme with dedicated collection story pages, integrated a made-to-order system with custom workflows, and built a visual timeline showcasing the brand's collections throughout the years. Implemented custom product filters for sustainable materials and added a holiday collection system for seasonal drops.",
+        "features": [
+          "Collection Storytelling Pages",
+          "Made-to-Order System",
+          "Upcycled Product Showcase",
+          "Collection Timeline",
+          "Holiday Collection Management",
+          "Gift Recommendation Engine"
+        ],
+        "metrics": [
+          { "label": "Brand Engagement", "value": "6m+ avg" },
+          { "label": "Return Customers", "value": "42%" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768701443/lakon-indonesia_nakm7f.png"],
+        "featured": true
+      },
+      {
+        "id": "herotales",
+        "title": "Herotales Bedtime Stories",
+        "category": "Web Development",
+        "description": "An interactive web application for generating and reading personalized bedtime stories for children. Built with Next.js and modern web technologies, featuring AI-powered story generation, beautiful illustrations, and an engaging reading experience.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768702216/herotales_c7sj5k.png",
+        "year": "2026",
+        "tech": ["Next.js", "TypeScript", "React", "Tailwind CSS", "AI Integration"],
+        "url": "https://herotales.vercel.app",
+        "livePreview": "https://herotales.vercel.app",
+        "challenge": "Parents needed a convenient way to access engaging, age-appropriate bedtime stories that could be personalized for their children. The challenge was to create a platform that combined storytelling with modern technology while maintaining the warmth and engagement of traditional bedtime reading.",
+        "solution": "Developed a Next.js application with AI-powered story generation capabilities. Implemented a user-friendly interface that allows parents to customize story elements, created a library of beautifully designed story templates, and optimized the reading experience for both desktop and mobile devices with consideration for low-light reading environments.",
+        "features": [
+          "AI-Powered Story Generation",
+          "Personalization Options",
+          "Beautiful Story Illustrations",
+          "Dark Mode for Bedtime",
+          "Story Library & Favorites",
+          "Responsive Reading Experience"
+        ],
+        "metrics": [
+          { "label": "Stories Generated", "value": "1k+" },
+          { "label": "User Satisfaction", "value": "4.8/5" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768702216/herotales_c7sj5k.png"],
         "featured": true
       }
     ]

@@ -1,8 +1,8 @@
 'use client'
 
-import { useRef, useState, useEffect, useMemo } from 'react'
+import { useRef, useState, useEffect, useMemo, Suspense } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { useTexture } from '@react-three/drei'
+import { useTexture, useVideoTexture } from '@react-three/drei'
 import { motion, AnimatePresence } from 'framer-motion'
 import * as THREE from 'three'
 import { gsap } from 'gsap'
@@ -70,6 +70,68 @@ const fragmentShader = `
   }
 `
 
+// Video texture component - separated to avoid conditional hook issues
+function VideoTextureMesh({
+  videoUrl,
+  cardWidth,
+  cardHeight,
+  isActive
+}: {
+  videoUrl: string
+  cardWidth: number
+  cardHeight: number
+  isActive: boolean
+}) {
+  const materialRef = useRef<THREE.ShaderMaterial>(null)
+
+  // Use drei's useVideoTexture with proper settings
+  const videoTexture = useVideoTexture(videoUrl, {
+    muted: true,
+    loop: true,
+    start: true,
+    playsInline: true,
+    crossOrigin: 'anonymous'
+  })
+
+  // Manually control play/pause based on active state
+  useEffect(() => {
+    const video = videoTexture.source?.data as HTMLVideoElement
+    if (!video) return
+
+    if (isActive) {
+      video.play().catch(() => {
+        // Autoplay may be blocked
+      })
+    } else {
+      video.pause()
+    }
+  }, [videoTexture, isActive])
+
+  // Update texture each frame for video playback
+  useFrame(() => {
+    if (materialRef.current && isActive) {
+      materialRef.current.uniforms.uTexture.value.needsUpdate = true
+    }
+  })
+
+  const uniforms = useMemo(() => ({
+    uTexture: { value: videoTexture },
+    uHover: { value: 0 },
+    uOpacity: { value: 1 },
+    uBlur: { value: 0 }
+  }), [videoTexture])
+
+  return (
+    <shaderMaterial
+      ref={materialRef}
+      vertexShader={vertexShader}
+      fragmentShader={fragmentShader}
+      uniforms={uniforms}
+      transparent
+    />
+  )
+}
+
 // Single project card - horizontal layout
 function ProjectCard({
   project,
@@ -86,7 +148,11 @@ function ProjectCard({
   const materialRef = useRef<THREE.ShaderMaterial>(null)
   const { viewport } = useThree()
 
-  const texture = useTexture(project.image || '/placeholder.jpg')
+  // Determine if this card is active
+  const isActive = index === activeIndex
+
+  // Load image texture (always needed as fallback)
+  const imageTexture = useTexture(project.image || '/placeholder.jpg')
 
   // Detect mobile (viewport width less than ~768px in 3D units, roughly 4.5)
   // Using a slightly higher threshold for better mobile detection
@@ -104,24 +170,24 @@ function ProjectCard({
   const [hovered, setHovered] = useState(false)
 
   useFrame(() => {
-    if (!meshRef.current || !materialRef.current) return
+    if (!meshRef.current) return
 
     // On mobile: show ONLY active, hide all neighbors
     // On desktop: show active + 1 neighbor on each side
-    const isActive = distanceFromActive === 0
+    const isActiveCard = distanceFromActive === 0
     const isNeighbor = absDistance === 1
-    const isVisible = isMobile ? isActive : absDistance <= 1
+    const isVisible = isMobile ? isActiveCard : absDistance <= 1
 
     // Positioning - active centered at exact 0, neighbors on sides (desktop only)
     const spacing = cardWidth * 0.7
     // Force active card to x=0 on mobile for perfect centering
     const targetX = isMobile
-      ? (isActive ? 0 : (distanceFromActive > 0 ? 20 : -20)) // Force center, push inactive far offscreen
+      ? (isActiveCard ? 0 : (distanceFromActive > 0 ? 20 : -20)) // Force center, push inactive far offscreen
       : (isVisible ? distanceFromActive * spacing : (distanceFromActive > 0 ? 15 : -15))
-    const targetZ = isActive ? 0.3 : (isNeighbor && !isMobile ? -1.5 : -5) // Slightly less z-push on active for cleaner look
-    const targetScale = isActive ? 1 : (isNeighbor && !isMobile ? 0.7 : 0.3)
-    const targetOpacity = isActive ? 1 : (isNeighbor && !isMobile ? 0.25 : 0)
-    const targetBlur = isActive ? 0 : (isNeighbor && !isMobile ? 1 : 0)
+    const targetZ = isActiveCard ? 0.3 : (isNeighbor && !isMobile ? -1.5 : -5) // Slightly less z-push on active for cleaner look
+    const targetScale = isActiveCard ? 1 : (isNeighbor && !isMobile ? 0.7 : 0.3)
+    const targetOpacity = isActiveCard ? 1 : (isNeighbor && !isMobile ? 0.25 : 0)
+    const targetBlur = isActiveCard ? 0 : (isNeighbor && !isMobile ? 1 : 0)
     const targetRotationY = (isNeighbor && !isMobile) ? distanceFromActive * 0.15 : 0
 
     // Smooth lerp
@@ -133,29 +199,35 @@ function ProjectCard({
     const newScale = THREE.MathUtils.lerp(currentScale, targetScale, 0.1)
     meshRef.current.scale.set(newScale, newScale, 1)
 
-    // Opacity
-    materialRef.current.uniforms.uOpacity.value = THREE.MathUtils.lerp(
-      materialRef.current.uniforms.uOpacity.value, targetOpacity, 0.12
-    )
+    // Update shader uniforms for image-only cards
+    if (materialRef.current) {
+      // Opacity
+      materialRef.current.uniforms.uOpacity.value = THREE.MathUtils.lerp(
+        materialRef.current.uniforms.uOpacity.value, targetOpacity, 0.12
+      )
 
-    // Blur
-    materialRef.current.uniforms.uBlur.value = THREE.MathUtils.lerp(
-      materialRef.current.uniforms.uBlur.value, targetBlur, 0.1
-    )
+      // Blur
+      materialRef.current.uniforms.uBlur.value = THREE.MathUtils.lerp(
+        materialRef.current.uniforms.uBlur.value, targetBlur, 0.1
+      )
 
-    // Hover (only active)
-    const targetHover = (hovered && isActive) ? 1 : 0
-    materialRef.current.uniforms.uHover.value = THREE.MathUtils.lerp(
-      materialRef.current.uniforms.uHover.value, targetHover, 0.1
-    )
+      // Hover (only active)
+      const targetHover = (hovered && isActiveCard) ? 1 : 0
+      materialRef.current.uniforms.uHover.value = THREE.MathUtils.lerp(
+        materialRef.current.uniforms.uHover.value, targetHover, 0.1
+      )
+    }
   })
 
-  const uniforms = useMemo(() => ({
-    uTexture: { value: texture },
+  const imageUniforms = useMemo(() => ({
+    uTexture: { value: imageTexture },
     uHover: { value: 0 },
     uOpacity: { value: 1 },
     uBlur: { value: 0 }
-  }), [texture])
+  }), [imageTexture])
+
+  // Render with video if project has video URL, otherwise just image
+  const hasVideo = !!project.video
 
   return (
     <mesh
@@ -166,16 +238,37 @@ function ProjectCard({
       onClick={() => onSelect(index)}
     >
       <planeGeometry args={[cardWidth, cardHeight, 16, 16]} />
-      <shaderMaterial
-        ref={materialRef}
-        vertexShader={vertexShader}
-        fragmentShader={fragmentShader}
-        uniforms={uniforms}
-        transparent
-      />
+      {hasVideo ? (
+        <Suspense fallback={
+          <shaderMaterial
+            ref={materialRef}
+            vertexShader={vertexShader}
+            fragmentShader={fragmentShader}
+            uniforms={imageUniforms}
+            transparent
+          />
+        }>
+          <VideoTextureMesh
+            videoUrl={project.video!}
+            cardWidth={cardWidth}
+            cardHeight={cardHeight}
+            isActive={isActive}
+          />
+        </Suspense>
+      ) : (
+        <shaderMaterial
+          ref={materialRef}
+          vertexShader={vertexShader}
+          fragmentShader={fragmentShader}
+          uniforms={imageUniforms}
+          transparent
+        />
+      )}
     </mesh>
   )
 }
+
+
 
 // Carousel scene
 function CarouselScene({
@@ -186,7 +279,7 @@ function CarouselScene({
   onProjectChange: (index: number) => void
 }) {
   const { viewport } = useThree()
-  const maxProjects = Math.min(projects.length, 6)
+  const maxProjects = projects.length
 
   // Mobile: center the carousel exactly at 0, Desktop: slight offset
   const isMobile = viewport.width < 5.5
@@ -216,7 +309,7 @@ export function ProjectCarousel3D() {
   const currentProject = projects[activeProject] || projects[0]
   const containerRef = useRef<HTMLDivElement>(null)
   const touchStartX = useRef(0)
-  const maxProjects = Math.min(projects.length, 6)
+  const maxProjects = projects.length
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const [hasAnimated, setHasAnimated] = useState(false)
   const { currentSection } = useSectionManager()
@@ -430,16 +523,14 @@ export function ProjectCarousel3D() {
                 </a>
               )}
 
-              {/* Nav pills - Mobile inline */}
-              <div className="flex gap-1.5 md:hidden">
-                {projects.slice(0, maxProjects).map((_, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setActiveProject(i)}
-                    className={`h-1 rounded-full transition-all duration-300 ${i === activeProject ? 'bg-white w-6' : 'bg-white/30 w-3'
-                      }`}
+              {/* Progress Bar - Mobile inline */}
+              <div className="flex items-center gap-2 md:hidden">
+                <div className="w-16 h-1 bg-white/15 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-white rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${((activeProject + 1) / maxProjects) * 100}%` }}
                   />
-                ))}
+                </div>
               </div>
             </div>
           </motion.div>
@@ -457,16 +548,14 @@ export function ProjectCarousel3D() {
           </span>
         </div>
 
-        {/* Horizontal nav pills - Desktop */}
-        <div className="flex gap-2 justify-end">
-          {projects.slice(0, maxProjects).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setActiveProject(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProject ? 'bg-white w-8' : 'bg-white/30 w-4 hover:bg-white/50'
-                }`}
+        {/* Progress Bar - Desktop */}
+        <div className="flex justify-end">
+          <div className="w-24 h-1.5 bg-white/15 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-white rounded-full transition-all duration-500 ease-out"
+              style={{ width: `${((activeProject + 1) / maxProjects) * 100}%` }}
             />
-          ))}
+          </div>
         </div>
       </div>
 

@@ -24,6 +24,7 @@ export interface Project {
   category: string;
   description: string;
   image: string;
+  video?: string; // Optional video URL (mp4/webm) - plays as autoplay loop
   year: string;
   tech: string[];
   url?: string;
