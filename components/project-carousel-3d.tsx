@@ -98,10 +98,43 @@ function VideoTextureMesh({
     const video = videoTexture.source?.data as HTMLVideoElement
     if (!video) return
 
+    // Set video attributes for better autoplay support
+    video.setAttribute('playsinline', '')
+    video.setAttribute('muted', '')
+    video.muted = true
+    video.playsInline = true
+    video.autoplay = false // Explicitly control autoplay
+
+    const attemptPlay = () => {
+      if (video.readyState >= 2) { // HAVE_CURRENT_DATA or higher
+        video.play().catch((error) => {
+          console.log('Autoplay blocked, will retry on next interaction:', error)
+          // Add one-time click handler to start video
+          const startVideo = () => {
+            video.play()
+            document.removeEventListener('click', startVideo)
+          }
+          document.addEventListener('click', startVideo, { once: true })
+        })
+      }
+    }
+
     if (isActive) {
-      video.play().catch(() => {
-        // Autoplay may be blocked
-      })
+      // If video is already loaded, play immediately
+      if (video.readyState >= 2) {
+        setTimeout(attemptPlay, 100)
+      } else {
+        // Wait for video to load
+        const onLoadedData = () => {
+          attemptPlay()
+          video.removeEventListener('loadeddata', onLoadedData)
+        }
+        video.addEventListener('loadeddata', onLoadedData)
+
+        return () => {
+          video.removeEventListener('loadeddata', onLoadedData)
+        }
+      }
     } else {
       video.pause()
     }
@@ -151,8 +184,11 @@ function ProjectCard({
   // Determine if this card is active
   const isActive = index === activeIndex
 
-  // Load image texture (always needed as fallback)
-  const imageTexture = useTexture(project.image || '/placeholder.jpg')
+  // Create a simple gray placeholder as data URL (1x1 pixel)
+  const placeholderDataURL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mM8c+bMfwAHzAL+8w4HdwAAAABJRU5ErkJggg=='
+
+  // Load image texture (use data URL placeholder if project image fails)
+  const imageTexture = useTexture(project.image || placeholderDataURL)
 
   // Detect mobile (viewport width less than ~768px in 3D units, roughly 4.5)
   // Using a slightly higher threshold for better mobile detection
@@ -452,7 +488,9 @@ export function ProjectCarousel3D() {
           dpr={[1, 2]}
           gl={{ antialias: true, powerPreference: 'high-performance' }}
         >
-          <CarouselScene activeIndex={activeProject} onProjectChange={setActiveProject} />
+          <Suspense fallback={null}>
+            <CarouselScene activeIndex={activeProject} onProjectChange={setActiveProject} />
+          </Suspense>
         </Canvas>
       </div>
 

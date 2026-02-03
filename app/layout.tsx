@@ -37,8 +37,8 @@ const dmSerifDisplay = DM_Serif_Display({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jamalakbara.com'),
   title: {
-    default: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
-    template: "%s | Portfolio Jamal Akbar Alam"
+    default: "Jamal Akbar Alam - Creative Developer",
+    template: "%s | Jamal Akbar Alam"
   },
   description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia with 5+ years of experience building exceptional digital experiences with React, Next.js, and Python technologies.",
   keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
@@ -60,22 +60,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://jamalakbara.com",
-    siteName: "Portfolio Jamal Akbar Alam",
-    title: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+    siteName: "Jamal Akbar Alam",
+    title: "Jamal Akbar Alam - Creative Developer",
     description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia.",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+        alt: "Jamal Akbar Alam - Creative Developer",
         type: "image/jpeg",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Portfolio Jamal Akbar Alam - Creative Developer & Designer",
+    title: "Jamal Akbar Alam - Creative Developer",
     description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
     images: ["/twitter-image.jpg"],
     creator: "@jamalakbara",
