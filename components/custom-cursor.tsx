@@ -26,8 +26,14 @@ export function CustomCursor() {
       return
     }
 
-    // Hide default cursor
-    document.body.style.cursor = 'none'
+    // Detect Safari and disable custom cursor (Safari has poor custom cursor support)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+    if (isSafari) {
+      return
+    }
+
+    // Enable custom cursor mode via class
+    document.body.classList.add('custom-cursor-active')
 
     const cursor = cursorRef.current
     const follower = followerRef.current
@@ -92,7 +98,7 @@ export function CustomCursor() {
     document.addEventListener('mouseout', handleMouseOut, { passive: true })
 
     return () => {
-      document.body.style.cursor = 'auto'
+      document.body.classList.remove('custom-cursor-active')
       window.removeEventListener('mousemove', moveCursor)
       document.removeEventListener('mouseover', handleMouseOver)
       document.removeEventListener('mouseout', handleMouseOut)
@@ -109,6 +115,12 @@ export function CustomCursor() {
 
   // Don't render on touch devices
   if (window.matchMedia('(hover: none)').matches) {
+    return null
+  }
+
+  // Don't render on Safari (poor custom cursor support)
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
+  if (isSafari) {
     return null
   }
 

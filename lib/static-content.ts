@@ -202,8 +202,8 @@ export const getStaticContent = {
         "title": "Rawtype Riot",
         "category": "E-Commerce Development",
         "description": "A bold streetwear e-commerce platform built with Shopify, featuring custom theme development, dynamic product showcases, and seamless checkout experience. Designed to capture the raw energy of street culture with optimal performance and scalability.",
-        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1770146623/rawtyperiot_hg0kn8.webp",
-        "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1770147989/rawtyperiot_e53hke.webm",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146623/rawtyperiot_hg0kn8.webp",
+        "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1770147989/rawtyperiot_e53hke.webm",
         "year": "2026",
         "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
         "url": "https://rawtyperiot.com",
@@ -221,7 +221,7 @@ export const getStaticContent = {
           { "label": "Drop Sell-Out Time", "value": "<5 min" },
           { "label": "Mobile Traffic", "value": "82%" }
         ],
-        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/v1770146623/rawtyperiot_hg0kn8.webp"],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146623/rawtyperiot_hg0kn8.webp"],
         "featured": true
       },
       {

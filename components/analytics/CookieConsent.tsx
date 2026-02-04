@@ -118,8 +118,8 @@ export function CookieConsentBanner() {
               </div>
 
               {/* Custom Preferences Toggle */}
-              <details className="group relative">
-                <summary className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium  hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors list-none">
+              <details className="group relative [&:not([open])]:pointer-events-auto [&[open]]:pointer-events-none">
+                <summary className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium  hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors list-none pointer-events-auto">
                   Customize
                 </summary>
 
@@ -127,7 +127,7 @@ export function CookieConsentBanner() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-4"
+                  className="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-4 pointer-events-auto"
                 >
                   <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
                     Cookie Preferences
