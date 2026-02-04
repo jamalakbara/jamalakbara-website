@@ -32,17 +32,17 @@ body {
   font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  cursor: none;
 }
 
-/* Hide cursor on all interactive elements too */
-a,
-button,
-[role="button"],
-input,
-select,
-textarea {
-  cursor: none;
+/* Only hide cursor when CustomCursor component activates this class */
+body.custom-cursor-active,
+body.custom-cursor-active a,
+body.custom-cursor-active button,
+body.custom-cursor-active [role="button"],
+body.custom-cursor-active input,
+body.custom-cursor-active select,
+body.custom-cursor-active textarea {
+  cursor: none !important;
 }
 
 ::selection {
