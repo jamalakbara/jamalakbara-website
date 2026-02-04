@@ -83,6 +83,7 @@ function VideoTextureMesh({
   isActive: boolean
 }) {
   const materialRef = useRef<THREE.ShaderMaterial>(null)
+  const playPromiseRef = useRef<Promise<void> | undefined>(undefined)
 
   // Use drei's useVideoTexture with proper settings
   const videoTexture = useVideoTexture(videoUrl, {
@@ -107,11 +108,16 @@ function VideoTextureMesh({
 
     const attemptPlay = () => {
       if (video.readyState >= 2) { // HAVE_CURRENT_DATA or higher
-        video.play().catch((error) => {
+        playPromiseRef.current = video.play();
+        playPromiseRef.current.catch((error) => {
+          if (error.name === 'AbortError') {
+            // Ignore abort errors caused by pausing while playing
+            return;
+          }
           console.log('Autoplay blocked, will retry on next interaction:', error)
           // Add one-time click handler to start video
           const startVideo = () => {
-            video.play()
+            video.play().catch(() => { })
             document.removeEventListener('click', startVideo)
           }
           document.addEventListener('click', startVideo, { once: true })
@@ -136,7 +142,30 @@ function VideoTextureMesh({
         }
       }
     } else {
-      video.pause()
+      if (playPromiseRef.current !== undefined) {
+        playPromiseRef.current.then(() => {
+          video.pause()
+        }).catch(() => {
+          // Promise rejected (likely aborted), so we don't need to pause
+        })
+      } else {
+        try {
+          video.pause()
+        } catch (e) {
+          // Ignore pause errors
+        }
+      }
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (playPromiseRef.current !== undefined) {
+        playPromiseRef.current.then(() => {
+          video.pause()
+        }).catch(() => {
+          // Ignore abort errors during cleanup
+        })
+      }
     }
   }, [videoTexture, isActive])
 
