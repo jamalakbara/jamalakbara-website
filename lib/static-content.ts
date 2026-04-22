@@ -198,6 +198,31 @@ export const getStaticContent = {
   projects: (): Project[] => {
     return [
       {
+        "id": "adana",
+        "title": "Adana",
+        "category": "Web Development",
+        "description": "A high-performance modern web application built with Next.js, focusing on exceptional user experience, scalability, and clean architecture.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1776850023/adana_n83dlc.png",
+        "year": "2026",
+        "tech": ["Next.js", "TypeScript", "React", "Tailwind CSS"],
+        "url": "https://byadana.com",
+        "livePreview": "https://byadana.com",
+        "challenge": "The project required a scalable architecture and a highly responsive user interface to handle modern web demands while maintaining fast load times.",
+        "solution": "Developed a robust frontend using Next.js framework, leveraging server-side rendering and optimal image delivery to ensure top-tier performance.",
+        "features": [
+          "Server-Side Rendering (SSR)",
+          "Static Site Generation (SSG)",
+          "Responsive Modern Design",
+          "Optimized Core Web Vitals"
+        ],
+        "metrics": [
+          { "label": "Lighthouse Score", "value": "99" },
+          { "label": "Page Load Time", "value": "<1s" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1776850023/adana_n83dlc.png"],
+        "featured": true
+      },
+      {
         "id": "rawtype-riot",
         "title": "Rawtype Riot",
         "category": "E-Commerce Development",

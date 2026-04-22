@@ -89,13 +89,13 @@ function VideoTextureMesh({
   const videoTexture = useVideoTexture(videoUrl, {
     muted: true,
     loop: true,
-    start: true,
+    start: false,
     playsInline: true,
     crossOrigin: 'anonymous'
   })
 
-  // Manually control play/pause based on active state
   useEffect(() => {
+    let isEffectActive = true;
     const video = videoTexture.source?.data as HTMLVideoElement
     if (!video) return
 
@@ -107,64 +107,74 @@ function VideoTextureMesh({
     video.autoplay = false // Explicitly control autoplay
 
     const attemptPlay = () => {
+      if (!isEffectActive) return;
       if (video.readyState >= 2) { // HAVE_CURRENT_DATA or higher
-        playPromiseRef.current = video.play();
-        playPromiseRef.current.catch((error) => {
-          if (error.name === 'AbortError') {
-            // Ignore abort errors caused by pausing while playing
-            return;
+        try {
+          const promise = video.play();
+          playPromiseRef.current = promise;
+          if (promise !== undefined) {
+            promise.catch((error) => {
+              if (error.name === 'AbortError' || error.name === 'NotAllowedError') {
+                return;
+              }
+              console.log('Autoplay blocked, will retry on next interaction:', error)
+              const startVideo = () => {
+                if (isEffectActive) video.play().catch(() => {})
+                document.removeEventListener('click', startVideo)
+              }
+              document.addEventListener('click', startVideo, { once: true })
+            })
           }
-          console.log('Autoplay blocked, will retry on next interaction:', error)
-          // Add one-time click handler to start video
-          const startVideo = () => {
-            video.play().catch(() => { })
-            document.removeEventListener('click', startVideo)
-          }
-          document.addEventListener('click', startVideo, { once: true })
-        })
+        } catch (e) {
+          // handle synchronous play errors
+        }
       }
     }
 
     if (isActive) {
-      // If video is already loaded, play immediately
       if (video.readyState >= 2) {
-        setTimeout(attemptPlay, 100)
+        const timeoutId = setTimeout(attemptPlay, 100)
+        return () => {
+          isEffectActive = false;
+          clearTimeout(timeoutId);
+          if (playPromiseRef.current !== undefined) {
+            playPromiseRef.current.then(() => {
+              video.pause()
+            }).catch(() => {})
+          } else {
+            video.pause()
+          }
+        }
       } else {
-        // Wait for video to load
         const onLoadedData = () => {
           attemptPlay()
           video.removeEventListener('loadeddata', onLoadedData)
         }
         video.addEventListener('loadeddata', onLoadedData)
-
         return () => {
+          isEffectActive = false;
           video.removeEventListener('loadeddata', onLoadedData)
+          if (playPromiseRef.current !== undefined) {
+            playPromiseRef.current.then(() => {
+              video.pause()
+            }).catch(() => {})
+          } else {
+            video.pause()
+          }
         }
       }
     } else {
       if (playPromiseRef.current !== undefined) {
         playPromiseRef.current.then(() => {
           video.pause()
-        }).catch(() => {
-          // Promise rejected (likely aborted), so we don't need to pause
-        })
+        }).catch(() => {})
       } else {
         try {
           video.pause()
-        } catch (e) {
-          // Ignore pause errors
-        }
+        } catch (e) {}
       }
-    }
-
-    // Cleanup on unmount
-    return () => {
-      if (playPromiseRef.current !== undefined) {
-        playPromiseRef.current.then(() => {
-          video.pause()
-        }).catch(() => {
-          // Ignore abort errors during cleanup
-        })
+      return () => {
+        isEffectActive = false;
       }
     }
   }, [videoTexture, isActive])
