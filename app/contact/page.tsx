@@ -24,10 +24,10 @@ export default function ContactPage() {
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const next: Errors = {};
-    if (!form.name.trim()) next.name = "Please add your name";
+    if (!form.name.trim()) next.name = "What's your name?";
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email))
-      next.email = "Enter a valid email";
-    if (!form.message.trim()) next.message = "Tell me a little about it";
+      next.email = "That email doesn't look right.";
+    if (!form.message.trim()) next.message = "Tell me a bit about it.";
     if (Object.keys(next).length) {
       setErrors(next);
       return;
@@ -241,7 +241,7 @@ export default function ContactPage() {
                   <input
                     className="field-input"
                     type="email"
-                    placeholder="Email address"
+                    placeholder="Email"
                     value={form.email}
                     onChange={update("email")}
                   />
@@ -251,7 +251,7 @@ export default function ContactPage() {
                   <textarea
                     className="field-input"
                     rows={4}
-                    placeholder="Tell me about your project"
+                    placeholder="What's the project?"
                     style={{ resize: "none" }}
                     value={form.message}
                     onChange={update("message")}

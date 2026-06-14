@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 70" width="360" height="70">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;display=swap');
+      .logo-text {
+        font-family: 'Space Grotesk', sans-serif;
+        font-size: 56px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        fill: #f4ede3;
+      }
+      .logo-accent { fill: #e0875a; }
+    </style>
+  </defs>
+  <text x="0" y="52" class="logo-text">jamalakbara<tspan class="logo-accent">.</tspan></text>
+</svg>

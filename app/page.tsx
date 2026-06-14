@@ -7,6 +7,7 @@ import { home } from "@/lib/site-data";
 export default function HomePage() {
   return (
     <div
+      className="home-root"
       style={{
         flex: 1,
         display: "flex",
@@ -145,7 +146,7 @@ export default function HomePage() {
               textDecoration: "none",
             }}
           >
-            <span>View Work</span>
+            <span>See the work</span>
             <ArrowRight size={18} />
           </Link>
           <Link
@@ -162,7 +163,7 @@ export default function HomePage() {
               alignItems: "center",
             }}
           >
-            Get in touch
+            Say hi
           </Link>
         </div>
       </div>

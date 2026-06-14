@@ -17,10 +17,10 @@ export const BRAND = siteConfig.brand; // shortName "jamalakbara."
 export const home = {
   role: siteConfig.brand.tagline, // "Creative Developer & Designer"
   location: siteConfig.contact.location, // "Based in Bandung, Indonesia"
-  availability: "Open to new projects",
-  headline: "Building fast, thoughtful products for the web.",
+  availability: "Open for new work",
+  headline: "I build fast, useful things for the web.",
   intro:
-    "I'm Akbar — a developer & designer from Bandung crafting digital experiences that feel fast, clear, and built to work in the real world.",
+    "I'm Akbar, a developer and designer. I make websites and apps that load fast and stay easy to use.",
 };
 
 /* ---- Work ------------------------------------------------------------- */
@@ -48,14 +48,14 @@ export const works: WorkRow[] = getStaticContent.projects().map((p, i) => ({
 
 export const work = {
   eyebrow: "Selected Work",
-  heading: "Things I've made.",
+  heading: "Things I've built.",
 };
 
 /* ---- About ------------------------------------------------------------ */
 export const about = {
   eyebrow: "About",
   portrait: aboutContent.profileImage || "/profile-image.png",
-  heading: "Developer, designer, and relentless problem-solver.",
+  heading: "Developer and designer who likes to build.",
   paragraphs: [aboutContent.description[0], aboutContent.description[1]],
   footnote:
     "Computer Science, Telkom University. Currently independent and open to new collaborations.",
@@ -65,7 +65,7 @@ export const about = {
 /* ---- Contact ---------------------------------------------------------- */
 export const contact = {
   eyebrow: "Contact",
-  heading: "Let's build something that lasts.",
+  heading: "Got an idea? Let's talk.",
   email: siteConfig.contact.email, // hello-im@jamalakbara.com
   socials: siteConfig.social.map((s) => ({ label: s.platform, url: s.url })),
 };

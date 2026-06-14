@@ -28,10 +28,10 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jamalakbara.com'),
   title: {
-    default: "Jamal Akbar Alam - Creative Developer",
+    default: "Jamal Akbar Alam — Developer & Designer",
     template: "%s | Jamal Akbar Alam"
   },
-  description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia with 5+ years of experience building exceptional digital experiences with React, Next.js, and Python technologies.",
+  description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
   keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
   authors: [{ name: "Jamal Akbar Alam", url: "https://jamalakbara.com" }],
   creator: "Jamal Akbar Alam",
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://jamalakbara.com",
     siteName: "Jamal Akbar Alam",
-    title: "Jamal Akbar Alam - Creative Developer",
-    description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy. Based in Bandung, Indonesia.",
+    title: "Jamal Akbar Alam — Developer & Designer",
+    description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
     images: [
       {
         url: "/og-image.jpg",
@@ -66,8 +66,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jamal Akbar Alam - Creative Developer",
-    description: "Portfolio of Jamal Akbar Alam - Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
+    title: "Jamal Akbar Alam — Developer & Designer",
+    description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
     images: ["/twitter-image.jpg"],
     creator: "@jamalakbara",
     site: "@jamalakbara",

@@ -257,6 +257,15 @@ button.liquid-glass:active {
     padding-top: 1.25rem;
     padding-bottom: 1.5rem;
   }
+  /* Home: bottom-anchored on desktop, but on mobile flow naturally into the
+     scrollable region (flex-end clipped the top of tall content unreachably). */
+  .home-root {
+    justify-content: flex-end !important;
+    flex: 0 0 auto !important;
+    min-height: 100%;
+    padding-top: 1.25rem;
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+  }
   .two-col {
     gap: 1.5rem !important;
   }

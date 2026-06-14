@@ -156,7 +156,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       style={{
         position: "relative",
         width: "100vw",
-        height: "100vh",
+        height: "100dvh",
         overflow: "hidden",
         background: "#0c0908",
         color: INK,
