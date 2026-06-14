@@ -42,3 +42,7 @@ yarn-error.log*
 next-env.d.ts
 
 .claude
+
+# background loop video — hosted on Cloudinary, kept out of the repo
+/work-bg.mp4
+/public/work-bg.mp4
