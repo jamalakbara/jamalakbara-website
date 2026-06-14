@@ -4,186 +4,166 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a modern portfolio website built with Next.js 15, featuring advanced interactive animations and a sophisticated UI/UX design. The project combines cutting-edge web technologies with creative development practices.
+Jamalakbara is a cinematic, multi-page portfolio website for **Jamal Akbar Alam** ("jamalakbara."), a creative developer & designer based in Bandung, Indonesia. The site pairs a warm, dark, film-grade visual language with per-route Cloudinary video backgrounds, glassmorphic ("liquid-glass") UI, and motion-driven micro-interactions.
 
 **Key Technologies:**
-- Next.js 15 with App Router and Turbopack
-- React 19 with TypeScript
-- Tailwind CSS v4 with shadcn/ui components (New York style)
-- Framer Motion for advanced animations
-- File-based content system with JSON storage
-- next-themes for dark/light mode
+- **Next.js 16** (App Router) + React 19 + TypeScript (strict)
+- **Tailwind CSS v4** (PostCSS plugin, no config file) — design tokens live as CSS custom properties in `app/globals.css`
+- **Motion**: Framer Motion (`framer-motion`) is the primary in-use animation library. **GSAP** (`gsap` + `@gsap/react`), **Lenis** (smooth scroll), and **React Three Fiber** (`three` + `@react-three/fiber` + `@react-three/drei`) are installed for roadmap features but not yet wired into shipped pages.
+- **State**: Zustand installed; React hooks are the primary mechanism in shipped code.
+- **Content**: TypeScript static content modules (no JSON/CMS) — see Architecture.
+- **Media**: Cloudinary (cloud `dh0spkwh3`) for background videos and project images/videos.
+- **Forms**: react-hook-form + zod.
+- **Analytics/SEO**: `@next/third-parties` (Google Analytics) with a cookie-consent gate, dynamic `sitemap.ts` / `robots.ts`, and JSON-LD structured data.
+- **Theme**: single dark cinematic theme. `next-themes` is a dependency but no light/dark toggle is shipped.
+
+> Design docs live in **`docs/`**: `PRD.md`, `BRAND_GUIDELINES.md`, `MOODBOARD.md`, `DESIGN_SYSTEM.md`. Read `docs/DESIGN_SYSTEM.md` before touching styles.
 
 ## Development Commands
 
-### Core Application
-- `npm run dev` - Start development server with Turbopack
-- `npm run build` - Production build with Turbopack
-- `npm start` - Production server
-- `npm run lint` - ESLint
+```bash
+npm run dev            # Dev server (Webpack — default)
+npm run dev:turbopack  # Dev server with Turbopack (opt-in)
+npm run build          # Production build (Webpack)
+npm run build:turbopack# Production build with Turbopack (opt-in)
+npm start              # Production server
+npm run lint           # ESLint (eslint-config-next)
+```
 
 ## Architecture Overview
 
-### File-Based Content System
-The project uses a simple file-based content system:
+### Content System — TypeScript static modules
+There is **no `/content/` JSON directory and no CMS**. All content is type-safe TypeScript:
 
-- **Content Storage**: JSON files in `/content/` directory
-- **Content Types**: Defined in `lib/content-types.ts` with full TypeScript interfaces
-- **Content Loading**: Managed through `lib/content-manager.ts` with server-side and client-side helpers
+- **`lib/content-types.ts`** — interfaces: `Service`, `Project`, `NavigationItem`, `AboutContent`, `ComprehensiveAboutContent`, `SiteConfig`, `HeroContent`, `BlogContent`, `CTAContent`.
+- **`lib/static-content.ts`** — the content source, exposed via `getStaticContent`:
+  - `siteConfig()`, `navigation()`, `hero()`, `services()` (×4), `projects()` (×18), `featuredProjects()`, `homepageShowcaseProjects()`, `about()`, `comprehensiveAbout()`, `blog()` (×5), `cta()`.
+- **`lib/site-data.ts`** — derived view-model constants consumed by pages: `NAV_LINKS`, `BRAND`, `home`, `works` (maps projects → `WorkRow`), `work`, `about`, `contact`.
 
-**Content Structure:**
+**Loading pattern** (client + server, same import):
+```typescript
+import { getStaticContent } from '@/lib/static-content'
+const projects = getStaticContent.projects()
 ```
-/content/
-├── site-config.json    # Brand, contact, social links
-├── hero.json          # Homepage hero section
-├── services.json      # Service offerings
-├── projects.json      # Portfolio projects
-├── about.json         # About section content
-├── navigation.json    # Navigation menu items
-└── cta.json          # Call-to-action section
+Pages typically consume the pre-shaped constants from `@/lib/site-data` instead.
+
+### Routes (`app/`)
+Multi-page App Router. All page components are client components.
+
+```
+app/
+├── layout.tsx        # RootLayout: metadata, Inter font, GoogleAnalytics, CookieConsent, PortfolioShell
+├── globals.css       # Design tokens + component classes (the styling source of truth)
+├── page.tsx          # Home (/)
+├── work/page.tsx     # Work portfolio (/work)
+├── about/page.tsx    # About (/about)
+├── contact/page.tsx  # Contact (/contact) — react-hook-form + zod
+├── sitemap.ts        # Dynamic XML sitemap
+├── robots.ts         # robots.txt
+└── favicon.ico
 ```
 
-### Component Architecture
-The project follows a modular component structure:
-
+### Components (`components/`)
 ```
 components/
-├── ui/                    # 52+ shadcn/ui components (New York style)
-├── navigation.tsx         # Main navigation with scroll tracking
-├── hero-section.tsx       # Landing section with animations
-├── services-section.tsx   # Services display
-├── featured-work-section.tsx # Portfolio showcase
-├── about-section.tsx      # About content
-├── cta-section.tsx        # Call-to-action
-├── custom-cursor.tsx      # Interactive cursor effects
-├── dynamic-background.tsx # Animated backgrounds
-├── parallax-layers.tsx    # Parallax scrolling effects
-└── velocity-effects.tsx   # Particle-based animations
+├── portfolio-shell.tsx          # App shell: two-layer crossfading per-route Cloudinary video
+│                                 #   background, liquid-glass smart-hide navbar, mobile menu,
+│                                 #   film-grain + vignette overlays. z-layering: video z0 →
+│                                 #   overlays z1 → scrim z2 → blur z3 → navbar z50.
+├── work-preview.tsx             # Cursor-following floating media preview (Framer Motion spring +
+│                                 #   velocity tilt). Desktop/hover-devices only.
+├── structured-data.tsx          # JSON-LD (Person, Project, Service, WebSite, etc.)
+├── analytics/GoogleAnalytics.tsx# GA via @next/third-parties, gated on consent
+└── analytics/CookieConsent.tsx  # Consent banner (necessary/analytics/marketing/preferences)
 ```
+There is no `components/ui/` shadcn directory in active use; Radix primitives are available as dependencies.
 
-### Advanced Animation System
-The project features sophisticated animations using Framer Motion:
+### Cloudinary media (`lib/cloudinary.ts`)
+- `getCloudinaryUrl(publicId, options)`, `getProjectImageUrl(imageName, options)`, `getCloudinaryBaseUrl()`.
+- Transforms: width/height/quality/format/crop/gravity; defaults `q_auto,f_auto`.
+- Cloud name from `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` (`dh0spkwh3`).
+- **Background videos** are served per route from Cloudinary (`bg-home`, `bg-work`, `bg-about`, `bg-contact`) and crossfaded in `portfolio-shell.tsx`. Project thumbnails/videos also stream from Cloudinary.
 
-- **Custom Cursor**: Interactive cursor with magnetic effects
-- **Parallax Layers**: Multi-layer parallax scrolling
-- **Velocity Effects**: Particle-based animations
-- **Dynamic Backgrounds**: Animated background elements
-- **Scroll Animations**: Section-based scroll animations
-- **Loading States**: Animated loading screens
+### Analytics & Consent (`lib/analytics/`)
+- `ga-config.ts` — `GoogleAnalyticsConfig` singleton, `EVENTS`, `CUSTOM_DIMENSIONS`.
+- `consent.ts` — `CookieConsentManager`, persists to `localStorage` key `cookie-consent`.
+- `events.ts` — `GoogleAnalyticsEvents` (page views, scroll depth, dwell time, device info).
+- GA scripts load only after analytics consent.
 
-### Theme System
-- **Context-based theme management** in `contexts/theme-context.tsx`
-- **Dark/light mode** with system preference detection
-- **CSS variables** for consistent theming across components
-- **next-themes** integration for theme persistence
+### SEO
+- `app/sitemap.ts`, `app/robots.ts`, and `components/structured-data.tsx` (JSON-LD).
+- `next.config.ts`: `output: 'standalone'`, image formats webp/avif, Cloudinary remote pattern, `optimizePackageImports` for framer-motion + lucide-react.
 
-## Key Development Patterns
-
-### Content Loading Patterns
-For client components:
-```typescript
-import { getStaticContent } from '@/lib/content-manager'
-const services = getStaticContent.services()
-```
-
-For server components:
-```typescript
-import { ContentManager } from '@/lib/content-manager'
-const services = await ContentManager.getServices()
-```
-
-### Animation Patterns
-Use Framer Motion for all animations:
-```typescript
-import { motion } from 'framer-motion'
-<motion.div
-  initial={{ opacity: 0, y: 20 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.6 }}
->
-  {/* Content */}
-</motion.div>
-```
-
-### UI Component Usage
-All components use shadcn/ui patterns:
-```typescript
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-```
-
-
-## Styling Guidelines
+## Styling
 
 ### Tailwind CSS v4
-- Use Tailwind classes for all styling
-- Leverage CSS variables for theming
-- Follow responsive design patterns
-- Use the established color palette
+- `app/globals.css` begins with `@import "tailwindcss";` — there is **no `tailwind.config.*`** (v4 PostCSS plugin in `postcss.config.mjs`).
+- Theme is **not** in a Tailwind config; it lives as CSS custom properties.
 
-### Custom CSS
-- Custom animations and effects in `app/globals.css`
-- CSS custom properties for theme variables
-- Import fonts: Inter, Space Mono, DM Serif Display
+### Design tokens (`app/globals.css`)
+```css
+--bg: #0c0908;        /* background — warm near-black */
+--ink: #f4ede3;       /* primary text — warm cream */
+--m1: #d8cdbf; --m2: #b3a596; --m3: #a99c8d; --m4: #7d7163;  /* muted ramp */
+--accent: #e0875a;    /* warm orange */
+--accent-hi: #eab38a; /* hover orange */
+--green: #6ee787;     /* availability / status */
+```
+
+### Typography
+- **Space Grotesk** (via `next/font/google`, weights 300–400–500, variable `--font-space-grotesk`) — primary face for all headlines, body, nav, and UI.
+- **Fraunces** (via `next/font/google`, weights 300–400, italic only, variable `--font-fraunces`) — accent face used exclusively for eyebrow labels (`— Selected Work`, `— About`, etc.).
+- Headings use large `clamp()` sizes with tight negative letter-spacing. See `docs/DESIGN_SYSTEM.md` for the full scale.
+
+### Component classes & motion
+- Key class: **`.liquid-glass`** (translucent fill + hairline border + layered soft shadows + springy press). Others: `.btn-solid`, `.field-input`, `.work-row`, `.nav-link`, `.menu-link`, `.email-link`, `.back-link`.
+- Keyframes: **`blurFadeUp`** (staggered entrance) and **`softPulse`** (availability dot).
+- `prefers-reduced-motion: reduce` is honored globally.
+
+## Animation Patterns
+Use Framer Motion for component animation:
+```typescript
+import { motion } from 'framer-motion'
+<motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} />
+```
+For pure CSS entrances use `.animate-blur-fade-up` with a stagger delay. When introducing GSAP/Lenis/R3F (roadmap), follow the conventions in `docs/PRD.md`.
 
 ## File Structure Conventions
 
 ### Path Aliases
-- `@/components` - React components
-- `@/lib` - Utility functions and helpers
-- `@/hooks` - Custom React hooks
-- `@/contexts` - React contexts
+- `@/components`, `@/lib` (`@/app`, `@/hooks`, `@/contexts` resolve too, but `hooks/` and `contexts/` are not currently present).
 
-### Component Organization
-- UI components in `components/ui/`
-- Section components in `components/`
-- Utility functions in `lib/`
-- Type definitions in `lib/content-types.ts`
-
-
-## Build and Deployment
-
-### Development
-```bash
-npm run dev    # Development server with Turbopack
-npm run build  # Production build
-npm run lint   # ESLint
-```
-
-### Production
-- Use `npm run build` for optimized production build
-- Content files are included in the build
+## Environment Variables
+- `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` — Cloudinary cloud (`dh0spkwh3`).
+- `NEXT_PUBLIC_GA_MEASUREMENT_ID` — Google Analytics ID (`G-…`).
+- `NEXT_PUBLIC_GSC_VERIFICATION_CONTENT` — Google Search Console verification (optional).
+See `.env.example`.
 
 ## Testing and Quality
-
-- **ESLint**: Run `npm run lint` to check code quality
-- **TypeScript**: Strict mode enabled for type safety
-- **Build Validation**: Build process validates all content and types
-- **Content Validation**: JSON files validated against TypeScript interfaces
+- **ESLint**: `npm run lint`.
+- **TypeScript**: strict; `next.config.ts` does **not** ignore build errors.
+- **Build validation**: `npm run build` type-checks all content and pages.
 
 ## Common Development Tasks
 
-### Adding New Content Type
-1. Define TypeScript interface in `lib/content-types.ts`
-2. Create JSON file in `/content/`
-3. Add loader function in `lib/content-manager.ts`
+### Adding / editing content
+1. Update the relevant method in `lib/static-content.ts` (and the interface in `lib/content-types.ts` if shape changes).
+2. If pages read it via a shaped constant, update `lib/site-data.ts`.
 
-### Adding New Animations
-1. Use Framer Motion for animations
-2. Follow existing patterns in components
-3. Test performance impact
-4. Ensure responsive behavior
+### Adding a route
+1. Create `app/<route>/page.tsx` (client component).
+2. Add it to `NAV_LINKS` in `lib/site-data.ts` and to `app/sitemap.ts`.
+3. Add a background video entry in `components/portfolio-shell.tsx` if it needs one.
 
-### Styling New Components
-1. Use shadcn/ui components when possible
-2. Follow established color palette
-3. Use Tailwind classes for styling
-4. Implement proper theme support
+### Styling new components
+1. Reuse tokens (CSS custom properties) and existing classes (`.liquid-glass`, etc.) — see `docs/DESIGN_SYSTEM.md`.
+2. Respect z-index layering and `prefers-reduced-motion`.
+
+## Known Gaps
+- `app/layout.tsx` references `/logo.png` (icons/mask-icon) but `public/logo.png` does not exist — `favicon.ico` is the working icon. Add the asset or update the references.
 
 ## Performance Considerations
-
-- Content is loaded statically at build time
-- Use `getStaticContent` for client components
-- Implement proper image optimization
-- Test animation performance on mobile devices
-- Use CSS transforms for smooth animations
+- Content is static (compile-time), no runtime fetch.
+- Use `next/image` + Cloudinary `q_auto,f_auto`; image formats webp/avif.
+- Heavy hover/preview effects are gated to hover-capable devices.
+- Prefer CSS transforms; keep motion within `prefers-reduced-motion` rules.

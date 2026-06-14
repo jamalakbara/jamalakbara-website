@@ -638,8 +638,8 @@ export const getStaticContent = {
         "subtitle": "Expert Full-Stack Developer & UI/UX Designer in Bandung, Indonesia"
       },
       "description": [
-        "Hey! I'm Akbar - just a developer from Bandung who loves turning cool ideas into actual working apps. I spend my days coding, designing, and figuring out how to make things work better.",
-        "For the past 5+ years, I've been building websites and apps that actually work well in Indonesia - yeah, dealing with our unpredictable internet and making sure everything runs smoothly even when the connection isn't great.",
+        "Hi, I'm Akbar. I'm a developer and designer, and I spend most of my time building things for the web. I care about how things look, how they feel, and whether they actually work the way people expect.",
+        "What pulls me in is the mix of design and code — taking an idea and shaping it into something clean, fast, and easy to use. I like solving the messy problems in between, and I'm always chasing work that feels worth building.",
         "I'm pretty comfortable with both the creative and technical sides of things. Whether it's making something look awesome or making sure the code doesn't break (usually both), I enjoy figuring stuff out and building things that people actually want to use.",
         "Always up for interesting projects - especially if it's something that can help Indonesian businesses grow or makes life a bit easier for people here."
       ],
@@ -657,7 +657,7 @@ export const getStaticContent = {
             "description": "Cross-platform mobile apps with offline capabilities for Indonesian connectivity"
           },
           {
-            "name": "Indonesian Market Integration",
+            "name": "Payments & Integrations",
             "technologies": ["Midtrans", "Xendit", "GoPay", "OVO", "Dana", "QRIS"],
             "description": "Seamless integration with Indonesian payment systems"
           },
