@@ -1,13 +1,5 @@
 import { getStaticContent } from "./static-content";
 
-/**
- * Background loop video.
- * Interim: served locally from /public. Once uploaded to Cloudinary,
- * swap this for the delivered .mp4 URL (e.g.
- * https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v.../work-bg.mp4)
- */
-export const BG_VIDEO_URL = "/work-bg.mp4";
-
 const siteConfig = getStaticContent.siteConfig();
 const aboutContent = getStaticContent.about();
 

@@ -6,18 +6,22 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/site-data";
 
+// Background loop videos, served from Cloudinary (q_auto,f_auto = adaptive
+// quality + format per browser). Cloud: dh0spkwh3.
+const CLD = "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto";
+
 const PAGE_VIDEOS: Record<string, string> = {
-  "/": "/bg-home.mp4",
-  "/work": "/bg-work.mp4",
-  "/about": "/bg-about.mp4",
-  "/contact": "/bg-contact.mp4",
+  "/": `${CLD}/v1781452916/bg-home_oaxs7i.mp4`,
+  "/work": `${CLD}/v1781452917/bg-work_rsbzrp.mp4`,
+  "/about": `${CLD}/v1781452916/bg-about_zkw2rg.mp4`,
+  "/contact": `${CLD}/v1781452916/bg-contact_sx4ep4.mp4`,
 };
 
 function getVideoUrl(pathname: string): string {
   for (const [key, val] of Object.entries(PAGE_VIDEOS)) {
     if (key === "/" ? pathname === "/" : pathname.startsWith(key)) return val;
   }
-  return "/bg-home.mp4";
+  return PAGE_VIDEOS["/"];
 }
 
 const ACCENT = "#e0875a";
@@ -204,158 +208,172 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
         }}
       />
 
-      {/* ---- Navbar (z50) ---- */}
+      {/* ---- Navbar (z50) — centered frosted-glass pill ---- */}
       <nav
         style={{
           position: "relative",
           zIndex: 50,
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "1.25rem clamp(1rem, 4vw, 3rem)",
+          justifyContent: "center",
+          padding: "1.5rem clamp(1rem, 4vw, 3rem) 0",
         }}
       >
-        <Link
-          href="/"
-          className="animate-blur-fade-up"
+        <div
+          className="liquid-glass animate-blur-fade-up"
           style={{
             animationDelay: "0ms",
-            fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            height: "2.5rem",
+            width: "100%",
+            maxWidth: "1080px",
             display: "flex",
             alignItems: "center",
-            cursor: "pointer",
-            textDecoration: "none",
-            color: INK,
+            justifyContent: "space-between",
+            borderRadius: "9999px",
+            padding: "0.5rem 0.6rem 0.5rem 1.5rem",
+            cursor: "default",
           }}
         >
-          jamalakbara<span style={{ color: ACCENT }}>.</span>
-        </Link>
-
-        <div
-          className="desktop-nav"
-          style={{
-            alignItems: "center",
-            gap: "2rem",
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-          }}
-        >
-          {NAV_LINKS.map((l, i) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              className="animate-blur-fade-up nav-link"
-              style={{ ...linkStyle(l.href), animationDelay: `${100 + i * 50}ms` }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
-
-        <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <Link
-            href="/contact"
-            className="nav-actions liquid-glass animate-blur-fade-up"
+            href="/"
             style={{
-              animationDelay: "350ms",
+              fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              height: "2.5rem",
+              display: "flex",
               alignItems: "center",
-              gap: "0.5rem",
-              borderRadius: "9999px",
-              padding: "0.5rem clamp(1rem, 2vw, 1.4rem)",
-              fontSize: "0.875rem",
-              fontWeight: 500,
+              cursor: "pointer",
               textDecoration: "none",
+              color: INK,
             }}
           >
-            <span
-              style={{
-                width: "7px",
-                height: "7px",
-                borderRadius: "9999px",
-                background: "#6ee787",
-                boxShadow: "0 0 8px #6ee787",
-                animation: "softPulse 2.4s ease-in-out infinite",
-                display: "inline-block",
-              }}
-            />
-            <span>Let&apos;s talk</span>
+            jamalakbara<span style={{ color: ACCENT }}>.</span>
           </Link>
 
-          <button
-            type="button"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
-            className="hamburger liquid-glass animate-blur-fade-up"
+          <div
+            className="desktop-nav"
             style={{
-              animationDelay: "350ms",
-              width: "2.5rem",
-              height: "2.5rem",
-              borderRadius: "9999px",
               alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
+              gap: "2rem",
+              position: "absolute",
+              left: "50%",
+              transform: "translateX(-50%)",
             }}
           >
-            <span
+            {NAV_LINKS.map((l, i) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="animate-blur-fade-up nav-link"
+                style={{ ...linkStyle(l.href), animationDelay: `${100 + i * 50}ms` }}
+              >
+                {l.label}
+              </Link>
+            ))}
+          </div>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+            <Link
+              href="/contact"
+              className="nav-actions liquid-glass animate-blur-fade-up"
               style={{
-                position: "relative",
-                width: "18px",
-                height: "18px",
-                display: "inline-block",
+                animationDelay: "350ms",
+                alignItems: "center",
+                gap: "0.5rem",
+                borderRadius: "9999px",
+                padding: "0.5rem clamp(1rem, 2vw, 1.4rem)",
+                fontSize: "0.875rem",
+                fontWeight: 500,
+                textDecoration: "none",
               }}
             >
               <span
                 style={{
-                  ...iconBase,
-                  transform: menuOpen
-                    ? "rotate(180deg) scale(0.5)"
-                    : "rotate(0) scale(1)",
-                  opacity: menuOpen ? 0 : 1,
+                  width: "7px",
+                  height: "7px",
+                  borderRadius: "9999px",
+                  background: "#6ee787",
+                  boxShadow: "0 0 8px #6ee787",
+                  animation: "softPulse 2.4s ease-in-out infinite",
+                  display: "inline-block",
                 }}
-              >
-                <Menu size={18} />
-              </span>
+              />
+              <span>Let&apos;s talk</span>
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label="Toggle menu"
+              className="hamburger liquid-glass animate-blur-fade-up"
+              style={{
+                animationDelay: "350ms",
+                width: "2.5rem",
+                height: "2.5rem",
+                borderRadius: "9999px",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
               <span
                 style={{
-                  ...iconBase,
-                  transform: menuOpen
-                    ? "rotate(0) scale(1)"
-                    : "rotate(-180deg) scale(0.5)",
-                  opacity: menuOpen ? 1 : 0,
+                  position: "relative",
+                  width: "18px",
+                  height: "18px",
+                  display: "inline-block",
                 }}
               >
-                <X size={18} />
+                <span
+                  style={{
+                    ...iconBase,
+                    transform: menuOpen
+                      ? "rotate(180deg) scale(0.5)"
+                      : "rotate(0) scale(1)",
+                    opacity: menuOpen ? 0 : 1,
+                  }}
+                >
+                  <Menu size={18} />
+                </span>
+                <span
+                  style={{
+                    ...iconBase,
+                    transform: menuOpen
+                      ? "rotate(0) scale(1)"
+                      : "rotate(-180deg) scale(0.5)",
+                    opacity: menuOpen ? 1 : 0,
+                  }}
+                >
+                  <X size={18} />
+                </span>
               </span>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* ---- Mobile menu ---- */}
+      {/* ---- Mobile menu — frosted-glass panel (matches the nav pill) ---- */}
       <div
-        className="mobile-menu"
+        className="mobile-menu liquid-glass"
         style={{
           position: "absolute",
-          top: "72px",
-          left: "0.75rem",
-          right: "0.75rem",
+          top: "5.5rem",
+          left: "clamp(1rem, 4vw, 3rem)",
+          right: "clamp(1rem, 4vw, 3rem)",
           zIndex: 40,
           display: "flex",
           flexDirection: "column",
           gap: "0.25rem",
-          padding: "0.75rem",
-          background: "rgba(16, 12, 10, 0.95)",
-          WebkitBackdropFilter: "blur(16px)",
-          backdropFilter: "blur(16px)",
-          borderTop: "1px solid rgba(255,244,232,0.1)",
-          borderBottom: "1px solid rgba(255,244,232,0.1)",
-          boxShadow: "0 25px 50px -12px rgba(0,0,0,0.6)",
-          transition: "transform 0.5s ease-out, opacity 0.5s ease-out",
-          transform: menuOpen ? "translateY(0)" : "translateY(-1rem)",
+          padding: "0.6rem",
+          borderRadius: "1.5rem",
+          WebkitBackdropFilter: "blur(2px)",
+          backdropFilter: "blur(2px)",
+          cursor: "default",
+          transformOrigin: "top center",
+          transition:
+            "transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.4s ease-out",
+          transform: menuOpen
+            ? "translateY(0) scale(1)"
+            : "translateY(-0.75rem) scale(0.98)",
           opacity: menuOpen ? 1 : 0,
           pointerEvents: menuOpen ? "auto" : "none",
         }}
@@ -368,13 +386,16 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
             className="menu-link"
             style={{
               display: "block",
-              padding: "0.75rem",
-              borderRadius: "0.5rem",
-              color: INK,
+              padding: "0.85rem 1.1rem",
+              borderRadius: "9999px",
+              color: isActive(l.href) ? INK : MUTED,
               textDecoration: "none",
-              fontSize: "1rem",
+              fontSize: "0.8rem",
+              fontWeight: 500,
+              textTransform: "uppercase",
+              letterSpacing: "0.08em",
               cursor: "pointer",
-              transition: "background 0.2s",
+              transition: "background 0.25s, color 0.25s",
             }}
           >
             {l.label}
