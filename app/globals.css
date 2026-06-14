@@ -1,164 +1,234 @@
-/* Tailwind v4 Import - temporarily commented out to debug build */
 @import "tailwindcss";
 
+/* ============================================================
+   Cinematic Warm-Glass Portfolio — design system
+   Palette + classes ported 1:1 from the Portfolio design.
+   ============================================================ */
+
 :root {
-  --background: #0a0a0a;
-  --foreground: #fafafa;
+  /* warm film tones */
+  --bg: #0c0908;
+  --ink: #f4ede3;       /* primary text */
+  --m1: #d8cdbf;
+  --m2: #b3a596;
+  --m3: #a99c8d;
+  --m4: #7d7163;
+  --accent: #e0875a;    /* warm orange */
+  --accent-hi: #eab38a; /* hover orange */
+  --green: #6ee787;
 }
 
-/* Typography - Consistent font usage */
-/* Sans: Inter - for body text, UI elements */
-/* Serif: DM Serif Display - for headlines, accents */
-.font-sans {
-  font-family: var(--font-inter), system-ui, sans-serif;
-}
-
-.font-serif {
-  font-family: var(--font-dm-serif-display), Georgia, serif;
-}
-
-.font-mono {
-  font-family: var(--font-space-mono), 'Courier New', monospace;
+* {
+  box-sizing: border-box;
 }
 
 html,
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--ink);
   overflow: hidden;
-  height: 100vh;
-  height: 100dvh;
-  background: transparent;
-  color: var(--foreground);
-  font-family: var(--font-inter), system-ui, sans-serif;
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Only hide cursor when CustomCursor component activates this class */
-body.custom-cursor-active,
-body.custom-cursor-active a,
-body.custom-cursor-active button,
-body.custom-cursor-active [role="button"],
-body.custom-cursor-active input,
-body.custom-cursor-active select,
-body.custom-cursor-active textarea {
-  cursor: none !important;
-}
-
 ::selection {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(224, 135, 91, 0.3);
   color: #fff;
 }
 
-.bg-background {
-  background-color: var(--background);
+/* ---- Glass pill (header style) --------------------------- */
+/* Translucent fill + a single hairline border + layered soft
+   drop-shadows. No heavy blur, refraction or specular glow —
+   the shape reads entirely from the rim light and shadow stack. */
+.liquid-glass {
+  background: rgba(246, 243, 240, 0.04);
+  border: 1px solid rgba(246, 243, 240, 0.04);
+  box-shadow:
+    inset 0 1px 0 0 rgba(246, 243, 240, 0.08), /* top rim catch-light */
+    0 24px 80px 0 rgba(1, 0, 8, 0.08),
+    0 12px 40px 0 rgba(1, 0, 8, 0.12),
+    0 4px 12px 0 rgba(1, 0, 8, 0.16),
+    0 1px 1px 0 rgba(1, 0, 8, 0.2);
+  color: rgba(246, 243, 240, 0.88);
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    box-shadow 0.3s ease, color 0.3s ease;
+}
+.liquid-glass:hover {
+  background: rgba(246, 243, 240, 0.07);
+  border-color: rgba(246, 243, 240, 0.1);
+  color: var(--ink);
+}
+.liquid-glass:focus-visible {
+  outline: 1px solid rgba(246, 243, 240, 0.24);
+  outline-offset: 2px;
 }
 
-.text-foreground {
-  color: var(--foreground);
-}
-
-/* Marquee Animations - GPU accelerated */
-@keyframes marquee-left {
+/* ---- Entrance animation ---------------------------------- */
+@keyframes blurFadeUp {
   from {
-    transform: translateX(0);
+    opacity: 0;
+    filter: blur(20px);
+    transform: translateY(40px);
   }
-
   to {
-    transform: translateX(-50%);
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
   }
 }
-
-@keyframes marquee-right {
-  from {
-    transform: translateX(-50%);
-  }
-
-  to {
-    transform: translateX(0);
-  }
+.animate-blur-fade-up {
+  opacity: 0;
+  animation: blurFadeUp 1s ease-out forwards;
 }
 
-.animate-marquee-left {
-  animation: marquee-left linear infinite;
-}
-
-.animate-marquee-right {
-  animation: marquee-right linear infinite;
-}
-
-/* Pause on hover for marquee */
-.group\/marquee:hover .group-hover\/marquee\:pause {
-  animation-play-state: paused;
-}
-
-/* Scroll Indicator Animation */
-@keyframes scroll-line {
-  0% {
-    transform: translateY(-100%);
-  }
-
+@keyframes softPulse {
+  0%,
   100% {
-    transform: translateY(100%);
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
   }
 }
 
-.animate-scroll-line {
-  animation: scroll-line 1.5s ease-in-out infinite;
+/* ---- Work list rows -------------------------------------- */
+.work-row {
+  transition: padding-left 0.35s ease, background 0.35s ease;
+}
+.work-row .work-arrow {
+  opacity: 0;
+  transform: translateX(-8px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.work-row .work-title {
+  transition: color 0.35s ease;
+}
+.work-row:hover {
+  padding-left: 1.25rem;
+  background: rgba(255, 244, 232, 0.04);
+}
+.work-row:hover .work-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.work-row:hover .work-title {
+  color: var(--accent-hi);
 }
 
-/* Perspective utility for 3D transforms */
-.perspective-1000 {
-  perspective: 1000px;
+/* ---- Form fields ----------------------------------------- */
+.field-input {
+  width: 100%;
+  background: rgba(255, 250, 244, 0.02);
+  border: 1px solid rgba(255, 244, 232, 0.12);
+  border-radius: 0.6rem;
+  padding: 0.7rem 0.85rem;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+.field-input::placeholder {
+  color: var(--m4);
+}
+.field-input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 250, 244, 0.04);
 }
 
-/* iOS Safari safe area support */
-.pb-safe {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+/* category column on work rows — hidden on narrow widths */
+.work-cat {
+  display: none;
+}
+@media (min-width: 720px) {
+  .work-cat {
+    display: inline;
+  }
 }
 
-.pb-safe-6 {
-  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+/* ---- Nav link hover (desktop) ---------------------------- */
+.nav-link:hover {
+  color: var(--ink);
 }
 
-/* Accessibility: Reduced Motion Support */
+/* ---- Generic hover helpers used inline ------------------- */
+.btn-solid {
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-solid:hover {
+  background: #fff;
+  transform: translateY(-2px);
+}
+.menu-link:hover {
+  background: rgba(255, 244, 232, 0.06);
+}
+.email-link:hover {
+  color: var(--accent-hi);
+}
+.back-link:hover {
+  color: var(--ink);
+}
+
+/* ---- Responsive breakpoints (match design exactly) ------- */
+.desktop-nav {
+  display: none;
+}
+.nav-actions {
+  display: flex;
+}
+.hamburger {
+  display: flex;
+}
+@media (min-width: 1024px) {
+  .desktop-nav {
+    display: flex;
+  }
+  .hamburger {
+    display: none;
+  }
+  .mobile-menu {
+    display: none !important;
+  }
+}
+@media (max-width: 880px) {
+  .two-col {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .about-portrait {
+    width: 100% !important;
+    max-width: 320px;
+  }
+  .home-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 639px) {
+  .nav-actions {
+    display: none;
+  }
+}
+
+/* ---- Accessibility --------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
-
-  .animate-marquee-left,
-  .animate-marquee-right,
-  .animate-scroll-line {
-    animation: none !important;
+  .animate-blur-fade-up {
+    opacity: 1 !important;
   }
-}
-
-/* GPU-accelerated animation utilities */
-.will-animate {
-  will-change: transform, opacity;
-}
-
-.will-animate-filter {
-  will-change: transform, opacity, filter;
-}
-
-/* Smooth blur transition utility */
-.blur-transition {
-  transition: filter 0.3s ease-out;
-}
-
-/* Clip-path reveal animation base */
-.reveal-mask {
-  clip-path: inset(0% 0 0 0);
-}
-
-.reveal-mask-hidden {
-  clip-path: inset(100% 0 0 0);
 }

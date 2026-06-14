@@ -1,37 +1,18 @@
 import type { Metadata } from "next";
-import { Inter, Space_Mono, DM_Serif_Display } from "next/font/google";
-import { ThemeProvider } from "@/components/theme-provider";
+import { Inter } from "next/font/google";
 import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
-// LenisProvider removed - using scroll-jacking instead of smooth scroll
-import { Preloader } from "@/components/preloader";
+import { PortfolioShell } from "@/components/portfolio-shell";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
   preload: true,
   fallback: ["system-ui", "Arial"],
-});
-
-const spaceMono = Space_Mono({
-  variable: "--font-space-mono",
-  weight: ["400", "700"],
-  subsets: ["latin"],
-  display: "swap",
-  preload: false, // Load on-demand since it's used for accent text
-  fallback: ["Courier New", "monospace"],
-});
-
-const dmSerifDisplay = DM_Serif_Display({
-  variable: "--font-dm-serif-display",
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-  fallback: ["serif", "Georgia"],
 });
 
 export const metadata: Metadata = {
@@ -132,19 +113,8 @@ export default function RootLayout({
         <StructuredData type="LocalBusiness" />
         <StructuredData type="FAQ" />
       </head>
-      <body
-        className={`${inter.variable} ${spaceMono.variable} ${dmSerifDisplay.variable} antialiased`}
-        suppressHydrationWarning
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <Preloader />
-          {children}
-        </ThemeProvider>
+      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+        <PortfolioShell>{children}</PortfolioShell>
 
         {/* Analytics & Consent */}
         <GoogleAnalytics />
