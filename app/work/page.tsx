@@ -20,16 +20,22 @@ export default function WorkPage() {
     >
       <div
         className="animate-blur-fade-up"
-        style={{ animationDelay: "100ms", marginBottom: "clamp(1rem, 3vw, 2rem)" }}
+        style={{
+          animationDelay: "100ms",
+          marginBottom: "clamp(0.75rem, 2vw, 1.25rem)",
+          paddingBottom: "clamp(0.75rem, 2vw, 1.25rem)",
+          borderBottom: "1px solid rgba(255,244,232,0.1)",
+        }}
       >
         <div
           style={{
             display: "inline-flex",
             alignItems: "center",
             gap: "0.5rem",
-            fontSize: "0.8rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
+            fontFamily: "var(--font-fraunces)",
+            fontStyle: "italic",
+            fontSize: "0.9rem",
+            letterSpacing: "0.03em",
             color: "#e0875a",
             marginBottom: "0.75rem",
           }}
@@ -57,7 +63,8 @@ export default function WorkPage() {
         </h2>
       </div>
 
-      {/* scrollable list */}
+      {/* scrollable list — soft top fade so rows dissolve as they scroll
+          under the heading instead of hard-cutting at the edge */}
       <div
         onMouseLeave={() => setActive(null)}
         style={{
@@ -67,7 +74,9 @@ export default function WorkPage() {
           overflowX: "hidden",
           display: "flex",
           flexDirection: "column",
-          borderTop: "1px solid rgba(255,244,232,0.1)",
+          WebkitMaskImage:
+            "linear-gradient(to bottom, transparent 0, #000 18px)",
+          maskImage: "linear-gradient(to bottom, transparent 0, #000 18px)",
         }}
       >
         {works.map((p, i) => (

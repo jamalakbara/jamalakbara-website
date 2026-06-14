@@ -1,18 +1,28 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Space_Grotesk, Fraunces } from "next/font/google";
 import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
 import { PortfolioShell } from "@/components/portfolio-shell";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500"],
   display: "swap",
   preload: true,
   fallback: ["system-ui", "Arial"],
+});
+
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  weight: ["300", "400"],
+  style: ["italic"],
+  display: "swap",
+  preload: false,
+  fallback: ["Georgia", "serif"],
 });
 
 export const metadata: Metadata = {
@@ -113,7 +123,7 @@ export default function RootLayout({
         <StructuredData type="LocalBusiness" />
         <StructuredData type="FAQ" />
       </head>
-      <body className={`${inter.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${fraunces.variable} antialiased`} suppressHydrationWarning>
         <PortfolioShell>{children}</PortfolioShell>
 
         {/* Analytics & Consent */}

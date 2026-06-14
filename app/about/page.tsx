@@ -1,11 +1,12 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import { about } from "@/lib/site-data";
 
 export default function AboutPage() {
   return (
     <div
+      className="about-root"
       style={{
         flex: 1,
         display: "flex",
@@ -18,8 +19,12 @@ export default function AboutPage() {
         className="two-col"
         style={{
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
           gap: "clamp(2rem, 5vw, 4.5rem)",
+          width: "100%",
+          maxWidth: "1080px",
+          margin: "0 auto",
         }}
       >
         <div
@@ -30,18 +35,25 @@ export default function AboutPage() {
             flexShrink: 0,
           }}
         >
-          <img
-            src={about.portrait}
-            alt="Portrait of Akbar"
+          <div
             style={{
+              position: "relative",
               width: "100%",
               aspectRatio: "4 / 5",
-              objectFit: "cover",
               borderRadius: "18px",
-              display: "block",
+              overflow: "hidden",
               background: "rgba(255,244,232,0.04)",
             }}
-          />
+          >
+            <Image
+              src="https://res.cloudinary.com/dh0spkwh3/image/upload/v1781459302/me_fujmfd.png"
+              alt="Portrait of Akbar"
+              fill
+              priority
+              sizes="(max-width: 700px) 60vw, 340px"
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         </div>
 
         <div style={{ flex: 1, minWidth: 0, maxWidth: "38rem" }}>
@@ -52,9 +64,10 @@ export default function AboutPage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              fontSize: "0.8rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-fraunces)",
+              fontStyle: "italic",
+              fontSize: "0.9rem",
+              letterSpacing: "0.03em",
               color: "#e0875a",
               marginBottom: "1rem",
             }}

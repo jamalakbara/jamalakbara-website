@@ -165,22 +165,6 @@ export default function HomePage() {
             Get in touch
           </Link>
         </div>
-        <div
-          className="animate-blur-fade-up"
-          style={{
-            animationDelay: "800ms",
-            fontSize: "0.8rem",
-            color: "#7d7163",
-            letterSpacing: "0.02em",
-            textAlign: "right",
-            lineHeight: 1.6,
-            whiteSpace: "nowrap",
-          }}
-        >
-          {home.selectedLabel}
-          <br />
-          {home.selectedRange}
-        </div>
       </div>
     </div>
   );

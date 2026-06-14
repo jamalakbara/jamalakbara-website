@@ -6,6 +6,8 @@ import { contact } from "@/lib/site-data";
 
 type Errors = { name?: string; email?: string; message?: string };
 
+const WHATSAPP_NUMBER = "6281321766565";
+
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
@@ -31,6 +33,17 @@ export default function ContactPage() {
       return;
     }
     setErrors({});
+
+    const text = [
+      `Hi Akbar, I'm ${form.name.trim()}.`,
+      "",
+      form.message.trim(),
+      "",
+      `Reply to: ${form.email.trim()}`,
+    ].join("\n");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+
     setSent(true);
   };
 
@@ -43,6 +56,7 @@ export default function ContactPage() {
 
   return (
     <div
+      className="contact-root"
       style={{
         flex: 1,
         display: "flex",
@@ -56,7 +70,11 @@ export default function ContactPage() {
         style={{
           display: "flex",
           alignItems: "flex-start",
+          justifyContent: "space-between",
           gap: "clamp(2rem, 6vw, 5rem)",
+          width: "100%",
+          maxWidth: "1080px",
+          margin: "0 auto",
         }}
       >
         {/* left column */}
@@ -68,9 +86,10 @@ export default function ContactPage() {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              fontSize: "0.8rem",
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
+              fontFamily: "var(--font-fraunces)",
+              fontStyle: "italic",
+              fontSize: "0.9rem",
+              letterSpacing: "0.03em",
               color: "#e0875a",
               marginBottom: "1rem",
             }}
@@ -184,10 +203,11 @@ export default function ContactPage() {
                 <Check size={22} color="#6ee787" strokeWidth={2.2} />
               </div>
               <div style={{ fontSize: "1.15rem", marginBottom: "0.4rem" }}>
-                Message sent.
+                Opening WhatsApp…
               </div>
               <div style={{ fontSize: "0.9rem", color: "#b3a596" }}>
-                Thanks for reaching out — I&apos;ll reply within a day or two.
+                Just hit send in the chat and I&apos;ll get back to you within a
+                day or two.
               </div>
             </div>
           ) : (

@@ -21,8 +21,6 @@ export const home = {
   headline: "Building fast, thoughtful products for the web.",
   intro:
     "I'm Akbar — a developer & designer from Bandung crafting digital experiences that feel fast, clear, and built to work in the real world.",
-  selectedLabel: "Selected work",
-  selectedRange: "2020 — 2026",
 };
 
 /* ---- Work ------------------------------------------------------------- */

@@ -30,7 +30,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   overflow: hidden;
-  font-family: var(--font-inter), "Inter", system-ui, sans-serif;
+  font-family: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -246,9 +246,28 @@ button.liquid-glass:active {
   .nav-actions {
     display: none;
   }
+  /* About & Contact: top-align and use natural height so tall content
+     flows into the scrollable content region instead of being vertically
+     centered (which clipped the top behind the navbar) or cropped at the
+     bottom on small / short screens. */
+  .about-root,
+  .contact-root {
+    justify-content: flex-start !important;
+    flex: 0 0 auto !important;
+    padding-top: 1.25rem;
+    padding-bottom: 1.5rem;
+  }
+  .two-col {
+    gap: 1.5rem !important;
+  }
+  /* portrait no longer dominates the viewport */
+  .about-portrait {
+    max-width: 200px;
+  }
 }
 
 /* ---- Accessibility --------------------------------------- */
+/* mobile scroll fix applied for About & Contact */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
