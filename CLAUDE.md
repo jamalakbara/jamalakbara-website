@@ -160,7 +160,10 @@ See `.env.example`.
 2. Respect z-index layering and `prefers-reduced-motion`.
 
 ## Known Gaps
-- `app/layout.tsx` references `/logo.png` (icons/mask-icon) but `public/logo.png` does not exist — `favicon.ico` is the working icon. Add the asset or update the references.
+- `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
+
+## Icons
+Brand icons are a "j." monogram (Space Grotesk glyph outlines, no font dependency): `public/icon.svg` (favicon, rounded), `public/apple-icon.png` (180×180), `public/icon-192.png` / `public/icon-512.png` (manifest). Regenerate by rasterizing from the SVG if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
 
 ## Performance Considerations
 - Content is static (compile-time), no runtime fetch.

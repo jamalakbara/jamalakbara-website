@@ -1,0 +1,48 @@
+---
+title: "Typed TypeScript modules instead of a CMS"
+description: "Why this portfolio keeps all content in typed TypeScript modules — build-time validation, zero runtime fetches, and where the approach stops scaling."
+date: "2026-07-08"
+tags: ["typescript", "nextjs", "architecture", "content"]
+draft: true
+---
+
+{/* OUTLINE — expand each section, then set draft: false and update date. */}
+
+## The setup
+
+- Three files: content-types.ts (interfaces), static-content.ts (the data),
+  site-data.ts (derived view-models pages actually consume).
+- Same import works in server and client components — show the
+  getStaticContent pattern.
+
+## What the type checker buys you
+
+- Renamed field, missing image, wrong enum value = build error, not a broken
+  production page. `npm run build` is the content validator.
+- Refactors touch content safely: rename a Project field and the compiler
+  walks you through every usage.
+
+## What you give up
+
+- Non-developers cannot edit. Honest framing: for a single-author portfolio
+  this costs nothing; for a team or client site it is disqualifying.
+- Long-form text in TS strings is miserable — which is exactly why this
+  journal is MDX files, not static-content entries. Content shape should
+  match content kind: structured data in TS, prose in MDX.
+
+## The view-model layer
+
+- Why pages read site-data.ts constants instead of raw content: pages want
+  pre-shaped rows (numbering, hrefs, formatted dates), and that mapping
+  belongs in one place, not in JSX.
+
+## When to reach for a real CMS
+
+- Editors who are not you, content that changes more often than code deploys,
+  localization, preview workflows. Until one of those is true, the CMS is
+  infrastructure without a customer.
+
+## Closing
+
+- Rule of thumb: pick the storage that makes invalid content impossible to
+  ship, then stop adding machinery.

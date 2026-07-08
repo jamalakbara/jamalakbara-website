@@ -1,0 +1,78 @@
+---
+title: "Building jamalakbara.com: video backgrounds, liquid glass, and a warm dark theme"
+description: "A build log of this site — how per-route Cloudinary video backgrounds crossfade without flashing, how the liquid-glass UI is pure CSS, and why the whole thing ships as static TypeScript."
+date: "2026-07-08"
+tags: ["nextjs", "cloudinary", "css", "build-log"]
+draft: false
+---
+
+This site is a small project with a very specific mood in mind: warm, dark, a little cinematic — closer to a film title sequence than a typical portfolio grid. This post is a build log of the three decisions that shaped it: full-screen video backgrounds that change per route, a glass UI that is pure CSS, and a content layer that is just TypeScript.
+
+The stack is Next.js 16 (App Router), React 19, and Tailwind CSS v4, with Framer Motion for component animation and Cloudinary for all media.
+
+## Per-route video backgrounds without the flash
+
+Every route has its own looping background video — home, work, about, contact each get a different scene. The videos live on Cloudinary, and the URL carries the optimization: `q_auto,f_auto` lets Cloudinary pick quality and codec per browser, so I never encode anything by hand.
+
+The hard part was switching videos on navigation without a flash of black or a stale frame from the previous page. The setup that ended up working is two stacked video layers that crossfade:
+
+```tsx
+// route -> Cloudinary path; the shell crossfades between them
+const PAGE_PATHS: Record<string, string> = {
+  "/": "bg-home",
+  "/work": "bg-work",
+  "/journal": "bg-journal",
+  "/about": "bg-about",
+  "/contact": "bg-contact",
+};
+```
+
+Each layer is a wrapper div whose CSS background is a still image, with the actual video element inside it. From the same video asset, Cloudinary derives two stills:
+
+- a sharp first frame — the video URL with `so_0` (seek to zero) as a `.jpg`
+- a tiny blurred placeholder — the same frame at `w_64` with `e_blur:1200`, a few kilobytes
+
+The blurred placeholder paints instantly, the sharp frame lands over it, and the video fades in over both once it can actually play. On navigation, the back layer gets the new route's still and is revealed immediately — so you see the correct scene right away as a still image — and its video stays hidden until `canplay` fires. No black flash, no wrong frame.
+
+One lesson from this: drive the swap imperatively. My first version bound the video `src` reactively through React state, and React would rewrite the source behind the transition logic mid-swap, which broke the guard that kept stale frames hidden. The working version sets `src`, calls `load()` and `play()`, and flips opacities directly on refs inside one effect.
+
+Hovering a nav link also warms the cache — a detached video element with `preload="auto"` starts fetching that route's video before you click, so the swap is usually instant.
+
+## Liquid glass is just CSS
+
+The navbar pill, buttons, and form fields share one class, `.liquid-glass`. There is no library and no canvas trickery — it is a translucent fill, a hairline border, and a few layered soft shadows, with a springy scale on press. The frosted look over the video comes from `backdrop-filter: blur()`.
+
+The theme itself is Tailwind v4, which means there is no `tailwind.config` at all. Design tokens are CSS custom properties declared once in `globals.css`:
+
+```css
+--bg: #0c0908;      /* warm near-black */
+--ink: #f4ede3;     /* warm cream */
+--accent: #e0875a;  /* warm orange */
+```
+
+Everything on the site derives from that short list. Keeping the palette warm — brown-black instead of pure black, cream instead of white — is most of what makes the site feel like film rather than terminal.
+
+Type is a two-face system: Space Grotesk carries everything — headlines, body, nav — and Fraunces appears only as italic eyebrow labels, the small "— Selected Work" markers above headings. One accent face with one narrow job is a cheap way to add character without managing a whole typographic system.
+
+Legibility over video is handled by the shell, not by each page: a uniform scrim gradient darkens toward the bottom where text lives, plus a soft-light color grade layer and a vignette. Pages can then put plain text straight on the background and trust the contrast.
+
+## No CMS, just TypeScript
+
+All content — projects, services, copy — lives in typed TypeScript modules. Not JSON, not MDX collections, no headless CMS. A content change is a code change:
+
+```typescript
+import { getStaticContent } from "@/lib/static-content";
+const projects = getStaticContent.projects();
+```
+
+For a single-author portfolio this trade is easy. The type checker validates every piece of content at build time — a missing image field or a renamed property is a build error, not a broken page in production. There is no runtime fetch, no loading state, and nothing to keep deployed besides the site itself.
+
+The obvious cost is that non-developers cannot edit anything, which matters exactly zero here.
+
+## Small things that mattered
+
+- **`prefers-reduced-motion` is honored globally** — one media query flattens every animation and transition, and the entrance animations resolve to their final state instead of hiding content.
+- **Entrance animation is CSS, not JS** — a single `blurFadeUp` keyframe with staggered `animation-delay` handles page entrances; Framer Motion is reserved for things that respond to input.
+- **The scrim is uniform across routes** — I tried tuning darkness per page and it read as inconsistency, not intention. One gradient everywhere was the fix.
+
+The site is intentionally small — four pages and this journal — and most of the effort went into how it feels to move through it rather than how much it contains. That felt like the right trade for a portfolio: the site itself is the case study.

@@ -198,34 +198,6 @@ export interface HeroContent {
   };
 }
 
-export interface BlogContent {
-  id: string;
-  title: string;
-  slug: string;
-  excerpt: string;
-  content: string;
-  category: string;
-  tags: string[];
-  publishedAt: string;
-  updatedAt: string;
-  author: string;
-  readTime: number;
-  featured: boolean;
-  seo: {
-    metaDescription: string;
-    keywords: string[];
-    ogImage?: string;
-  };
-  contentBlocks?: {
-    type: 'heading' | 'paragraph' | 'list' | 'code';
-    text?: string;
-    level?: number;
-    items?: string[];
-    language?: string;
-    code?: string;
-  }[];
-}
-
 export interface CTAContent {
   heading: string;
   description: string;

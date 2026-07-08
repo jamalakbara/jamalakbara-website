@@ -1,0 +1,47 @@
+---
+title: "A cursor-following work preview with Framer Motion springs"
+description: "How the floating media preview on the work page tracks the cursor with spring physics and tilts with pointer velocity — and why it only exists on hover-capable devices."
+date: "2026-07-08"
+tags: ["framer-motion", "react", "interaction-design"]
+draft: true
+---
+
+{/* OUTLINE — expand each section, then set draft: false and update date. */}
+
+## The effect
+
+- Describe what the visitor sees: hovering a row on /work floats a media
+  thumbnail that follows the cursor, leaning into the direction of movement.
+- Why this pattern instead of static thumbnails: keeps the list typographic
+  and calm, reveals media only on intent.
+
+## Spring-based following, not lerp
+
+- `useMotionValue` for raw cursor x/y, `useSpring` wrapping them for the
+  rendered position — the preview trails the cursor with weight.
+- Show the stiffness/damping values used and what changing each does.
+- Why springs beat manual lerp in React: no rAF bookkeeping, no re-renders —
+  motion values update outside the React render cycle.
+
+## Velocity tilt
+
+- Reading pointer velocity and mapping it to rotate/skew so the card "leans"
+  into fast movement and settles upright when the cursor stops.
+- Clamping: unclamped velocity looks broken on fast flicks — show the mapping.
+
+## Swapping media without jank
+
+- What happens when the hovered row changes mid-motion: crossfade inside the
+  floating frame vs. remounting; video elements need play() kicked after swap.
+
+## Gate it to devices that can hover
+
+- `@media (hover: hover)` / pointer detection — on touch the preview never
+  mounts at all, not merely hidden.
+- Also respect `prefers-reduced-motion`: the preview is an enhancement, the
+  list is the interface.
+
+## Closing
+
+- Cost/benefit: ~one component, no library beyond Framer Motion already in
+  the bundle. Link to work page as the live demo.

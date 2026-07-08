@@ -1,0 +1,51 @@
+---
+title: "App development: when you actually need an app, and how I build them"
+description: "An honest guide to mobile app development — when a web app is enough, when a real app earns its cost, and how React Native lets one codebase ship to both iOS and Android."
+date: "2026-07-08"
+tags: ["mobile", "react-native", "app-development", "client-work"]
+draft: false
+---
+
+"We need an app" is one of the most common requests in this business, and one of the most expensive sentences a company can say. Sometimes it's exactly right. Often a well-built web app does the same job for a fraction of the cost. This post is the conversation I have with clients before any code gets written.
+
+## First question: do you need an app at all?
+
+An app earns its place on someone's home screen when at least one of these is true:
+
+- **It's used repeatedly** — daily or weekly, not once. Nobody installs an app for a one-time interaction.
+- **It needs device capabilities** — camera flows, push notifications, offline use, background location. The browser has grown a lot, but these still work better natively.
+- **It lives in a habit loop** — messaging, tracking, finance, anything people check reflexively.
+
+If the honest answer is "customers will use this a few times a year," a fast mobile-first website serves them better — no install friction, no app store review, one codebase, instantly updatable. I've talked clients out of apps, and it's always been the right call when the usage pattern wasn't there.
+
+## When it is an app: why I build with React Native
+
+When an app is justified, the next trap is building it twice — one team for iOS (Swift), one for Android (Kotlin), double the cost and double the maintenance forever. For most products that's waste.
+
+React Native lets one codebase ship to both platforms with native performance and native look-and-feel. A split-bill app in my portfolio works this way: one codebase, both stores, smooth 60fps interactions. The practical benefits for a client:
+
+- **One build, two platforms** — reach the whole market on day one without doubling the budget.
+- **Shared logic with your web product** — if your web app is React (most are, these days), business logic and even developers carry over.
+- **Faster iteration** — one change lands on both platforms in the same release.
+
+The honest caveats: games, heavy real-time graphics, and apps that live deep in platform-specific APIs are better served native. And "cross-platform" doesn't excuse ignoring platform conventions — iOS and Android users expect different navigation patterns, and the app should respect both.
+
+## What the build actually involves
+
+1. **Strategy** — defining what the app does that the website can't, and which platform conventions matter for your users.
+2. **UI/UX adaptation** — mobile design isn't a shrunken website. Gestures, thumb reach, native navigation patterns, offline states.
+3. **Development** — the React Native build, plus the part people forget: the backend. Most apps are a thin client over an API, and that API needs the same care as the app — authentication, data integrity, performance on weak connections.
+4. **Release** — App Store and Google Play submission, review handling, and the release pipeline for updates. First-time clients consistently underestimate this stage; the stores have opinions.
+
+## The part that determines success: after launch
+
+An app is not a project with an end date. Push notification strategy, crash monitoring, OS updates every year, store policy changes — a small ongoing engineering budget matters more than any launch feature. I'd rather ship a smaller app a company can afford to maintain than a big one that rots in eighteen months.
+
+## Web app, PWA, or native — the short version
+
+- **Website / web app** — default choice. Cheapest, fastest to ship, no install barrier.
+- **PWA** — a web app that can install and work offline. Good middle ground, still limited on iOS.
+- **React Native app** — when usage is habitual or device features are core. One codebase, both stores.
+- **Fully native** — when the app *is* the product and pushes the platform hard.
+
+Thinking about an app for your business? [Talk to me](/contact) before you commit a budget — the cheapest mistake to fix is the one you haven't built yet.
