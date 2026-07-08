@@ -1,0 +1,46 @@
+---
+title: "Custom Shopify development: what separates a store from a template"
+description: "What actually goes into a custom Shopify build — bespoke themes, product drops that survive traffic spikes, subscriptions, and when headless makes sense. Notes from building stores for Indonesian fashion and lifestyle brands."
+date: "2026-07-08"
+tags: ["shopify", "e-commerce", "liquid", "client-work"]
+draft: false
+---
+
+Most of the e-commerce work in my portfolio is Shopify — fashion labels, a perfumery, streetwear, plant-based food. Every one of those brands came with the same starting problem: the standard themes couldn't carry their identity, and their operations didn't fit the defaults. This post is a plain-language tour of what custom Shopify development actually involves, for anyone considering it for their own brand.
+
+## Why not just buy a theme?
+
+A purchased theme is genuinely fine for a lot of stores. Where it breaks down is the moment your brand or your operations stop being generic:
+
+- Your visual identity is a real asset — a premium perfumery or a heritage fashion brand looks wrong wearing the same layout as ten thousand other stores.
+- Your selling model isn't "browse, add to cart, checkout" — you run timed drops, made-to-order pieces, subscriptions, or B2B pricing.
+- Your content is part of the product — collection stories, fragrance education, lookbooks — and theme templates treat content as an afterthought.
+
+A custom theme is written in Liquid (Shopify's template language) against your actual brand system and your actual workflows. You keep everything that makes Shopify worth using — checkout, payments, inventory, the admin your team already knows — and replace only the storefront.
+
+## The parts clients don't see
+
+The visible design is maybe half the work. The rest, from real projects:
+
+**Surviving drops.** Streetwear and limited-collection brands live on product drops, which means the store's worst traffic day is also its most important. That takes queue handling, aggressive image optimization, and a storefront that stays fast when thousands of people hit one product page at once. Zero downtime during a flash sale is a feature you build, not a default.
+
+**Subscriptions.** For a plant-based food brand I integrated Recharge deeply into the store, so subscriptions feel native instead of bolted on — and the content section (recipes, articles) links straight to products, turning content into a sales channel.
+
+**Discovery tools.** For a perfumery, a fragrance finder that recommends scents from a short quiz did more for conversion than any layout change. Custom features like this are where Shopify development earns its cost.
+
+**Storytelling structure.** An Indonesian fashion brand celebrating local craftsmanship needed collection story pages, a visual timeline of past collections, and filters for sustainable materials. None of that exists in a theme store.
+
+## When headless makes sense (and when it doesn't)
+
+For one multi-region fashion brand I built a headless setup — Shopify Hydrogen with a React storefront and a PIM system feeding product data across regions. The result is extremely fast and completely flexible.
+
+But I'll say the unfashionable thing: most stores don't need headless. It costs more to build, more to maintain, and it disconnects you from parts of the Shopify app ecosystem. It earns its keep when you have multi-region complexity, an unusual frontend, or performance requirements a Liquid theme can't hit. If a custom Liquid theme can do the job, that's usually the better investment.
+
+## What working with me on a Shopify build looks like
+
+1. **Discovery** — understanding the brand, the catalog, and how you actually sell (drops? pre-orders? subscriptions?). This shapes everything.
+2. **Design** — a storefront designed from your brand system, not adapted from a template.
+3. **Build** — custom Liquid theme (or headless where justified), performance-optimized, mobile-first — most Indonesian e-commerce traffic is on phones.
+4. **Launch and handover** — your team keeps using the normal Shopify admin. A custom theme should never make daily operations harder.
+
+If you're an Indonesian brand — or anywhere else — outgrowing your Shopify template, [get in touch](/contact). Happy to look at your store and tell you honestly whether custom development is worth it for your case.

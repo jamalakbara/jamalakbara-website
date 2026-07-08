@@ -1,0 +1,41 @@
+---
+title: "How I actually use AI as a developer and designer"
+description: "An honest inventory of where AI tools fit in my daily work — what I hand off to coding agents, what I never do, and why the boring uses turned out to be the valuable ones."
+date: "2026-07-08"
+tags: ["ai", "workflow", "tooling", "craft"]
+draft: false
+---
+
+Every developer has an AI opinion now, and most of them are either "it changes everything" or "it's autocomplete with confidence." Neither matches my day-to-day. This is an honest inventory of where AI actually sits in my work — including the parts of this site it helped build — and where I deliberately keep it out.
+
+## What I hand off
+
+**The plumbing.** Metadata exports, sitemap wiring, structured data, config, migrations between library versions — work that has a correct answer and no taste component. AI coding agents are genuinely good at this, and it's exactly the work that used to eat afternoons without making anything better. The SEO layer of this site — per-route metadata, canonicals, JSON-LD — went from "known chore I kept postponing" to done in an hour of review.
+
+**First drafts of the boring halves.** Every feature has an interesting half and a mechanical half. The cursor-following preview on my work page: the spring physics and the feel were the interesting half. The event handlers, the hover-capability gating, the cleanup — mechanical. I'll happily let an agent draft the mechanical half while I keep the half that decides whether the thing feels good.
+
+**Rubber-ducking with a fast reader.** An agent that has read the whole codebase in seconds is a useful thing to argue with. "Why might this crossfade flash on Safari" gets me a ranked list of suspects faster than I'd build one myself. I don't always take the answer; I always take the speed.
+
+**The writing I wouldn't do otherwise.** Drafts of documentation, alt text, meta descriptions. Not because AI writes better than a person — because "a decent draft exists" beats "nothing exists" every time, and editing is cheaper than starting.
+
+## What I don't hand off
+
+**Design decisions.** Not the palette, not the type pairing, not the motion timing. This site's warm near-black, the Fraunces italic eyebrows, the way the videos crossfade — these came from taste and iteration, and every time I've asked AI for aesthetic direction it returns the average of everything, which is exactly what a portfolio must not be. AI can implement a design system; it cannot want one.
+
+**The feel pass.** The last 10% of any interaction — easing curves, delays, how springy a press should be — happens by trying it, on a real device, with my own hands. There's no prompt for "this feels slightly cheap."
+
+**Anything I couldn't review.** The rule I actually follow: never merge what I couldn't have written slower myself. The moment AI output goes beyond my ability to judge it, I've stopped being an engineer and started being a passenger. That line moves as I learn — but it exists, and respecting it is the whole game.
+
+**Client judgment.** What to build, what to cut, when to tell a client their app idea should be a website — that's accountability, and accountability doesn't delegate.
+
+## What surprised me
+
+The honest surprise isn't capability — it's *where* the value landed. I expected AI to help with the hard parts. Instead it mostly deletes the tedious parts, and that turns out to matter more. The hard parts were never the bottleneck; the afternoons of plumbing were. Removing them doesn't make me a faster typist — it means the gap between "decided" and "shipped" got short enough that I actually ship the small improvements I used to postpone forever.
+
+The second surprise: AI made my *reviewing* muscle more important than my writing muscle. Reading code critically, spotting the subtly wrong assumption, knowing what good looks like — that's the skill that got more valuable, not less.
+
+## Where this leaves me
+
+Tools changed; the job didn't. The job was never typing — it was deciding what's worth building and noticing when it's wrong. AI compresses everything around those two things and replaces neither.
+
+I wrote a companion piece on what this means for craft more broadly — [what AI commoditizes, and what it makes more valuable](/journal/ai-and-craft).

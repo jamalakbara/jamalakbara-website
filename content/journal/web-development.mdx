@@ -1,0 +1,59 @@
+---
+title: "How I approach web development"
+description: "What goes into a website that loads fast, ranks on Google, and stays easy to maintain — the process and principles behind my web development work, from discovery to launch."
+date: "2026-07-08"
+tags: ["web-development", "nextjs", "performance", "client-work"]
+draft: false
+---
+
+"Web development" covers everything from a five-page profile site to a full product. What stays constant across all of it — landing pages, storytelling sites, dashboards, e-commerce — is a short list of principles. This post lays them out, so you know what you're getting when you work with me.
+
+## Fast is a feature, not a finish
+
+Speed is the first thing I design for, because it quietly decides everything else: Google ranks fast sites higher, visitors trust them more, and every second of load time costs conversions. In Indonesia, where a large share of visits happen on mid-range phones over mobile data, this isn't optional polish — it's whether the site works at all for your audience.
+
+In practice that means:
+
+- **Static-first rendering** — pages pre-built as HTML wherever possible, so the server has almost nothing to do and the visitor waits for almost nothing. My default stack is Next.js, which makes this the natural path.
+- **Media discipline** — images and video served through a CDN in modern formats, sized for the screen requesting them, lazy-loaded below the fold. Media is where most sites lose their performance budget.
+- **No dead weight** — every library has to justify its bytes. Most "slow websites" are really "websites carrying twenty things they don't use."
+
+## Built to be found
+
+A website nobody finds is an expensive business card. Search optimization is built in from the first commit, not sprinkled on later:
+
+- Every page gets its own title, description, and canonical URL — one page, one topic, one search intent.
+- Structured data (the machine-readable layer Google reads) describes the business, the services, the content.
+- Semantic HTML and server-rendered content, so crawlers see the real page, not an empty shell waiting for JavaScript.
+- A sitemap that updates itself as content is added.
+
+None of this is exotic — it's discipline. The gap between sites that rank and sites that don't is mostly whether anyone did these fundamentals properly.
+
+## Design and code are one job
+
+I work across design and development, and I think the split between "designer hands off, developer implements" is where most quality dies — details get lost in translation, and nobody owns the result. Working across both means:
+
+- The design is always buildable — no mockup fantasies that degrade in implementation.
+- Interactions get designed *in the medium* — hover states, transitions, and motion tuned in the browser, where they actually live.
+- The details survive — spacing, typography, and timing land as intended because the same person carries them through.
+
+Motion deserves a mention: used with restraint, it's what makes a site feel considered rather than assembled. Always with an off-switch — the site respects visitors who prefer reduced motion.
+
+## Maintainable beats impressive
+
+The invisible half of web development is what the site costs to live with:
+
+- **Boring, proven technology** — TypeScript, React, Next.js. Any competent developer can pick up the codebase after me. No clever frameworks that orphan the project in two years.
+- **Right-sized content management** — a CMS only when content genuinely changes often. A heavy CMS on a site that updates twice a year is pure maintenance liability.
+- **Type-safe content** — on my own projects, content lives in typed code so a mistake is a build error, not a broken page in production. The same philosophy applies to client work: make invalid states impossible to ship.
+
+## The process, briefly
+
+1. **Discovery** — goals, audience, and what "working" means for this site. Numbers where possible.
+2. **Design** — structure first (what goes where and why), then visual language.
+3. **Build** — with performance and SEO baked in, reviewed on real devices.
+4. **Launch** — analytics wired up (with proper consent), search console verified, handover documented.
+
+Then the honest follow-up: checking whether the site is doing its job, and adjusting where it isn't.
+
+If you need a website built — or an existing one made faster, findable, and easier to live with — [get in touch](/contact).

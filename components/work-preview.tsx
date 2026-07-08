@@ -32,12 +32,17 @@ export default function WorkPreview({ active }: { active: WorkRow | null }) {
 
   // velocity-driven tilt (awwwards flourish)
   const velX = useVelocity(springX);
-  const tilt = useTransform(velX, [-1500, 1500], [-8, 8], { clamp: true });
+  const tilt = useTransform(velX, [-1500, 1500], [-5, 5], { clamp: true });
   const tiltSpring = useSpring(tilt, { stiffness: 300, damping: 20 });
+
+  // inner-media parallax: image drifts opposite the cursor's travel
+  const parallax = useTransform(velX, [-1500, 1500], [8, -8], { clamp: true });
+  const parallaxSpring = useSpring(parallax, { stiffness: 200, damping: 25 });
 
   const followX = reduce ? mouseX : springX;
   const followY = reduce ? mouseY : springY;
   const rotate = reduce ? 0 : tiltSpring;
+  const mediaShift = reduce ? 0 : parallaxSpring;
 
   // only enable on devices with a real pointer that can hover
   useEffect(() => {
@@ -95,76 +100,163 @@ export default function WorkPreview({ active }: { active: WorkRow | null }) {
             transition={{ duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
             style={{
               x: "-50%",
-              y: "-50%",
+              // cursor rides near the bottom edge so the hovered row stays readable
+              y: "-70%",
               rotate,
               width: "clamp(280px, 26vw, 420px)",
-              aspectRatio: "4 / 3",
-              borderRadius: "0.8rem",
+              borderRadius: "1rem",
               overflow: "hidden",
               position: "relative",
-              background: "rgba(12,9,8,0.4)",
+              padding: "0.375rem",
+              display: "flex",
+              flexDirection: "column",
+              gap: "0.375rem",
+              background: "rgba(20,15,12,0.55)",
+              backdropFilter: "blur(20px) saturate(1.2)",
+              WebkitBackdropFilter: "blur(20px) saturate(1.2)",
+              border: "1px solid rgba(246,243,240,0.12)",
               boxShadow:
-                "inset 0 1px 1px rgba(255,248,240,0.2), inset 0 -1px 1px rgba(0,0,0,0.1), 0 12px 40px rgba(0,0,0,0.45)",
+                "inset 0 1px 0 0 rgba(246,243,240,0.1), 0 24px 80px 0 rgba(1,0,8,0.3), 0 12px 40px 0 rgba(1,0,8,0.35), 0 4px 12px 0 rgba(1,0,8,0.4)",
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={active.image}
-              alt=""
-              loading="lazy"
-              draggable={false}
+            {/* media well */}
+            <div
               style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
+                position: "relative",
+                aspectRatio: "16 / 9",
+                borderRadius: "0.65rem",
+                overflow: "hidden",
+                background: "rgba(12,9,8,0.4)",
               }}
-            />
-
-            {active.video && (
-              <video
-                key={active.id}
-                src={active.video}
-                muted
-                loop
-                playsInline
-                autoPlay
-                preload="none"
-                onCanPlay={() => setVidReady(true)}
+            >
+              <motion.div
                 style={{
                   position: "absolute",
                   inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  opacity: vidReady ? 1 : 0,
-                  transition: "opacity 0.4s ease",
+                  x: mediaShift,
+                  scale: 1.06,
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={active.image}
+                  alt=""
+                  loading="lazy"
+                  draggable={false}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    filter: "saturate(0.9) brightness(0.85)",
+                  }}
+                />
+
+                {active.video && (
+                  <video
+                    key={active.id}
+                    src={active.video}
+                    muted
+                    loop
+                    playsInline
+                    autoPlay
+                    preload="none"
+                    onCanPlay={() => setVidReady(true)}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "saturate(0.9) brightness(0.85)",
+                      opacity: vidReady ? 1 : 0,
+                      transition: "opacity 0.4s ease",
+                    }}
+                  />
+                )}
+              </motion.div>
+
+              {/* warm film-grade overlay — keeps preview on-brand */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(135deg, rgba(224,135,91,0.28) 0%, rgba(60,28,40,0.18) 55%, rgba(28,40,64,0.22) 100%)",
+                  mixBlendMode: "soft-light",
+                  pointerEvents: "none",
                 }}
               />
-            )}
+              {/* subtle vignette for depth */}
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "radial-gradient(120% 120% at 50% 0%, transparent 55%, rgba(12,9,8,0.45) 100%)",
+                  pointerEvents: "none",
+                }}
+              />
+            </div>
 
-            {/* warm film-grade overlay — keeps preview on-brand */}
-            <div
+            {/* caption strip — remounts per project for a quick swap fade */}
+            <motion.div
+              key={active.id}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
               style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "linear-gradient(135deg, rgba(224,135,91,0.20) 0%, rgba(60,28,40,0.12) 55%, rgba(28,40,64,0.16) 100%)",
-                mixBlendMode: "soft-light",
-                pointerEvents: "none",
+                display: "flex",
+                alignItems: "baseline",
+                justifyContent: "space-between",
+                gap: "0.75rem",
+                padding: "0.35rem 0.55rem 0.3rem",
               }}
-            />
-            {/* subtle vignette for depth */}
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "radial-gradient(120% 120% at 50% 0%, transparent 55%, rgba(12,9,8,0.4) 100%)",
-                pointerEvents: "none",
-              }}
-            />
+            >
+              <span
+                style={{
+                  display: "flex",
+                  alignItems: "baseline",
+                  gap: "0.5rem",
+                  minWidth: 0,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: "0.65rem",
+                    letterSpacing: "0.08em",
+                    color: "var(--m4)",
+                  }}
+                >
+                  {active.num}
+                </span>
+                <span
+                  style={{
+                    fontFamily: "var(--font-fraunces)",
+                    fontStyle: "italic",
+                    fontWeight: 300,
+                    fontSize: "0.9rem",
+                    color: "var(--ink)",
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  {active.title}
+                </span>
+              </span>
+              <span
+                style={{
+                  fontSize: "0.65rem",
+                  letterSpacing: "0.06em",
+                  color: "var(--m3)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {active.category} — {active.year}
+              </span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

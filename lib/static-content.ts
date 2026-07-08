@@ -6,8 +6,7 @@ import type {
   ComprehensiveAboutContent,
   SiteConfig,
   HeroContent,
-  CTAContent,
-  BlogContent
+  CTAContent
 } from './content-types'
 
 // Client-side content loader (for static generation and client-side usage)
@@ -53,7 +52,7 @@ export const getStaticContent = {
       { "id": "work", "label": "Work" },
       { "id": "about", "label": "About" },
       { "id": "contact", "label": "Contact" },
-      { "id": "blog", "label": "Blog", "href": "/blog" }
+      { "id": "journal", "label": "Journal", "href": "/journal" }
     ]
   },
 
@@ -197,6 +196,32 @@ export const getStaticContent = {
 
   projects: (): Project[] => {
     return [
+      {
+        "id": "withavelle",
+        "title": "Withavelle",
+        "category": "E-Commerce Development",
+        "description": "An elegant fashion e-commerce platform built with Shopify, featuring custom theme development, refined product presentation, and a smooth checkout experience. Crafted to reflect the brand's polished aesthetic while staying fast and conversion-focused.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png",
+        "year": "2026",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
+        "url": "https://withavelle.com",
+        "livePreview": "https://withavelle.com",
+        "challenge": "Withavelle needed an online storefront that matched their refined brand identity while keeping the shopping journey effortless. Off-the-shelf Shopify themes couldn't deliver the level of visual polish and layout control the brand required without sacrificing performance.",
+        "solution": "Built a custom Shopify theme with a clean, editorial layout that puts product imagery front and center. Optimized image delivery for fast load times, implemented intuitive collection browsing, and refined the mobile experience end-to-end from discovery through checkout.",
+        "features": [
+          "Custom Shopify Theme Development",
+          "Editorial Product Presentation",
+          "Optimized Image Delivery",
+          "Streamlined Checkout Flow",
+          "Mobile-First Responsive Design"
+        ],
+        "metrics": [
+          { "label": "Page Load Time", "value": "<2s" },
+          { "label": "Mobile Traffic", "value": "78%" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png"],
+        "featured": true
+      },
       {
         "id": "adana",
         "title": "Adana",
@@ -820,141 +845,6 @@ export const getStaticContent = {
       },
       "profileImage": "/profile-image.png"
     }
-  },
-
-  blog: (): BlogContent[] => {
-    return [
-      {
-        "id": "nextjs-15-performance-guide",
-        "title": "Next.js 15 Performance Optimization: Complete Guide for Indonesian Developers",
-        "slug": "nextjs-15-performance-guide",
-        "excerpt": "Learn how to optimize Next.js 15 applications for Indonesian internet conditions and improve Core Web Vitals scores with practical tips and real-world examples.",
-        "content": "As a web developer based in Indonesia, I've learned that performance optimization isn't just about implementing best practices—it's about understanding the unique challenges of Indonesian internet infrastructure. In this comprehensive guide, I'll share practical strategies for optimizing Next.js 15 applications specifically for Indonesian users...",
-        "category": "Web Development",
-        "tags": ["Next.js 15", "Performance Optimization", "Indonesian Developers", "Web Vitals"],
-        "publishedAt": "2024-06-15",
-        "updatedAt": "2024-06-15",
-        "author": "Jamal Akbar Alam",
-        "readTime": 8,
-        "featured": true,
-        "seo": {
-          "metaDescription": "Complete guide to optimizing Next.js 15 applications for Indonesian internet conditions. Learn performance tips, Core Web Vitals optimization, and practical strategies for Indonesian web developers.",
-          "keywords": ["Next.js 15", "performance optimization", "Indonesian web development", "Core Web Vitals", "web performance Indonesia"],
-          "ogImage": "/blog/nextjs-15-performance-guide.jpg"
-        },
-        "contentBlocks": [
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "Understanding Indonesian Internet Challenges"
-          },
-          {
-            "type": "paragraph",
-            "text": "Indonesia presents unique challenges for web developers: variable internet speeds across regions, mobile-first usage patterns, and the need for efficient data usage. These factors make performance optimization crucial for user experience and business success."
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "Next.js 15 Features for Indonesian Developers"
-          },
-          {
-            "type": "list",
-            "items": [
-              "Turbopack for faster development builds",
-              "Enhanced image optimization with WebP support",
-              "Improved bundle splitting strategies",
-              "Better server-side rendering performance"
-            ]
-          },
-          {
-            "type": "heading",
-            "level": 2,
-            "text": "Practical Optimization Techniques"
-          },
-          {
-            "type": "code",
-            "language": "javascript",
-            "code": "// Optimized image component for Indonesian users\nimport Image from 'next/image'\n\nfunction OptimizedProductImage({ src, alt }) {\n  return (\n    <Image\n      src={src}\n      alt={alt}\n      width={400}\n      height={300}\n      priority={false}\n      placeholder=\"blur\"\n      quality={75}\n      sizes=\"(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw\"\n    />\n  )\n}"
-          }
-        ]
-      },
-      {
-        "id": "indonesian-payment-gateway-integration",
-        "title": "Complete Guide to Indonesian Payment Gateway Integration",
-        "slug": "indonesian-payment-gateway-integration",
-        "excerpt": "Step-by-step tutorial on integrating popular Indonesian payment methods like GoPay, OVO, Dana, and Midtrans into your e-commerce applications with secure best practices.",
-        "content": "Payment gateway integration is crucial for e-commerce success in Indonesia. With diverse payment preferences ranging from e-wallets to bank transfers, understanding the Indonesian payment ecosystem is essential for developers. In this guide, I'll walk you through integrating the most popular payment methods...",
-        "category": "E-Commerce",
-        "tags": ["Payment Gateway", "Indonesian E-Commerce", "Midtrans", "GoPay", "OVO"],
-        "publishedAt": "2024-05-20",
-        "updatedAt": "2024-05-20",
-        "author": "Jamal Akbar Alam",
-        "readTime": 12,
-        "featured": true,
-        "seo": {
-          "metaDescription": "Learn how to integrate Indonesian payment gateways like Midtrans, GoPay, OVO, and Dana into your e-commerce applications. Complete tutorial with code examples and best practices.",
-          "keywords": ["Indonesian payment gateway", "Midtrans integration", "GoPay API", "OVO payment", "e-commerce Indonesia"],
-          "ogImage": "/blog/indonesian-payment-gateway.jpg"
-        }
-      },
-      {
-        "id": "react-native-indonesia-optimization",
-        "title": "Building Mobile Apps for Indonesian Users: React Native Optimization Guide",
-        "slug": "react-native-indonesia-optimization",
-        "excerpt": "Optimize React Native applications for Indonesian users with offline capabilities, data compression, and performance tuning for varying network conditions across Indonesia.",
-        "content": "Mobile app development in Indonesia requires special consideration for network conditions, device diversity, and user behavior patterns. Having built several mobile applications for the Indonesian market, I've compiled essential optimization strategies...",
-        "category": "Mobile Development",
-        "tags": ["React Native", "Mobile Development", "Indonesian Market", "Performance", "Offline-First"],
-        "publishedAt": "2024-04-10",
-        "updatedAt": "2024-04-10",
-        "author": "Jamal Akbar Alam",
-        "readTime": 10,
-        "featured": false,
-        "seo": {
-          "metaDescription": "Optimize React Native apps for Indonesian users. Learn offline-first strategies, data compression techniques, and performance tuning for Indonesian mobile app development.",
-          "keywords": ["React Native Indonesia", "mobile app optimization", "Indonesian users", "offline-first apps", "mobile development"],
-          "ogImage": "/blog/react-native-optimization.jpg"
-        }
-      },
-      {
-        "id": "web-accessibility-indonesia",
-        "title": "Web Accessibility in Indonesia: Building Inclusive Digital Experiences",
-        "slug": "web-accessibility-indonesia",
-        "excerpt": "Understanding and implementing web accessibility standards for Indonesian users, including language considerations, screen reader support, and inclusive design principles.",
-        "content": "Web accessibility is often overlooked in Indonesian digital products, yet it's crucial for creating inclusive experiences. With Indonesia's diverse population and varying levels of digital literacy, accessibility becomes even more important...",
-        "category": "UI/UX Design",
-        "tags": ["Accessibility", "Inclusive Design", "Indonesian Users", "WCAG", "Screen Readers"],
-        "publishedAt": "2024-03-15",
-        "updatedAt": "2024-03-15",
-        "author": "Jamal Akbar Alam",
-        "readTime": 7,
-        "featured": false,
-        "seo": {
-          "metaDescription": "Learn web accessibility best practices for Indonesian users. Implement WCAG standards, screen reader support, and inclusive design for Indonesian digital products.",
-          "keywords": ["web accessibility Indonesia", "inclusive design", "WCAG compliance", "Indonesian users", "screen reader support"],
-          "ogImage": "/blog/web-accessibility.jpg"
-        }
-      },
-      {
-        "id": "typescript-best-practices-2024",
-        "title": "TypeScript Best Practices 2024: Enterprise-Ready Code for Indonesian Developers",
-        "slug": "typescript-best-practices-2024",
-        "excerpt": "Advanced TypeScript patterns and best practices for building scalable, maintainable applications. Perfect for Indonesian development teams looking to improve code quality.",
-        "content": "TypeScript has become essential for large-scale application development, but many Indonesian development teams still struggle with implementing it effectively. Drawing from my experience working with Indonesian enterprise clients, here are the best practices that have proven most valuable...",
-        "category": "Programming",
-        "tags": ["TypeScript", "Best Practices", "Enterprise Development", "Code Quality", "Indonesian Developers"],
-        "publishedAt": "2024-01-20",
-        "updatedAt": "2024-01-20",
-        "author": "Jamal Akbar Alam",
-        "readTime": 9,
-        "featured": false,
-        "seo": {
-          "metaDescription": "TypeScript best practices for Indonesian developers. Learn advanced patterns, enterprise development strategies, and code quality improvement techniques.",
-          "keywords": ["TypeScript best practices", "Indonesian developers", "enterprise code", "TypeScript patterns", "code quality"],
-          "ogImage": "/blog/typescript-best-practices.jpg"
-        }
-      }
-    ]
   },
 
   cta: (): CTAContent => {

@@ -79,6 +79,12 @@ export class GoogleAnalyticsConfig {
       category: 'ui_interaction'
     },
 
+    // Contact
+    CONTACT_MESSAGE: {
+      action: 'send_message',
+      category: 'contact'
+    },
+
     // Page engagement
     SCROLL_DEPTH: {
       action: 'scroll_depth',

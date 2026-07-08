@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/site-data";
+import { GAEvents } from "@/lib/analytics/events";
 
 // Background loop videos, served from Cloudinary. Cloud: dh0spkwh3.
 // q_auto/f_auto = adaptive quality + format per browser. From the same asset we
@@ -18,7 +19,8 @@ const BLUR_T = "q_auto,f_auto,so_0,w_64,e_blur:1200"; // ~few-KB LQIP
 // route -> versioned Cloudinary path WITHOUT extension
 const PAGE_PATHS: Record<string, string> = {
   "/": "v1781452916/bg-home_oaxs7i",
-  "/work": "v1781452917/bg-work_rsbzrp",
+  "/work": "v1783502792/bg-work-new_hcj0vh",
+  "/journal": "v1783495304/bg-journal_afdxkd",
   "/about": "v1781452916/bg-about_zkw2rg",
   "/contact": "v1781452916/bg-contact_sx4ep4",
 };
@@ -334,6 +336,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={l.href}
                 href={l.href}
+                onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
                 onMouseEnter={() => prefetch(getPath(l.href))}
                 onFocus={() => prefetch(getPath(l.href))}
                 className="animate-blur-fade-up nav-link"
@@ -347,6 +350,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <Link
               href="/contact"
+              onClick={() => GAEvents.trackNavigationClick("/contact", "navbar_lets_talk")}
               onMouseEnter={() => prefetch(getPath("/contact"))}
               onFocus={() => prefetch(getPath("/contact"))}
               className="nav-actions liquid-glass animate-blur-fade-up"
@@ -457,7 +461,10 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              GAEvents.trackNavigationClick(l.href, "mobile_menu");
+              setMenuOpen(false);
+            }}
             onMouseEnter={() => prefetch(getPath(l.href))}
             onFocus={() => prefetch(getPath(l.href))}
             className="menu-link"

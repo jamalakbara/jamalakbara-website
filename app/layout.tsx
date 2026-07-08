@@ -73,16 +73,13 @@ export const metadata: Metadata = {
     site: "@jamalakbara",
   },
   icons: {
+    // Legacy favicon.ico kept as THE favicon by owner preference — do not
+    // add an icon.svg entry above it (browsers would prefer the SVG).
     icon: [
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
       { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: [
-      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
-    ],
-    other: [
-      { rel: 'mask-icon', url: '/logo.png', color: '#000000' },
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   manifest: '/manifest.json',
