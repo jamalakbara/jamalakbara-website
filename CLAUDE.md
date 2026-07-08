@@ -163,7 +163,7 @@ See `.env.example`.
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
 
 ## Icons
-Brand icons are a "j." monogram (Space Grotesk glyph outlines, no font dependency): `public/icon.svg` (favicon, rounded), `public/apple-icon.png` (180×180), `public/icon-192.png` / `public/icon-512.png` (manifest). Regenerate by rasterizing from the SVG if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
+The favicon is the **legacy `app/favicon.ico`** (owner preference — do not swap it for the SVG or list `icon.svg` in metadata icons). The "j." monogram set (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) covers iOS home-screen and manifest icons only; regenerate from glyph outlines if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
 
 ## Performance Considerations
 - Content is static (compile-time), no runtime fetch.

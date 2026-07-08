@@ -73,8 +73,9 @@ export const metadata: Metadata = {
     site: "@jamalakbara",
   },
   icons: {
+    // Legacy favicon.ico kept as THE favicon by owner preference — do not
+    // add an icon.svg entry above it (browsers would prefer the SVG).
     icon: [
-      { url: '/icon.svg', type: 'image/svg+xml' },
       { url: '/favicon.ico', sizes: 'any' },
     ],
     apple: [
