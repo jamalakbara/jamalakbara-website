@@ -20,8 +20,7 @@ const BLUR_T = "q_auto,f_auto,so_0,w_64,e_blur:1200"; // ~few-KB LQIP
 const PAGE_PATHS: Record<string, string> = {
   "/": "v1781452916/bg-home_oaxs7i",
   "/work": "v1781452917/bg-work_rsbzrp",
-  // /journal reuses the about video until a dedicated bg-journal is uploaded
-  "/journal": "v1781452916/bg-about_zkw2rg",
+  "/journal": "v1783495304/bg-journal_afdxkd",
   "/about": "v1781452916/bg-about_zkw2rg",
   "/contact": "v1781452916/bg-contact_sx4ep4",
 };
