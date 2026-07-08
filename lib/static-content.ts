@@ -197,6 +197,32 @@ export const getStaticContent = {
   projects: (): Project[] => {
     return [
       {
+        "id": "withavelle",
+        "title": "Withavelle",
+        "category": "E-Commerce Development",
+        "description": "An elegant fashion e-commerce platform built with Shopify, featuring custom theme development, refined product presentation, and a smooth checkout experience. Crafted to reflect the brand's polished aesthetic while staying fast and conversion-focused.",
+        "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png",
+        "year": "2026",
+        "tech": ["Shopify", "Liquid", "JavaScript", "CSS3", "GraphQL"],
+        "url": "https://withavelle.com",
+        "livePreview": "https://withavelle.com",
+        "challenge": "Withavelle needed an online storefront that matched their refined brand identity while keeping the shopping journey effortless. Off-the-shelf Shopify themes couldn't deliver the level of visual polish and layout control the brand required without sacrificing performance.",
+        "solution": "Built a custom Shopify theme with a clean, editorial layout that puts product imagery front and center. Optimized image delivery for fast load times, implemented intuitive collection browsing, and refined the mobile experience end-to-end from discovery through checkout.",
+        "features": [
+          "Custom Shopify Theme Development",
+          "Editorial Product Presentation",
+          "Optimized Image Delivery",
+          "Streamlined Checkout Flow",
+          "Mobile-First Responsive Design"
+        ],
+        "metrics": [
+          { "label": "Page Load Time", "value": "<2s" },
+          { "label": "Mobile Traffic", "value": "78%" }
+        ],
+        "gallery": ["https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png"],
+        "featured": true
+      },
+      {
         "id": "adana",
         "title": "Adana",
         "category": "Web Development",
