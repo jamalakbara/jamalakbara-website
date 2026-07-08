@@ -19,7 +19,7 @@ const BLUR_T = "q_auto,f_auto,so_0,w_64,e_blur:1200"; // ~few-KB LQIP
 // route -> versioned Cloudinary path WITHOUT extension
 const PAGE_PATHS: Record<string, string> = {
   "/": "v1781452916/bg-home_oaxs7i",
-  "/work": "v1781452917/bg-work_rsbzrp",
+  "/work": "v1783502792/bg-work-new_hcj0vh",
   "/journal": "v1783495304/bg-journal_afdxkd",
   "/about": "v1781452916/bg-about_zkw2rg",
   "/contact": "v1781452916/bg-contact_sx4ep4",
