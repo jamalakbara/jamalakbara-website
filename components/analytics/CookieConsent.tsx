@@ -27,11 +27,6 @@ export function CookieConsentBanner() {
 
     CookieConsent.setConsent(allAccepted)
     setIsVisible(false)
-
-    // Reload page to apply consent changes
-    setTimeout(() => {
-      window.location.reload()
-    }, 500)
   }
 
   const handleAcceptNecessary = () => {
@@ -49,11 +44,6 @@ export function CookieConsentBanner() {
   const handleSavePreferences = () => {
     CookieConsent.setConsent(preferences)
     setIsVisible(false)
-
-    // Reload page to apply consent changes
-    setTimeout(() => {
-      window.location.reload()
-    }, 500)
   }
 
   const handlePreferenceChange = (

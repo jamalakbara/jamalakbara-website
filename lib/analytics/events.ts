@@ -85,6 +85,15 @@ export class GoogleAnalyticsEvents {
     })
   }
 
+  // Contact events
+  public trackContactMessage(method: string): void {
+    this.trackEvent({
+      action: GoogleAnalyticsConfig.EVENTS.CONTACT_MESSAGE.action,
+      category: GoogleAnalyticsConfig.EVENTS.CONTACT_MESSAGE.category,
+      label: method
+    })
+  }
+
   // UI interaction events
   public trackThemeToggle(theme: 'light' | 'dark'): void {
     this.trackEvent({

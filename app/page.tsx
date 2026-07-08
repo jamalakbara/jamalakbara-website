@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { MapPin, ArrowRight } from "lucide-react";
 import { home } from "@/lib/site-data";
+import { GAEvents } from "@/lib/analytics/events";
 
 export default function HomePage() {
   return (
@@ -129,6 +130,7 @@ export default function HomePage() {
         >
           <Link
             href="/work"
+            onClick={() => GAEvents.trackNavigationClick("/work", "home_cta")}
             className="animate-blur-fade-up btn-solid"
             style={{
               animationDelay: "600ms",
@@ -151,6 +153,7 @@ export default function HomePage() {
           </Link>
           <Link
             href="/contact"
+            onClick={() => GAEvents.trackNavigationClick("/contact", "home_cta")}
             className="liquid-glass animate-blur-fade-up"
             style={{
               animationDelay: "700ms",

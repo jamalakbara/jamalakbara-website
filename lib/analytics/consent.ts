@@ -1,3 +1,5 @@
+export const CONSENT_CHANGED_EVENT = 'cookie-consent-changed'
+
 export interface CookieConsentOptions {
   necessary: boolean
   analytics: boolean
@@ -68,6 +70,9 @@ export class CookieConsentManager {
 
       // Fire consent event for analytics
       this.fireConsentEvent(consent)
+
+      // Notify listeners (e.g. GoogleAnalytics) so they can react without a reload
+      window.dispatchEvent(new Event(CONSENT_CHANGED_EVENT))
     } catch (error) {
       console.warn('Failed to save cookie consent:', error)
     }
@@ -79,6 +84,7 @@ export class CookieConsentManager {
 
     try {
       localStorage.removeItem(this.CONSENT_KEY)
+      window.dispatchEvent(new Event(CONSENT_CHANGED_EVENT))
     } catch (error) {
       console.warn('Failed to clear cookie consent:', error)
     }

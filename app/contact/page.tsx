@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Send, Check } from "lucide-react";
 import { contact } from "@/lib/site-data";
+import { GAEvents } from "@/lib/analytics/events";
 
 type Errors = { name?: string; email?: string; message?: string };
 
@@ -44,6 +45,7 @@ export default function ContactPage() {
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
+    GAEvents.trackContactMessage("whatsapp_form");
     setSent(true);
   };
 
@@ -122,6 +124,7 @@ export default function ContactPage() {
 
           <a
             href={`mailto:${contact.email}`}
+            onClick={() => GAEvents.trackContactMessage("email_link")}
             className="animate-blur-fade-up email-link"
             style={{
               animationDelay: "350ms",

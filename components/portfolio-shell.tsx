@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/site-data";
+import { GAEvents } from "@/lib/analytics/events";
 
 // Background loop videos, served from Cloudinary. Cloud: dh0spkwh3.
 // q_auto/f_auto = adaptive quality + format per browser. From the same asset we
@@ -334,6 +335,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               <Link
                 key={l.href}
                 href={l.href}
+                onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
                 onMouseEnter={() => prefetch(getPath(l.href))}
                 onFocus={() => prefetch(getPath(l.href))}
                 className="animate-blur-fade-up nav-link"
@@ -347,6 +349,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
             <Link
               href="/contact"
+              onClick={() => GAEvents.trackNavigationClick("/contact", "navbar_lets_talk")}
               onMouseEnter={() => prefetch(getPath("/contact"))}
               onFocus={() => prefetch(getPath("/contact"))}
               className="nav-actions liquid-glass animate-blur-fade-up"
@@ -457,7 +460,10 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           <Link
             key={l.href}
             href={l.href}
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              GAEvents.trackNavigationClick(l.href, "mobile_menu");
+              setMenuOpen(false);
+            }}
             onMouseEnter={() => prefetch(getPath(l.href))}
             onFocus={() => prefetch(getPath(l.href))}
             className="menu-link"

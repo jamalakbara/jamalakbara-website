@@ -1,10 +1,10 @@
 'use client'
 
 import { GoogleAnalytics as GA } from '@next/third-parties/google'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { GAConfig } from '@/lib/analytics/ga-config'
 import { GAEvents } from '@/lib/analytics/events'
-import { CookieConsent } from '@/lib/analytics/consent'
+import { CookieConsent, CONSENT_CHANGED_EVENT } from '@/lib/analytics/consent'
 
 interface GoogleAnalyticsProps {
   gaId?: string
@@ -12,13 +12,21 @@ interface GoogleAnalyticsProps {
 
 export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
   const measurementId = gaId || GAConfig.getMeasurementId()
+  const [hasConsent, setHasConsent] = useState(false)
+
+  // Consent lives in localStorage, so it can only be read on the client —
+  // sync it here and whenever the banner updates it.
+  useEffect(() => {
+    const syncConsent = () => setHasConsent(CookieConsent.hasAnalyticsConsent())
+
+    syncConsent()
+    window.addEventListener(CONSENT_CHANGED_EVENT, syncConsent)
+    return () => window.removeEventListener(CONSENT_CHANGED_EVENT, syncConsent)
+  }, [])
 
   useEffect(() => {
-    // Only initialize in production and with valid GA ID
+    if (!hasConsent) return
     if (!GAConfig.shouldLoadScript()) return
-
-    // Check if user has consented to analytics
-    if (!CookieConsent.hasAnalyticsConsent()) return
 
     // Mark as initialized
     GAConfig.markAsInitialized()
@@ -26,35 +34,22 @@ export function GoogleAnalytics({ gaId }: GoogleAnalyticsProps) {
     // Track device information
     GAEvents.trackDeviceInfo()
 
-    // Set up page view tracking
-    const handleRouteChange = (url: string) => {
-      GAEvents.trackPageView(url)
+    // Track page views on back/forward navigation
+    const handlePopState = () => {
+      GAEvents.trackPageView(window.location.pathname)
     }
 
-    // Listen for route changes
-    if (typeof window !== 'undefined') {
-      window.addEventListener('popstate', () => {
-        handleRouteChange(window.location.pathname)
-      })
-    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [hasConsent])
 
-    // Cleanup
-    return () => {
-      if (typeof window !== 'undefined') {
-        window.removeEventListener('popstate', () => {
-          handleRouteChange(window.location.pathname)
-        })
-      }
-    }
-  }, [measurementId])
-
-  // Don't render if no GA ID or not in production
+  // Don't render without a valid GA ID
   if (!measurementId || !measurementId.startsWith('G-')) {
     return null
   }
 
   // Only render if user has consented to analytics
-  if (!CookieConsent.hasAnalyticsConsent()) {
+  if (!hasConsent) {
     return null
   }
 
