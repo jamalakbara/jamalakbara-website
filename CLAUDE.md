@@ -11,7 +11,7 @@ Jamalakbara is a cinematic, multi-page portfolio website for **Jamal Akbar Alam*
 - **Tailwind CSS v4** (PostCSS plugin, no config file) — design tokens live as CSS custom properties in `app/globals.css`
 - **Motion**: Framer Motion (`framer-motion`) is the primary in-use animation library. **GSAP** (`gsap` + `@gsap/react`), **Lenis** (smooth scroll), and **React Three Fiber** (`three` + `@react-three/fiber` + `@react-three/drei`) are installed for roadmap features but not yet wired into shipped pages.
 - **State**: Zustand installed; React hooks are the primary mechanism in shipped code.
-- **Content**: TypeScript static content modules (no JSON/CMS) — see Architecture.
+- **Content**: git-backed content files (`content/*.json` + `content/journal/*.mdx`) edited via the custom `/admin` CMS or directly — see Architecture.
 - **Media**: Cloudinary (cloud `dh0spkwh3`) for background videos and project images/videos.
 - **Forms**: react-hook-form + zod.
 - **Analytics/SEO**: `@next/third-parties` (Google Analytics) with a cookie-consent gate, dynamic `sitemap.ts` / `robots.ts`, and JSON-LD structured data.
@@ -32,35 +32,50 @@ npm run lint           # ESLint (eslint-config-next)
 
 ## Architecture Overview
 
-### Content System — TypeScript static modules
-There is **no `/content/` JSON directory and no CMS**. All content is type-safe TypeScript:
+### Content System — git-backed files + custom admin CMS
+Content lives as **files in the repo** (git is the database) and is editable through the custom CMS at **`/admin`**:
 
-- **`lib/content-types.ts`** — interfaces: `Service`, `Project`, `NavigationItem`, `AboutContent`, `ComprehensiveAboutContent`, `SiteConfig`, `HeroContent`, `BlogContent`, `CTAContent`.
-- **`lib/static-content.ts`** — the content source, exposed via `getStaticContent`:
-  - `siteConfig()`, `navigation()`, `hero()`, `services()` (×4), `projects()` (×18), `featuredProjects()`, `homepageShowcaseProjects()`, `about()`, `comprehensiveAbout()`, `blog()` (×5), `cta()`.
+- **`content/projects.json`** — ONE ordered array of all projects (array index = display order).
+- **`content/site/*.json`** — singletons: `site-config`, `navigation`, `hero`, `services`, `about`, `comprehensive-about`, `cta`, `pages` (per-page copy).
+- **`content/journal/*.mdx`** — journal posts (frontmatter: `title`, `description`, `date`, `tags`, `draft`).
+- **`lib/content-types.ts`** — canonical TS interfaces; **`lib/content/schemas.ts`** — matching zod schemas (admin write-path validation only).
+- **`lib/content/index.ts`** — typed static JSON imports for the site (inlined at build; works in client components).
 - **`lib/site-data.ts`** — derived view-model constants consumed by pages: `NAV_LINKS`, `BRAND`, `home`, `works` (maps projects → `WorkRow`), `work`, `about`, `contact`.
 
-**Loading pattern** (client + server, same import):
+**Site read path** (build-time, static):
 ```typescript
-import { getStaticContent } from '@/lib/static-content'
-const projects = getStaticContent.projects()
+import { projects, hero } from '@/lib/content'
 ```
 Pages typically consume the pre-shaped constants from `@/lib/site-data` instead.
 
+**Admin write path**: `lib/admin/content-store.ts` is the only module admin code uses to read/write content. Backend switches automatically: local dev = fs writes to the working tree (you review + commit); on Vercel = git commits to `GITHUB_CONTENT_BRANCH` via `lib/admin/github.ts` (GitHub Contents/Git Data API), which triggers a production rebuild (~1–2 min publish). Never fs-read content in prod admin code — go through content-store.
+
+### Admin CMS (`/admin`)
+- **Auth**: GitHub OAuth via next-auth v5 (`lib/auth.ts`), single allowed login (`ADMIN_GITHUB_LOGIN`), JWT session, no DB. `proxy.ts` gates `/admin/*` + `/api/admin/*`; every server action/route handler also calls `requireAdmin()` (defense in depth).
+- **Routes**: `app/admin/login` (public) + `app/admin/(protected)/…` — dashboard, `projects` (CRUD/reorder/featured), `journal` (MDX editor + live preview), `site` (singleton editors), `media` (Cloudinary library), `branding` (logo/favicon/app-icon file replacement, slots in `lib/admin/branding.ts`).
+- **API**: `app/api/admin/media` (Cloudinary Admin API list/delete), `media/sign` (signed direct uploads), `preview/mdx` (editor preview compile).
+- Admin is `force-dynamic`, `noindex`, robots-disallowed, never in the sitemap, and NOT wrapped by `PortfolioShell` (it has its own scroll container — `body` is `overflow:hidden`).
+- **Publishing model**: prod saves commit to `main` → Vercel rebuild. `main` drifts ahead of `development` with content-only commits — merge `main → development` periodically.
+
 ### Routes (`app/`)
-Multi-page App Router. All page components are client components.
+Multi-page App Router. Public page components are client components; admin pages are server components with client islands.
 
 ```
 app/
-├── layout.tsx        # RootLayout: metadata, Inter font, GoogleAnalytics, CookieConsent, PortfolioShell
+├── layout.tsx        # RootLayout: html/body, fonts, global metadata only
 ├── globals.css       # Design tokens + component classes (the styling source of truth)
-├── page.tsx          # Home (/)
-├── work/page.tsx     # Work portfolio (/work)
-├── about/page.tsx    # About (/about)
-├── contact/page.tsx  # Contact (/contact) — react-hook-form + zod
-├── sitemap.ts        # Dynamic XML sitemap
-├── robots.ts         # robots.txt
+├── (site)/           # public site, wrapped by PortfolioShell (+ StructuredData, GA, CookieConsent)
+│   ├── layout.tsx
+│   ├── page.tsx      # Home (/)
+│   ├── work/  about/  contact/  journal/
+├── admin/            # CMS — liquid-glass chrome, no video bg, force-dynamic, noindex
+│   ├── layout.tsx  login/
+│   └── (protected)/  # auth-checked layout: dashboard, projects, journal, site, media, branding
+├── api/              # auth/[...nextauth], admin/media, admin/media/sign, admin/preview/mdx
+├── sitemap.ts        # Dynamic XML sitemap (admin never enters)
+├── robots.ts         # robots.txt (disallows /admin, /api)
 └── favicon.ico
+proxy.ts              # (repo root) auth gate for /admin/* and /api/admin/*
 ```
 
 ### Components (`components/`)
@@ -137,6 +152,7 @@ For pure CSS entrances use `.animate-blur-fade-up` with a stagger delay. When in
 - `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` — Cloudinary cloud (`dh0spkwh3`).
 - `NEXT_PUBLIC_GA_MEASUREMENT_ID` — Google Analytics ID (`G-…`).
 - `NEXT_PUBLIC_GSC_VERIFICATION_CONTENT` — Google Search Console verification (optional).
+- Admin CMS: `AUTH_SECRET`, `AUTH_GITHUB_ID`/`AUTH_GITHUB_SECRET` (GitHub OAuth app), `ADMIN_GITHUB_LOGIN`, `GITHUB_TOKEN` (fine-grained PAT, Contents RW, this repo only), `GITHUB_REPO`, `GITHUB_CONTENT_BRANCH`, `CLOUDINARY_API_KEY`/`CLOUDINARY_API_SECRET` (server-only), optional `ADMIN_CONTENT_BACKEND` (`fs`|`github`).
 See `.env.example`.
 
 ## Testing and Quality
@@ -147,11 +163,12 @@ See `.env.example`.
 ## Common Development Tasks
 
 ### Adding / editing content
-1. Update the relevant method in `lib/static-content.ts` (and the interface in `lib/content-types.ts` if shape changes).
-2. If pages read it via a shaped constant, update `lib/site-data.ts`.
+- Preferred: edit through `/admin` (projects, journal, site copy, media, branding).
+- Direct file edits work too: `content/projects.json`, `content/site/*.json`, `content/journal/*.mdx`.
+- If a content **shape** changes: update the interface in `lib/content-types.ts`, the zod schema in `lib/content/schemas.ts`, the admin form, and `lib/site-data.ts` if pages read it via a shaped constant.
 
 ### Adding a route
-1. Create `app/<route>/page.tsx` (client component).
+1. Create `app/(site)/<route>/page.tsx` (client component).
 2. Add it to `NAV_LINKS` in `lib/site-data.ts` and to `app/sitemap.ts`.
 3. Add a background video entry in `components/portfolio-shell.tsx` if it needs one.
 
@@ -166,7 +183,7 @@ See `.env.example`.
 The favicon is the **legacy `app/favicon.ico`** (owner preference — do not swap it for the SVG or list `icon.svg` in metadata icons). The "j." monogram set (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) covers iOS home-screen and manifest icons only; regenerate from glyph outlines if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
 
 ## Performance Considerations
-- Content is static (compile-time), no runtime fetch.
+- Public site content is static (compile-time JSON imports), no runtime fetch; only `/admin` is dynamic.
 - Use `next/image` + Cloudinary `q_auto,f_auto`; image formats webp/avif.
 - Heavy hover/preview effects are gated to hover-capable devices.
 - Prefer CSS transforms; keep motion within `prefers-reduced-motion` rules.

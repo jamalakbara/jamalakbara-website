@@ -1,0 +1,20 @@
+{
+  "home": {
+    "availability": "Open for new work",
+    "headline": "I build fast, useful things for the web.",
+    "intro": "I'm Akbar, a developer and designer. I make websites and apps that load fast and stay easy to use."
+  },
+  "work": {
+    "eyebrow": "Selected Work",
+    "heading": "Things I've built."
+  },
+  "about": {
+    "eyebrow": "About",
+    "heading": "Developer and designer who likes to build.",
+    "footnote": "Computer Science, Telkom University. Currently independent and open to new collaborations."
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "heading": "Got an idea? Let's talk."
+  }
+}

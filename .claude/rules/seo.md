@@ -4,14 +4,20 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 
 ## Every route owns its metadata
 
-- All `app/*/page.tsx` files are client components — they **cannot** export metadata. Each route gets a `layout.tsx` that exports `metadata` and passes `children` through (see `app/work/layout.tsx` for the pattern).
+- All public `app/(site)/*/page.tsx` files are client components — they **cannot** export metadata. Each route gets a `layout.tsx` that exports `metadata` and passes `children` through (see `app/(site)/work/layout.tsx` for the pattern).
 - Every route's metadata must set: unique `title`, unique `description`, `alternates.canonical` (full URL), and `openGraph.url`.
 - **Never let a route inherit the root canonical.** The root layout's canonical points at the homepage; an uncorrected child route tells Google it is a duplicate of `/`.
-- Title template gotcha: the root `title.template` ("%s | Jamal Akbar Alam") does **not** propagate past a nested layout that sets `title` as a plain string. If a section has child routes (like `/journal/[slug]`), its layout must re-declare `title: { default, template }` — see `app/journal/layout.tsx`.
+- Title template gotcha: the root `title.template` ("%s | Jamal Akbar Alam") does **not** propagate past a nested layout that sets `title` as a plain string. If a section has child routes (like `/journal/[slug]`), its layout must re-declare `title: { default, template }` — see `app/(site)/journal/layout.tsx`.
+
+## Admin CMS routes
+
+- Everything under `/admin` and `/api` is non-SEO surface: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts` or `PAGE_PATHS`.
+- Public pages moved into the `app/(site)/` route group (July 2026, CMS launch) — URLs unchanged. The `(site)/layout.tsx` carries `PortfolioShell` + StructuredData + GA; root layout keeps the global metadata. Per-route metadata layouts live inside `(site)/`.
+- Prod admin saves commit to `main` and republish via Vercel rebuild — SEO verification steps below still apply after content changes deploy.
 
 ## Adding a route — SEO checklist
 
-1. `app/<route>/layout.tsx` with full metadata (above).
+1. `app/(site)/<route>/layout.tsx` with full metadata (above).
 2. Add to `NAV_LINKS` in `lib/site-data.ts`.
 3. Add to the `routes` array in `app/sitemap.ts`.
 4. Add a background-video entry in `PAGE_PATHS` in `components/portfolio-shell.tsx` (reuse an existing video if no dedicated one).
@@ -21,7 +27,7 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 
 - Posts are MDX files in `content/journal/*.mdx`. Frontmatter: `title`, `description`, `date` (YYYY-MM-DD), `tags`, `draft`.
 - `draft: true` posts never render, list, or enter the sitemap — publishing is flipping the flag and updating `date`.
-- Per-post SEO is automatic via `app/journal/[slug]/page.tsx`: `generateMetadata` (title, description, canonical, OG article) and `Article` JSON-LD. Do not add manual meta tags inside post content.
+- Per-post SEO is automatic via `app/(site)/journal/[slug]/page.tsx`: `generateMetadata` (title, description, canonical, OG article) and `Article` JSON-LD. Do not add manual meta tags inside post content.
 - `lib/journal.ts` is the only reader; `app/sitemap.ts` pulls post URLs and dates from it. New posts need no sitemap edits.
 - Post `description` doubles as the meta description — write it as a search snippet (under ~160 chars, contains the topic keyword).
 - Posts should cross-link related posts and end client-facing posts with a CTA linking `/contact`.

@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Fraunces } from "next/font/google";
-import { StructuredData } from "@/components/structured-data";
-import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
-import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
-import { PortfolioShell } from "@/components/portfolio-shell";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -114,18 +110,9 @@ export default function RootLayout({
             content={process.env.NEXT_PUBLIC_GSC_VERIFICATION_CONTENT}
           />
         )}
-
-        <StructuredData type="WebSite" />
-        <StructuredData type="Person" />
-        <StructuredData type="LocalBusiness" />
-        <StructuredData type="FAQ" />
       </head>
       <body className={`${spaceGrotesk.variable} ${fraunces.variable} antialiased`} suppressHydrationWarning>
-        <PortfolioShell>{children}</PortfolioShell>
-
-        {/* Analytics & Consent */}
-        <GoogleAnalytics />
-        <CookieConsentBanner />
+        {children}
       </body>
     </html>
   );

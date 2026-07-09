@@ -1,0 +1,31 @@
+{
+  "brand": {
+    "name": "Jamal Akbar Alam",
+    "shortName": "jamalakbara.",
+    "fullName": "Jamal Akbar Alam",
+    "tagline": "Creative Developer & Designer",
+    "description": "Portfolio showcasing web development, UI/UX design, and creative digital solutions by Jamal Akbar Alam"
+  },
+  "contact": {
+    "email": "hello-im@jamalakbara.com",
+    "location": "Based in Bandung, Indonesia",
+    "phone": "+6281321766565"
+  },
+  "social": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/jamalakbara",
+      "handle": "@jamalakbara"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/jamalakbara",
+      "handle": "@jamalakbara"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/jamalakbara",
+      "handle": "@jamalakbara"
+    }
+  ]
+}
