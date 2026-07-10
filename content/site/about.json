@@ -5,9 +5,7 @@
   },
   "description": [
     "Hi, I'm Akbar. I'm a developer and designer, and I spend most of my time building things for the web. I care about how things look, how they feel, and whether they actually work the way people expect.",
-    "What pulls me in is the mix of design and code — taking an idea and shaping it into something clean, fast, and easy to use. I like solving the messy problems in between, and I'm always chasing work that feels worth building.",
-    "I'm pretty comfortable with both the creative and technical sides of things. Whether it's making something look awesome or making sure the code doesn't break (usually both), I enjoy figuring stuff out and building things that people actually want to use.",
-    "Always up for interesting projects - especially if it's something that can help Indonesian businesses grow or makes life a bit easier for people here."
+    "What pulls me in is the mix of design and code — taking an idea and shaping it into something clean, fast, and easy to use. I like solving the messy problems in between, and I'm always chasing work that feels worth building."
   ],
   "expertise": {
     "title": "Specialized Skills",
@@ -109,5 +107,5 @@
       "Southeast Asia"
     ]
   },
-  "profileImage": "/profile-image.png"
+  "profileImage": "https://res.cloudinary.com/dh0spkwh3/image/upload/v1781459302/me_fujmfd.png"
 }

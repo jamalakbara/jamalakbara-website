@@ -5,11 +5,10 @@ import {
   projects,
   siteConfig,
 } from "@/lib/content";
+import { waNumber } from "@/lib/country-codes";
 
 /* ---- Navigation ------------------------------------------------------- */
 export const NAV_LINKS = navigation;
-
-export const BRAND = siteConfig.brand; // shortName "jamalakbara."
 
 /* ---- Home ------------------------------------------------------------- */
 export const home = {
@@ -53,9 +52,15 @@ export const about = {
   eyebrow: pages.about.eyebrow,
   portrait: aboutContent.profileImage || "/profile-image.png",
   heading: pages.about.heading,
-  paragraphs: [aboutContent.description[0], aboutContent.description[1]],
+  paragraphs: aboutContent.description.filter((p) => p.trim()),
   footnote: pages.about.footnote,
   chips: aboutContent.expertise.areas.map((a) => a.name),
+};
+
+/* ---- Journal ---------------------------------------------------------- */
+export const journal = {
+  eyebrow: pages.journal.eyebrow,
+  heading: pages.journal.heading,
 };
 
 /* ---- Contact ---------------------------------------------------------- */
@@ -63,5 +68,7 @@ export const contact = {
   eyebrow: pages.contact.eyebrow,
   heading: pages.contact.heading,
   email: siteConfig.contact.email, // hello-im@jamalakbara.com
+  // wa.me number, composed from country dial + local (digits only)
+  whatsapp: waNumber(siteConfig.contact.whatsappCountry, siteConfig.contact.whatsappNumber),
   socials: siteConfig.social.map((s) => ({ label: s.platform, url: s.url })),
 };

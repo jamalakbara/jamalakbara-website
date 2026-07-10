@@ -9,6 +9,12 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - **Never let a route inherit the root canonical.** The root layout's canonical points at the homepage; an uncorrected child route tells Google it is a duplicate of `/`.
 - Title template gotcha: the root `title.template` ("%s | Jamal Akbar Alam") does **not** propagate past a nested layout that sets `title` as a plain string. If a section has child routes (like `/journal/[slug]`), its layout must re-declare `title: { default, template }` — see `app/(site)/journal/layout.tsx`.
 
+### Admin-editable per-route SEO (`/work`, `/about`, `/contact`, `/journal`)
+- These four layouts build metadata via `buildPageMetadata()` in `lib/seo.ts`, which reads `pages.<route>.seo` ({ `title`, `description` }) from `content/site/pages.json` — editable in the admin **Site** editor (SEO fieldset per tab). The layout's inline object is the **fallback** used when a field is blank.
+- `title` is the short route title (feeds the `%s | Jamal Akbar Alam` template); OG/Twitter titles derive as `<title> — Jamal Akbar Alam`. Editing SEO in admin publishes on the normal commit→rebuild cycle.
+- Home (`/`) is also admin-driven, but **specially**: its editable `title`/`description` come from `pages.home.seo` and are wired directly in the root `app/layout.tsx` (not via `buildPageMetadata`), because that title is the FULL homepage title AND the site-wide default/fallback (no `%s | …` suffix). The template, OG image, icons, keywords, and verification stay hardcoded in the root layout — only the title/description text is admin-editable. Home's admin SEO field uses `appendBrand={false}`.
+- The `seo` field is optional in `pagesSchema` (`lib/content/schemas.ts`); if you add a new admin-editable route, extend that schema, seed `pages.json`, and route the layout through `buildPageMetadata()`.
+
 ## Admin CMS routes
 
 - Everything under `/admin` and `/api` is non-SEO surface: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts` or `PAGE_PATHS`.

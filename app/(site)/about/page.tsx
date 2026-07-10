@@ -46,7 +46,7 @@ export default function AboutPage() {
             }}
           >
             <Image
-              src="https://res.cloudinary.com/dh0spkwh3/image/upload/v1781459302/me_fujmfd.png"
+              src={about.portrait}
               alt="Portrait of Akbar"
               fill
               priority
@@ -97,30 +97,21 @@ export default function AboutPage() {
             {about.heading}
           </h2>
 
-          <p
-            className="animate-blur-fade-up"
-            style={{
-              animationDelay: "450ms",
-              fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
-              color: "#b3a596",
-              lineHeight: 1.65,
-              margin: "0 0 1rem",
-            }}
-          >
-            {about.paragraphs[0]}
-          </p>
-          <p
-            className="animate-blur-fade-up"
-            style={{
-              animationDelay: "520ms",
-              fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
-              color: "#b3a596",
-              lineHeight: 1.65,
-              margin: "0 0 1.75rem",
-            }}
-          >
-            {about.paragraphs[1]}
-          </p>
+          {about.paragraphs.map((para, i) => (
+            <p
+              key={i}
+              className="animate-blur-fade-up"
+              style={{
+                animationDelay: `${450 + i * 70}ms`,
+                fontSize: "clamp(0.95rem, 1.6vw, 1.1rem)",
+                color: "#b3a596",
+                lineHeight: 1.65,
+                margin: i === about.paragraphs.length - 1 ? "0 0 1.75rem" : "0 0 1rem",
+              }}
+            >
+              {para}
+            </p>
+          ))}
 
           <div
             className="animate-blur-fade-up"

@@ -7,7 +7,9 @@ import { GAEvents } from "@/lib/analytics/events";
 
 type Errors = { name?: string; email?: string; message?: string };
 
-const WHATSAPP_NUMBER = "6281321766565";
+// wa.me number, composed in site-data from the CMS country + local fields
+// (already digits only). Falls back to the shipped default when unset.
+const WHATSAPP_NUMBER = contact.whatsapp || "6281321766565";
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -263,22 +265,7 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="btn-solid"
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "0.5rem",
-                    background: "#f4ede3",
-                    color: "#1a120b",
-                    border: "none",
-                    borderRadius: "9999px",
-                    fontWeight: 500,
-                    padding: "0.8rem 1.5rem",
-                    fontSize: "0.95rem",
-                    cursor: "pointer",
-                    fontFamily: "inherit",
-                  }}
+                  className="btn-solid btn-lg"
                 >
                   <span>Send message</span>
                   <Send size={17} />

@@ -1,29 +1,18 @@
 import type { Metadata } from "next";
+import { buildPageMetadata } from "@/lib/seo";
 
-const description =
-  "Journal by Jamal Akbar Alam — build logs and notes on web development and design: Next.js, animation, UI engineering, and the craft behind the work.";
-
-export const metadata: Metadata = {
-  // Re-declare the template: a plain-string title here would stop the root
-  // template from reaching /journal/[slug] pages.
-  title: {
-    default: "Journal",
-    template: "%s | Jamal Akbar Alam",
+// template: true re-declares the title template so it still reaches
+// /journal/[slug] pages (a plain-string title here would stop it).
+export const metadata: Metadata = buildPageMetadata(
+  "journal",
+  "/journal",
+  {
+    title: "Journal",
+    description:
+      "Journal by Jamal Akbar Alam — build logs and notes on web development and design: Next.js, animation, UI engineering, and the craft behind the work.",
   },
-  description,
-  alternates: {
-    canonical: "https://jamalakbara.com/journal",
-  },
-  openGraph: {
-    title: "Journal — Jamal Akbar Alam",
-    description,
-    url: "https://jamalakbara.com/journal",
-  },
-  twitter: {
-    title: "Journal — Jamal Akbar Alam",
-    description,
-  },
-};
+  { template: true },
+);
 
 export default function JournalLayout({
   children,

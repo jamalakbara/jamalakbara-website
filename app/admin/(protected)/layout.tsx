@@ -2,15 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/lib/auth";
 import { backendLabel } from "@/lib/admin/content-store";
-
-const ADMIN_NAV = [
-  { label: "Dashboard", href: "/admin" },
-  { label: "Projects", href: "/admin/projects" },
-  { label: "Journal", href: "/admin/journal" },
-  { label: "Site", href: "/admin/site" },
-  { label: "Media", href: "/admin/media" },
-  { label: "Branding", href: "/admin/branding" },
-];
+import { AdminNav } from "./admin-nav";
 
 export default async function ProtectedAdminLayout({
   children,
@@ -23,22 +15,28 @@ export default async function ProtectedAdminLayout({
   const backend = backendLabel();
 
   return (
-    <div className="mx-auto max-w-5xl px-6 pb-20">
-      <header className="sticky top-0 z-50 -mx-6 mb-10 px-6 pt-4 pb-3 backdrop-blur-sm">
-        <div className="liquid-glass flex items-center justify-between gap-4 rounded-full px-5 py-2.5">
-          <Link href="/admin" className="text-sm font-medium tracking-tight">
-            j.<span className="text-[var(--m3)]"> admin</span>
+    <div className="mx-auto max-w-[1080px] pb-20">
+      {/* Header mirrors the public navbar pill: centered, same radius,
+          padding, wordmark treatment and centered active-underline nav. */}
+      <header className="sticky top-0 z-50 flex justify-center px-[clamp(1rem,4vw,3rem)] pt-6 pb-4 backdrop-blur-sm">
+        <div className="liquid-glass relative flex w-full items-center justify-between rounded-full py-2 pl-6 pr-2.5 [cursor:default]">
+          <Link
+            href="/admin"
+            className="flex h-10 items-center gap-2.5 tracking-[-0.02em]"
+          >
+            <span className="text-[clamp(1.05rem,2.2vw,1.35rem)] font-semibold">
+              jamalakbara<span className="text-[var(--accent)]">.</span>
+            </span>
+            <span className="rounded-full border border-[rgba(246,243,240,0.1)] px-2 py-0.5 text-[10px] uppercase tracking-wider text-[var(--m3)]">
+              admin
+            </span>
           </Link>
-          <nav className="hidden items-center gap-4 sm:flex">
-            {ADMIN_NAV.map((item) => (
-              <Link key={item.href} href={item.href} className="nav-link text-xs text-[var(--m2)]">
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+
+          <AdminNav />
+
           <div className="flex items-center gap-3">
             <span
-              className="rounded-full border border-[rgba(246,243,240,0.08)] px-2.5 py-1 text-[10px] text-[var(--m3)]"
+              className="rounded-full border border-[rgba(246,243,240,0.1)] px-2.5 py-1 text-[10px] text-[var(--m3)]"
               title="Where saves are written"
             >
               {backend}
@@ -49,14 +47,17 @@ export default async function ProtectedAdminLayout({
                 await signOut({ redirectTo: "/admin/login" });
               }}
             >
-              <button type="submit" className="nav-link text-xs text-[var(--m3)]">
+              <button
+                type="submit"
+                className="nav-link rounded-full px-4 py-2 text-[0.875rem] text-[var(--m2)]"
+              >
                 Sign out
               </button>
             </form>
           </div>
         </div>
       </header>
-      {children}
+      <div className="px-[clamp(1rem,4vw,3rem)]">{children}</div>
     </div>
   );
 }

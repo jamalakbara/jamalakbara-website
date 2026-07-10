@@ -2,19 +2,48 @@
   "home": {
     "availability": "Open for new work",
     "headline": "I build fast, useful things for the web.",
-    "intro": "I'm Akbar, a developer and designer. I make websites and apps that load fast and stay easy to use."
+    "intro": "I'm Akbar, a developer and designer. I make websites and apps that load fast and stay easy to use.",
+    "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1781452916/bg-home_oaxs7i.mp4",
+    "seo": {
+      "title": "Jamal Akbar Alam — Developer & Designer",
+      "description": "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well."
+    }
   },
   "work": {
     "eyebrow": "Selected Work",
-    "heading": "Things I've built."
+    "heading": "Things I've built.",
+    "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1783502792/bg-work-new_hcj0vh.mp4",
+    "seo": {
+      "title": "Work",
+      "description": "Selected work by Jamal Akbar Alam — websites, web apps, and mobile products built across design and development, from interface to the code behind it."
+    }
   },
   "about": {
     "eyebrow": "About",
     "heading": "Developer and designer who likes to build.",
-    "footnote": "Computer Science, Telkom University. Currently independent and open to new collaborations."
+    "footnote": "Computer Science, Telkom University. Currently independent and open to new collaborations.",
+    "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1781452916/bg-about_zkw2rg.mp4",
+    "seo": {
+      "title": "About",
+      "description": "About Jamal Akbar Alam — a developer and designer based in Bandung, Indonesia, who works across design and development to turn ideas into clean, fast, easy-to-use products."
+    }
   },
   "contact": {
     "eyebrow": "Contact",
-    "heading": "Got an idea? Let's talk."
+    "heading": "Got an idea? Let's talk.",
+    "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1781452916/bg-contact_sx4ep4.mp4",
+    "seo": {
+      "title": "Contact",
+      "description": "Got an idea? Get in touch with Jamal Akbar Alam — developer and designer in Bandung, Indonesia — for websites, web apps, and product design work."
+    }
+  },
+  "journal": {
+    "eyebrow": "Journal",
+    "heading": "Notes from the build.",
+    "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1783495304/bg-journal_afdxkd.mp4",
+    "seo": {
+      "title": "Journal",
+      "description": "Journal by Jamal Akbar Alam — build logs and notes on web development and design: Next.js, animation, UI engineering, and the craft behind the work."
+    }
   }
 }

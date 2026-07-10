@@ -1,6 +1,7 @@
 import Link from "next/link";
 import matter from "gray-matter";
 import { listContentDir, readTextFile } from "@/lib/admin/content-store";
+import { BODY_DELAY_MS, PageHeading } from "@/components/page-heading";
 
 export const metadata = { title: "Journal" };
 
@@ -37,38 +38,45 @@ export default async function AdminJournalPage() {
   const rows = await readRows();
   return (
     <main>
-      <p
-        className="mb-2 text-sm italic text-[var(--m3)]"
-        style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
-      >
-        — Journal
-      </p>
-      <div className="mb-8 flex items-center justify-between">
-        <h1 className="text-3xl font-light tracking-tight">
-          {rows.length} posts
-        </h1>
-        <Link href="/admin/journal/new" className="liquid-glass rounded-full px-5 py-2 text-sm">
-          New post
-        </Link>
-      </div>
+      <PageHeading
+        eyebrow="Journal"
+        title={`${rows.length} posts`}
+        action={
+          <Link
+            href="/admin/journal/new"
+            className="liquid-glass shrink-0 rounded-full px-5 py-2 text-sm"
+          >
+            New post
+          </Link>
+        }
+      />
       <div className="space-y-2">
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           <Link
             key={row.slug}
             href={`/admin/journal/${row.slug}`}
-            className="liquid-glass flex items-center gap-4 rounded-xl px-5 py-3"
+            className="group liquid-glass admin-card animate-blur-fade-up items-center gap-4 rounded-xl px-5 py-3.5"
+            style={{ animationDelay: `${BODY_DELAY_MS + Math.min(i, 8) * 60}ms` }}
           >
             <div className="min-w-0 flex-1">
-              <p className="truncate text-sm">{row.title}</p>
+              <p className="truncate text-sm group-hover:text-[var(--ink)]">{row.title}</p>
               <p className="truncate text-xs text-[var(--m3)]">
                 {row.date} · {row.tags.join(", ")}
               </p>
             </div>
-            {row.draft && (
-              <span className="shrink-0 rounded-full border border-[rgba(246,243,240,0.12)] px-2.5 py-0.5 text-[10px] text-[var(--m3)]">
-                draft
+            <div className="flex shrink-0 items-center gap-3">
+              {row.draft && (
+                <span className="rounded-md border border-[rgba(224,135,90,0.28)] bg-[rgba(224,135,90,0.1)] px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.08em] text-[var(--accent-hi)]">
+                  draft
+                </span>
+              )}
+              <span
+                aria-hidden
+                className="text-[var(--m4)] transition-all duration-300 group-hover:translate-x-0.5 group-hover:text-[var(--accent-hi)]"
+              >
+                →
               </span>
-            )}
+            </div>
           </Link>
         ))}
       </div>

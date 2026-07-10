@@ -4,6 +4,10 @@ import { requireAdmin } from "@/lib/auth";
 // Cloudinary Admin API proxy (list + delete). Runs server-side only:
 // the Admin API uses Basic auth with the API secret.
 
+// All portfolio media lives under portfolio/<images|videos>. Uploads are
+// stored there and the library lists only that folder per media type.
+const FOLDER = { image: "portfolio/images", video: "portfolio/videos" } as const;
+
 function cloudinaryEnv() {
   const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
   const apiKey = process.env.CLOUDINARY_API_KEY;
@@ -30,10 +34,24 @@ export async function GET(request: Request) {
 
   try {
     const { base, auth } = cloudinaryEnv();
-    const params = new URLSearchParams({ max_results: "30" });
-    if (cursor) params.set("next_cursor", cursor);
-    const res = await fetch(`${base}/resources/${type}?${params}`, {
-      headers: { Authorization: auth },
+    // Account uses Cloudinary dynamic folders: the folder is stored in
+    // asset_folder, not in the public_id, so a prefix filter won't match.
+    // The Search API filters on asset_folder directly.
+    const body: {
+      expression: string;
+      max_results: number;
+      sort_by: { created_at: string }[];
+      next_cursor?: string;
+    } = {
+      expression: `asset_folder="${FOLDER[type]}" AND resource_type:${type}`,
+      max_results: 30,
+      sort_by: [{ created_at: "desc" }],
+    };
+    if (cursor) body.next_cursor = cursor;
+    const res = await fetch(`${base}/resources/search`, {
+      method: "POST",
+      headers: { Authorization: auth, "Content-Type": "application/json" },
+      body: JSON.stringify(body),
       cache: "no-store",
     });
     if (!res.ok) {

@@ -5,29 +5,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { NAV_LINKS } from "@/lib/site-data";
+import { pages } from "@/lib/content";
+import {
+  DEFAULT_BACKGROUNDS,
+  videoUrl,
+  posterUrl,
+  blurUrl,
+} from "@/lib/backgrounds";
 import { GAEvents } from "@/lib/analytics/events";
 
-// Background loop videos, served from Cloudinary. Cloud: dh0spkwh3.
-// q_auto/f_auto = adaptive quality + format per browser. From the same asset we
-// also derive a sharp first-frame poster (so_0) and a tiny blurred LQIP, so each
-// layer paints an instant still while the video bytes load.
-const CLD_BASE = "https://res.cloudinary.com/dh0spkwh3/video/upload";
-const VIDEO_T = "q_auto:best,f_auto"; // full-quality loop
-const POSTER_T = "q_auto,f_auto,so_0"; // sharp first frame
-const BLUR_T = "q_auto,f_auto,so_0,w_64,e_blur:1200"; // ~few-KB LQIP
-
-// route -> versioned Cloudinary path WITHOUT extension
+// route -> versioned Cloudinary path WITHOUT extension. Defaults live in
+// lib/backgrounds; the CMS overrides per page via pages.*.backgroundVideo
+// (empty/unset keeps the default). Journal has no site-copy tab → default only.
 const PAGE_PATHS: Record<string, string> = {
-  "/": "v1781452916/bg-home_oaxs7i",
-  "/work": "v1783502792/bg-work-new_hcj0vh",
-  "/journal": "v1783495304/bg-journal_afdxkd",
-  "/about": "v1781452916/bg-about_zkw2rg",
-  "/contact": "v1781452916/bg-contact_sx4ep4",
+  "/": pages.home.backgroundVideo || DEFAULT_BACKGROUNDS.home,
+  "/work": pages.work.backgroundVideo || DEFAULT_BACKGROUNDS.work,
+  "/journal": pages.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal,
+  "/about": pages.about.backgroundVideo || DEFAULT_BACKGROUNDS.about,
+  "/contact": pages.contact.backgroundVideo || DEFAULT_BACKGROUNDS.contact,
 };
-
-const videoUrl = (p: string) => `${CLD_BASE}/${VIDEO_T}/${p}.mp4`;
-const posterUrl = (p: string) => `${CLD_BASE}/${POSTER_T}/${p}.jpg`;
-const blurUrl = (p: string) => `${CLD_BASE}/${BLUR_T}/${p}.jpg`;
 
 function getPath(pathname: string): string {
   for (const key of Object.keys(PAGE_PATHS)) {

@@ -61,19 +61,16 @@ export const navigationSchema = z.array(
 
 export const siteConfigSchema = z.object({
   brand: z.object({
-    name: z.string().min(1),
-    shortName: z.string().min(1),
-    fullName: z.string().optional(),
     tagline: z.string().min(1),
-    description: z.string().optional(),
   }),
   contact: z.object({
     email: z.string().email(),
-    phone: z.string().optional(),
+    whatsappCountry: z.string().optional(),
+    whatsappNumber: z.string().optional(),
     location: z.string().min(1),
   }),
   social: z.array(
-    z.object({ platform: z.string(), url: z.string().url(), handle: z.string() })
+    z.object({ platform: z.string(), url: z.string().url() })
   ),
 });
 
@@ -218,19 +215,35 @@ export const ctaSchema = z.object({
   }),
 });
 
+// Optional per-page Cloudinary background-video path (version + public id, no
+// extension, e.g. "v1781452916/bg-home_oaxs7i"). Empty → shell uses its default.
+const backgroundVideo = z.string().optional();
+
+// Per-route SEO overrides. Empty/absent → route layout falls back to its
+// shipped default metadata. `title` is the short route title (feeds the
+// "%s | Jamal Akbar Alam" template); `description` is the meta description.
+const seo = z.object({ title: z.string(), description: z.string() }).optional();
+
 export const pagesSchema = z.object({
   home: z.object({
     availability: z.string(),
     headline: z.string(),
     intro: z.string(),
+    backgroundVideo,
+    // Home `title` is the FULL homepage title (also the site-wide default /
+    // fallback title) — no "%s | …" template suffix, unlike other routes.
+    seo,
   }),
-  work: z.object({ eyebrow: z.string(), heading: z.string() }),
+  work: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
   about: z.object({
     eyebrow: z.string(),
     heading: z.string(),
     footnote: z.string(),
+    backgroundVideo,
+    seo,
   }),
-  contact: z.object({ eyebrow: z.string(), heading: z.string() }),
+  contact: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
+  journal: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
 });
 
 export type PagesContent = z.infer<typeof pagesSchema>;

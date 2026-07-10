@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { getJournalPosts, formatPostDate } from "@/lib/journal";
+import { journal } from "@/lib/site-data";
 
 // Server component — post rows render as static HTML for crawlers.
 export default function JournalPage() {
@@ -46,7 +47,7 @@ export default function JournalPage() {
               display: "inline-block",
             }}
           />
-          Journal
+          {journal.eyebrow}
         </div>
         <h1
           style={{
@@ -57,7 +58,7 @@ export default function JournalPage() {
             lineHeight: 1.05,
           }}
         >
-          Notes from the build.
+          {journal.heading}
         </h1>
       </div>
 

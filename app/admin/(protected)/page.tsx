@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BODY_DELAY_MS, PageHeading } from "@/components/page-heading";
 
 const SECTIONS = [
   {
@@ -31,25 +32,25 @@ const SECTIONS = [
 export default function AdminDashboardPage() {
   return (
     <main>
-      <p
-        className="mb-2 text-sm italic text-[var(--m3)] animate-blur-fade-up"
-        style={{ fontFamily: "var(--font-fraunces), Georgia, serif" }}
-      >
-        — Dashboard
-      </p>
-      <h1 className="mb-10 text-4xl font-light tracking-tight animate-blur-fade-up">
-        What are we editing today?
-      </h1>
+      <PageHeading eyebrow="Dashboard" title="What are we editing today?" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {SECTIONS.map((section, i) => (
           <Link
             key={section.href}
             href={section.href}
-            className="liquid-glass block rounded-2xl p-6 animate-blur-fade-up"
-            style={{ animationDelay: `${i * 80}ms` }}
+            className="group liquid-glass admin-card flex-col justify-between gap-6 rounded-2xl p-6 min-h-[9.5rem] animate-blur-fade-up"
+            style={{ animationDelay: `${BODY_DELAY_MS + i * 80}ms` }}
           >
-            <h2 className="mb-1 text-lg font-normal">{section.title}</h2>
-            <p className="text-sm text-[var(--m3)]">{section.description}</p>
+            <div>
+              <h2 className="mb-1.5 text-lg font-normal tracking-tight">{section.title}</h2>
+              <p className="text-sm leading-relaxed text-[var(--m3)]">{section.description}</p>
+            </div>
+            <span
+              aria-hidden
+              className="text-lg text-[var(--m4)] transition-transform duration-300 group-hover:translate-x-1 group-hover:text-[var(--accent-hi)]"
+            >
+              →
+            </span>
           </Link>
         ))}
       </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/content-types";
 import { MediaField } from "@/components/admin/media-field";
 import { deleteProject, upsertProject } from "./actions";
+import { input, label } from "@/lib/admin/form-styles";
 
 const lines = (s: string) =>
   s.split("\n").map((l) => l.trim()).filter(Boolean);
@@ -94,9 +95,6 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       else setError(result.error);
     });
   }
-
-  const input = "field-input w-full";
-  const label = "mb-1.5 block text-xs text-[var(--m3)]";
 
   return (
     <form onSubmit={submit} className="space-y-8">
@@ -205,7 +203,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
                   />
                   <button
                     type="button"
-                    className="liquid-glass shrink-0 rounded-full px-3 text-xs"
+                    className="liquid-glass btn-icon"
                     onClick={() => setMetrics((rows) => rows.filter((_, j) => j !== i))}
                   >
                     ×
@@ -242,7 +240,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       {error && <p className="text-sm text-red-400">{error}</p>}
 
       <div className="flex items-center justify-between">
-        <button type="submit" disabled={pending} className="btn-solid rounded-full px-6 py-2.5 text-sm disabled:opacity-40">
+        <button type="submit" disabled={pending} className="btn-solid">
           {pending ? "Saving…" : initial ? "Save project" : "Create project"}
         </button>
         {initial && (
@@ -250,7 +248,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
             type="button"
             onClick={remove}
             disabled={pending}
-            className="text-xs text-red-400/80 hover:text-red-400"
+            className="btn-danger"
           >
             Delete project
           </button>

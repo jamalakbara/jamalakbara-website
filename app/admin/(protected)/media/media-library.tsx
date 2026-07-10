@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { MediaLightbox } from "@/components/admin/media-lightbox";
 
 interface MediaItem {
   publicId: string;
@@ -25,6 +26,7 @@ export function MediaLibrary() {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [copied, setCopied] = useState<string | null>(null);
+  const [preview, setPreview] = useState<MediaItem | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const load = useCallback(
@@ -58,10 +60,11 @@ export function MediaLibrary() {
     setUploading(true);
     setError(null);
     try {
+      const assetFolder = type === "image" ? "portfolio/images" : "portfolio/videos";
       const signRes = await fetch("/api/admin/media/sign", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
+        body: JSON.stringify({ assetFolder }),
       });
       if (!signRes.ok) throw new Error("Could not sign upload");
       const { timestamp, signature, apiKey, cloudName } = await signRes.json();
@@ -70,6 +73,7 @@ export function MediaLibrary() {
       form.append("api_key", apiKey);
       form.append("timestamp", String(timestamp));
       form.append("signature", signature);
+      form.append("asset_folder", assetFolder);
       const res = await fetch(
         `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
         { method: "POST", body: form }
@@ -121,7 +125,7 @@ export function MediaLibrary() {
         </div>
         <button
           type="button"
-          className="btn-solid rounded-full px-5 py-2 text-sm disabled:opacity-40"
+          className="btn-solid btn-sm"
           disabled={uploading}
           onClick={() => fileRef.current?.click()}
         >
@@ -142,14 +146,34 @@ export function MediaLibrary() {
       {error && <p className="mb-4 text-sm text-red-400">{error}</p>}
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {loading && items.length === 0 &&
+          Array.from({ length: 8 }).map((_, i) => (
+            <div
+              key={`skeleton-${i}`}
+              className="liquid-glass overflow-hidden rounded-xl"
+            >
+              <div className="aspect-square w-full animate-pulse bg-[var(--m4)]/10" />
+              <div className="space-y-2 p-3">
+                <div className="h-2.5 w-3/4 animate-pulse rounded bg-[var(--m4)]/15" />
+                <div className="h-2 w-1/2 animate-pulse rounded bg-[var(--m4)]/10" />
+              </div>
+            </div>
+          ))}
         {items.map((item) => (
           <div key={item.publicId} className="liquid-glass cursor-default overflow-hidden rounded-xl">
-            {type === "image" ? (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img src={item.url.replace("/upload/", "/upload/w_400,q_auto,f_auto/")} alt={item.publicId} className="aspect-square w-full object-cover" loading="lazy" />
-            ) : (
-              <video src={item.url} className="aspect-square w-full object-cover" muted playsInline preload="metadata" />
-            )}
+            <button
+              type="button"
+              className="block w-full cursor-pointer"
+              onClick={() => setPreview(item)}
+              title="Preview"
+            >
+              {type === "image" ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={item.url.replace("/upload/", "/upload/w_400,q_auto,f_auto/")} alt={item.publicId} className="aspect-square w-full object-cover transition hover:opacity-80" loading="lazy" />
+              ) : (
+                <video src={item.url} className="aspect-square w-full object-cover transition hover:opacity-80" muted playsInline preload="metadata" />
+              )}
+            </button>
             <div className="space-y-1 p-3">
               <p className="truncate text-xs" title={item.publicId}>{item.publicId}</p>
               <p className="text-[10px] text-[var(--m4)]">
@@ -159,7 +183,7 @@ export function MediaLibrary() {
                 <button type="button" className="nav-link text-[11px] text-[var(--m2)]" onClick={() => copy(item.url)}>
                   {copied === item.url ? "Copied!" : "Copy URL"}
                 </button>
-                <button type="button" className="text-[11px] text-red-400/80 hover:text-red-400" onClick={() => remove(item)}>
+                <button type="button" className="btn-danger btn-sm" onClick={() => remove(item)}>
                   Delete
                 </button>
               </div>
@@ -183,8 +207,16 @@ export function MediaLibrary() {
             {loading ? "Loading…" : "Load more"}
           </button>
         )}
-        {loading && !cursor && <p className="text-sm text-[var(--m4)]">Loading…</p>}
       </div>
+
+      {preview && (
+        <MediaLightbox
+          url={preview.url}
+          publicId={preview.publicId}
+          kind={type}
+          onClose={() => setPreview(null)}
+        />
+      )}
     </div>
   );
 }

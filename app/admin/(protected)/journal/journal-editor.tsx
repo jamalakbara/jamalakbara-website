@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { deleteJournalPost, saveJournalPost, type JournalPostInput } from "./actions";
+import { input, label } from "@/lib/admin/form-styles";
 
 interface JournalEditorProps {
   initial?: JournalPostInput;
@@ -27,6 +28,28 @@ export function JournalEditor({ initial }: JournalEditorProps) {
   const [preview, setPreview] = useState<MDXRemoteSerializeResult | null>(null);
   const [previewError, setPreviewError] = useState<string | null>(null);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  // Proportional scroll-sync between the MDX textarea and the rendered
+  // preview. `syncing` locks out the echoed onScroll the programmatic
+  // scrollTop assignment fires, so the two panes don't fight.
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const syncing = useRef<"editor" | "preview" | null>(null);
+
+  function syncScroll(source: "editor" | "preview") {
+    if (syncing.current && syncing.current !== source) return;
+    const from = source === "editor" ? editorRef.current : previewRef.current;
+    const to = source === "editor" ? previewRef.current : editorRef.current;
+    if (!from || !to) return;
+    const fromMax = from.scrollHeight - from.clientHeight;
+    const toMax = to.scrollHeight - to.clientHeight;
+    if (fromMax <= 0 || toMax <= 0) return;
+    syncing.current = source;
+    to.scrollTop = (from.scrollTop / fromMax) * toMax;
+    requestAnimationFrame(() => {
+      syncing.current = null;
+    });
+  }
 
   useEffect(() => {
     clearTimeout(debounceRef.current);
@@ -89,9 +112,6 @@ export function JournalEditor({ initial }: JournalEditorProps) {
     });
   }
 
-  const input = "field-input w-full";
-  const label = "mb-1.5 block text-xs text-[var(--m3)]";
-
   return (
     <form onSubmit={submit} className="space-y-6">
       <section className="liquid-glass cursor-default space-y-4 rounded-2xl p-6">
@@ -140,8 +160,9 @@ export function JournalEditor({ initial }: JournalEditorProps) {
         <div>
           <label className={label}>Body (MDX)</label>
           <textarea
-            className="field-input w-full font-mono text-sm leading-relaxed"
-            rows={24}
+            ref={editorRef}
+            onScroll={() => syncScroll("editor")}
+            className="field-input h-[32rem] w-full resize-none overflow-y-auto font-mono text-sm leading-relaxed"
             value={form.body}
             onChange={(e) => set("body", e.target.value)}
             spellCheck={false}
@@ -151,7 +172,11 @@ export function JournalEditor({ initial }: JournalEditorProps) {
           <label className={label}>
             Preview {previewError && <span className="text-red-400">— {previewError}</span>}
           </label>
-          <div className="liquid-glass h-full max-h-[36rem] cursor-default overflow-y-auto rounded-2xl p-6">
+          <div
+            ref={previewRef}
+            onScroll={() => syncScroll("preview")}
+            className="liquid-glass h-[32rem] cursor-default overflow-y-auto rounded-2xl p-6"
+          >
             <div className="journal-prose">
               {preview ? <MDXRemote {...preview} /> : <p className="text-sm text-[var(--m4)]">Start typing to preview…</p>}
             </div>
@@ -162,7 +187,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
       {error && <p className="text-sm text-red-400">{error}</p>}
 
       <div className="flex items-center justify-between">
-        <button type="submit" disabled={pending} className="btn-solid rounded-full px-6 py-2.5 text-sm disabled:opacity-40">
+        <button type="submit" disabled={pending} className="btn-solid">
           {pending ? "Saving…" : form.draft ? "Save draft" : "Save & publish"}
         </button>
         {initial && (
@@ -170,7 +195,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
             type="button"
             onClick={remove}
             disabled={pending}
-            className="text-xs text-red-400/80 hover:text-red-400"
+            className="btn-danger"
           >
             Delete post
           </button>

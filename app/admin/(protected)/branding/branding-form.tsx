@@ -36,7 +36,12 @@ function toBase64(file: File): Promise<string> {
   });
 }
 
-function SlotCard({ slot }: { slot: BrandingSlot }) {
+function slotSpec(entry: (typeof BRANDING_SLOTS)[BrandingSlot]): string {
+  if (entry.pngSize) return `PNG ${entry.pngSize}×${entry.pngSize}`;
+  return entry.accept.startsWith(".svg") ? "SVG" : ".ico";
+}
+
+function SlotRow({ slot }: { slot: BrandingSlot }) {
   const entry = BRANDING_SLOTS[slot];
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, startTransition] = useTransition();
@@ -74,20 +79,31 @@ function SlotCard({ slot }: { slot: BrandingSlot }) {
   }
 
   return (
-    <div className="liquid-glass cursor-default rounded-2xl p-5">
-      <div className="mb-3 flex h-20 items-center justify-center rounded-lg bg-[rgba(246,243,240,0.03)]">
+    <div className="liquid-glass flex cursor-default items-center gap-4 rounded-xl px-5 py-3.5">
+      <div className="flex h-12 w-16 shrink-0 items-center justify-center rounded-lg bg-[rgba(246,243,240,0.03)]">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={`${entry.publicUrl}?v=${bump}`}
           alt={entry.label}
-          className="max-h-16 max-w-[80%] object-contain"
+          className="max-h-9 max-w-14 object-contain"
         />
       </div>
-      <p className="text-sm">{entry.label}</p>
-      <p className="mb-3 mt-0.5 text-xs text-[var(--m4)]">{entry.note}</p>
+      <div className="min-w-0 flex-1">
+        <p className="text-sm">{entry.label}</p>
+        <p
+          className={`mt-0.5 truncate text-xs ${
+            message ? "text-[var(--m2)]" : "text-[var(--m4)]"
+          }`}
+        >
+          {message ?? entry.note}
+        </p>
+      </div>
+      <span className="hidden shrink-0 rounded-full border border-[rgba(246,243,240,0.1)] px-2.5 py-1 text-[10px] uppercase tracking-wider text-[var(--m3)] sm:inline-flex">
+        {slotSpec(entry)}
+      </span>
       <button
         type="button"
-        className="liquid-glass rounded-full px-4 py-1.5 text-xs disabled:opacity-40"
+        className="liquid-glass shrink-0 rounded-full px-4 py-1.5 text-xs disabled:opacity-40"
         disabled={pending}
         onClick={() => fileRef.current?.click()}
       >
@@ -104,7 +120,6 @@ function SlotCard({ slot }: { slot: BrandingSlot }) {
           e.target.value = "";
         }}
       />
-      {message && <p className="mt-2 text-xs text-[var(--m3)]">{message}</p>}
     </div>
   );
 }
@@ -113,12 +128,12 @@ export function BrandingForm() {
   const slots = Object.keys(BRANDING_SLOTS) as BrandingSlot[];
   return (
     <div>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid max-w-3xl gap-3">
         {slots.map((slot) => (
-          <SlotCard key={slot} slot={slot} />
+          <SlotRow key={slot} slot={slot} />
         ))}
       </div>
-      <p className="mt-6 text-xs text-[var(--m4)]">
+      <p className="mt-6 max-w-3xl text-xs text-[var(--m4)]">
         Previews show the currently deployed assets — after saving in production,
         the new file appears once the rebuild finishes. Replacements only change
         file bytes; the favicon stays favicon.ico by design.

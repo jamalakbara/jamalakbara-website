@@ -77,6 +77,14 @@ a.liquid-glass {
   display: inline-flex;
   align-items: center;
 }
+/* Admin cards are anchors too, but must lay out as block-level flex that
+   fills its column/row — not the shrink-wrapped inline-flex pill above.
+   Higher specificity (two classes) so it wins regardless of source order;
+   flex-direction is left to Tailwind (`flex-col` etc.). */
+a.liquid-glass.admin-card {
+  display: flex;
+  align-items: stretch;
+}
 
 /* ---- Entrance animation ---------------------------------- */
 @keyframes blurFadeUp {
@@ -110,6 +118,34 @@ a.liquid-glass {
     opacity: 0.35;
     transform: scale(0.7);
   }
+}
+
+/* ---- Section heading (eyebrow + title) ------------------- */
+/* Fraunces italic accent eyebrow with a leading rule + large
+   tight-tracked title. Mirrors the public page headings so the
+   admin surface reads with the same typographic voice. */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: var(--accent);
+}
+.section-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  display: inline-block;
+}
+.section-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
 }
 
 /* ---- Work list rows -------------------------------------- */
@@ -156,6 +192,73 @@ a.liquid-glass {
   border-color: var(--accent);
   background: rgba(255, 250, 244, 0.04);
 }
+/* Native select shares .field-input; strip the UA arrow (which sits hard
+   against the edge, uncontrollable via padding) and draw our own chevron
+   inset from the right with matching padding so text never overlaps it. */
+select.field-input {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 2.9rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none' stroke='%23a99c8d' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1.4rem center;
+}
+select.field-input option {
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* Native date input shares .field-input. The UA calendar glyph is a dark,
+   low-contrast icon that vanishes on our dark fill — swap it for a themed
+   accent-orange calendar SVG (matching the select chevron placement). Strip
+   the UA inner spin/clear widgets so only our icon shows. */
+input[type="date"].field-input::-webkit-calendar-picker-indicator {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0 0 auto;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.9;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16' fill='none' stroke='%23e0875a' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='3' width='12' height='11' rx='2'/%3E%3Cpath d='M2 6.5h12M5 1.5v3M11 1.5v3'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: opacity 0.25s;
+}
+input[type="date"].field-input::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+input[type="date"].field-input::-webkit-inner-spin-button,
+input[type="date"].field-input::-webkit-clear-button {
+  display: none;
+  -webkit-appearance: none;
+}
+
+/* Every admin textarea shares .field-input, so scoping here keeps them
+   uniform: no drag-resize handle + a thin, theme-matched scrollbar
+   instead of the chunky native one. */
+textarea.field-input {
+  resize: none;
+  line-height: 1.6;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(246, 243, 240, 0.18) transparent;
+}
+textarea.field-input::-webkit-scrollbar {
+  width: 8px;
+}
+textarea.field-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+textarea.field-input::-webkit-scrollbar-thumb {
+  background: rgba(246, 243, 240, 0.16);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+textarea.field-input::-webkit-scrollbar-thumb:hover {
+  background: rgba(246, 243, 240, 0.3);
+  background-clip: padding-box;
+}
 
 /* category column on work rows — hidden on narrow widths */
 .work-cat {
@@ -172,8 +275,27 @@ a.liquid-glass {
   color: var(--ink);
 }
 
-/* ---- Generic hover helpers used inline ------------------- */
+/* ---- Buttons: shared geometry (solid + glass variants) --- */
+.btn-solid,
+.btn-glass,
+.btn-danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  padding: 0.625rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+}
+/* Solid fill (primary). Glass fill comes from .liquid-glass. */
 .btn-solid {
+  border: none;
+  background: var(--ink);
+  color: #1a120b;
   transition: background 0.2s,
     transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -181,11 +303,54 @@ a.liquid-glass {
   background: #fff;
   transform: translateY(-2px);
 }
+.btn-solid:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/* Danger (outlined pill): destructive actions — delete/remove */
+.btn-danger {
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  background: rgba(248, 113, 113, 0.08);
+  color: #f87171;
+  transition: background 0.2s, border-color 0.2s,
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-danger:hover {
+  background: rgba(248, 113, 113, 0.16);
+  border-color: rgba(248, 113, 113, 0.7);
+  transform: translateY(-2px);
+}
+.btn-danger:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+/* Size modifiers — apply to either variant */
+.btn-sm {
+  padding: 0.5rem 1.25rem;
+}
+.btn-lg {
+  padding: 0.8rem clamp(1.5rem, 3vw, 2rem);
+  font-size: 0.95rem;
+}
+/* Icon button — perfect circle sized to .field-input height. Pair with
+   .liquid-glass for fill/border/press. Used for admin ×/remove buttons. */
+.btn-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: 9999px;
+  font-size: 1.125rem;
+  line-height: 1;
+}
 
 /* ---- Tactile click: quick press-down, springy release ---- */
 /* liquid-glass press scoped to a/button so the contact <form> and
    success <div> (both .liquid-glass, cursor:default) never scale. */
 .btn-solid:active,
+.btn-danger:active,
 a.liquid-glass:active,
 button.liquid-glass:active {
   transform: scale(0.95);
@@ -211,6 +376,10 @@ button.liquid-glass:active {
 .desktop-nav {
   display: none;
 }
+/* Admin center nav — same show/hide breakpoint as the public .desktop-nav. */
+.admin-desktop-nav {
+  display: none;
+}
 .nav-actions {
   display: flex;
 }
@@ -219,6 +388,9 @@ button.liquid-glass:active {
 }
 @media (min-width: 1024px) {
   .desktop-nav {
+    display: flex;
+  }
+  .admin-desktop-nav {
     display: flex;
   }
   .hamburger {

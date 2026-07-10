@@ -38,7 +38,7 @@ export function ProjectsList({ initial }: { initial: Project[] }) {
           <button
             onClick={save}
             disabled={!dirty || pending}
-            className="btn-solid rounded-full px-5 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+            className="btn-solid btn-sm"
           >
             {pending ? "Saving…" : "Save changes"}
           </button>

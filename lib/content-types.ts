@@ -162,21 +162,17 @@ export interface ComprehensiveAboutContent {
 
 export interface SiteConfig {
   brand: {
-    name: string;
-    shortName: string;
-    fullName?: string;
     tagline: string;
-    description?: string;
   };
   contact: {
     email: string;
-    phone?: string;
+    whatsappCountry?: string; // dial code, digits only (e.g. "62")
+    whatsappNumber?: string; // local number, any legal format
     location: string;
   };
   social: {
     platform: string;
     url: string;
-    handle: string;
   }[];
 }
 

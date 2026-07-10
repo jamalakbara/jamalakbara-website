@@ -1,6 +1,16 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Fraunces } from "next/font/google";
+import { pages } from "@/lib/content";
 import "./globals.css";
+
+// Home SEO is admin-editable via content/site/pages.json (Site → Home → SEO).
+// `title` here is the FULL homepage title AND the site-wide default/fallback
+// title — no "%s | …" template suffix. Blank falls back to the shipped copy.
+const HOME_TITLE_FALLBACK = "Jamal Akbar Alam — Developer & Designer";
+const HOME_DESC_FALLBACK =
+  "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.";
+const homeTitle = pages.home.seo?.title?.trim() || HOME_TITLE_FALLBACK;
+const homeDescription = pages.home.seo?.description?.trim() || HOME_DESC_FALLBACK;
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -24,10 +34,10 @@ const fraunces = Fraunces({
 export const metadata: Metadata = {
   metadataBase: new URL('https://jamalakbara.com'),
   title: {
-    default: "Jamal Akbar Alam — Developer & Designer",
+    default: homeTitle,
     template: "%s | Jamal Akbar Alam"
   },
-  description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
+  description: homeDescription,
   keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
   authors: [{ name: "Jamal Akbar Alam", url: "https://jamalakbara.com" }],
   creator: "Jamal Akbar Alam",
@@ -48,8 +58,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://jamalakbara.com",
     siteName: "Jamal Akbar Alam",
-    title: "Jamal Akbar Alam — Developer & Designer",
-    description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
+    title: homeTitle,
+    description: homeDescription,
     images: [
       {
         url: "/og-image.jpg",
@@ -62,8 +72,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Jamal Akbar Alam — Developer & Designer",
-    description: "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.",
+    title: homeTitle,
+    description: homeDescription,
     images: ["/twitter-image.jpg"],
     creator: "@jamalakbara",
     site: "@jamalakbara",

@@ -22,13 +22,15 @@ export async function POST(request: Request) {
     );
   }
 
-  const { folder } = (await request.json().catch(() => ({}))) as {
-    folder?: string;
+  const { assetFolder } = (await request.json().catch(() => ({}))) as {
+    assetFolder?: string;
   };
 
   const timestamp = Math.floor(Date.now() / 1000);
+  // Dynamic-folder account: asset_folder places the asset in a folder
+  // without prefixing the public_id (matches how existing assets are stored).
   const params: Record<string, string | number> = { timestamp };
-  if (folder) params.folder = folder;
+  if (assetFolder) params.asset_folder = assetFolder;
 
   const toSign = Object.keys(params)
     .sort()
@@ -38,5 +40,5 @@ export async function POST(request: Request) {
     .update(toSign + apiSecret)
     .digest("hex");
 
-  return NextResponse.json({ timestamp, signature, apiKey, cloudName, folder });
+  return NextResponse.json({ timestamp, signature, apiKey, cloudName, assetFolder });
 }

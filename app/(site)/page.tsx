@@ -131,22 +131,8 @@ export default function HomePage() {
           <Link
             href="/work"
             onClick={() => GAEvents.trackNavigationClick("/work", "home_cta")}
-            className="animate-blur-fade-up btn-solid"
-            style={{
-              animationDelay: "600ms",
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              background: "#f4ede3",
-              color: "#1a120b",
-              border: "none",
-              borderRadius: "9999px",
-              fontWeight: 500,
-              padding: "0.8rem clamp(1.5rem, 3vw, 2rem)",
-              fontSize: "0.95rem",
-              cursor: "pointer",
-              textDecoration: "none",
-            }}
+            className="animate-blur-fade-up btn-solid btn-lg"
+            style={{ animationDelay: "600ms" }}
           >
             <span>See the work</span>
             <ArrowRight size={18} />
@@ -154,17 +140,8 @@ export default function HomePage() {
           <Link
             href="/contact"
             onClick={() => GAEvents.trackNavigationClick("/contact", "home_cta")}
-            className="liquid-glass animate-blur-fade-up"
-            style={{
-              animationDelay: "700ms",
-              borderRadius: "9999px",
-              fontWeight: 500,
-              padding: "0.8rem clamp(1.5rem, 3vw, 2rem)",
-              fontSize: "0.95rem",
-              textDecoration: "none",
-              display: "inline-flex",
-              alignItems: "center",
-            }}
+            className="liquid-glass animate-blur-fade-up btn-glass btn-lg"
+            style={{ animationDelay: "700ms" }}
           >
             Say hi
           </Link>
