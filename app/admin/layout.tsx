@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AdminBackground } from "@/components/admin/admin-background";
 
 export const metadata: Metadata = {
   title: {
@@ -18,8 +19,12 @@ export default function AdminLayout({
   // body has overflow:hidden (the public site scrolls inside PortfolioShell),
   // so the admin surface provides its own scroll container.
   return (
-    <div className="h-screen overflow-y-auto bg-[var(--bg)] text-[var(--ink)]">
-      {children}
+    <div className="relative h-screen overflow-y-auto bg-[var(--bg)] text-[var(--ink)]">
+      {/* Animated WebGL flow-field background (brand-colored domain-warped
+          noise, cursor-reactive, grain + vignette). Non-interactive, fixed,
+          behind all admin chrome. Freezes under prefers-reduced-motion. */}
+      <AdminBackground />
+      <div className="relative z-10">{children}</div>
     </div>
   );
 }

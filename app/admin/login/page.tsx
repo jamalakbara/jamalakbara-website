@@ -7,7 +7,7 @@ export default async function AdminLoginPage() {
   if (session?.login === process.env.ADMIN_GITHUB_LOGIN) redirect("/admin");
 
   return (
-    <main className="relative flex min-h-full items-center justify-center overflow-hidden px-6">
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
       <div className="liquid-glass animate-blur-fade-up w-full max-w-sm rounded-2xl p-8 text-center [cursor:default]">
         <p className="section-eyebrow mb-5">Admin</p>
 
