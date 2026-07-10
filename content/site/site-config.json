@@ -1,0 +1,25 @@
+{
+  "brand": {
+    "tagline": "Creative Developer & Designer"
+  },
+  "contact": {
+    "email": "hello-im@jamalakbara.com",
+    "location": "Based in Bandung, Indonesia",
+    "whatsappCountry": "62",
+    "whatsappNumber": "813 2176 6565"
+  },
+  "social": [
+    {
+      "platform": "GitHub",
+      "url": "https://github.com/jamalakbara"
+    },
+    {
+      "platform": "LinkedIn",
+      "url": "https://linkedin.com/in/jamalakbara"
+    },
+    {
+      "platform": "Twitter",
+      "url": "https://twitter.com/jamalakbara"
+    }
+  ]
+}
