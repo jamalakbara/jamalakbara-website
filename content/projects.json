@@ -78,6 +78,46 @@
     ]
   },
   {
+    "id": "duma",
+    "title": "Duma",
+    "category": "E-Commerce Development",
+    "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
+    "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png",
+    "year": "2021",
+    "tech": [
+      "Shopify",
+      "Liquid",
+      "JavaScript",
+      "CSS3",
+      "GraphQL"
+    ],
+    "url": "https://dumaofficial.com/",
+    "livePreview": "https://dumaofficial.com/",
+    "featured": true,
+    "challenge": "Duma required a scalable e-commerce solution to handle their rapid international expansion. They needed a platform that could support multiple languages, currencies, and regional inventory management without compromising performance.",
+    "solution": "Implemented a headless Shopify setup using Hydrogen and React to deliver a blazing-fast global storefront. Integrated a PIM system for centralized product management across all regions.",
+    "features": [
+      "Headless Architecture",
+      "Multi-Region Support",
+      "PIM Integration",
+      "Algolia Search",
+      "Automated Returns Portal"
+    ],
+    "gallery": [
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png"
+    ],
+    "metrics": [
+      {
+        "label": "Global Reach",
+        "value": "12 Countries"
+      },
+      {
+        "label": "Load Time",
+        "value": "0.5s"
+      }
+    ]
+  },
+  {
     "id": "rawtype-riot",
     "title": "Rawtype Riot",
     "category": "E-Commerce Development",
@@ -319,46 +359,6 @@
       {
         "label": "Return Customers",
         "value": "42%"
-      }
-    ]
-  },
-  {
-    "id": "duma",
-    "title": "Duma",
-    "category": "E-Commerce Development",
-    "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
-    "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png",
-    "year": "2021",
-    "tech": [
-      "Shopify",
-      "Liquid",
-      "JavaScript",
-      "CSS3",
-      "GraphQL"
-    ],
-    "url": "https://dumaofficial.com/",
-    "livePreview": "https://dumaofficial.com/",
-    "featured": true,
-    "challenge": "Duma required a scalable e-commerce solution to handle their rapid international expansion. They needed a platform that could support multiple languages, currencies, and regional inventory management without compromising performance.",
-    "solution": "Implemented a headless Shopify setup using Hydrogen and React to deliver a blazing-fast global storefront. Integrated a PIM system for centralized product management across all regions.",
-    "features": [
-      "Headless Architecture",
-      "Multi-Region Support",
-      "PIM Integration",
-      "Algolia Search",
-      "Automated Returns Portal"
-    ],
-    "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png"
-    ],
-    "metrics": [
-      {
-        "label": "Global Reach",
-        "value": "12 Countries"
-      },
-      {
-        "label": "Load Time",
-        "value": "0.5s"
       }
     ]
   },
