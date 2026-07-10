@@ -6,15 +6,34 @@ import { auth } from "@/lib/auth";
  * server-side in the admin layout / requireAdmin() — this only
  * short-circuits obvious unauthenticated traffic.
  *
- * Also maps the cms.* subdomain onto the admin surface: bare paths
- * on cms.jamalakbara.com are rewritten to /admin/* (URL unchanged
- * in the browser). /admin/* and /api/* pass through untouched so
- * auth endpoints and existing admin links keep working on both hosts.
+ * Also maps the cms.* subdomain onto the admin surface:
+ *
+ *   cms.jamalakbara.com/*  →  internally served from /admin/*
+ *
+ * URL-bar stays clean because:
+ *  - Inbound bare paths are REWRITTEN to /admin/* (no visible redirect).
+ *  - Admin pages contain hardcoded Link hrefs like /admin/projects, so
+ *    when followed on the cms host they'd expose the prefix. We catch
+ *    those with a REDIRECT back to the clean path, which the rewrite
+ *    then maps internally on the next request.
  */
 export default auth((req) => {
   const host = req.headers.get("host") ?? "";
   const isAdminHost = host.startsWith("cms.");
   const { pathname } = req.nextUrl;
+
+  // Strip /admin prefix on cms host so internal links stay clean.
+  // Exempt /api/admin (auth endpoints, API routes live there separately).
+  if (
+    isAdminHost &&
+    pathname.startsWith("/admin") &&
+    !pathname.startsWith("/api/admin")
+  ) {
+    const cleanPath = pathname.slice("/admin".length) || "/";
+    const url = req.nextUrl.clone();
+    url.pathname = cleanPath;
+    return NextResponse.redirect(url);
+  }
 
   const needsRewrite =
     isAdminHost && !pathname.startsWith("/admin") && !pathname.startsWith("/api");
@@ -27,8 +46,7 @@ export default auth((req) => {
   const isLoggedIn = Boolean(req.auth);
   const isLoginPage = effectivePath === "/admin/login";
 
-  // On the cms host use clean paths for redirects so the URL bar never
-  // shows /admin. The rewrite above maps /login → /admin/login and / → /admin.
+  // Use clean paths for auth redirects on cms host so /admin never leaks.
   const loginRedirect = isAdminHost ? "/login" : "/admin/login";
   const dashRedirect = isAdminHost ? "/" : "/admin";
 
@@ -54,7 +72,5 @@ export default auth((req) => {
 
 export const config = {
   // Everything except Next internals and static files (paths with a dot).
-  // Must stay broad: host-based routing for cms.* needs to see all paths,
-  // and /api/admin/* needs the 401 short-circuit above.
   matcher: ["/((?!_next|.*\\..*).*)"],
 };
