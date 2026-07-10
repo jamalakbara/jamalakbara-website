@@ -27,15 +27,20 @@ export default auth((req) => {
   const isLoggedIn = Boolean(req.auth);
   const isLoginPage = effectivePath === "/admin/login";
 
+  // On the cms host use clean paths for redirects so the URL bar never
+  // shows /admin. The rewrite above maps /login → /admin/login and / → /admin.
+  const loginRedirect = isAdminHost ? "/login" : "/admin/login";
+  const dashRedirect = isAdminHost ? "/" : "/admin";
+
   if (!isLoggedIn && effectivePath.startsWith("/api/admin")) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   if (effectivePath.startsWith("/admin")) {
     if (!isLoggedIn && !isLoginPage) {
-      return NextResponse.redirect(new URL("/admin/login", req.nextUrl));
+      return NextResponse.redirect(new URL(loginRedirect, req.nextUrl));
     }
     if (isLoggedIn && isLoginPage) {
-      return NextResponse.redirect(new URL("/admin", req.nextUrl));
+      return NextResponse.redirect(new URL(dashRedirect, req.nextUrl));
     }
   }
 
