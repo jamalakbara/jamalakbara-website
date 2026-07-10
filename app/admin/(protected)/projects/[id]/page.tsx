@@ -17,7 +17,11 @@ export default async function EditProjectPage({
 
   return (
     <main>
-      <PageHeading eyebrow="Edit project" title={project.title} />
+      <PageHeading
+        eyebrow="Edit project"
+        title={project.title}
+        back={{ href: "/admin/projects", label: "Projects" }}
+      />
       <PageBody>
         <ProjectForm initial={project} />
       </PageBody>

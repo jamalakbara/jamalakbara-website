@@ -1,4 +1,6 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
+import { ArrowLeft } from "lucide-react";
 
 /** Eyebrow + title block shared across admin pages. Mirrors the public
  *  site's section heading (accent Fraunces eyebrow with a leading rule,
@@ -26,15 +28,28 @@ export function PageHeading({
   eyebrow,
   title,
   action,
+  back,
   as: Tag = "h1",
 }: {
   eyebrow: string;
   title: ReactNode;
   action?: ReactNode;
+  /** Optional back link shown above the eyebrow (detail pages). */
+  back?: { href: string; label: string };
   as?: "h1" | "h2";
 }) {
   return (
     <div className="mb-10">
+      {back && (
+        <Link
+          href={back.href}
+          className="back-link animate-blur-fade-up mb-4 flex w-fit items-center gap-2"
+          style={{ fontSize: "0.85rem", color: "#a99c8d", textDecoration: "none" }}
+        >
+          <ArrowLeft size={15} />
+          {back.label}
+        </Link>
+      )}
       <p className="section-eyebrow mb-3 animate-blur-fade-up">{eyebrow}</p>
       <div className="flex items-end justify-between gap-4">
         <Tag

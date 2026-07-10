@@ -19,7 +19,11 @@ export default async function EditJournalPostPage({
 
   return (
     <main>
-      <PageHeading eyebrow="Edit post" title={(data.title as string) ?? slug} />
+      <PageHeading
+        eyebrow="Edit post"
+        title={(data.title as string) ?? slug}
+        back={{ href: "/admin/journal", label: "Journal" }}
+      />
       <PageBody>
         <JournalEditor
           initial={{

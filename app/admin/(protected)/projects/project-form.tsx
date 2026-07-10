@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import type { Project } from "@/lib/content-types";
 import { MediaField } from "@/components/admin/media-field";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 import { deleteProject, upsertProject } from "./actions";
 import { input, label } from "@/lib/admin/form-styles";
 
@@ -18,6 +19,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const { confirm, dialog } = useConfirm();
 
   const [form, setForm] = useState({
     id: initial?.id ?? "",
@@ -85,9 +87,9 @@ export function ProjectForm({ initial }: { initial?: Project }) {
     });
   }
 
-  function remove() {
+  async function remove() {
     if (!initial) return;
-    if (!window.confirm(`Delete project "${initial.title}"?`)) return;
+    if (!(await confirm({ title: `Delete project "${initial.title}"?` }))) return;
     setError(null);
     startTransition(async () => {
       const result = await deleteProject(initial.id);
@@ -254,6 +256,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
           </button>
         )}
       </div>
+      {dialog}
     </form>
   );
 }

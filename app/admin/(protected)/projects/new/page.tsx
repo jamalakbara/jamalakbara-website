@@ -6,7 +6,11 @@ export const metadata = { title: "New project" };
 export default function NewProjectPage() {
   return (
     <main>
-      <PageHeading eyebrow="New project" title="Add a project" />
+      <PageHeading
+        eyebrow="New project"
+        title="Add a project"
+        back={{ href: "/admin/projects", label: "Projects" }}
+      />
       <PageBody>
         <ProjectForm />
       </PageBody>

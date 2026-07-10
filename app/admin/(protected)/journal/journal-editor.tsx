@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 import { deleteJournalPost, saveJournalPost, type JournalPostInput } from "./actions";
 import { input, label } from "@/lib/admin/form-styles";
 
@@ -14,6 +15,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const { confirm, dialog } = useConfirm();
 
   const [form, setForm] = useState({
     slug: initial?.slug ?? "",
@@ -102,9 +104,9 @@ export function JournalEditor({ initial }: JournalEditorProps) {
     });
   }
 
-  function remove() {
+  async function remove() {
     if (!initial) return;
-    if (!window.confirm(`Delete post "${initial.title}"?`)) return;
+    if (!(await confirm({ title: `Delete post "${initial.title}"?` }))) return;
     startTransition(async () => {
       const result = await deleteJournalPost(initial.slug);
       if (result.ok) router.push("/admin/journal");
@@ -201,6 +203,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
           </button>
         )}
       </div>
+      {dialog}
     </form>
   );
 }

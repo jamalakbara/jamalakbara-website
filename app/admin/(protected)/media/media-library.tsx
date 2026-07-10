@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { MediaLightbox } from "@/components/admin/media-lightbox";
+import { useConfirm } from "@/components/admin/confirm-dialog";
 
 interface MediaItem {
   publicId: string;
@@ -28,6 +29,7 @@ export function MediaLibrary() {
   const [copied, setCopied] = useState<string | null>(null);
   const [preview, setPreview] = useState<MediaItem | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
+  const { confirm, dialog } = useConfirm();
 
   const load = useCallback(
     async (mediaType: MediaType, nextCursor?: string | null) => {
@@ -90,7 +92,11 @@ export function MediaLibrary() {
   }
 
   async function remove(item: MediaItem) {
-    if (!window.confirm(`Delete ${item.publicId} from Cloudinary? Content still referencing it will break.`)) return;
+    const ok = await confirm({
+      title: `Delete ${item.publicId} from Cloudinary?`,
+      message: "Content still referencing it will break.",
+    });
+    if (!ok) return;
     setError(null);
     const res = await fetch("/api/admin/media", {
       method: "DELETE",
@@ -217,6 +223,7 @@ export function MediaLibrary() {
           onClose={() => setPreview(null)}
         />
       )}
+      {dialog}
     </div>
   );
 }
