@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import { listContentDir, readTextFile } from "@/lib/admin/content-store";
 import { BODY_DELAY_MS, PageHeading } from "@/components/page-heading";
 
-export const metadata = { title: "Journal" };
+export const metadata = { title: "Jurnal" };
 
 interface Row {
   slug: string;
@@ -14,13 +14,13 @@ interface Row {
 }
 
 async function readRows(): Promise<Row[]> {
-  const files = (await listContentDir("content/journal")).filter((f) =>
+  const files = (await listContentDir("content/jurnal")).filter((f) =>
     f.endsWith(".mdx")
   );
   const rows = await Promise.all(
     files.map(async (file): Promise<Row> => {
       const slug = file.replace(/\.mdx$/, "");
-      const raw = await readTextFile(`content/journal/${file}`);
+      const raw = await readTextFile(`content/jurnal/${file}`);
       const { data } = matter(raw ?? "");
       return {
         slug,
@@ -34,20 +34,20 @@ async function readRows(): Promise<Row[]> {
   return rows.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
-export default async function AdminJournalPage() {
+export default async function AdminJurnalPage() {
   const rows = await readRows();
   return (
     <main>
       <PageHeading
-        eyebrow="Journal"
+        eyebrow="Jurnal"
         title={`${rows.length} posts`}
         action={
           <div className="flex shrink-0 items-center gap-4">
-            <Link href="/admin/jurnal" className="lang-link">
-              Bahasa Indonesia →
+            <Link href="/admin/journal" className="lang-link">
+              English →
             </Link>
             <Link
-              href="/admin/journal/new"
+              href="/admin/jurnal/new"
               className="liquid-glass rounded-full px-5 py-2 text-sm"
             >
               New post
@@ -59,7 +59,7 @@ export default async function AdminJournalPage() {
         {rows.map((row, i) => (
           <Link
             key={row.slug}
-            href={`/admin/journal/${row.slug}`}
+            href={`/admin/jurnal/${row.slug}`}
             className="group liquid-glass admin-card animate-blur-fade-up items-center gap-4 rounded-xl px-5 py-3.5"
             style={{ animationDelay: `${BODY_DELAY_MS + Math.min(i, 8) * 60}ms` }}
           >

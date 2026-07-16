@@ -12,14 +12,14 @@ import {
 import { postSchema, type PostInput } from "@/lib/admin/post-schema";
 import type { ActionResult } from "../projects/actions";
 
-const postPath = (slug: string) => `content/journal/${slug}.mdx`;
+const postPath = (slug: string) => `content/jurnal/${slug}.mdx`;
 
 function serialize(input: PostInput): string {
   const { slug: _slug, body, ...frontmatter } = input;
   return matter.stringify(body.endsWith("\n") ? body : body + "\n", frontmatter);
 }
 
-export async function saveJournalPost(
+export async function saveJurnalPost(
   input: PostInput,
   originalSlug?: string
 ): Promise<ActionResult> {
@@ -42,30 +42,30 @@ export async function saveJournalPost(
           { path: postPath(originalSlug), content: null },
           { path: postPath(parsed.slug), content },
         ],
-        `content(journal): rename ${originalSlug} → ${parsed.slug}`
+        `content(jurnal): rename ${originalSlug} → ${parsed.slug}`
       );
     } else {
       await writeTextFile(
         postPath(parsed.slug),
         content,
-        `content(journal): ${originalSlug ? "update" : "add"} ${parsed.slug}`
+        `content(jurnal): ${originalSlug ? "update" : "add"} ${parsed.slug}`
       );
     }
-    revalidatePath("/admin/journal");
+    revalidatePath("/admin/jurnal");
     return { ok: true };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };
   }
 }
 
-export async function deleteJournalPost(slug: string): Promise<ActionResult> {
+export async function deleteJurnalPost(slug: string): Promise<ActionResult> {
   try {
     await requireAdmin();
     await deleteContentFile(
       postPath(slug),
-      `content(journal): remove ${slug}`
+      `content(jurnal): remove ${slug}`
     );
-    revalidatePath("/admin/journal");
+    revalidatePath("/admin/jurnal");
     return { ok: true };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : String(e) };

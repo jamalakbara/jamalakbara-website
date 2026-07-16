@@ -4,14 +4,19 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { MDXRemote, type MDXRemoteSerializeResult } from "next-mdx-remote";
 import { useConfirm } from "@/components/admin/confirm-dialog";
-import { deleteJournalPost, saveJournalPost, type JournalPostInput } from "./actions";
+import type { ActionResult } from "@/app/admin/(protected)/projects/actions";
+import type { PostInput } from "@/lib/admin/post-schema";
 import { input, label } from "@/lib/admin/form-styles";
 
-interface JournalEditorProps {
-  initial?: JournalPostInput;
+interface PostEditorProps {
+  initial?: PostInput;
+  save: (input: PostInput, originalSlug?: string) => Promise<ActionResult>;
+  remove: (slug: string) => Promise<ActionResult>;
+  /** List page to return to on save/delete, e.g. "/admin/journal". */
+  listHref: string;
 }
 
-export function JournalEditor({ initial }: JournalEditorProps) {
+export function PostEditor({ initial, save, remove, listHref }: PostEditorProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -87,7 +92,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
     e.preventDefault();
     setError(null);
     startTransition(async () => {
-      const result = await saveJournalPost(
+      const result = await save(
         {
           slug: form.slug.trim(),
           title: form.title.trim(),
@@ -99,17 +104,17 @@ export function JournalEditor({ initial }: JournalEditorProps) {
         },
         initial?.slug
       );
-      if (result.ok) router.push("/admin/journal");
+      if (result.ok) router.push(listHref);
       else setError(result.error);
     });
   }
 
-  async function remove() {
+  async function onRemove() {
     if (!initial) return;
     if (!(await confirm({ title: `Delete post "${initial.title}"?` }))) return;
     startTransition(async () => {
-      const result = await deleteJournalPost(initial.slug);
-      if (result.ok) router.push("/admin/journal");
+      const result = await remove(initial.slug);
+      if (result.ok) router.push(listHref);
       else setError(result.error);
     });
   }
@@ -195,7 +200,7 @@ export function JournalEditor({ initial }: JournalEditorProps) {
         {initial && (
           <button
             type="button"
-            onClick={remove}
+            onClick={onRemove}
             disabled={pending}
             className="btn-danger"
           >
