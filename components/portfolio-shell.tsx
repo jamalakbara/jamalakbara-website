@@ -21,6 +21,7 @@ const PAGE_PATHS: Record<string, string> = {
   "/": pages.home.backgroundVideo || DEFAULT_BACKGROUNDS.home,
   "/work": pages.work.backgroundVideo || DEFAULT_BACKGROUNDS.work,
   "/journal": pages.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal,
+  "/jurnal": pages.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal,
   "/about": pages.about.backgroundVideo || DEFAULT_BACKGROUNDS.about,
   "/contact": pages.contact.backgroundVideo || DEFAULT_BACKGROUNDS.contact,
 };

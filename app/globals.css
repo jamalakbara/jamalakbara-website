@@ -371,6 +371,16 @@ button.liquid-glass:active {
 .back-link:hover {
   color: var(--ink);
 }
+.lang-link {
+  font-size: 0.8rem;
+  color: #7d7163;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.lang-link:hover {
+  color: #b3a596;
+}
 
 /* ---- Responsive breakpoints (match design exactly) ------- */
 .desktop-nav {

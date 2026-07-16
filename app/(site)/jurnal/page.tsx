@@ -1,11 +1,9 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { getJournalPosts, formatPostDate } from "@/lib/journal";
-import { journal } from "@/lib/site-data";
+import { getJurnalPosts, formatJurnalDate } from "@/lib/jurnal";
 
-// Server component — post rows render as static HTML for crawlers.
-export default function JournalPage() {
-  const posts = getJournalPosts();
+export default function JurnalPage() {
+  const posts = getJurnalPosts();
 
   return (
     <div
@@ -54,10 +52,10 @@ export default function JournalPage() {
                 display: "inline-block",
               }}
             />
-            {journal.eyebrow}
+            Jurnal
           </div>
-          <Link href="/jurnal" className="lang-link">
-            Bahasa Indonesia →
+          <Link href="/journal" className="lang-link">
+            English →
           </Link>
         </div>
         <h1
@@ -69,7 +67,7 @@ export default function JournalPage() {
             lineHeight: 1.05,
           }}
         >
-          {journal.heading}
+          Notes from the build.
         </h1>
       </div>
 
@@ -88,13 +86,13 @@ export default function JournalPage() {
       >
         {posts.length === 0 && (
           <p style={{ color: "#a99c8d", padding: "1rem 0" }}>
-            Nothing published yet — first entry is on its way.
+            Belum ada tulisan — segera hadir.
           </p>
         )}
         {posts.map((p, i) => (
           <Link
             key={p.slug}
-            href={`/journal/${p.slug}`}
+            href={`/jurnal/${p.slug}`}
             className="work-row animate-blur-fade-up"
             style={{
               animationDelay: `${150 + i * 70}ms`,
@@ -117,7 +115,7 @@ export default function JournalPage() {
                 fontVariantNumeric: "tabular-nums",
               }}
             >
-              {formatPostDate(p.date)}
+              {formatJurnalDate(p.date)}
             </span>
             <span style={{ flex: 1, minWidth: 0 }}>
               <span
@@ -148,7 +146,7 @@ export default function JournalPage() {
               className="work-cat"
               style={{ fontSize: "0.8rem", color: "#b3a596", flexShrink: 0 }}
             >
-              {p.readingMinutes} min read
+              {p.readingMinutes} menit
             </span>
             <span
               className="work-arrow"

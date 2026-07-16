@@ -2,6 +2,14 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  async redirects() {
+    return [
+      { source: '/blog', destination: '/journal', permanent: true },
+      { source: '/blog/:slug', destination: '/journal/:slug', permanent: true },
+      { source: '/project/:slug*', destination: '/work', permanent: true },
+      { source: '/service/:slug*', destination: '/work', permanent: true },
+    ]
+  },
   typescript: {
     ignoreBuildErrors: false,
   },

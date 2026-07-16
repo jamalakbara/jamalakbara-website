@@ -1,0 +1,62 @@
+---
+title: "Kalian bilang butuh aplikasi — tapi beneran butuh?"
+description: "Pertanyaan yang paling sering aku dengar dari klien: 'kita perlu app nggak?' Jawaban jujurnya lebih rumit dari yang kalian kira."
+date: "2026-07-14"
+tags: ["aplikasi", "mobile", "bisnis"]
+draft: false
+---
+
+"Kita butuh app."
+
+Kalimat ini adalah salah satu yang paling mahal dalam dunia bisnis. Bukan karena app itu salah — tapi karena sering diucapkan sebelum ada yang tanya: sebenernya buat apa?
+
+## Beda antara "butuh app" dan "butuh solusi"
+
+Orang bilang butuh app karena app itu kelihatan prestigious. Semua perusahaan besar punya app. App berarti serius. App berarti modern.
+
+Tapi app adalah sarana, bukan tujuan. Yang kalian butuhkan adalah solusi untuk masalah spesifik. Kadang solusinya app. Tapi sering banget, web app yang bagus — yang bisa diakses dari browser HP tanpa perlu download — jauh lebih efektif dan lebih murah.
+
+## Kapan web app cukup?
+
+Web app masuk akal kalau:
+
+- User kalian cuma sesekali butuh akses (booking, cek status, beli produk)
+- Kalian nggak butuh akses ke fitur hardware HP (kamera, GPS, notifikasi push, NFC)
+- Budget terbatas — web app satu codebase, app native minimal dua (iOS dan Android)
+- Kalian mau user bisa akses dari desktop juga
+- Kalian butuh SEO — app nggak terindeks Google, web bisa
+
+Progressive Web App (PWA) juga worth diconsider: website yang bisa "diinstall" ke homescreen HP, bisa jalan offline untuk fitur tertentu, dan bisa kirim notifikasi push. Banyak yang nggak tau ini opsi.
+
+## Kapan beneran butuh app native?
+
+App native masuk akal kalau:
+
+- Kalian butuh akses ke sensor HP yang dalam — kamera untuk AR, GPS real-time, Bluetooth, biometrik
+- User kalian butuh offline mode yang robust
+- Kalian butuh performa yang sangat tinggi — real-time processing, animasi kompleks
+- App kalian akan dipakai intensively setiap hari — pengalaman native lebih smooth untuk daily use
+- Kalian mau ada di App Store / Play Store sebagai trust signal
+
+Contoh yang jelas butuh app: aplikasi ojek online, fitness tracker, POS untuk merchant, banking app.
+
+## Kenapa React Native?
+
+Aku pakai React Native untuk mobile development karena satu codebase bisa deploy ke iOS dan Android sekaligus. Ini bukan "hybrid" dalam pengertian lama yang lambat — React Native compile ke kode native yang beneran.
+
+Artinya kalian nggak bayar dua tim developer, nggak maintain dua codebase yang berbeda, dan timeline lebih cepat.
+
+Tradeoff-nya: untuk fitur yang sangat platform-specific atau performa ekstrem (game 3D), native Kotlin/Swift masih lebih baik. Tapi untuk 90% use case aplikasi bisnis? React Native solid.
+
+## Sebelum kalian putuskan
+
+Pertanyaan yang aku tanya ke setiap klien yang datang dengan rencana bikin app:
+
+1. Siapa yang akan pakai ini, dan seberapa sering?
+2. Fitur apa yang paling core?
+3. Apakah web app bisa solve 80% dari use case ini?
+4. Siapa yang akan maintain setelah launch?
+
+Jawaban dari pertanyaan-pertanyaan ini menentukan apakah app adalah investasi yang tepat atau overkill.
+
+Kalau kalian lagi nimbang antara app dan web, [aku senang ngobrol duluan sebelum ada yang commit ke apapun](/contact).
