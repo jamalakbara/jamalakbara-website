@@ -119,7 +119,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
       "@context": "https://schema.org",
       "@type": "Person",
       "name": "Jamal Akbar Alam",
-      "alternateName": "jamalakbara",
+      "alternateName": ["jamalakbara", "Akbar", "Chairil Akbar"],
       "url": "https://jamalakbara.com",
       "image": "https://jamalakbara.com/profile-image.png",
       "sameAs": [

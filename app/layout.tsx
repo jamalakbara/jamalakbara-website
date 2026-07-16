@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     template: "%s | Jamal Akbar Alam"
   },
   description: homeDescription,
-  keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
+  keywords: ["portfolio akbar", "portfolio jamal akbar alam", "Jamal Akbar Alam", "Chairil Akbar", "Akbar developer", "Akbar Bandung", "creative developer", "backend developer", "mobile developer", "web designer", "UI/UX design", "frontend development", "backend development", "mobile development", "Python developer", "React developer", "Next.js developer", "React Native", "Flutter developer", "Shopify developer", "portfolio", "web developer Bandung", "Indonesia", "freelance developer", "full-stack developer", "jamal akbar portfolio", "jamalakbara", "web development portfolio", "designer portfolio"],
   authors: [{ name: "Jamal Akbar Alam", url: "https://jamalakbara.com" }],
   creator: "Jamal Akbar Alam",
   publisher: "Jamal Akbar Alam",
