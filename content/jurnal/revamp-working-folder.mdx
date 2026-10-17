@@ -1,0 +1,60 @@
+---
+title: "Redesign website portfolio aku: dari video gelap ke map kerja kertas"
+description: "Cerita redesign website portfolio aku — desain di pen.dev bareng Astra, dibangun 1:1 pakai Claude Opus, tanpa ngerusak SEO dan analytics yang udah jalan."
+date: "2026-10-18"
+tags: ["redesign", "desain", "ai", "bandung"]
+draft: false
+---
+
+Beberapa bulan lalu website ini gelap, sinematik, dan penuh video. Tiap halaman punya video background sendiri, navbar-nya kaca, teksnya krem di atas cokelat tua. Keren? Lumayan. Tapi lama-lama aku sadar: redesign website portfolio ini harus kejadian, karena tampilan lama itu nggak cerita apa-apa soal aku.
+
+Portfolio gelap ala trailer film itu udah ada di mana-mana. Punya aku mungkin salah satu yang rapi, tapi tetap versi rapi dari hal yang orang udah sering lihat. Belum lagi tiap halaman nyuruh pengunjung download video dulu sebelum bisa baca satu kalimat pun.
+
+Jadi aku buang semuanya, dan bikin ulang jadi sesuatu yang memang ada di meja kerja aku: map kerja. Panel kertas, tab map, struk buat daftar layanan, catatan kecil buat kontak, dan tumpukan stiker.
+
+## Desain di pen.dev bareng Astra
+
+Semua desain baru ini tinggal di satu canvas di **pen.dev**. Tiap halaman ada dua versi: lebar 1440 buat desktop dan 390 buat HP. Termasuk halaman 404, halaman kosong, dan state error yang biasanya nggak pernah didesain sampai kepepet.
+
+Eksplorasinya aku kerjain bareng **Astra**, model desain yang ada di dalam pen.dev. Aku kasih arah — kertas, bukan kaca; terasa dipegang, bukan ditonton — terus Astra ngasih beberapa frame buat aku tanggapi. Enaknya, bikin alternatif jadi murah banget. Aku bisa lihat lima versi tab map, pilih satu, buang empat.
+
+Dan jujur, bagian buang-buang itu yang paling banyak. Banyak hasil yang rapi tapi nggak punya muka — wajar, model yang udah lihat semua desain cenderung ngasih rata-rata dari semuanya. Yang akhirnya bertahan adalah hal-hal yang aku dorong terus sampai nggak mirip punya orang lain:
+
+- **Kertas dan satu warna aksen.** Panel warna kertas hangat, dan cuma ada satu warna yang "teriak": biru kobalt. Semua yang bisa diklik warnanya kobalt, yang dekoratif nggak boleh.
+- **Tiga font, tiga tugas.** Tanker buat judul dan tab, Erode buat teks, Comico cuma buat nama di hero dan angka. Font yang karakternya sekuat Comico bakal capek dilihat kalau dipakai di mana-mana.
+- **Benda, bukan section.** Layanan jadi struk lengkap dengan sobekan dan barcode. Kontak jadi catatan yang ditempel di atas map. Halaman depan ditutup kolase dua belas stiker.
+
+Astra bikin lihat pilihan jadi cepat. Tapi mutusin pilihan mana yang "aku banget" tetap kerjaan aku sendiri.
+
+## Opus yang ngoding, 1:1 dari canvas
+
+Aturan aku buat revamp ini ketat: hasil di browser harus sama persis kayak canvas, di dua ukuran layar. Dan selain tampilan, nggak boleh ada yang berubah. Konten, analytics, SEO — semuanya harus tetap.
+
+Implementasinya dikerjain **Claude Opus**, langsung baca canvas lewat tools MCP-nya pen.dev, bukan nebak dari screenshot. Ini penting banget. Opus bisa ambil angka asli dari desain — padding, line height, bentuk lekukan di navbar — bukan kira-kira. Stempel, stiker, dan ubin angka juga dibangun ulang dari canvas jadi file SVG.
+
+Beberapa hal kecil yang lumayan berasa:
+
+- **Font dipangkas.** File Comico aslinya 1,5 MB. Setelah dipotong cuma ke huruf yang kepake, jadi sekitar 54 KB.
+- **Style-nya dipisah.** Desain baru punya stylesheet sendiri yang cuma dimuat di halaman publik. Halaman admin buat ngedit konten nggak kesentuh sama sekali.
+
+Yang paling kerasa dari Opus: dia sanggup megang spesifikasi segede itu dan nerapinnya konsisten di sembilan halaman, dua ukuran layar, dan semua state-nya. Aku tetap review semuanya, debat di beberapa bagian, dan balikin yang kelihatan benar di kode tapi rasanya salah pas dicoba di HP.
+
+## Dicek pakai pixel diff, bukan perasaan
+
+"Udah mirip desain" itu klaim, jadi kami ukur. Tiap halaman di-export dari pen.dev jadi gambar, terus dibandingin sama screenshot halaman asli di ukuran yang sama pakai `pixelmatch`. Hasilnya persentase beda plus gambar yang nunjukin persis di mana bedanya.
+
+Di desktop, halaman kontak cuma beda 1,7%, halaman jurnal 1,7%, halaman 404 0,4%. Sisa bedanya kebanyakan disengaja: canvas pakai teks contoh, sedangkan website pakai teks asli dari CMS aku. Halaman work didesain dengan tiga proyek, padahal aslinya ada tujuh belas. Kalau diff-nya nol, artinya aku malah nge-hardcode mockup.
+
+## Yang sengaja nggak berubah
+
+Sebelum mulai, aku simpan dulu kondisi semua 19 URL di sitemap: title, meta description, canonical, structured data, heading, sampai bahasa halaman. Setelah selesai, hasilnya dibandingin. Sama persis.
+
+Form kontak masih pakai aturan validasi yang sama dan tetap lanjut ke WhatsApp dengan pesan yang sama. Cookie consent juga nggak diubah logikanya, cuma ganti baju. Event analytics masih jalan dengan label yang sama. Ini penting buat aku, dan harusnya penting juga buat kalian yang lagi mikirin redesign: redesign yang diam-diam ngerusak SEO itu bukan upgrade, itu kemunduran yang kebetulan fontnya lebih bagus.
+
+## Penutup
+
+Kesimpulan jujur dari revamp ini: dulu bagian mahal dari redesign itu implementasinya. Sekarang nggak lagi. Astra bikin eksplorasi cepat, Opus bikin eksekusi pixel-perfect cepat. Tapi nggak ada satu pun yang bisa mutusin bahwa portfolio aku harusnya terasa kayak map di meja kerja, bukan trailer film.
+
+Itu juga alasan kenapa aku selalu bilang website bisnis [nggak bisa asal pakai template](/jurnal/kenapa-bukan-template). Kalau semua orang bisa bikin website yang rapi, yang tersisa buat bersaing cuma selera dan keputusan.
+
+Kalau kalian lagi cari developer di Bandung buat bikin website yang kelihatan kayak bisnis kalian sendiri, bukan kayak semua orang — [ngobrol aja dulu](/contact).
