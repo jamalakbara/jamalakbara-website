@@ -17,7 +17,7 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 
 ## Admin CMS routes
 
-- Everything under `/admin` and `/api` is non-SEO surface: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts` or `PAGE_PATHS`.
+- Everything under `/admin` and `/api` is non-SEO surface: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts`.
 - Public pages moved into the `app/(site)/` route group (July 2026, CMS launch) — URLs unchanged. The `(site)/layout.tsx` carries `PortfolioShell` + StructuredData + GA; root layout keeps the global metadata. Per-route metadata layouts live inside `(site)/`.
 - Prod admin saves commit to `main` and republish via Vercel rebuild — SEO verification steps below still apply after content changes deploy.
 
@@ -26,9 +26,9 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 1. `app/(site)/<route>/layout.tsx` with full metadata (above).
 2. Add to `NAV_LINKS` in `lib/site-data.ts` only if it belongs in the navbar — `/jurnal` is intentionally excluded.
 3. Add to the `routes` array in `app/sitemap.ts`.
-4. Add a background-video entry in `PAGE_PATHS` in `components/portfolio-shell.tsx` (reuse an existing video if no dedicated one).
+4. (Background videos were retired with the Working Folder revamp, Oct 2026 — no per-route video entry is needed.)
 5. Prefer a **server component** for any content-bearing page so crawlers get real HTML; isolate interactivity in child client components.
-6. **No event handlers in server component page files** — use CSS classes (defined in `globals.css`) for hover effects, not `onMouseEnter`/`onMouseLeave`.
+6. **No event handlers in server component page files** — use CSS classes (public site: `app/(site)/site.css`) for hover effects, not `onMouseEnter`/`onMouseLeave`.
 
 ## Journal posts (English — `/journal`)
 
@@ -48,7 +48,6 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - Per-post JSON-LD uses `inLanguage: "id"` — do not change this to "en".
 - `/jurnal` is a separate independent content section, not a translation of `/journal`. Posts can cover the same topics but the content is different and written natively in Bahasa.
 - The `/jurnal` layout (`app/(site)/jurnal/layout.tsx`) has hardcoded Indonesian metadata — it does not go through `buildPageMetadata()` and is not admin-editable.
-- Background video for `/jurnal` reuses the journal video (set in `PAGE_PATHS` in `portfolio-shell.tsx`).
 
 ## Content tone and voice
 
@@ -73,7 +72,14 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - **Favicon is the legacy `app/favicon.ico` by owner preference.** Do not add an `icon.svg` entry to the metadata `icons.icon` list — browsers prefer SVG over ICO and would hide the chosen favicon.
 - The "j." monogram set (`public/icon.svg` source, `public/apple-icon.png` 180, `public/icon-192.png` / `icon-512.png`) serves iOS home-screen and the PWA manifest only.
 - `public/logo.svg` is the text wordmark — never reference it as a favicon/app icon (it imports a remote font and is non-square).
-- Keep `manifest.json` colors on `#0c0908`.
+- Keep `manifest.json` `background_color`/`theme_color` on the Working Folder paper `#F8F6F0` (was `#0c0908` before the Oct 2026 revamp).
+
+## Revamp guardrails (Working Folder, Oct 2026)
+
+- Page headings keep their CMS text and level; visual line breaks go through `sentenceLines()` / `<br className="f-br-*">` so text content is unchanged. Never duplicate copy per breakpoint.
+- `/privacy` is a server component with hardcoded copy and inline metadata in `app/(site)/privacy/layout.tsx` (not admin-editable, not in the navbar; linked from the cookie banner). Bump its `UPDATED` date when the policy text or the site's data handling (analytics, storage keys, third parties) changes.
+- `app/not-found.tsx` (root) renders the 404 — Next sends HTTP 404 + noindex; never add it to the sitemap.
+- Article `##` headings get `id`s for the in-page index; their text must stay untouched.
 
 ## Verification
 

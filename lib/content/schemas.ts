@@ -36,6 +36,7 @@ export const projectSchema = z.object({
   title: z.string().min(1),
   category: z.string().min(1),
   description: z.string().min(1),
+  summary: z.string().max(110).optional(),
   image: mediaRef,
   video: mediaRef.optional(),
   year: z.string().min(1),

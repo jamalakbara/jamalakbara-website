@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/jurnal', priority: 0.8 },
     { path: '/about', priority: 0.8 },
     { path: '/contact', priority: 0.7 },
+    { path: '/privacy', priority: 0.3 },
   ]
 
   const staticEntries = routes.map((r) => ({

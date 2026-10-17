@@ -4,18 +4,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Jamalakbara is a cinematic, multi-page portfolio website for **Jamal Akbar Alam** ("jamalakbara."), a creative developer & designer based in Bandung, Indonesia. The site pairs a warm, dark, film-grade visual language with per-route Cloudinary video backgrounds, glassmorphic ("liquid-glass") UI, and motion-driven micro-interactions.
+Jamalakbara is a multi-page portfolio website for **Jamal Akbar Alam** ("jamalakbara."), a creative developer & designer based in Bandung, Indonesia. The public site uses the **Working Folder v2** design (Oct 2026): warm paper panels on a pastel aurora shell, folder tabs, a recessed-notch nav, Tanker / Erode / Comico type, cobalt `#2445DB` accent, a services receipt, a contact note and a hand-made sticker collage. It replaced the earlier dark cinematic / video-background look; `/admin` still uses the legacy dark styling.
 
 **Key Technologies:**
 - **Next.js 16** (App Router) + React 19 + TypeScript (strict)
-- **Tailwind CSS v4** (PostCSS plugin, no config file) — design tokens live as CSS custom properties in `app/globals.css`
+- **Tailwind CSS v4** (PostCSS plugin, no config file). Public-site tokens and classes live in `app/(site)/site.css` (`--f-*`, `.f-*`); `app/globals.css` keeps the legacy admin tokens.
 - **Motion**: Framer Motion (`framer-motion`) is the primary in-use animation library. **GSAP** (`gsap` + `@gsap/react`), **Lenis** (smooth scroll), and **React Three Fiber** (`three` + `@react-three/fiber` + `@react-three/drei`) are installed for roadmap features but not yet wired into shipped pages.
 - **State**: Zustand installed; React hooks are the primary mechanism in shipped code.
 - **Content**: git-backed content files (`content/*.json` + `content/journal/*.mdx`) edited via the custom `/admin` CMS or directly — see Architecture.
-- **Media**: Cloudinary (cloud `dh0spkwh3`) for background videos and project images/videos.
+- **Media**: Cloudinary (cloud `dh0spkwh3`) for all project images (asset folder `portfolio/images`, `work-*` public IDs); identity artwork (stamp, stickers, number tiles, capability icons) is vector SVG in `public/brand/`.
 - **Forms**: react-hook-form + zod.
 - **Analytics/SEO**: `@next/third-parties` (Google Analytics) with a cookie-consent gate, dynamic `sitemap.ts` / `robots.ts`, and JSON-LD structured data.
-- **Theme**: single dark cinematic theme. `next-themes` is a dependency but no light/dark toggle is shipped.
+- **Theme**: single light "Working Folder" theme on the public site. `next-themes` is a dependency but no toggle is shipped.
 
 > Design docs live in **`docs/`**: `PRD.md`, `BRAND_GUIDELINES.md`, `MOODBOARD.md`, `DESIGN_SYSTEM.md`. Read `docs/DESIGN_SYSTEM.md` before touching styles.
 
@@ -63,11 +63,14 @@ Multi-page App Router. Public page components are client components; admin pages
 ```
 app/
 ├── layout.tsx        # RootLayout: html/body, fonts, global metadata only
-├── globals.css       # Design tokens + component classes (the styling source of truth)
+├── globals.css       # Tailwind import + legacy dark tokens/classes (used by /admin)
+├── fonts/            # Tanker / Erode / Comico woff2 subsets (next/font/local)
+├── not-found.tsx     # 404 in the folder shell (imports (site)/site.css)
 ├── (site)/           # public site, wrapped by PortfolioShell (+ StructuredData, GA, CookieConsent)
+│   ├── site.css      # Working Folder v2 tokens + classes (public site only)
 │   ├── layout.tsx
 │   ├── page.tsx      # Home (/)
-│   ├── work/  about/  contact/  journal/
+│   ├── work/  about/  contact/  journal/  jurnal/  privacy/
 ├── admin/            # CMS — liquid-glass chrome, no video bg, force-dynamic, noindex
 │   ├── layout.tsx  login/
 │   └── (protected)/  # auth-checked layout: dashboard, projects, journal, site, media, branding
@@ -81,12 +84,13 @@ proxy.ts              # (repo root) auth gate for /admin/* and /api/admin/*
 ### Components (`components/`)
 ```
 components/
-├── portfolio-shell.tsx          # App shell: two-layer crossfading per-route Cloudinary video
-│                                 #   background, liquid-glass smart-hide navbar, mobile menu,
-│                                 #   film-grain + vignette overlays. z-layering: video z0 →
-│                                 #   overlays z1 → scrim z2 → blur z3 → navbar z50.
-├── work-preview.tsx             # Cursor-following floating media preview (Framer Motion spring +
-│                                 #   velocity tilt). Desktop/hover-devices only.
+├── portfolio-shell.tsx          # App shell: aurora field, folder nav with recessed notch under the
+│                                 #   active route (aria-current), modal mobile menu, skip link,
+│                                 #   <main id="main">. Page scrolls inside .f-scroll (body overflow:hidden).
+├── site/                        # Working Folder building blocks: aurora (WebGL shader port),
+│                                 #   icons (hand-drawn set), stamp, sticker(s), folder, title-panel,
+│                                 #   project-row, number-tile, receipt, contact-note (copy email),
+│                                 #   contact-strip, empty-state, journal-index, article-view
 ├── structured-data.tsx          # JSON-LD (Person, Project, Service, WebSite, etc.)
 ├── analytics/GoogleAnalytics.tsx# GA via @next/third-parties, gated on consent
 └── analytics/CookieConsent.tsx  # Consent banner (necessary/analytics/marketing/preferences)
@@ -97,7 +101,8 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - `getCloudinaryUrl(publicId, options)`, `getProjectImageUrl(imageName, options)`, `getCloudinaryBaseUrl()`.
 - Transforms: width/height/quality/format/crop/gravity; defaults `q_auto,f_auto`.
 - Cloud name from `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` (`dh0spkwh3`).
-- **Background videos** are served per route from Cloudinary (`bg-home`, `bg-work`, `bg-about`, `bg-contact`) and crossfaded in `portfolio-shell.tsx`. Project thumbnails/videos also stream from Cloudinary.
+- Project images stream from Cloudinary; a project row's media strip is its `gallery` (up to 3), else `image`.
+- The per-route background videos (`pages.*.backgroundVideo`, `lib/backgrounds.ts`) are **no longer rendered** by the public site; the admin field and data remain untouched.
 
 ### Analytics & Consent (`lib/analytics/`)
 - `ga-config.ts` — `GoogleAnalyticsConfig` singleton, `EVENTS`, `CUSTOM_DIMENSIONS`.
@@ -115,25 +120,16 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - `app/globals.css` begins with `@import "tailwindcss";` — there is **no `tailwind.config.*`** (v4 PostCSS plugin in `postcss.config.mjs`).
 - Theme is **not** in a Tailwind config; it lives as CSS custom properties.
 
-### Design tokens (`app/globals.css`)
-```css
---bg: #0c0908;        /* background — warm near-black */
---ink: #f4ede3;       /* primary text — warm cream */
---m1: #d8cdbf; --m2: #b3a596; --m3: #a99c8d; --m4: #7d7163;  /* muted ramp */
---accent: #e0875a;    /* warm orange */
---accent-hi: #eab38a; /* hover orange */
---green: #6ee787;     /* availability / status */
-```
+### Design system — read `docs/DESIGN_SYSTEM.md` first
+- Canvas source: Pencil `jamalakbara.pen` (Working Folder v2); designer spec + tokens in `docs/design/`.
+- Tokens (`app/(site)/site.css`): `--f-paper #F8F6F0`, `--f-note #FFFEFA`, `--f-ink #201E19`, `--f-muted #6E695F`, `--f-surface #E8E3D9`, `--f-line #D8D2C8`, `--f-accent #2445DB`, `--f-hover #1D36AF`, `--f-error #A62929`, `--f-success #456D5B`.
+- Type: **Tanker** (display/titles/tabs/wordmark), **Erode** (body/actions/meta), **Comico** (hero name + number digits only; subset — re-subset if used for other text). All weight 400. CSS line-heights = canvas ratio + 0.09 (canvas adds the faces' line gap); role classes carry `padding-block: 1px`.
+- Classes: `.f-panel`, `.f-folder`/`.f-tab`, `.f-display`/`.f-title`/`.f-body`/`.f-action`/`.f-meta`, `.f-btn--primary|secondary`, `.f-link`/`.f-uline`/`.f-act`, `.f-filter`, `.f-input`, `.f-row`, `.f-receipt`, `.f-note`, `.f-prose`.
+- Headings: `sentenceLines()` (`lib/site-format.ts`) breaks like the canvas without changing text content.
+- Space Grotesk / Fraunces are still loaded for admin only.
 
-### Typography
-- **Space Grotesk** (via `next/font/google`, weights 300–400–500, variable `--font-space-grotesk`) — primary face for all headlines, body, nav, and UI.
-- **Fraunces** (via `next/font/google`, weights 300–400, italic only, variable `--font-fraunces`) — accent face used exclusively for eyebrow labels (`— Selected Work`, `— About`, etc.).
-- Headings use large `clamp()` sizes with tight negative letter-spacing. See `docs/DESIGN_SYSTEM.md` for the full scale.
-
-### Component classes & motion
-- Key class: **`.liquid-glass`** (translucent fill + hairline border + layered soft shadows + springy press). Others: `.btn-solid`, `.field-input`, `.work-row`, `.nav-link`, `.menu-link`, `.email-link`, `.back-link`.
-- Keyframes: **`blurFadeUp`** (staggered entrance) and **`softPulse`** (availability dot).
-- `prefers-reduced-motion: reduce` is honored globally.
+### Motion
+- First-load splash (`components/site/splash.tsx`, once per session: typed name → stamp slam → settle → morph into hero), aurora shell shader (static under reduced motion, paused when hidden), hero stamp 3 s settle loop, 160 ms hovers, 240 ms menu. `prefers-reduced-motion` is honored in `site.css`.
 
 ## Animation Patterns
 Use Framer Motion for component animation:
@@ -170,11 +166,11 @@ See `.env.example`.
 ### Adding a route
 1. Create `app/(site)/<route>/page.tsx` (client component).
 2. Add it to `NAV_LINKS` in `lib/site-data.ts` and to `app/sitemap.ts`.
-3. Add a background video entry in `components/portfolio-shell.tsx` if it needs one.
+3. Build it from `components/site/*` (title panel, folder, contact strip) — no background video step any more.
 
 ### Styling new components
-1. Reuse tokens (CSS custom properties) and existing classes (`.liquid-glass`, etc.) — see `docs/DESIGN_SYSTEM.md`.
-2. Respect z-index layering and `prefers-reduced-motion`.
+1. Reuse `--f-*` tokens and `f-` classes in `app/(site)/site.css` — see `docs/DESIGN_SYSTEM.md`. Never restyle a shared `globals.css` class for the public site (admin depends on them).
+2. Match the canvas 1:1: take values from Pencil (export the frame as `html-css`), verify with the pixel-diff recipe in `docs/DESIGN_SYSTEM.md` §8, and respect `prefers-reduced-motion`.
 
 ## Known Gaps
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.

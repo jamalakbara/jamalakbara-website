@@ -1,6 +1,6 @@
 # Brand Guidelines — jamalakbara.
 
-**Last updated:** 2026-06-14
+**Last updated:** 2026-10-17 (Working Folder v2 identity)
 Single source for brand identity, voice, and usage. Visual tokens live in `docs/DESIGN_SYSTEM.md`; mood/direction in `docs/MOODBOARD.md`.
 
 ---
@@ -41,39 +41,48 @@ Casual-expert. First-person, warm, grounded, no corporate fluff. Confident about
 
 ---
 
-## 3. Logo / Wordmark Usage
+## 3. Identity marks (Working Folder v2)
 
-- Primary mark: the text wordmark `jamalakbara.` set in Inter.
-- Keep generous clear space; never stretch, recolor outside the palette, or remove the period.
-- On video/photo backgrounds, place the wordmark on a `.liquid-glass` surface or ensure sufficient contrast against the warm-dark scrim.
+Brand idea: **a working folder, not a corporate template**. Paper panels, folder tabs, a receipt, a contact note and a hand-made sticker collage. The tone is personal, useful and crafted.
 
-> **Asset gap:** `app/layout.tsx` references `/logo.png` for icons and mask-icon, but `public/logo.png` does not exist. `favicon.ico` is the working icon. Produce a `logo.png` (16/32/180px usable) or update the references.
+| Mark | Rule |
+| --- | --- |
+| **Navigation wordmark** | `JAMALAKBARA.` in Tanker, 24 px, white on a black tab (10 px top radius). Keep the period and at least 12 px of clear space. No alternate Erode or Inter wordmark. |
+| **Hero identity** | "Jamal Akbar Alam" in Comico: 104 px on one line on desktop, 46 px over two lines on mobile. Never use Comico for body, buttons or navigation. |
+| **Stamp** | The supplied blue `logo_stamp` artwork (`public/brand/stamp.svg`), with unchanged colours and proportions. Static 44 px in UI. 108 / 64 px with the 3 s settle loop in the hero. It doubles as the copy-email control in the contact note. |
+| **Stickers & number tiles** | The 12 supplied stickers and the illustrated 01–09 tiles keep their own colours. Use the originals and never redraw them. |
+| In running text | The short name stays lowercase with the period: `jamalakbara.` |
+
+Favicon remains the legacy `app/favicon.ico` (owner preference). The "j." monogram set covers iOS and the manifest only.
 
 ---
 
 ## 4. Color (brand level)
 
-Full token table + recipes in `docs/DESIGN_SYSTEM.md`. Brand-level rules:
+Full token table in `docs/DESIGN_SYSTEM.md`. The brand is **light-first on warm paper**:
 
 | Token | Hex | Brand role |
 | --- | --- | --- |
-| Background | `#0c0908` | Warm near-black canvas — the brand is dark-first. |
-| Ink | `#f4ede3` | Warm cream — primary text/marks. |
-| Accent | `#e0875a` | Warm orange — the single brand accent (links, focus, highlights). |
-| Accent hi | `#eab38a` | Lighter orange — hover only. |
-| Green | `#6ee787` | Reserved for availability/status, not decoration. |
+| Paper | `#F8F6F0` | Folder surface |
+| Note | `#FFFEFA` | Receipt and note paper |
+| Ink | `#201E19` | Text and marks |
+| Cobalt | `#2445DB` | The single accent: primary action, email, active state |
+| Aurora | `#AFBDE2` `#CDC1DD` `#BFD4C8` `#DDC9B8` | Decorative shell field only |
 
 **Rules**
-- One accent. Don't introduce new hues; use the muted ramp (`--m1`…`--m4`) for hierarchy.
-- Green is functional (status), not a brand color — don't use it as a second accent.
-- Maintain warm-dark; do not ship a light theme without updating these guidelines.
+- Cobalt is the only UI accent. Use ink and muted for hierarchy.
+- Never use muted text on the surface colour, and never use the line colour for text.
+- The previous dark cinematic palette (orange `#e0875a` on `#0c0908`) survives only in `/admin`.
 
 ---
 
 ## 5. Typography (brand level)
-- **Inter** is the only typeface (weights 300/400/500/600/700). No secondary display or mono face.
-- Headlines: large, tight negative letter-spacing, weight 400 carried by size for impact.
-- See `docs/DESIGN_SYSTEM.md` for the exact scale.
+
+- **Tanker** for display, titles, tabs and the wordmark.
+- **Erode** for reading, actions and metadata.
+- **Comico** for the hero name only.
+- Everything is weight 400. Break headings deliberately and let prose wrap naturally.
+- Exact scale and canvas metrics are in `docs/DESIGN_SYSTEM.md` §2.
 
 ---
 
@@ -96,12 +105,14 @@ Handle is consistently **@jamalakbara** across platforms.
 | Asset | Use |
 | --- | --- |
 | `favicon.ico` | Working site icon |
-| `profile-image.png` | About-page portrait |
+| `brand/akbar-portrait-cobalt.jpg` | About-page portrait (cobalt treatment) |
+| `brand/stamp.svg`, `brand/stickers/`, `brand/numbers/`, `brand/icons/` | Working Folder identity artwork |
+| `work/` | Curated project photography |
+| `profile-image.png` | Previous portrait (fallback) |
 | `og-image.jpg` | Open Graph share card |
 | `twitter-image.jpg` | Twitter share card |
-| `noise.png` | Film-grain texture overlay |
+| `noise.png` | Legacy film-grain texture (unused on the public site) |
 | `manifest.json` | PWA manifest (`name: "jamalakbara. - Creative Developer"`) |
 | `screenshot-desktop.png`, `screenshot-mobile.png` | Store/preview screenshots |
-| _missing:_ `logo.png` | Referenced but absent — see §3 |
 
-Background videos and project media are hosted on Cloudinary (cloud `dh0spkwh3`), not in `public/`.
+Project media is hosted on Cloudinary (cloud `dh0spkwh3`, asset folder `portfolio/images`). The per-route background videos are no longer used by the public site, though the admin field and data still exist.

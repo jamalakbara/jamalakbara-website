@@ -23,6 +23,8 @@ export interface Project {
   title: string;
   category: string;
   description: string;
+  /** one-line summary for the Work rows (≤ 110 chars); falls back to description */
+  summary?: string;
   image: string;
   video?: string; // Optional video URL (mp4/webm) - plays as autoplay loop
   year: string;

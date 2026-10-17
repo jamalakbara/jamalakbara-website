@@ -1,159 +1,120 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
-import { works, work, type WorkRow } from "@/lib/site-data";
-import WorkPreview from "@/components/work-preview";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import { works, work } from "@/lib/site-data";
+import { pad2, sentenceCase } from "@/lib/site-format";
+import { sentenceLines } from "@/lib/site-format";
+import { TitlePanel } from "@/components/site/title-panel";
+import { ProjectRow } from "@/components/site/project-row";
+import { ContactStrip } from "@/components/site/contact-strip";
+import { EmptyState } from "@/components/site/empty-state";
+import type { StickerSpot } from "@/components/site/sticker";
+import { ArrowRight } from "@/components/site/icons";
+
+// Work — canvas 17 (Pb8Dp / vs4kI), empty state 17A.
+// Filters are built from the projects' real categories (case-normalised).
+
+const STICKERS: StickerSpot[] = [
+  { name: "pen-tool", x: 404, y: 70, w: 88.204, h: 104, r: -9 },
+  { name: "shopping-bag-cursor", x: 522, y: 176, w: 105.158, h: 108, r: 8 },
+  { name: "build-with-care", x: 656, y: 96, w: 160.436, h: 132, r: 6 },
+  { name: "debug-duck", x: 776, y: 186, w: 88.695, h: 100, r: -7 },
+  { name: "browser-rocket", x: 866, y: 62, w: 105.823, h: 124, r: 11 },
+];
+
+const ALL = "all";
+const count = (n: number) => `${pad2(n)} project${n === 1 ? "" : "s"}`;
 
 export default function WorkPage() {
-  const [active, setActive] = useState<WorkRow | null>(null);
+  const [filter, setFilter] = useState(ALL);
+
+  const categories = useMemo(() => {
+    const seen = new Map<string, string>();
+    for (const w of works) {
+      const label = sentenceCase(w.category);
+      if (!seen.has(label.toLowerCase())) seen.set(label.toLowerCase(), label);
+    }
+    return [...seen.entries()].map(([key, label]) => ({ key, label }));
+  }, []);
+
+  const rows = works
+    .map((row, index) => ({ row, index }))
+    .filter(({ row }) => filter === ALL || row.category.trim().toLowerCase() === filter);
 
   return (
-    <div
-      style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        minHeight: 0,
-        paddingTop: "clamp(0.5rem, 2vw, 1.5rem)",
-      }}
-    >
-      <div
-        className="animate-blur-fade-up"
-        style={{
-          animationDelay: "100ms",
-          marginBottom: "clamp(0.75rem, 2vw, 1.25rem)",
-          paddingBottom: "clamp(0.75rem, 2vw, 1.25rem)",
-          borderBottom: "1px solid rgba(255,244,232,0.1)",
-        }}
-      >
-        <div
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontFamily: "var(--font-fraunces)",
-            fontStyle: "italic",
-            fontSize: "0.9rem",
-            letterSpacing: "0.03em",
-            color: "#e0875a",
-            marginBottom: "0.75rem",
-          }}
-        >
-          <span
-            style={{
-              width: "22px",
-              height: "1px",
-              background: "#e0875a",
-              display: "inline-block",
-            }}
-          />
-          {work.eyebrow}
+    <>
+      <TitlePanel
+        label="WORK / PROJECT INDEX"
+        aside={<span className="f-meta f-muted">{count(works.length)}</span>}
+        heading={<h2 className="f-display f-display--caps">{sentenceLines(work.heading)}</h2>}
+        intro={<p className="f-body">Websites and digital storefronts. A closer look at the things I design and build.</p>}
+        stickers={STICKERS}
+      />
+
+      <section className="f-folder" aria-label="All projects">
+        <div className="f-tab">
+          <span className="f-tabtext">ALL PROJECTS</span>
+          <span className="f-tab__n f-muted">{count(works.length)}</span>
         </div>
-        <h2
-          style={{
-            fontSize: "clamp(2rem, 5vw, 3.5rem)",
-            fontWeight: 400,
-            letterSpacing: "-0.04em",
-            margin: 0,
-            lineHeight: 1.05,
-          }}
-        >
-          {work.heading}
-        </h2>
-      </div>
+        <div className="f-folder__body f-folder__body--flush f-index">
+          {works.length === 0 ? (
+            <EmptyState
+              label="NO PROJECTS YET"
+              heading="STILL BREWING."
+              body="There’s no work to show here yet. New projects are on the bench. Check back soon, or start one with me."
+              actions={
+                <Link href="/contact" className="f-btn f-btn--primary">
+                  <ArrowRight size={16} />
+                  Start a project
+                </Link>
+              }
+            />
+          ) : (
+            <>
+              {categories.length > 1 && (
+                <div className="f-filters" role="group" aria-label="Filter projects by category">
+                  <button
+                    type="button"
+                    className="f-filter"
+                    aria-pressed={filter === ALL}
+                    onClick={() => setFilter(ALL)}
+                  >
+                    All work
+                  </button>
+                  {categories.map((c) => (
+                    <button
+                      key={c.key}
+                      type="button"
+                      className="f-filter"
+                      aria-pressed={filter === c.key}
+                      onClick={() => setFilter(c.key)}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <p className="f-sr" aria-live="polite">
+                {count(rows.length)} shown
+              </p>
+              {rows.map(({ row, index }, i) => (
+                <ProjectRow
+                  key={row.id}
+                  row={row}
+                  index={index}
+                  variant={rows.slice(0, i).filter((r) => r.row.media.length >= 3).length}
+                />
+              ))}
+              <div className="f-end">
+                <span className="f-action f-muted">That’s the collection so far. More good work to come.</span>
+              </div>
+            </>
+          )}
+        </div>
+      </section>
 
-      {/* scrollable list — soft top fade so rows dissolve as they scroll
-          under the heading instead of hard-cutting at the edge */}
-      <div
-        onMouseLeave={() => setActive(null)}
-        style={{
-          flex: 1,
-          minHeight: 0,
-          overflowY: "auto",
-          overflowX: "hidden",
-          display: "flex",
-          flexDirection: "column",
-          WebkitMaskImage:
-            "linear-gradient(to bottom, transparent 0, #000 18px)",
-          maskImage: "linear-gradient(to bottom, transparent 0, #000 18px)",
-        }}
-      >
-        {works.map((p, i) => (
-          <a
-            key={p.id}
-            href={p.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            onMouseEnter={() => setActive(p)}
-            className="work-row animate-blur-fade-up"
-            style={{
-              animationDelay: `${150 + i * 70}ms`,
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-              padding: "clamp(0.7rem, 1.6vw, 1.05rem) 0",
-              borderBottom: "1px solid rgba(255,244,232,0.1)",
-              cursor: "pointer",
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <span
-              style={{
-                fontSize: "0.8rem",
-                color: "#7d7163",
-                width: "2rem",
-                flexShrink: 0,
-                fontVariantNumeric: "tabular-nums",
-              }}
-            >
-              {p.num}
-            </span>
-            <span
-              className="work-title"
-              style={{
-                fontSize: "clamp(1.1rem, 2.6vw, 1.7rem)",
-                fontWeight: 400,
-                letterSpacing: "-0.02em",
-                flex: 1,
-                minWidth: 0,
-                color: "#f4ede3",
-              }}
-            >
-              {p.title}
-            </span>
-            <span
-              className="work-cat"
-              style={{ fontSize: "0.8rem", color: "#b3a596", flexShrink: 0 }}
-            >
-              {p.category}
-            </span>
-            <span
-              style={{
-                fontSize: "0.85rem",
-                color: "#7d7163",
-                flexShrink: 0,
-                fontVariantNumeric: "tabular-nums",
-              }}
-            >
-              {p.year}
-            </span>
-            <span
-              className="work-arrow"
-              style={{
-                flexShrink: 0,
-                color: "#eab38a",
-                display: "inline-flex",
-              }}
-            >
-              <ArrowUpRight size={18} />
-            </span>
-          </a>
-        ))}
-      </div>
-
-      <WorkPreview active={active} />
-    </div>
+      <ContactStrip />
+    </>
   );
 }
