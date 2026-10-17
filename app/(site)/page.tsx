@@ -20,7 +20,6 @@ const full = works.filter((w) => w.media.length >= 3);
 const selected = [...full, ...works.filter((w) => !full.includes(w))].slice(0, 3);
 const years = selected.map((w) => Number(w.year)).filter(Boolean);
 const span = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
-const featured = selected[0];
 
 const SKILLS = [
   ["Design", "Clear layouts, visual hierarchy and easy-to-use interfaces."],
@@ -105,16 +104,15 @@ export default function HomePage() {
           </p>
           <div className="f-hero__intro f-hero__intro-m">
             <h1 className="f-hero__h1">{home.headline}</h1>
-            <br />
-            Independent developer &amp; designer
-            <br />
-            based in Bandung, Indonesia.
           </div>
           <div className="f-hero__actions f-hero__actions-d">{exploreWork}</div>
           <div className="f-hero__mrow">
             <div className="f-hero__caption">
-              <span className="f-meta">SELECTED WORK / 01</span>
-              {featured && <span className="f-action">{featured.title}</span>}
+              <span className="f-meta">A PERSONAL NOTE</span>
+              <span className="f-action">
+                Mostly coding, sometimes moving things
+                <br />a few pixels until they feel right.
+              </span>
             </div>
             {exploreWork}
           </div>
