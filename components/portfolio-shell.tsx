@@ -295,9 +295,6 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
         <div className="f-page">
           <Aurora />
           <StickerPeel />
-          <a href="#main" className="f-skip">
-            Skip to content
-          </a>
 
           {/* ---- Desktop / tablet navigation ---- */}
           <nav className="f-nav" aria-label="Primary">
