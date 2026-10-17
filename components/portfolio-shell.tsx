@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS, contact } from "@/lib/site-data";
 import { GAEvents } from "@/lib/analytics/events";
 import { Aurora } from "@/components/site/aurora";
@@ -21,6 +21,8 @@ const REVEAL = [
 
 export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const vtDone = useRef<(() => void) | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
@@ -37,8 +39,45 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   // Close the mobile menu whenever the route changes; start each page at the top.
   useEffect(() => {
     setMenuOpen(false);
-    scrollRef.current?.scrollTo({ top: 0 });
+    scrollRef.current?.scrollTo({ top: 0, behavior: "instant" });
+    vtDone.current?.(); // new page is committed → let the view transition capture it
+    vtDone.current = null;
   }, [pathname]);
+
+  // Page transitions: internal link clicks run inside a View Transition. The
+  // nav's paper boxes, notch, wordmark and links carry their own
+  // view-transition-names, so the notch + active link glide to the new route
+  // while the page content swaps (animations in site.css). Unsupported
+  // browsers and reduced motion fall through to Next's normal navigation.
+  useEffect(() => {
+    if (!("startViewTransition" in document)) return;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (still.matches) return;
+      const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
+      if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+      const url = new URL(a.href, location.href);
+      if (url.origin !== location.origin || url.pathname === location.pathname) return;
+      if (/^\/(admin|api)(\/|$)/.test(url.pathname)) return;
+      e.preventDefault(); // Next's <Link> skips its own navigation when defaultPrevented
+      // keep the old page where it was on screen while it leaves (site.css)
+      document.documentElement.style.setProperty("--vt-y", `${-(scrollRef.current?.scrollTop ?? 0)}px`);
+      document.startViewTransition(
+        () =>
+          new Promise<void>((resolve) => {
+            const t = window.setTimeout(resolve, 2500);
+            vtDone.current = () => {
+              window.clearTimeout(t);
+              resolve();
+            };
+            router.push(url.pathname + url.search + url.hash);
+          }),
+      );
+    };
+    document.addEventListener("click", onClick, true);
+    return () => document.removeEventListener("click", onClick, true);
+  }, [router]);
 
   // Stacked sections: every <main> child is position:sticky (site.css), so the
   // next section slides over the previous one. A section taller than the
@@ -193,6 +232,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       key={l.href}
       href={l.href}
       className="f-navlink"
+      style={{ viewTransitionName: `f-nav-${l.href.slice(1) || "home"}` }}
       aria-current={isActive(l.href) ? "page" : undefined}
       onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
     >

@@ -907,6 +907,47 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 @keyframes f-settle { from { opacity: 0; rotate: -3deg; translate: 0 32px; } }
 @keyframes f-wipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 
+/* ---- Page transitions (View Transitions, started in PortfolioShell) -----
+   Nav pieces morph to their new layout (the notch + active link glide to the
+   clicked route); the page content leaves up and the next page rises in. */
+.f-nav .f-nav__start { view-transition-name: f-nav-start; }
+.f-nav .f-notch { view-transition-name: f-nav-notch; }
+.f-nav .f-nav__end { view-transition-name: f-nav-end; }
+.f-nav .f-wordmark { view-transition-name: f-nav-wordmark; view-transition-class: f-nav-ink; }
+.f-nav .f-navlink { view-transition-class: f-nav-ink; }
+.f-page > .f-mnav { view-transition-name: f-mnav; }
+#main { view-transition-name: f-page; }
+
+::view-transition-group(*) {
+  animation-duration: 520ms;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.2, 1);
+}
+/* Groups stack in the OLD page's paint order, so a link moving into a paper
+   box (notch / end) would slide underneath it — keep all nav ink on top. */
+::view-transition-group(*.f-nav-ink) { z-index: 2; }
+::view-transition-old(root),
+::view-transition-new(root) { animation-duration: 200ms; }
+/* paper boxes stretch/shrink cleanly: no crossfade ghosting */
+::view-transition-old(f-nav-start), ::view-transition-old(f-nav-end), ::view-transition-old(f-nav-notch),
+::view-transition-new(f-nav-start), ::view-transition-new(f-nav-end), ::view-transition-new(f-nav-notch) {
+  height: 100%;
+  animation-duration: 260ms;
+}
+
+/* page content: hold the old page where it was, fade it up and away */
+::view-transition-group(f-page) { animation: none; }
+::view-transition-old(f-page) {
+  transform: translateY(var(--vt-y, 0px));
+  animation: f-page-out 280ms cubic-bezier(0.4, 0, 1, 1) both;
+}
+::view-transition-new(f-page) { animation: f-page-in 560ms cubic-bezier(0.2, 0.8, 0.2, 1) 140ms both; }
+@keyframes f-page-out { to { opacity: 0; translate: 0 -32px; scale: 0.985; } }
+@keyframes f-page-in { from { opacity: 0; translate: 0 48px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
 /* ---- Reduced motion ---------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   .f-shell *, .f-shell *::before, .f-shell *::after {
