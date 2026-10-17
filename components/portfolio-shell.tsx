@@ -28,6 +28,8 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const stackRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const shellRef = useRef<HTMLDivElement>(null);
+  const menuOpenRef = useRef(false);
 
   // /jurnal (Bahasa journal) has no nav entry of its own — it lights Journal.
   const navPath = pathname.replace(/^\/jurnal(?=\/|$)/, "/journal");
@@ -142,6 +144,44 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     };
   }, [pathname]);
 
+  useEffect(() => {
+    menuOpenRef.current = menuOpen;
+  }, [menuOpen]);
+
+  // Sticky header: hides once scrolled past it going down, returns on any
+  // small scroll up, always shown near the top (CSS in site.css).
+  useEffect(() => {
+    const root = scrollRef.current;
+    const shell = shellRef.current;
+    if (!root || !shell) return;
+    let lastY = root.scrollTop;
+    let frame = 0;
+    const set = (state: "shown" | "hidden") => {
+      if (shell.dataset.nav !== state) shell.dataset.nav = state;
+    };
+    const update = () => {
+      frame = 0;
+      const y = root.scrollTop;
+      const dy = y - lastY;
+      // pinned once scrolled past the header's resting offset (--f-shell, ≤12px)
+      shell.toggleAttribute("data-nav-stuck", y > 12);
+      if (y < 120 || menuOpenRef.current) set("shown");
+      else if (dy > 6) set("hidden");
+      else if (dy < -6) set("shown");
+      else return; // jitter: keep lastY so slow scrolls still accumulate
+      lastY = y;
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    set("shown");
+    root.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      root.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
+
   // Reveals: every target plays its CSS entrance on mount; anything below
   // the fold is re-armed (data-rv="pending" → "in") to replay when scrolled
   // into view. Elements under the fold aren't visible yet, so arming them
@@ -250,7 +290,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <div className="f-shell">
+    <div className="f-shell" ref={shellRef}>
       <div className="f-scroll" ref={scrollRef} data-scroll-root>
         <div className="f-page">
           <Aurora />

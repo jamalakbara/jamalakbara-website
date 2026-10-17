@@ -21,7 +21,9 @@ export type ArticleCopy = {
 };
 
 // Margin stickers in relay groups: each group pins near the top of the viewport
-// while its lane is in view, then the next group pushes it off.
+// while its lane is in view, then the next group pushes it off. The field sits in
+// the TOC column below the "In this entry" list, so a long list pushes it down
+// instead of running under it.
 const MARGIN_BASE = 1416;
 const MARGIN: StickerSpot[][] = [
   [
@@ -39,30 +41,38 @@ const MARGIN: StickerSpot[][] = [
   ],
 ];
 const groupTop = (g: StickerSpot[]) => Math.min(...g.map((s) => s.y));
+// Canvas y of the first group lands this far below the list.
+const MARGIN_SHIFT = groupTop(MARGIN[0]) - 32;
 
 function MarginStickers() {
   const u = (v: number) => cqw(v, MARGIN_BASE);
   let z = 2;
   return (
-    <div className="f-art-margin" aria-hidden="true" style={{ containerType: "inline-size" }}>
-      {MARGIN.map((g, i) => {
-        const top = groupTop(g);
-        const next = MARGIN[i + 1];
-        const bottom = Math.max(...g.map((s) => s.y + s.h));
-        return (
-          <div
-            key={i}
-            className="f-art-lane"
-            style={next ? { top: u(top), height: u(groupTop(next) - top) } : { top: u(top), bottom: 0 }}
-          >
-            <div className="f-art-pin" style={{ height: u(bottom - top) }}>
-              {g.map((s) => (
-                <Sticker key={s.name} {...s} y={s.y - top} z={z++} base={MARGIN_BASE} />
-              ))}
+    <div className="f-art-margin" aria-hidden="true">
+      <div className="f-art-margin__field" style={{ containerType: "inline-size" }}>
+        {MARGIN.map((g, i) => {
+          const top = groupTop(g);
+          const next = MARGIN[i + 1];
+          const bottom = Math.max(...g.map((s) => s.y + s.h));
+          return (
+            <div
+              key={i}
+              className="f-art-lane"
+              style={
+                next
+                  ? { top: u(top - MARGIN_SHIFT), height: u(groupTop(next) - top) }
+                  : { top: u(top - MARGIN_SHIFT), bottom: 0 }
+              }
+            >
+              <div className="f-art-pin" style={{ height: u(bottom - top) }}>
+                {g.map((s) => (
+                  <Sticker key={s.name} {...s} y={s.y - top} z={z++} base={MARGIN_BASE} />
+                ))}
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
@@ -153,6 +163,7 @@ export function ArticleView({
                 ))}
               </div>
             )}
+            <MarginStickers />
           </nav>
           <div className="f-art-col">
             <div className="f-prose">
@@ -169,7 +180,6 @@ export function ArticleView({
               </a>
             </div>
           </div>
-          <MarginStickers />
         </div>
       </section>
 
