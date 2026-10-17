@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Fraunces } from "next/font/google";
+import localFont from "next/font/local";
 import { pages } from "@/lib/content";
 import "./globals.css";
 
@@ -29,6 +30,32 @@ const fraunces = Fraunces({
   display: "swap",
   preload: false,
   fallback: ["Georgia", "serif"],
+});
+
+// Working Folder type (public site). Fontshare faces, self-hosted + subset.
+// Comico is subset to the hero-name glyphs + digits (identity + number tiles only).
+const tanker = localFont({
+  src: "./fonts/Tanker-400.woff2",
+  variable: "--font-tanker",
+  weight: "400",
+  display: "swap",
+  fallback: ["Impact", "Arial Narrow", "sans-serif"],
+});
+
+const erode = localFont({
+  src: "./fonts/Erode-400.woff2",
+  variable: "--font-erode",
+  weight: "400",
+  display: "swap",
+  fallback: ["Georgia", "serif"],
+});
+
+const comico = localFont({
+  src: "./fonts/Comico-400.woff2",
+  variable: "--font-comico",
+  weight: "400",
+  display: "swap",
+  fallback: ["Comic Sans MS", "cursive"],
 });
 
 export const metadata: Metadata = {
@@ -121,7 +148,7 @@ export default function RootLayout({
           />
         )}
       </head>
-      <body className={`${spaceGrotesk.variable} ${fraunces.variable} antialiased`} suppressHydrationWarning>
+      <body className={`${spaceGrotesk.variable} ${fraunces.variable} ${tanker.variable} ${erode.variable} ${comico.variable} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>

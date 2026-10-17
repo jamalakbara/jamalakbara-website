@@ -1,0 +1,40 @@
+{
+  "name": "Jamalakbara Working Folder",
+  "version": "2.0",
+  "canvas": "jamalakbara.pen",
+  "referenceScreens": {"desktop": "QiOko", "mobile": "lYF3g"},
+  "canvasPrefix": "folder-",
+  "colors": {
+    "paper": "#F8F6F0", "note": "#FFFEFA", "ink": "#201E19",
+    "muted": "#6E695F", "surface": "#E8E3D9", "line": "#D8D2C8",
+    "accent": "#2445DB", "hover": "#1D36AF", "focus": "#2445DB",
+    "error": "#A62929", "success": "#456D5B", "white": "#FFFFFF"
+  },
+  "fonts": {"identity": "Comico", "display": "Tanker", "body": "Erode"},
+  "type": {
+    "identity": {"family": "identity", "desktop": 104, "mobile": 46, "lineHeight": 1.1},
+    "wordmark": {"family": "display", "desktop": 24, "mobile": 24, "lineHeight": 1.4},
+    "section": {"family": "display", "desktop": 48, "mobile": 32, "lineHeight": 1.08},
+    "email": {"family": "display", "desktop": 30, "mobile": 24, "lineHeight": 1.2},
+    "project": {"family": "display", "desktop": 20, "mobile": 20, "lineHeight": 1.4},
+    "body": {"family": "body", "desktop": 18, "mobile": 16, "lineHeight": 1.5},
+    "action": {"family": "body", "desktop": 16, "mobile": 16, "lineHeight": 1.4},
+    "metadata": {"family": "body", "desktop": 12, "mobile": 12, "lineHeight": 1.4},
+    "tab": {"family": "display", "desktop": 12, "mobile": 12, "lineHeight": 1.4}
+  },
+  "weight": 400,
+  "letterSpacing": 0,
+  "space": [4, 8, 12, 16, 24, 32, 40, 48, 64, 96],
+  "radius": {"panel": 12, "control": 4, "note": 0, "media": 0},
+  "controls": {"minTarget": 48, "inputHeight": 52, "icon": 16, "menuIcon": 24, "gap": 8, "paddingX": 16, "focusWidth": 2, "focusOffset": 2, "disabledOpacity": 0.5},
+  "layout": {
+    "mobileBreakpoint": 768, "desktopBreakpoint": 1024, "readingMax": 640,
+    "desktop": {"width": 1440, "shell": 12, "panelInset": 40, "contentWidth": 1336, "navHeight": 76, "heroHeight": 700, "tabWidth": 220},
+    "mobile": {"width": 390, "shell": 6, "panelInset": 16, "contentWidth": 346, "navHeight": 72, "heroHeight": 620, "tabWidth": 150},
+    "tablet": {"panelInset": 24, "composition": "stacked"},
+    "tabHeight": 36, "rootGap": 4, "sectionLeadIn": 12
+  },
+  "motion": {"hoverMs": 160, "menuMs": 240, "easing": "ease-out", "stampCycleSeconds": 3, "reducedMotion": "static settled mark and background", "continuousMotionRequiresPause": true},
+  "artwork": {"stamp": "original supplied blue logo_stamp artwork", "heroStampDesktop": 108, "heroStampMobile": 64, "contactStamp": 44, "preserveSourceColors": true},
+  "restrictions": ["No muted normal text on surface", "No line color for text", "No new uses of ja-* or jc-* through jh-*", "Raster type specimens require regeneration; production uses live text"]
+}

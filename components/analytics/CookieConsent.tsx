@@ -67,23 +67,20 @@ export function CookieConsentBanner() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 100 }}
-        className="fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 p-4"
+        className="f-cookie"
       >
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <div className="f-cookie__row">
             {/* Cookie Notice */}
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h3>
                 Cookie Notice
               </h3>
-              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p>
                 We use cookies to enhance your browsing experience, analyze site traffic,
                 and personalize content. By continuing to use this site, you agree to our
                 use of cookies. Learn more in our{' '}
-                <a
-                  href="/privacy"
-                  className="underline hover:no-underline text-blue-600 dark:text-blue-400"
-                >
+                <a href="/privacy">
                   Privacy Policy
                 </a>
                 .
@@ -91,25 +88,25 @@ export function CookieConsentBanner() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-2 flex-shrink-0">
-              <div className="flex gap-2">
+            <div className="f-cookie__actions">
+              <div className="f-cookie__actions">
                 <button
                   onClick={handleAcceptAll}
-                  className="px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium  hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+                  className="f-btn f-btn--primary"
                 >
                   Accept All
                 </button>
                 <button
                   onClick={handleAcceptNecessary}
-                  className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium  hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                  className="f-btn f-btn--secondary"
                 >
                   Necessary Only
                 </button>
               </div>
 
               {/* Custom Preferences Toggle */}
-              <details className="group relative [&:not([open])]:pointer-events-auto [&[open]]:pointer-events-none">
-                <summary className="cursor-pointer px-4 py-2 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium  hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors list-none pointer-events-auto">
+              <details className="group relative">
+                <summary className="f-btn f-btn--secondary list-none">
                   Customize
                 </summary>
 
@@ -117,81 +114,81 @@ export function CookieConsentBanner() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="absolute bottom-full right-0 mb-2 w-72 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-lg p-4 pointer-events-auto"
+                  className="f-cookie f-cookie__panel"
                 >
-                  <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">
+                  <h4 className="f-cookie__panel-h">
                     Cookie Preferences
                   </h4>
 
-                  <div className="space-y-3">
+                  <div>
                     {/* Necessary Cookies */}
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs text-gray-700 dark:text-gray-300">
+                    <div className="f-cookie__opt">
+                      <label>
                         Essential Cookies
                       </label>
                       <input
                         type="checkbox"
                         checked={preferences.necessary}
                         disabled
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                        
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="f-cookie__hint">
                       Required for the site to function properly.
                     </p>
 
                     {/* Analytics Cookies */}
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs text-gray-700 dark:text-gray-300">
+                    <div className="f-cookie__opt">
+                      <label>
                         Analytics Cookies
                       </label>
                       <input
                         type="checkbox"
                         checked={preferences.analytics}
                         onChange={(e) => handlePreferenceChange('analytics', e.target.checked)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                        
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="f-cookie__hint">
                       Help us understand how visitors interact with our website.
                     </p>
 
                     {/* Marketing Cookies */}
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs text-gray-700 dark:text-gray-300">
+                    <div className="f-cookie__opt">
+                      <label>
                         Marketing Cookies
                       </label>
                       <input
                         type="checkbox"
                         checked={preferences.marketing}
                         onChange={(e) => handlePreferenceChange('marketing', e.target.checked)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                        
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="f-cookie__hint">
                       Used to deliver personalized advertisements.
                     </p>
 
                     {/* Preference Cookies */}
-                    <div className="flex items-center justify-between">
-                      <label className="text-xs text-gray-700 dark:text-gray-300">
+                    <div className="f-cookie__opt">
+                      <label>
                         Preference Cookies
                       </label>
                       <input
                         type="checkbox"
                         checked={preferences.preferences}
                         onChange={(e) => handlePreferenceChange('preferences', e.target.checked)}
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600"
+                        
                       />
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="f-cookie__hint">
                       Allow enhanced functionality and personalization.
                     </p>
                   </div>
 
                   <button
                     onClick={handleSavePreferences}
-                    className="w-full mt-4 px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-medium  hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors"
+                    className="f-btn f-btn--primary f-cookie__save"
                   >
                     Save Preferences
                   </button>

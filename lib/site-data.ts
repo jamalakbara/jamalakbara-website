@@ -29,6 +29,10 @@ export type WorkRow = {
   href: string;
   image: string;
   video?: string;
+  description: string;
+  /** media strip for the project row: gallery when set, else the cover image */
+  media: string[];
+  featured: boolean;
 };
 
 export const works: WorkRow[] = projects.map((p, i) => ({
@@ -40,6 +44,9 @@ export const works: WorkRow[] = projects.map((p, i) => ({
   href: p.livePreview || p.url || "#",
   image: p.image,
   video: p.video,
+  description: p.description,
+  media: (p.gallery?.length ? p.gallery : [p.image]).filter(Boolean).slice(0, 3),
+  featured: p.featured === true,
 }));
 
 export const work = {

@@ -1,510 +1,207 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
-import { NAV_LINKS } from "@/lib/site-data";
-import { pages } from "@/lib/content";
-import {
-  DEFAULT_BACKGROUNDS,
-  videoUrl,
-  posterUrl,
-  blurUrl,
-} from "@/lib/backgrounds";
+import { NAV_LINKS, contact } from "@/lib/site-data";
 import { GAEvents } from "@/lib/analytics/events";
+import { Aurora } from "@/components/site/aurora";
+import { ArrowUpRight, Close, Menu } from "@/components/site/icons";
 
-// route -> versioned Cloudinary path WITHOUT extension. Defaults live in
-// lib/backgrounds; the CMS overrides per page via pages.*.backgroundVideo
-// (empty/unset keeps the default). Journal has no site-copy tab → default only.
-const PAGE_PATHS: Record<string, string> = {
-  "/": pages.home.backgroundVideo || DEFAULT_BACKGROUNDS.home,
-  "/work": pages.work.backgroundVideo || DEFAULT_BACKGROUNDS.work,
-  "/journal": pages.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal,
-  "/jurnal": pages.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal,
-  "/about": pages.about.backgroundVideo || DEFAULT_BACKGROUNDS.about,
-  "/contact": pages.contact.backgroundVideo || DEFAULT_BACKGROUNDS.contact,
-};
-
-function getPath(pathname: string): string {
-  for (const key of Object.keys(PAGE_PATHS)) {
-    if (key === "/" ? pathname === "/" : pathname.startsWith(key))
-      return PAGE_PATHS[key];
-  }
-  return PAGE_PATHS["/"];
-}
-
-const ACCENT = "#e0875a";
-const INK = "#f4ede3";
-const MUTED = "#a99c8d";
+// Working Folder shell: aurora field behind paper panels, folder navigation
+// with a recessed notch under the active route, and a modal mobile menu.
+// The page scrolls inside .f-scroll (body stays overflow:hidden, as before).
 
 export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Two stacked layers crossfade on route change. Each layer is a wrapper <div>
-  // whose CSS background is the still (sharp poster over a tiny blur LQIP) plus
-  // an inner <video>. The still paints reliably from CSS (no <video poster>
-  // quirks); the video is kept hidden until it can play, so a reused layer never
-  // flashes a stale frame — it reveals the correct still underneath instead.
-  const wrapARef = useRef<HTMLDivElement>(null);
-  const wrapBRef = useRef<HTMLDivElement>(null);
-  const layerARef = useRef<HTMLVideoElement>(null);
-  const layerBRef = useRef<HTMLVideoElement>(null);
-  const frontRef = useRef<"A" | "B">("A"); // which layer is currently visible
-  const currentPathRef = useRef(getPath(pathname)); // Cloudinary path showing now
-  const [initialPath] = useState(() => getPath(pathname)); // frozen for first-render HTML
-
-  // Sharp first-frame still over the tiny blur LQIP (first listed = on top).
-  const stillBg = (p: string) => `url(${posterUrl(p)}), url(${blurUrl(p)})`;
-
-  // Warm the browser media cache for a route's video on hover/focus intent, so
-  // the real layer swap is near-instant. Deduped so each video fetches once.
-  const prefetchedRef = useRef<Set<string>>(new Set());
-  const prefetch = (p: string) => {
-    if (prefetchedRef.current.has(p)) return;
-    prefetchedRef.current.add(p);
-    const v = document.createElement("video");
-    v.preload = "auto";
-    v.muted = true;
-    v.src = videoUrl(p);
-    v.load();
-  };
-
-  // Close the mobile menu whenever the route changes.
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
-
-  // Mount fallback: kick playback on layer A (autoplay can be blocked) and
-  // reveal it if it can already paint (canPlay may have fired pre-hydration).
-  useEffect(() => {
-    const v = layerARef.current;
-    if (!v) return;
-    v.play().catch(() => {});
-    if (v.readyState >= 2) v.style.opacity = "1";
-  }, []);
-
-  // Crossfade to the new route on navigation. Driven imperatively so React never
-  // rewrites the src behind our back (the old reactive <source> binding did,
-  // which defeated the load() guard and broke swaps without a refresh).
-  //
-  // The back layer's STILL (CSS background) is set to the new page and the layer
-  // is revealed immediately, so the new page's still shows right away instead of
-  // the previous page's video lingering. The back video is hidden until it can
-  // play, then fades in over its own still — no stale-frame flash.
-  useEffect(() => {
-    const newPath = getPath(pathname);
-    if (newPath === currentPathRef.current) return;
-    const frontWrap = frontRef.current === "A" ? wrapARef.current : wrapBRef.current;
-    const backWrap = frontRef.current === "A" ? wrapBRef.current : wrapARef.current;
-    const back = frontRef.current === "A" ? layerBRef.current : layerARef.current;
-    if (!frontWrap || !backWrap || !back) return;
-    backWrap.style.backgroundImage = stillBg(newPath); // correct still, instant
-    back.style.opacity = "0"; // hide video until ready (reveals still beneath)
-    back.src = videoUrl(newPath);
-    back.load();
-    back.play().catch(() => {});
-    backWrap.style.opacity = "1";
-    frontWrap.style.opacity = "0";
-    frontRef.current = frontRef.current === "A" ? "B" : "A";
-    currentPathRef.current = newPath;
-  }, [pathname]);
-
-  // Reveal a layer's video once it can paint (fades in over its still).
-  const onVideoReady = (e: React.SyntheticEvent<HTMLVideoElement>) => {
-    e.currentTarget.style.opacity = "1";
-    e.currentTarget.play().catch(() => {});
-  };
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const stackRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  const linkStyle = (href: string): React.CSSProperties => {
-    const active = isActive(href);
-    return {
-      fontSize: "0.875rem",
-      textDecoration: "none",
-      cursor: "pointer",
-      transition: "color 0.25s",
-      color: active ? INK : MUTED,
-      fontWeight: active ? 500 : 400,
-      paddingBottom: "3px",
-      borderBottom: active
-        ? `1px solid ${ACCENT}`
-        : "1px solid transparent",
+  const close = useCallback((restoreFocus = true) => {
+    setMenuOpen(false);
+    if (restoreFocus) toggleRef.current?.focus();
+  }, []);
+
+  // Close the mobile menu whenever the route changes; start each page at the top.
+  useEffect(() => {
+    setMenuOpen(false);
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [pathname]);
+
+  // Modal menu: focus the first item, trap Tab, close on Escape.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const stack = stackRef.current;
+    const focusables = () =>
+      Array.from(stack?.querySelectorAll<HTMLElement>("a[href], button") ?? []);
+    stack?.querySelector<HTMLElement>(".f-menu__item")?.focus(); // land on the first link
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const els = focusables();
+      if (!els.length) return;
+      const first = els[0];
+      const last = els[els.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
-  };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen, close]);
 
-  const iconBase: React.CSSProperties = {
-    position: "absolute",
-    inset: 0,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    transition: "transform 0.5s ease-out, opacity 0.5s ease-out",
-  };
+  // Close the modal if the viewport grows past the mobile breakpoint.
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => mq.matches && setMenuOpen(false);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
-  // Uniform heavy scrim on every route — keeps body text legible across all
-  // bgs, including bright ones like /about's dusk sky.
-  const scrimBg =
-    "linear-gradient(to top, rgba(10,7,5,0.88) 0%, rgba(10,7,5,0.72) 50%, rgba(10,7,5,0.5) 100%)";
+  const activeIndex = NAV_LINKS.findIndex((l) => isActive(l.href));
+  const before = activeIndex === -1 ? NAV_LINKS : NAV_LINKS.slice(0, activeIndex);
+  const active = activeIndex === -1 ? null : NAV_LINKS[activeIndex];
+  const after = activeIndex === -1 ? [] : NAV_LINKS.slice(activeIndex + 1);
+
+  const navLink = (l: (typeof NAV_LINKS)[number]) => (
+    <Link
+      key={l.href}
+      href={l.href}
+      className="f-navlink"
+      aria-current={isActive(l.href) ? "page" : undefined}
+      onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
+    >
+      {l.label}
+    </Link>
+  );
+
+  const wordmark = (onClick?: () => void) => (
+    <Link href="/" className="f-wordmark" aria-label="jamalakbara. — Home" onClick={onClick}>
+      JAMALAKBARA.
+    </Link>
+  );
 
   return (
-    <div
-      style={{
-        position: "relative",
-        width: "100vw",
-        height: "100dvh",
-        overflow: "hidden",
-        background: "#0c0908",
-        color: INK,
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {/* ---- Background — two crossfading layers (z0) ----
-          Wrapper paints the still (CSS bg: sharp poster over blur LQIP) instantly;
-          the inner video fades in over it once it can play. */}
-      <div
-        ref={wrapARef}
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          opacity: 1,
-          backgroundImage: stillBg(initialPath),
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transition: "opacity 0.6s ease",
-        }}
-      >
-        <video
-          ref={layerARef}
-          src={videoUrl(initialPath)}
-          autoPlay
-          muted
-          loop
-          playsInline
-          onCanPlay={onVideoReady}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: 0,
-            transition: "opacity 0.5s ease",
-          }}
-        />
-      </div>
-      <div
-        ref={wrapBRef}
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          opacity: 0,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transition: "opacity 0.6s ease",
-        }}
-      >
-        <video
-          ref={layerBRef}
-          muted
-          loop
-          playsInline
-          onCanPlay={onVideoReady}
-          style={{
-            position: "absolute",
-            inset: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: 0,
-            transition: "opacity 0.5s ease",
-          }}
-        />
-      </div>
+    <div className="f-shell">
+      <div className="f-scroll" ref={scrollRef} data-scroll-root>
+        <div className="f-page">
+          <Aurora />
+          <a href="#main" className="f-skip">
+            Skip to content
+          </a>
 
-      {/* ---- Warm film grade + vignette (z1) ---- */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(135deg, rgba(224,135,91,0.20) 0%, rgba(60,28,40,0.12) 55%, rgba(28,40,64,0.16) 100%)",
-          mixBlendMode: "soft-light",
-        }}
-      />
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(120% 120% at 50% 0%, transparent 45%, rgba(12,9,8,0.55) 100%)",
-        }}
-      />
-
-      {/* ---- Page scrim (z2) — darkens for text-heavy pages ---- */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 2,
-          pointerEvents: "none",
-          background: scrimBg,
-          transition: "background 0.6s ease",
-        }}
-      />
-
-      {/* ---- Bottom blur (z3) ---- */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: 3,
-          pointerEvents: "none",
-          WebkitBackdropFilter: "blur(20px)",
-          backdropFilter: "blur(20px)",
-          WebkitMaskImage:
-            "linear-gradient(to top, black 0%, transparent 45%)",
-          maskImage: "linear-gradient(to top, black 0%, transparent 45%)",
-        }}
-      />
-
-      {/* ---- Navbar (z50) — centered frosted-glass pill ---- */}
-      <nav
-        style={{
-          position: "relative",
-          zIndex: 50,
-          display: "flex",
-          justifyContent: "center",
-          padding: "1.5rem clamp(1rem, 4vw, 3rem) 0",
-        }}
-      >
-        <div
-          className="liquid-glass animate-blur-fade-up"
-          style={{
-            animationDelay: "0ms",
-            width: "100%",
-            maxWidth: "1080px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            borderRadius: "9999px",
-            padding: "0.5rem 0.6rem 0.5rem 1.5rem",
-            cursor: "default",
-          }}
-        >
-          <Link
-            href="/"
-            style={{
-              fontSize: "clamp(1.05rem, 2.2vw, 1.35rem)",
-              fontWeight: 600,
-              letterSpacing: "-0.02em",
-              height: "2.5rem",
-              display: "flex",
-              alignItems: "center",
-              cursor: "pointer",
-              textDecoration: "none",
-              color: INK,
-            }}
-          >
-            jamalakbara<span style={{ color: ACCENT }}>.</span>
-          </Link>
-
-          <div
-            className="desktop-nav"
-            style={{
-              alignItems: "center",
-              gap: "2rem",
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-            }}
-          >
-            {NAV_LINKS.map((l, i) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
-                onMouseEnter={() => prefetch(getPath(l.href))}
-                onFocus={() => prefetch(getPath(l.href))}
-                className="animate-blur-fade-up nav-link"
-                style={{ ...linkStyle(l.href), animationDelay: `${100 + i * 50}ms` }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-            <Link
-              href="/contact"
-              onClick={() => GAEvents.trackNavigationClick("/contact", "navbar_lets_talk")}
-              onMouseEnter={() => prefetch(getPath("/contact"))}
-              onFocus={() => prefetch(getPath("/contact"))}
-              className="nav-actions liquid-glass animate-blur-fade-up"
-              style={{
-                animationDelay: "350ms",
-                alignItems: "center",
-                gap: "0.5rem",
-                borderRadius: "9999px",
-                padding: "0.5rem clamp(1rem, 2vw, 1.4rem)",
-                fontSize: "0.875rem",
-                fontWeight: 500,
-                textDecoration: "none",
-              }}
+          {/* ---- Desktop / tablet navigation ---- */}
+          <nav className="f-nav" aria-label="Primary">
+            <div
+              className="f-nav__start"
+              style={active ? undefined : { borderRadius: 12, paddingRight: 40 }}
             >
-              <span
-                style={{
-                  width: "7px",
-                  height: "7px",
-                  borderRadius: "9999px",
-                  background: "#6ee787",
-                  boxShadow: "0 0 8px #6ee787",
-                  animation: "softPulse 2.4s ease-in-out infinite",
-                  display: "inline-block",
-                }}
-              />
-              <span>Let&apos;s talk</span>
-            </Link>
+              {wordmark()}
+              {before.length > 0 && <div className="f-nav__links">{before.map(navLink)}</div>}
+            </div>
+            {active && (
+              <>
+                <div className="f-notch">
+                  <span className="f-notch__fill" aria-hidden="true" />
+                  {navLink(active)}
+                </div>
+                <div className={after.length ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
+                  {after.map(navLink)}
+                </div>
+              </>
+            )}
+          </nav>
 
+          {/* ---- Mobile navigation bar ---- */}
+          <div className="f-mnav">
+            {wordmark()}
             <button
+              ref={toggleRef}
               type="button"
-              onClick={() => setMenuOpen((o) => !o)}
-              aria-label="Toggle menu"
-              className="hamburger liquid-glass animate-blur-fade-up"
-              style={{
-                animationDelay: "350ms",
-                width: "2.5rem",
-                height: "2.5rem",
-                borderRadius: "9999px",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-              }}
+              className="f-iconbtn"
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+              aria-controls="f-mobile-menu"
+              onClick={() => setMenuOpen(true)}
             >
-              <span
-                style={{
-                  position: "relative",
-                  width: "18px",
-                  height: "18px",
-                  display: "inline-block",
-                }}
-              >
-                <span
-                  style={{
-                    ...iconBase,
-                    transform: menuOpen
-                      ? "rotate(180deg) scale(0.5)"
-                      : "rotate(0) scale(1)",
-                    opacity: menuOpen ? 0 : 1,
-                  }}
-                >
-                  <Menu size={18} />
-                </span>
-                <span
-                  style={{
-                    ...iconBase,
-                    transform: menuOpen
-                      ? "rotate(0) scale(1)"
-                      : "rotate(-180deg) scale(0.5)",
-                    opacity: menuOpen ? 1 : 0,
-                  }}
-                >
-                  <X size={18} />
-                </span>
-              </span>
+              <Menu size={24} />
             </button>
           </div>
-        </div>
-      </nav>
 
-      {/* ---- Mobile menu — frosted-glass panel (matches the nav pill) ---- */}
-      <div
-        className="mobile-menu liquid-glass"
-        style={{
-          position: "absolute",
-          top: "5.5rem",
-          left: "clamp(1rem, 4vw, 3rem)",
-          right: "clamp(1rem, 4vw, 3rem)",
-          zIndex: 40,
-          display: "flex",
-          flexDirection: "column",
-          gap: "0.25rem",
-          padding: "0.6rem",
-          borderRadius: "1.5rem",
-          WebkitBackdropFilter: "blur(2px)",
-          backdropFilter: "blur(2px)",
-          cursor: "default",
-          transformOrigin: "top center",
-          transition:
-            "transform 0.45s cubic-bezier(0.34, 1.2, 0.64, 1), opacity 0.4s ease-out",
-          transform: menuOpen
-            ? "translateY(0) scale(1)"
-            : "translateY(-0.75rem) scale(0.98)",
-          opacity: menuOpen ? 1 : 0,
-          pointerEvents: menuOpen ? "auto" : "none",
-        }}
-      >
-        {NAV_LINKS.map((l) => (
-          <Link
-            key={l.href}
-            href={l.href}
-            onClick={() => {
-              GAEvents.trackNavigationClick(l.href, "mobile_menu");
-              setMenuOpen(false);
-            }}
-            onMouseEnter={() => prefetch(getPath(l.href))}
-            onFocus={() => prefetch(getPath(l.href))}
-            className="menu-link"
-            style={{
-              display: "block",
-              padding: "0.85rem 1.1rem",
-              borderRadius: "9999px",
-              color: isActive(l.href) ? INK : MUTED,
-              textDecoration: "none",
-              fontSize: "0.8rem",
-              fontWeight: 500,
-              textTransform: "uppercase",
-              letterSpacing: "0.08em",
-              cursor: "pointer",
-              transition: "background 0.25s, color 0.25s",
-            }}
-          >
-            {l.label}
-          </Link>
-        ))}
+          <main id="main" className="f-main" tabIndex={-1}>
+            {children}
+          </main>
+        </div>
       </div>
 
-      {/* ---- Content region (z10) ----
-          Scrollable so any page taller than the viewport (e.g. About/Contact
-          on small/short screens) can scroll instead of being clipped by the
-          shell's height:100vh / overflow:hidden. On desktop content fits, so
-          no scrollbar appears and the cinematic full-screen look is unchanged. */}
+      {/* ---- Mobile menu (modal) ---- */}
       <div
-        style={{
-          flex: 1,
-          minHeight: 0,
-          display: "flex",
-          flexDirection: "column",
-          zIndex: 10,
-          position: "relative",
-          overflowY: "auto",
-          overflowX: "hidden",
-          WebkitOverflowScrolling: "touch",
-          padding:
-            "0 clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem)",
-        }}
+        id="f-mobile-menu"
+        className="f-menu"
+        data-open={menuOpen}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!menuOpen}
       >
-        {children}
+        <div className="f-menu__scrim" onClick={() => close(false)} />
+        <div className="f-menu__stack" ref={stackRef}>
+          <div className="f-mnav" style={{ display: "flex" }}>
+            {wordmark(() => setMenuOpen(false))}
+            <button
+              type="button"
+              className="f-iconbtn"
+              aria-label="Close menu"
+              tabIndex={menuOpen ? 0 : -1}
+              onClick={() => close()}
+            >
+              <Close size={24} />
+            </button>
+          </div>
+          {NAV_LINKS.map((l) => (
+            <Link
+              key={l.href}
+              href={l.href}
+              className="f-menu__item"
+              tabIndex={menuOpen ? 0 : -1}
+              aria-current={isActive(l.href) ? "page" : undefined}
+              onClick={() => {
+                GAEvents.trackNavigationClick(l.href, "mobile_menu");
+                setMenuOpen(false);
+              }}
+            >
+              <span className="f-menu__label">{l.label}</span>
+            </Link>
+          ))}
+          <div className="f-menu__social">
+            {contact.socials.slice(0, 2).map((s) => (
+              <a
+                key={s.url}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="f-menu__item"
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {s.label}
+                <ArrowUpRight size={16} />
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
