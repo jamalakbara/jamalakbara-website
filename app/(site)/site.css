@@ -161,6 +161,16 @@ body {
 
 /* ---- Navigation -------------------------------------------------------- */
 .f-nav { position: relative; z-index: 50; display: flex; height: 76px; border-radius: 12px; }
+/* Sticky header: stays pinned, slides away on scroll down, back on scroll up
+   (PortfolioShell toggles .f-shell[data-nav]). Focus inside always shows it. */
+.f-nav, .f-page > .f-mnav {
+  position: sticky;
+  top: var(--f-shell);
+  transition: transform 240ms var(--f-ease);
+}
+.f-shell[data-nav="hidden"] :is(.f-nav, .f-page > .f-mnav):not(:focus-within) {
+  transform: translateY(calc(-100% - var(--f-shell) - 4px));
+}
 .f-nav__start {
   display: flex;
   align-items: center;
