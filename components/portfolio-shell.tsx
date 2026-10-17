@@ -163,6 +163,8 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       frame = 0;
       const y = root.scrollTop;
       const dy = y - lastY;
+      // pinned once scrolled past the header's resting offset (--f-shell, ≤12px)
+      shell.toggleAttribute("data-nav-stuck", y > 12);
       if (y < 120 || menuOpenRef.current) set("shown");
       else if (dy > 6) set("hidden");
       else if (dy < -6) set("shown");

@@ -162,14 +162,20 @@ body {
 /* ---- Navigation -------------------------------------------------------- */
 .f-nav { position: relative; z-index: 50; display: flex; height: 76px; border-radius: 12px; }
 /* Sticky header: stays pinned, slides away on scroll down, back on scroll up
-   (PortfolioShell toggles .f-shell[data-nav]). Focus inside always shows it. */
+   (PortfolioShell toggles .f-shell[data-nav]). Focus inside always shows it.
+   Pins flush to the top (no gap for content to show through); once pinned
+   over content it lifts with a hairline + faint shadow — the sticker lift's
+   ink, half strength. drop-shadow follows the notch outline. */
 .f-nav, .f-page > .f-mnav {
   position: sticky;
-  top: var(--f-shell);
-  transition: transform 240ms var(--f-ease);
+  top: 0;
+  transition: transform 240ms var(--f-ease), filter 240ms ease-out;
+}
+.f-shell[data-nav-stuck] :is(.f-nav, .f-page > .f-mnav) {
+  filter: drop-shadow(0 1px 0 var(--f-line)) drop-shadow(0 8px 16px rgba(26, 22, 15, 0.08));
 }
 .f-shell[data-nav="hidden"] :is(.f-nav, .f-page > .f-mnav):not(:focus-within) {
-  transform: translateY(calc(-100% - var(--f-shell) - 4px));
+  transform: translateY(calc(-100% - 32px)); /* clear the shadow too */
 }
 .f-nav__start {
   display: flex;
