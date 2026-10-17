@@ -763,12 +763,15 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 .f-art-id { display: flex; align-items: flex-end; gap: 48px; }
 .f-art-sig { display: flex; flex-direction: column; gap: 12px; width: 400px; flex-shrink: 0; }
 .f-art-titlecol { display: flex; flex-direction: column; gap: 16px; width: 640px; min-width: 0; }
-.f-art-surface { position: relative; display: flex; gap: 48px; padding: 48px var(--f-inset); }
+.f-art-surface { position: relative; container-type: inline-size; display: flex; gap: 48px; padding: 48px var(--f-inset); }
 .f-art-toc { position: relative; z-index: 0; display: flex; flex-direction: column; gap: 16px; width: 400px; flex-shrink: 0; }
 .f-art-toc__list { display: flex; flex-direction: column; gap: 16px; }
 .f-art-col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; width: 640px; min-width: 0; }
 .f-art-end { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--f-line); }
-.f-art-margin { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+/* Margin: fills the TOC column under the list; the field spans the full surface width
+   (canvas x is surface-relative) and clips vertically at the surface bottom. */
+.f-art-margin { position: relative; flex: 1; pointer-events: none; }
+.f-art-margin__field { position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--f-inset)); width: calc(100cqw + 2 * var(--f-inset)); overflow-y: clip; }
 /* Relay groups: each pin sticks inside its lane, then the lane end hands over to the next group. */
 .f-art-lane { position: absolute; left: 0; right: 0; }
 .f-art-pin { position: sticky; top: 48px; }
