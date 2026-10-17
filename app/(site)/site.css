@@ -130,6 +130,16 @@ body {
 /* ---- Panels & folders -------------------------------------------------- */
 .f-panel { background: var(--f-paper); border-radius: 12px; }
 .f-folder { display: flex; flex-direction: column; padding-top: 12px; }
+/* Stacked sections: each <main> child sticks (top set per section by
+   PortfolioShell — 0, or negative for sections taller than the viewport);
+   later siblings paint over earlier ones as they scroll up. */
+.f-main > * { position: sticky; top: var(--f-stick, 0px); }
+/* Covered section sinks back as the next one slides over (--f-cover 0→1). */
+.f-main > [data-covered] {
+  scale: calc(1 - var(--f-cover, 0) * 0.04);
+  transform-origin: 50% 0;
+  filter: brightness(calc(1 - var(--f-cover, 0) * 0.1));
+}
 .f-tabrail { display: flex; align-items: flex-end; height: 36px; }
 .f-tab {
   display: flex;
@@ -842,6 +852,60 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
   .f-cookie { left: 6px; right: 6px; bottom: 6px; padding: 20px 16px; }
   .f-cookie__row { flex-direction: column; align-items: stretch; }
 }
+
+/* ---- Reveals -----------------------------------------------------------
+   Every target plays its entrance when it mounts (first paint / client
+   navigation). PortfolioShell then re-arms anything below the fold:
+   data-rv="pending" hides it, "in" replays the entrance when it scrolls into
+   view (--rv-d = stagger within the batch). "static" = was on screen. The
+   selector lists must match REVEAL in components/portfolio-shell.tsx. */
+.f-ln { display: inline-block; overflow: clip; overflow-clip-margin: 0.12em; vertical-align: top; }
+.f-ln > span { display: inline-block; }
+
+.f-main :is(.f-row, .f-jrow, .f-cap, .f-field, .f-form__actions, .f-prose > *, .f-quote, .f-title-panel__label,
+  .f-title-panel__intro, .f-journal-intro, .f-art-toc, .f-art-sig, .f-loc, .f-strip, .f-end, .f-filters,
+  .f-display:not(:has(.f-ln))) {
+  --rv: f-rise 700ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.f-main .f-display:has(.f-ln) .f-ln > span { --rv: f-line-up 750ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.f-main .f-receipt { --rv: f-print 1100ms steps(24, end); }
+.f-main :is(.f-stamp:not(.f-stamp--loop), .f-sticker, .f-tile) { --rv: f-thunk 520ms cubic-bezier(0.3, 1.4, 0.5, 1); }
+.f-main .f-note { --rv: f-settle 800ms cubic-bezier(0.2, 0.9, 0.3, 1.2); }
+.f-main :is(.f-portrait, .f-row__img) { --rv: f-wipe 900ms cubic-bezier(0.7, 0, 0.2, 1); }
+
+/* stagger: sibling index on mount (not inherited); heading lines always */
+@property --rv-i { syntax: "<integer>"; inherits: false; initial-value: 0; }
+.f-main .f-ln:nth-of-type(2) > span { --rv-i: 1; }
+.f-main .f-ln:nth-of-type(3) > span { --rv-i: 2; }
+.f-main .f-ln:nth-of-type(n + 4) > span { --rv-i: 3; }
+.f-main :nth-child(2) { --rv-i: 1; }
+.f-main :nth-child(3) { --rv-i: 2; }
+.f-main :nth-child(4) { --rv-i: 3; }
+.f-main :nth-child(5) { --rv-i: 4; }
+.f-main :nth-child(n + 6) { --rv-i: 5; }
+
+.f-main [data-rv="pending"]:not(.f-display:has(.f-ln)),
+.f-main [data-rv="pending"] .f-ln > span { visibility: hidden; animation: none; }
+.f-main :is(.f-row, .f-jrow, .f-cap, .f-field, .f-form__actions, .f-prose > *, .f-quote, .f-title-panel__label,
+  .f-title-panel__intro, .f-journal-intro, .f-art-toc, .f-art-sig, .f-loc, .f-strip, .f-end, .f-filters,
+  .f-display:not(:has(.f-ln)), .f-receipt, .f-stamp:not(.f-stamp--loop), .f-sticker, .f-tile, .f-note,
+  .f-portrait, .f-row__img):not([data-rv="pending"]),
+.f-main .f-display:not([data-rv="pending"]) .f-ln > span {
+  animation: var(--rv) backwards;
+  animation-delay: var(--rv-d, calc(var(--rv-i, 0) * 80ms));
+}
+.f-main .f-display:not([data-rv="pending"]) .f-ln > span { animation-delay: calc(var(--rv-d, 0ms) + var(--rv-i) * 90ms); }
+
+@keyframes f-line-up { from { translate: 0 110%; } }
+@keyframes f-rise { from { opacity: 0; translate: 0 24px; } }
+@keyframes f-print { from { clip-path: inset(0 0 100% 0); translate: 0 -12px; } to { clip-path: inset(0 0 -8px 0); } }
+@keyframes f-thunk {
+  0% { opacity: 0; scale: 1.35; rotate: -8deg; }
+  55% { opacity: 1; scale: 0.94; rotate: 1deg; }
+  100% { opacity: 1; scale: 1; rotate: 0deg; }
+}
+@keyframes f-settle { from { opacity: 0; rotate: -3deg; translate: 0 32px; } }
+@keyframes f-wipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 
 /* ---- Reduced motion ---------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {

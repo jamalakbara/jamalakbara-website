@@ -12,6 +12,13 @@ import { ArrowUpRight, Close, Menu } from "@/components/site/icons";
 // with a recessed notch under the active route, and a modal mobile menu.
 // The page scrolls inside .f-scroll (body stays overflow:hidden, as before).
 
+const REVEAL = [
+  ".f-row", ".f-jrow", ".f-cap", ".f-field", ".f-form__actions", ".f-prose > *", ".f-quote",
+  ".f-title-panel__label", ".f-title-panel__intro", ".f-journal-intro", ".f-art-toc", ".f-art-sig",
+  ".f-loc", ".f-strip", ".f-end", ".f-filters", ".f-display", ".f-receipt",
+  ".f-stamp:not(.f-stamp--loop)", ".f-sticker", ".f-tile", ".f-note", ".f-portrait", ".f-row__img",
+].join(", ");
+
 export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -31,6 +38,111 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setMenuOpen(false);
     scrollRef.current?.scrollTo({ top: 0 });
+  }, [pathname]);
+
+  // Stacked sections: every <main> child is position:sticky (site.css), so the
+  // next section slides over the previous one. A section taller than the
+  // viewport sticks by its bottom edge (negative top) so it can be read fully
+  // before the next one covers it.
+  useEffect(() => {
+    const root = scrollRef.current;
+    const main = root?.querySelector<HTMLElement>("#main");
+    if (!root || !main) return;
+    const measure = () => {
+      const vh = root.clientHeight;
+      for (const el of Array.from(main.children) as HTMLElement[]) {
+        el.style.setProperty("--f-stick", `${Math.min(0, vh - el.offsetHeight)}px`);
+      }
+    };
+    const ro = new ResizeObserver(measure);
+    const observe = () => {
+      ro.disconnect();
+      ro.observe(root);
+      for (const el of Array.from(main.children)) ro.observe(el);
+      measure();
+    };
+    const mo = new MutationObserver(observe);
+    mo.observe(main, { childList: true });
+    observe();
+
+    // As the next section slides over, the covered one sinks back
+    // (--f-cover 0→1 drives scale + dim in site.css). Off under reduced motion.
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frame = 0;
+    const cover = () => {
+      frame = 0;
+      const kids = Array.from(main.children) as HTMLElement[];
+      const vh = root.clientHeight;
+      kids.forEach((el, i) => {
+        const next = kids[i + 1];
+        let c = 0;
+        if (next) {
+          const overlap = el.getBoundingClientRect().bottom - next.getBoundingClientRect().top;
+          c = Math.min(1, Math.max(0, overlap / Math.min(vh, el.offsetHeight)));
+        }
+        el.style.setProperty("--f-cover", c.toFixed(3));
+        el.toggleAttribute("data-covered", c > 0);
+      });
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(cover);
+    };
+    if (!still) {
+      root.addEventListener("scroll", onScroll, { passive: true });
+      cover();
+    }
+
+    return () => {
+      ro.disconnect();
+      mo.disconnect();
+      root.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [pathname]);
+
+  // Reveals: every target plays its CSS entrance on mount; anything below
+  // the fold is re-armed (data-rv="pending" → "in") to replay when scrolled
+  // into view. Elements under the fold aren't visible yet, so arming them
+  // after paint never blinks. Selectors mirror the Reveals block in site.css.
+  useEffect(() => {
+    const root = scrollRef.current;
+    const main = root?.querySelector<HTMLElement>("#main");
+    if (!root || !main || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        let i = 0;
+        for (const e of entries) {
+          if (!e.isIntersecting) continue;
+          const el = e.target as HTMLElement;
+          el.style.setProperty("--rv-d", `${Math.min(i++, 5) * 80}ms`);
+          el.dataset.rv = "in";
+          io.unobserve(el);
+        }
+      },
+      { root, rootMargin: "0px 0px -10% 0px" },
+    );
+    const arm = () => {
+      const fold = root.getBoundingClientRect().bottom;
+      main.querySelectorAll<HTMLElement>(REVEAL).forEach((el) => {
+        // Strict Mode double-invokes effects: re-observe leftovers.
+        if (el.dataset.rv === "pending") return void io.observe(el);
+        if (el.dataset.rv) return;
+        const r = el.getBoundingClientRect();
+        if (r.top < fold || r.height === 0) {
+          el.dataset.rv = "static";
+          return;
+        }
+        el.dataset.rv = "pending";
+        io.observe(el);
+      });
+    };
+    const mo = new MutationObserver(arm);
+    mo.observe(main, { childList: true, subtree: true });
+    arm();
+    return () => {
+      io.disconnect();
+      mo.disconnect();
+    };
   }, [pathname]);
 
   // Modal menu: focus the first item, trap Tab, close on Escape.

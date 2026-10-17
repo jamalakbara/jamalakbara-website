@@ -21,7 +21,7 @@ export function sentenceLines(text: string): React.ReactNode {
   if (parts.length < 2) {
     // single sentence: balance it over two lines (canvas: "NOTES FROM / THE BUILD.")
     const words = text.split(/\s+/);
-    if (text.length <= 18 || words.length < 3) return text;
+    if (text.length <= 18 || words.length < 3) return line(text, 0);
     let best = 1;
     for (let i = 1; i < words.length; i++) {
       const left = words.slice(0, i).join(" ").length;
@@ -30,5 +30,12 @@ export function sentenceLines(text: string): React.ReactNode {
     }
     parts = [words.slice(0, best).join(" "), words.slice(best).join(" ")];
   }
-  return parts.flatMap((p, i) => (i === 0 ? [p] : [" ", React.createElement("br", { key: i }), p]));
+  return parts.flatMap((p, i) =>
+    i === 0 ? [line(p, i)] : [" ", React.createElement("br", { key: `br${i}` }), line(p, i)],
+  );
 }
+
+// Each visual line is wrapped (.f-ln > span) so it can rise from a mask on
+// scroll-reveal; wrappers add no text, so textContent stays identical.
+const line = (text: string, i: number) =>
+  React.createElement("span", { key: `ln${i}`, className: "f-ln" }, React.createElement("span", null, text));
