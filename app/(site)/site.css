@@ -449,8 +449,12 @@ body {
   transition: transform 160ms ease-out, filter 160ms ease-out;
 }
 .f-sticker img { display: block; width: 100%; height: 100%; }
+/* box set inline by the script (artwork box); 100% keeps it from ever falling back to its 2× backing size */
+.f-sticker__peel { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+/* Sticker, number-tile + capability-icon hover peel is the WebGL port in components/site/sticker-peel.tsx (sets
+   :root[data-peel]). Reduced motion / no WebGL: the shader's lift shadow only. */
 @media (hover: hover) {
-  .f-sticker:hover { filter: drop-shadow(1px 3px 2px rgba(26, 22, 15, 0.18)); }
+  :root:not([data-peel]) :is(.f-sticker, .f-tile, .f-cap__icon):hover { filter: drop-shadow(0 3px 2px rgba(26, 22, 15, 0.2)); }
 }
 
 /* ---- Contact strip (page footer) -------------------------------------- */
@@ -796,7 +800,7 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 .f-quote { padding: 32px 0; border-top: 1px solid var(--f-rule); border-bottom: 1px solid var(--f-rule); font-family: var(--f-tanker); font-size: 32px; line-height: 1.29; color: var(--f-accent); margin: 0; }
 .f-caps-list { display: flex; flex-direction: column; padding-top: 16px; border-bottom: 1px solid var(--f-rule); }
 .f-cap { display: flex; align-items: flex-start; gap: 24px; padding: 20px 0; border-top: 1px solid var(--f-rule); }
-.f-cap__icon { display: flex; width: 80px; flex-shrink: 0; }
+.f-cap__icon { position: relative; display: flex; width: 80px; flex-shrink: 0; }
 .f-cap__name { width: 260px; flex-shrink: 0; }
 .f-cap__desc { width: 452px; min-width: 0; }
 @media (max-width: 1023px) {

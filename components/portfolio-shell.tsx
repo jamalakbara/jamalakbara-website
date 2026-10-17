@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { NAV_LINKS, contact } from "@/lib/site-data";
 import { GAEvents } from "@/lib/analytics/events";
 import { Aurora } from "@/components/site/aurora";
+import { StickerPeel } from "@/components/site/sticker-peel";
 import { ArrowUpRight, Close, Menu } from "@/components/site/icons";
 
 // Working Folder shell: aurora field behind paper panels, folder navigation
@@ -251,6 +252,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       <div className="f-scroll" ref={scrollRef} data-scroll-root>
         <div className="f-page">
           <Aurora />
+          <StickerPeel />
           <a href="#main" className="f-skip">
             Skip to content
           </a>

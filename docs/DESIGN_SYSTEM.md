@@ -120,7 +120,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 
 - **Aurora** (`components/site/aurora.tsx`): WebGL port of `shaders/folder-aurora.glsl` with `u_motion` 0.6. It renders at 1/8 resolution and 15 fps, pauses when the tab is hidden, and is static under `prefers-reduced-motion`. Without WebGL it falls back to a CSS gradient.
 - **Hero stamp:** a 3 s press-and-settle loop (`@keyframes f-stamp-settle`), static under reduced motion.
-- **Stickers:** a subtle lift shadow on hover.
+- **Stickers, number tiles and About capability icons:** hover = corner peel + lift shadow (tiles rasterise artwork + Comico digits together), a WebGL port of the canvas `sticker-hover-peel.glsl` (`components/site/sticker-peel.tsx`, one shared context). Strength follows pointer distance from the edge; enter 220 ms ease-out, exit spring (stiffness 260, damping 20). Reduced motion / touch / no WebGL: shadow only.
 - There are no other decorative effects. Paper texture appears only as the grid paper (`.f-grid-paper`) behind the about receipt.
 
 ## 7. Assets
