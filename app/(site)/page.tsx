@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { home, works } from "@/lib/site-data";
-import { sentenceCase } from "@/lib/site-format";
 import { GAEvents } from "@/lib/analytics/events";
 import { Folder } from "@/components/site/folder";
 import { ProjectRow } from "@/components/site/project-row";
@@ -91,14 +90,20 @@ export default function HomePage() {
 
         <div className="f-hero__bottom">
           <div className="f-hero__caption f-hero__caption-d">
-            <span className="f-meta">SELECTED WORK / 01</span>
-            {featured && (
-              <span className="f-action">
-                {featured.title} — {sentenceCase(featured.category)}
-              </span>
-            )}
+            <span className="f-meta">A PERSONAL NOTE</span>
+            <span className="f-action">
+              Mostly coding, sometimes moving things
+              <br />a few pixels until they feel right.
+            </span>
           </div>
-          <div className="f-hero__intro">
+          <p className="f-hero__intro f-hero__intro-d">
+            I’m Akbar, a developer and designer
+            <br />
+            in Bandung. Here’s some of what
+            <br />
+            I’ve been working on.
+          </p>
+          <div className="f-hero__intro f-hero__intro-m">
             <h1 className="f-hero__h1">{home.headline}</h1>
             <br />
             Independent developer &amp; designer

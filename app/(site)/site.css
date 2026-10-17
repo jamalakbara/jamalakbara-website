@@ -1000,9 +1000,15 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 /* home hero breakpoint swaps */
 .f-hero__stamp-m, .f-hero__mrow { display: none; }
 .f-hero__stamp-d { display: inline-flex; }
+/* desktop shows the personal intro; the mobile intro keeps the h1 for AT */
+.f-hero__intro-m {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
 .f-home-contact { padding-bottom: 24px; }
 @media (max-width: 767px) {
-  .f-hero__stamp-d, .f-hero__caption-d, .f-hero__actions-d { display: none; }
+  .f-hero__stamp-d, .f-hero__caption-d, .f-hero__actions-d, .f-hero__intro-d { display: none; }
+  .f-hero__intro-m { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
   .f-hero__stamp-m { display: inline-flex; }
   .f-hero__mrow { display: flex; }
   .f-home-contact { padding: 32px 16px 24px; }
