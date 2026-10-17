@@ -129,7 +129,7 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - Space Grotesk / Fraunces are still loaded for admin only.
 
 ### Motion
-- Aurora shell shader (static under reduced motion, paused when hidden), hero stamp 3 s settle loop, 160 ms hovers, 240 ms menu. `prefers-reduced-motion` is honored in `site.css`.
+- First-load splash (`components/site/splash.tsx`, once per session: typed name → stamp slam → settle → morph into hero), aurora shell shader (static under reduced motion, paused when hidden), hero stamp 3 s settle loop, 160 ms hovers, 240 ms menu. `prefers-reduced-motion` is honored in `site.css`.
 
 ## Animation Patterns
 Use Framer Motion for component animation:

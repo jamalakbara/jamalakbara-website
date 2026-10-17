@@ -926,6 +926,46 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 @keyframes f-settle { from { opacity: 0; rotate: -3deg; translate: 0 32px; } }
 @keyframes f-wipe { from { clip-path: inset(100% 0 0 0); } to { clip-path: inset(0); } }
 
+/* ---- Splash (first load, once per session) ------------------------------
+   components/site/splash.tsx. html[data-splash] is set before paint by the
+   inline script in app/(site)/layout.tsx: "run" shows the overlay, "off"
+   (seen this session / reduced motion) and no-JS never do. While it runs the
+   page's entrances wait paused and the hero name hides — the splash lockup
+   lands on it, then "done" hands over (hero stamp starts at its rest pose). */
+.f-splash { display: none; }
+html[data-splash="run"] .f-splash {
+  position: fixed; inset: 0; z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 0 16px; background: var(--f-paper); color: var(--f-ink);
+  cursor: default; user-select: none; -webkit-user-select: none;
+}
+html[data-splash="run"] .f-main :is(*, *::before, *::after) { animation-play-state: paused; }
+html[data-splash="run"] .f-hero__name { visibility: hidden; }
+html[data-splash="run"] .f-hero .f-stamp--loop { animation: none; }
+html[data-splash="done"] .f-hero .f-stamp--loop { animation-delay: -720ms; }
+
+.f-splash__name { --st: 108px; position: relative; display: flex; align-items: center; gap: 10px; margin: 0; white-space: nowrap; }
+.f-splash__line { display: contents; }
+.f-splash__line + .f-splash__line, .f-splash__word { display: inline-block; }
+.f-splash__text { display: inline-block; visibility: hidden; } /* revealed letter by letter by splash.tsx */
+.f-splash__slot { display: inline-flex; min-width: 0.26em; } /* + both gaps = a word space while typing */
+.f-splash__slot--open { width: var(--st); height: var(--st); }
+.f-splash__stamp { position: relative; z-index: 2; display: block; }
+.f-splash__stamp .f-stamp { width: var(--st); height: var(--st); }
+/* the slam lands big over the name, then shrinks into its slot (layout move) */
+.f-splash__drop .f-stamp { width: calc(var(--st) * 2.2); height: calc(var(--st) * 2.2); }
+.f-splash__drop { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+/* positioned by splash.tsx at the shaped edge of the last typed glyph */
+.f-splash__caret { position: absolute; left: 0; top: 0; width: 0.07em; margin-left: 0.04em; clip-path: inset(8% 0 14% 0); background: currentColor; animation: f-caret 900ms steps(1, end) infinite; pointer-events: none; }
+@keyframes f-caret { 50% { opacity: 0; } }
+@media (min-width: 768px) and (max-width: 1279px) {
+  .f-splash__name { --st: 7.5vw; font-size: 7.2vw; }
+}
+@media (max-width: 767px) {
+  .f-splash__name { --st: 64px; flex-direction: column; align-items: flex-start; }
+  .f-splash__line { display: flex; align-items: center; gap: 10px; }
+}
+
 /* ---- Page transitions (View Transitions, started in PortfolioShell) -----
    Nav pieces morph to their new layout (the notch + active link glide to the
    clicked route); the page content leaves up and the next page rises in. */
