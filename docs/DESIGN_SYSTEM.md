@@ -129,7 +129,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | --- | --- |
 | `public/brand/stamp.svg` | Logo stamp, vector, unchanged |
 | `public/brand/stickers/*.svg` | The 12 supplied stickers, unrotated. Rotation comes from the canvas values |
-| `public/brand/numbers/01–09.svg`, `tile-{yellow,lilac,mint,peach}.svg` | Number tiles. Projects 10+ use a blank tile with Comico digits |
+| `public/brand/numbers/tile-{yellow,lilac,mint,peach}.svg` | Number tiles: every project number is a blank tile (colour cycles from 01) with Comico digits. `01–09.svg` are the original digit artwork, no longer rendered |
 | `public/brand/icons/*.svg` | Numbered capability icons (About) |
 | `public/brand/akbar-portrait-cobalt.jpg` | Cobalt portrait (`about.profileImage`) |
 
