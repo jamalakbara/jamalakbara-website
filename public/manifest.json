@@ -4,8 +4,8 @@
   "description": "Expert creative developer and designer specializing in modern web development, UI/UX design, and brand strategy.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c0908",
-  "theme_color": "#0c0908",
+  "background_color": "#F8F6F0",
+  "theme_color": "#F8F6F0",
   "orientation": "portrait-primary",
   "categories": [
     "portfolio",

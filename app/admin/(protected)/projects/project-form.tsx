@@ -27,6 +27,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
     category: initial?.category ?? "",
     year: initial?.year ?? String(new Date().getFullYear()),
     description: initial?.description ?? "",
+    summary: initial?.summary ?? "",
     image: initial?.image ?? "",
     video: initial?.video ?? "",
     url: initial?.url ?? "",
@@ -54,6 +55,7 @@ export function ProjectForm({ initial }: { initial?: Project }) {
       category: form.category.trim(),
       year: form.year.trim(),
       description: form.description.trim(),
+      summary: opt(form.summary),
       image: form.image.trim(),
       video: opt(form.video),
       url: opt(form.url),
@@ -129,6 +131,10 @@ export function ProjectForm({ initial }: { initial?: Project }) {
         <div>
           <label className={label}>Description</label>
           <textarea className={input} rows={3} required value={form.description} onChange={(e) => set("description", e.target.value)} />
+        </div>
+        <div>
+          <label className={label}>Row summary — shown on Work rows, keep it to 2 lines ({form.summary.length}/110)</label>
+          <input className={input} maxLength={110} value={form.summary} onChange={(e) => set("summary", e.target.value)} />
         </div>
         <div>
           <label className={label}>Tech (comma separated)</label>

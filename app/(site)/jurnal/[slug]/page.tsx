@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
-import { MDXRemote } from "next-mdx-remote/rsc";
+import { ArticleView } from "@/components/site/article-view";
 import { getJurnalPost, getJurnalPosts, formatJurnalDate } from "@/lib/jurnal";
 
 type Params = { slug: string };
@@ -70,91 +68,31 @@ export default async function JurnalPostPage({
     },
   };
 
+  const all = getJurnalPosts();
+  const position = Math.max(1, all.findIndex((p) => p.slug === post.slug) + 1);
+
   return (
-    <div
-      style={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        minHeight: 0,
-        paddingTop: "clamp(0.5rem, 2vw, 1.5rem)",
-      }}
-    >
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-
-      <article
-        className="animate-blur-fade-up"
-        style={{
-          animationDelay: "100ms",
-          width: "100%",
-          maxWidth: "44rem",
+      <ArticleView
+        post={post}
+        position={position}
+        total={all.length}
+        basePath="/jurnal"
+        date={formatJurnalDate(post.date)}
+        copy={{
+          back: "Semua tulisan jurnal",
+          backEnd: "Kembali ke jurnal",
+          writtenBy: "DITULIS OLEH",
+          minRead: (n) => `${n} menit baca`,
+          tab: "CATATAN BACA",
+          toc: "DI TULISAN INI",
+          backToTop: "Kembali ke atas",
         }}
-      >
-        <Link
-          href="/jurnal"
-          className="back-link"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontSize: "0.85rem",
-            color: "#a99c8d",
-            textDecoration: "none",
-            marginBottom: "clamp(1.25rem, 3vw, 2rem)",
-            transition: "color 0.25s",
-          }}
-        >
-          <ArrowLeft size={15} />
-          Jurnal
-        </Link>
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "0.75rem",
-            fontFamily: "var(--font-fraunces)",
-            fontStyle: "italic",
-            fontSize: "0.9rem",
-            letterSpacing: "0.03em",
-            color: "#e0875a",
-            marginBottom: "0.9rem",
-          }}
-        >
-          <span
-            style={{
-              width: "22px",
-              height: "1px",
-              background: "#e0875a",
-              display: "inline-block",
-            }}
-          />
-          {formatJurnalDate(post.date)}
-          <span style={{ color: "#7d7163" }}>
-            · {post.readingMinutes} menit baca
-          </span>
-        </div>
-
-        <h1
-          style={{
-            fontSize: "clamp(1.8rem, 4.5vw, 3rem)",
-            fontWeight: 400,
-            letterSpacing: "-0.04em",
-            lineHeight: 1.08,
-            margin: "0 0 clamp(1.5rem, 3.5vw, 2.5rem)",
-          }}
-        >
-          {post.title}
-        </h1>
-
-        <div className="journal-prose">
-          <MDXRemote source={post.content} />
-        </div>
-      </article>
-    </div>
+      />
+    </>
   );
 }

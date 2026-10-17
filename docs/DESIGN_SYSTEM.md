@@ -1,167 +1,149 @@
-# Design System — jamalakbara.
+# Design System — jamalakbara. (Working Folder v2)
 
-**Last updated:** 2026-06-14 (fonts updated: Inter → Space Grotesk + Fraunces italic)
-Technical styling spec. Source of truth: `app/globals.css` (tokens + classes) and inline styles in page components. Tailwind v4 has **no config file** — the theme is CSS custom properties.
+**Last updated:** 2026-10-17. This replaces the dark cinematic system (2026-06) on the public site.
+
+**Sources of truth**
+- Canvas: Pencil `jamalakbara.pen` (Working Folder v2). Reference frames: Home `QiOko` / `lYF3g`, Work `Pb8Dp` / `vs4kI`, About `BWDyJ` / `U7cNrD`, Contact `qlvWa` / `IWLZT`, Journal `NDBsB` / `b7j55z`, Article `m54Zq` / `c73NeH`, 404 `Y57IP` / `huATr`.
+- Designer spec + tokens, copied into the repo: `docs/design/working-folder-canvas-spec.md` and `docs/design/design-tokens.json`.
+- Code: `app/(site)/site.css` holds the tokens and component classes. React building blocks live in `components/site/`.
+
+**Scope.** `site.css` is imported only by `app/(site)/layout.tsx` and `app/not-found.tsx`, so `/admin` never loads it. Admin keeps the legacy dark tokens and classes in `app/globals.css` (see §9). Never restyle a shared `globals.css` class for the public site: add an `f-` class in `site.css` instead.
 
 ---
 
-## 1. Color tokens (`:root` in `app/globals.css`)
+## 1. Color tokens (`--f-*`, on `:root` in `site.css`)
 
 | Token | Hex | Role |
 | --- | --- | --- |
-| `--bg` | `#0c0908` | Page background — warm near-black |
-| `--ink` | `#f4ede3` | Primary text — warm cream |
-| `--m1` | `#d8cdbf` | Muted ramp 1 (brightest) |
-| `--m2` | `#b3a596` | Muted ramp 2 |
-| `--m3` | `#a99c8d` | Muted ramp 3 |
-| `--m4` | `#7d7163` | Muted ramp 4 (placeholders, faint) |
-| `--accent` | `#e0875a` | Warm orange — links, focus, active |
-| `--accent-hi` | `#eab38a` | Hover orange |
-| `--green` | `#6ee787` | Availability / status only |
+| `--f-paper` | `#F8F6F0` | Folder panels, navigation |
+| `--f-note` | `#FFFEFA` | Receipt and contact note (deliberately distinct from paper) |
+| `--f-ink` | `#201E19` | Headings, body, links, icons |
+| `--f-muted` | `#6E695F` | Supporting text on paper/note only, and field outlines |
+| `--f-surface` | `#E8E3D9` | Secondary buttons, empty-state stage. Use ink text on it, never muted |
+| `--f-line` | `#D8D2C8` | Decorative dividers and note outline. Not for text |
+| `--f-rule` | `#BDB5A7` | Receipt and skills rules |
+| `--f-perf` | `#9F998F` | Receipt perforation |
+| `--f-accent` | `#2445DB` | Primary action, email, active indicator, focus ring |
+| `--f-hover` | `#1D36AF` | Primary hover / pressed |
+| `--f-error` | `#A62929` | Error text and outline (always paired with a message) |
+| `--f-success` / `--f-success-wash` | `#456D5B` / `#E3EDE5` | Sent confirmation |
+| `--f-white` | `#FFFFFF` | Text and icons on cobalt |
+| Aurora | `#AFBDE2` `#CDC1DD` `#BFD4C8` `#DDC9B8` | Shell background only (decorative) |
 
-**Functional rgba values used inline / in classes:**
-- Selection: `background: rgba(224,135,91,0.3)`, `color: #fff`
-- Glass fill: `rgba(246,243,240,0.04)` → hover `0.07`; rim light `rgba(246,243,240,0.08)`
-- Glass border: `rgba(246,243,240,0.04)` → hover `0.10`; focus outline `rgba(246,243,240,0.24)`
-- Shadow base: `rgba(1,0,8, …)` (deep warm-black)
-- Work-row hover bg: `rgba(255,244,232,0.04)`
-- Field bg: `rgba(255,250,244,0.02)` → focus `0.04`; field border `rgba(255,244,232,0.12)`
-- `btn-solid` hover bg: `#fff`
-
-Single dark theme. No light variant ships (`next-themes` installed but no toggle).
-
----
+Measured contrast: ink/paper 15.4:1 · muted/paper 5.05:1 · cobalt/paper 6.6:1 · white/cobalt 7.1:1 · error/paper 6.5:1. Supplied artwork (stickers, number tiles, stamp, photography) keeps its own colours and does not count as palette drift.
 
 ## 2. Typography
 
-**Primary — Space Grotesk** via `next/font/google` (variable `--font-space-grotesk`), weights **300 / 400 / 500**, `display: swap`. Stack: `var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif`. Used for all headlines, body, nav, and UI elements.
+Fontshare faces, self-hosted with `next/font/local` in `app/layout.tsx`. The files are woff2 subsets in `app/fonts/`.
 
-**Accent — Fraunces** via `next/font/google` (variable `--font-fraunces`), weights **300 / 400**, `style: italic` only, `display: swap`. Stack: `var(--font-fraunces), Georgia, serif`. Used exclusively for eyebrow labels (the small `— Section` markers above each page heading).
+| Family | Variable | Use | Notes |
+| --- | --- | --- | --- |
+| **Tanker** 400 | `--font-tanker` → `--f-tanker` | Display, section headings, titles, folder tabs, wordmark | Latin + Latin-1 subset, 12 KB |
+| **Erode** 400 | `--font-erode` → `--f-erode` | Body, actions, metadata, nav | Latin + Latin-1 subset, 12 KB |
+| **Comico** 400 | `--font-comico` → `--f-comico` | Hero identity "Jamal Akbar Alam" and number-tile digits **only** | Subset to the name glyphs + digits (54 KB). Re-subset if other text needs it |
 
-**Scale** (from page inline styles; `clamp(min, fluid, max)`):
+All faces are weight 400 with normal tracking. Never synthesize bold or italic (`.f-prose strong` stays at weight 400).
 
-| Element | Font | Size | Weight | Line-height | Letter-spacing |
-| --- | --- | --- | --- | --- | --- |
-| Eyebrow / label | Fraunces italic | `0.9rem` | 400 | — | `0.03em` |
-| Status row (home) | Space Grotesk | `clamp(0.8rem, 1.5vw, 0.95rem)` | 500 | — | — |
-| H1 — hero | Space Grotesk | `clamp(2.2rem, 6.5vw, 5rem)` | 400 | 1.02 | `-0.045em` |
-| H2 — section (about) | Space Grotesk | `clamp(1.7rem, 3.5vw, 2.6rem)` | 400 | — | `-0.035em` |
-| Intro paragraph | Space Grotesk | `clamp(1rem, 2vw, 1.25rem)` | 400 | 1.55 | — |
-| Body (about) | Space Grotesk | `clamp(0.95rem, 1.6vw, 1.1rem)` | 400 | 1.65 | — |
-| Buttons / CTA | Space Grotesk | `0.95rem` | 500 | — | — |
-| Field input | Space Grotesk | `0.9rem` | 400 | — | — |
-| Skill chip | Space Grotesk | `0.85rem` | — | — | — |
-| Small / range | Space Grotesk | `0.8rem` | 400 | 1.6 | `0.02em` |
+| Role | Class | Desktop | Mobile (<768) |
+| --- | --- | --- | --- |
+| Identity | `.f-identity` | Comico 104 / 1.1 | 46 (two lines) |
+| Section / page heading | `.f-display` | Tanker 48 | 32 |
+| Project / skill title | `.f-title` | Tanker 20 | 20 |
+| Folder tab | `.f-tabtext` | Tanker 12 | 12 |
+| Body | `.f-body` | Erode 18 | 16 |
+| Action / link | `.f-action` | Erode 16 | 16 |
+| Metadata | `.f-meta` | Erode 12 | 12 |
+| Contact email | `.f-note__email` | Tanker 30 / 1.2 | 24 |
 
-Headlines rely on **size + negative tracking** for impact at weight 400. Eyebrow labels use Fraunces italic (no uppercase, tighter tracking) to create a cinematic editorial contrast against the Space Grotesk headlines.
+**Canvas text metrics (important for 1:1 builds).** The canvas sets each line at `size × ratio` and then adds the faces' 0.09 em line gap. That makes every CSS `line-height` the role ratio + 0.09:
 
----
-
-## 3. Radius, spacing, layout
-
-**Border radius**
-| Use | Value |
+| Role ratio | CSS line-height |
 | --- | --- |
-| Pills, glass, chips, buttons | `9999px` |
-| Form inputs | `0.6rem` |
-| Portrait / image container | `18px` |
+| 1.4 | 1.49 |
+| 1.5 | 1.59 |
+| 1.08 | 1.17 |
+| 1.2 | 1.29 |
 
-**Spacing** — fluid `clamp()` throughout:
-- Inline gaps `clamp(0.75rem, 2vw, 1.5rem)`; section gaps `clamp(2rem, 5vw, 4.5rem)`
-- Button padding `0.8rem clamp(1.5rem, 3vw, 2rem)`; field padding `0.7rem 0.85rem`; chip gap `0.6rem`
+Canvas text boxes also carry 1 px above and below, which the role classes reproduce with `padding-block: 1px`. Auto-width labels carry 1 px of side bearing on each side, so control paddings are 17 / 19 px rather than 16 / 18. Text in Tanker headings uses `.f-display--caps` where the canvas source is uppercase.
 
-**Breakpoints** (match `app/globals.css` exactly):
-| Width | Effect |
+**Heading breaks.** `sentenceLines()` in `lib/site-format.ts` breaks headings like the canvas does. A multi-sentence heading breaks after each sentence. A single long sentence is balanced over two lines. A space is kept before each `<br>`, so the heading's text content (and SEO) is unchanged. When a frame needs different breaks at different sizes, use `<br className="f-br-d" />` / `<br className="f-br-m" />` and never duplicate the copy.
+
+## 3. Space, shape, layout
+
+- Spacing scale: 4, 8, 12, 16, 24, 32, 40, 48, 64, 96.
+- **Desktop (≥1024, ref 1440):** shell inset 12 (`--f-shell`), panels 1416, panel inset 40 (`--f-inset`), content 1336, nav 76, hero 700.
+- **Tablet (768–1023):** stacked compositions, inset 24.
+- **Mobile (<768, ref 390):** shell inset 6, panel inset 16, nav 72, hero 620.
+- Panels have a 12 px radius at every size. Controls have 4 px. Note and receipt are square. Project images are square-edged.
+- **Folders:** 12 px lead-in, then a 36 px tab rail, then the paper body. Tabs are 220 px wide on desktop and 150 px on mobile, with offsets 0 / 180 / 360 (desktop) and 0 / 88 / 176 (mobile). The body's top-left corner is square only when the tab sits flush left. The root gap between panels is 4 px.
+- **Reading column:** 640 px max. Article and journal rows use a 400 px left column, a 48 px gap, and a 640 px main column.
+- **Sticker fields** (`<Stickers base={…}>`) place stickers with container-query units, so a composition is exact at its canvas width and scales elsewhere. Bases: title panels and article margins 1416, home collage 1336 / 346, mobile title panel 378.
+
+## 4. Components → code
+
+| Canvas component | Code |
 | --- | --- |
-| `min-width: 1024px` | desktop nav shown, hamburger + mobile menu hidden |
-| `min-width: 720px` | work category column (`.work-cat`) visible |
-| `max-width: 880px` | `.two-col` → column; `.about-portrait` full width (max 320px); `.home-row` stacks |
-| `max-width: 639px` | `.nav-actions` hidden |
+| Navigation / Desktop (+ active variants), recessed notch | `components/portfolio-shell.tsx` `.f-nav`, `.f-notch`, `.f-navlink[aria-current]` |
+| Navigation / Mobile + Mobile / Open | `.f-mnav`, `.f-menu` (modal: `aria-modal`, focus trap, Escape, focus returns to the toggle) |
+| Identity / Wordmark | `.f-wordmark` (Tanker 24, white on black tab) |
+| Identity / Stamp (static 44, hero 108 / 64 loop) | `components/site/stamp.tsx` (`/brand/stamp.svg`) |
+| Folder / Tab, Section / Paper | `components/site/folder.tsx`, `.f-tab`, `.f-folder__body` |
+| Page title panel | `components/site/title-panel.tsx` |
+| Project / Editorial row (+ media strip A/B/C) | `components/site/project-row.tsx`, number tiles in `number-tile.tsx` |
+| Receipt (perforation, barcode, torn edges) | `components/site/receipt.tsx` |
+| Contact / Note (copy-email stamp) | `components/site/contact-note.tsx` |
+| Contact footer strip | `components/site/contact-strip.tsx` |
+| Empty state / 404 stage | `components/site/empty-state.tsx` |
+| Journal editorial row | `components/site/journal-index.tsx` |
+| Article reading surface | `components/site/article-view.tsx`, `.f-prose` |
+| Button primary / secondary / disabled | `.f-btn--primary`, `.f-btn--secondary`, `[disabled]` |
+| Link / Editorial (underlined) | `.f-link` (underline bar), `.f-uline` (border variant), `.f-act` (icon + label) |
+| Filter chips | `.f-filter[aria-pressed]` |
+| Field / Email default · focus · error | `.f-input`, `:focus`, `[aria-invalid="true"]` |
+| Icons (hand-drawn set) | `components/site/icons.tsx`: ArrowUpRight, ArrowRight, ArrowUp, ArrowLeft, ArrowDown, MapPin, Loader, Menu, Close, Send, Check |
 
-**Z-index layering** (`components/portfolio-shell.tsx`): video `z0` → grain/vignette overlays `z1` → scrim `z2` → bottom blur mask `z3` → navbar `z50`.
+**Arrow semantics:** down means in-page, up-right means external or "see more", right means go to a page, left means back.
 
----
+## 5. States & interaction
 
-## 4. Component patterns
+- Every interactive control has a minimum 48 px target and shows a focus ring of 2 px cobalt at a 2 px offset.
+- Hover transitions are 160 ms ease-out with no layout shift. The menu opens and closes in 240 ms.
+- Primary hover and pressed use `--f-hover`. Disabled controls drop to 50% opacity. Text links are underlined, not colour-only.
+- Copy email: success announces "Copied" through an `aria-live` region without moving layout. On failure the address stays selectable and the mail link remains.
+- Forms:
+  - Every field has a visible label.
+  - Inputs are 52 px tall.
+  - An error message sits between the label and its input, linked with `aria-describedby`.
+  - Focus moves to the first invalid field, and an error summary sits at the top.
 
-### `.liquid-glass` (the signature surface)
-```css
-background: rgba(246, 243, 240, 0.04);
-border: 1px solid rgba(246, 243, 240, 0.04);
-box-shadow:
-  inset 0 1px 0 0 rgba(246, 243, 240, 0.08),  /* top rim catch-light */
-  0 24px 80px 0 rgba(1, 0, 8, 0.08),
-  0 12px 40px 0 rgba(1, 0, 8, 0.12),
-  0 4px 12px 0 rgba(1, 0, 8, 0.16),
-  0 1px 1px 0 rgba(1, 0, 8, 0.2);
-color: rgba(246, 243, 240, 0.88);
-transition: background-color .3s, border-color .3s, box-shadow .3s, color .3s,
-            transform .35s cubic-bezier(0.34, 1.56, 0.64, 1);
-```
-- Hover: fill `0.07`, border `0.10`, color → `--ink`.
-- Focus-visible: `outline: 1px solid rgba(246,243,240,0.24); outline-offset: 2px`.
-- Anchors must be `inline-flex` (`a.liquid-glass`) or transforms are ignored.
-- No heavy backdrop blur — the shape reads from rim light + shadow stack only.
+## 6. Motion
 
-### `.btn-solid`
-Solid light fill, dark text; hover → `#fff` + `translateY(-2px)`; active → `scale(0.95)` (combined `translateY(-2px) scale(0.95)` while hovering).
+- **Aurora** (`components/site/aurora.tsx`): WebGL port of `shaders/folder-aurora.glsl` with `u_motion` 0.6. It renders at 1/8 resolution and 15 fps, pauses when the tab is hidden, and is static under `prefers-reduced-motion`. Without WebGL it falls back to a CSS gradient.
+- **Hero stamp:** a 3 s press-and-settle loop (`@keyframes f-stamp-settle`), static under reduced motion.
+- **Splash intro** (`components/site/splash.tsx`, once per session): paper overlay; JAMAL AKBAR ALAM types letter by letter (~65 ms + jitter, blinking caret) — each word stays one text run, like the hero, so Comico shapes it the same way (kerning + contextual alternates); letters are revealed by clipping, never split into spans, the stamp slams onto the middle of the name at 2.2× size, above the letters (f-thunk shape, scale 1.7 → 0.94 → 1, letters jolt), then shrinks and glides into its slot between JAMAL and AKBAR (700 ms layout move). On home the lockup then FLIPs onto the real hero name (stamp-ratio scale, 750 ms) while the paper fades; other routes lift + fade. Always plays through (no skip). Gated before paint by an inline script in `app/(site)/layout.tsx` (`html[data-splash]` = run/off/done); off under reduced motion, never shown without JS. Page entrances stay paused under it.
+- **Stickers, number tiles and About capability icons:** hover = corner peel + lift shadow (tiles rasterise artwork + Comico digits together), a WebGL port of the canvas `sticker-hover-peel.glsl` (`components/site/sticker-peel.tsx`, one shared context). Strength follows pointer distance from the edge; enter 220 ms ease-out, exit spring (stiffness 260, damping 20). Reduced motion / touch / no WebGL: shadow only.
+- There are no other decorative effects. Paper texture appears only as the grid paper (`.f-grid-paper`) behind the about receipt.
 
-### Tactile press (scoped to `a`/`button`)
-`a.liquid-glass:active, button.liquid-glass:active { transform: scale(0.95); transition-duration: 0.08s; }` — quick press-down, springy release. The contact `<form>` and success `<div>` (also `.liquid-glass`) are deliberately excluded.
+## 7. Assets
 
-### `.field-input`
-Faint fill + hairline border, radius `0.6rem`, placeholder `--m4`; focus → border `--accent`, fill `rgba(255,250,244,0.04)`.
+| Path | Contents |
+| --- | --- |
+| `public/brand/stamp.svg` | Logo stamp, vector, unchanged |
+| `public/brand/stickers/*.svg` | The 12 supplied stickers, unrotated. Rotation comes from the canvas values |
+| `public/brand/numbers/tile-{yellow,lilac,mint,peach}.svg` | Number tiles: every project number is a blank tile (colour cycles from 01) with Comico digits. `01–09.svg` are the original digit artwork, no longer rendered |
+| `public/brand/icons/*.svg` | Numbered capability icons (About) |
+| `public/brand/akbar-portrait-cobalt.jpg` | Cobalt portrait (`about.profileImage`) |
 
-### `.work-row`
-`transition: padding-left .35s, background .35s`. Hover → `padding-left: 1.25rem`, bg `rgba(255,244,232,0.04)`, title → `--accent-hi`, arrow fades/slides in (`translateX(-8px) → 0`).
+Vectors were rebuilt from Pencil HTML exports. To refresh an asset, export the frame as `html-css` from Pencil and rebuild it with the same approach (nested `<svg>` per path, positioned from the export). Never ship text rendered as an image.
 
-### Nav / links
-`.nav-link:hover → --ink`; `.menu-link:hover` glass-tint bg + `--ink`; `.email-link:hover → --accent-hi`; `.back-link:hover → --ink`.
+## 8. Verification recipe (1:1 builds)
 
-### Work preview (`components/work-preview.tsx`)
-Floating 4:3 media that follows the cursor via Framer Motion spring + velocity-driven tilt, with the film overlay. Hover-capable devices only (media-query gated).
+1. Export the frame from Pencil as a 1x PNG.
+2. Take a full-page screenshot of the route in headless Chrome at 1440 and at 390. The page scrolls inside `.f-scroll`, so set the viewport height to `.f-page`'s `scrollHeight`.
+3. Compare the two with `pixelmatch` (threshold 0.15, ignore antialiasing).
+4. Treat these as expected differences: CMS copy where the canvas used placeholder copy, real data counts, and canvas render artifacts.
+5. Check for horizontal overflow at 320, 390, 768, 1024 and 1440.
 
----
+## 9. Legacy (admin only)
 
-## 5. Motion / keyframes
-
-```css
-@keyframes blurFadeUp {  /* staggered entrance */
-  from { opacity: 0; filter: blur(20px); transform: translateY(40px); }
-  to   { opacity: 1; filter: blur(0);    transform: translateY(0); }
-}
-.animate-blur-fade-up { opacity: 1; animation: blurFadeUp 1s ease-out backwards; }
-/* `backwards` (not `forwards`) so finished anim doesn't pin transform over :hover/:active */
-
-@keyframes softPulse {  /* availability dot */
-  0%, 100% { opacity: 1;    transform: scale(1); }
-  50%      { opacity: 0.35; transform: scale(0.7); }
-}
-```
-- Stagger entrances with delays (~300–800ms).
-- Spring timing function for tactile elements: `cubic-bezier(0.34, 1.56, 0.64, 1)`.
-- Component animation uses **Framer Motion**; GSAP/Lenis/R3F are installed for roadmap motion (see `docs/PRD.md`).
-
----
-
-## 6. Accessibility
-
-```css
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-  .animate-blur-fade-up { opacity: 1 !important; }
-}
-```
-- All entrance/loop animations collapse under reduced-motion; content stays fully visible.
-- Glass elements expose `:focus-visible` outlines.
-
----
-
-## 7. Media & assets
-- Background videos + project media: Cloudinary (cloud `dh0spkwh3`, `q_auto,f_auto`) via `lib/cloudinary.ts`. Per-route bg clips: `bg-home`, `bg-work`, `bg-about`, `bg-contact`.
-- Local: `public/noise.png` (grain), `favicon.ico`, `profile-image.png`, OG/Twitter images, `manifest.json`.
-- `next.config.ts`: image formats webp/avif; device sizes 640/768/1024/1280/1600; Cloudinary remote pattern.
+`app/globals.css` keeps the 2026-06 dark cinematic tokens and classes that `/admin` uses: `--bg`, `--ink`, `--m1…m4`, `--accent`, `.liquid-glass`, `.btn-*`, `.field-input`, `.section-*`, `.journal-prose`, `.nav-link`, `.lang-link`, `.back-link`, and `blurFadeUp`. Space Grotesk and Fraunces are still loaded for admin. The public site does not use any of them.
