@@ -4,6 +4,7 @@
     "title": "Withavelle",
     "category": "E-Commerce Development",
     "description": "An elegant fashion e-commerce platform built with Shopify, featuring custom theme development, refined product presentation, and a smooth checkout experience. Crafted to reflect the brand's polished aesthetic while staying fast and conversion-focused.",
+    "summary": "A polished Shopify storefront for an elegant fashion label, fast and built to convert.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png",
     "year": "2026",
     "tech": [
@@ -46,6 +47,7 @@
     "title": "Adana",
     "category": "Web Development",
     "description": "A high-performance modern web application built with Next.js, focusing on exceptional user experience, scalability, and clean architecture.",
+    "summary": "A fast, cleanly architected Next.js web app built for scale.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1776850023/adana_n83dlc.png",
     "year": "2026",
     "tech": [
@@ -84,6 +86,7 @@
     "title": "Duma",
     "category": "E-Commerce Development",
     "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
+    "summary": "A fashion-forward Shopify store with inventory tooling that works on every device.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png",
     "year": "2021",
     "tech": [
@@ -126,6 +129,7 @@
     "title": "Rawtype Riot",
     "category": "E-Commerce Development",
     "description": "A bold streetwear e-commerce platform built with Shopify, featuring custom theme development, dynamic product showcases, and seamless checkout experience. Designed to capture the raw energy of street culture with optimal performance and scalability.",
+    "summary": "A bold Shopify store that carries the raw energy of street culture.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146623/rawtyperiot_hg0kn8.webp",
     "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1770147989/rawtyperiot_e53hke.webm",
     "year": "2026",
@@ -168,6 +172,7 @@
     "title": "Sonderlab",
     "category": "E-Commerce Development",
     "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
+    "summary": "A custom Shopify theme with advanced product filtering and a smooth checkout.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/sonderlab-project_y86tym.png",
     "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1768708989/sonderlab_w9ag7c.webm",
     "year": "2024",
@@ -211,6 +216,7 @@
     "title": "Herotales Bedtime Stories",
     "category": "Web Development",
     "description": "An interactive web application for generating and reading personalized bedtime stories for children. Built with Next.js and modern web technologies, featuring AI-powered story generation, beautiful illustrations, and an engaging reading experience.",
+    "summary": "AI-generated, illustrated bedtime stories personalized for each child.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770144902/Screenshot_2026-02-04_at_01.54.37_z6azmr.png",
     "year": "2026",
     "tech": [
@@ -254,6 +260,7 @@
     "title": "Speakez",
     "category": "Web Development",
     "description": "An innovative AI-powered English practice platform that reinvents language learning through real-time conversation. Built with Next.js frontend and Go backend, featuring advanced AI integration for natural voice interactions and personalized learning experiences.",
+    "summary": "Practice English by talking to an AI in real time, with Next.js and Go.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770144566/Screenshot_2026-02-04_at_01.45.46_higp2d.png",
     "year": "2026",
     "tech": [
@@ -297,6 +304,7 @@
     "title": "Nawaclo",
     "category": "E-Commerce Development",
     "description": "Modern e-commerce platform developed with Shopify, featuring custom theme development, advanced product catalog management, and optimized shopping experience. Built with scalable architecture to handle high-volume transactions and seamless customer interactions across all devices.",
+    "summary": "A custom Shopify theme and catalog built for high-volume sales.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146104/Screenshot_2026-02-04_at_02.14.36_vhavvm.png",
     "year": "2024",
     "tech": [
@@ -339,6 +347,7 @@
     "title": "Lakon Indonesia",
     "category": "E-Commerce Development",
     "description": "E-commerce platform development for Lakon Indonesia, a contemporary Indonesian fashion brand celebrating local culture and craftsmanship. Built with custom Shopify theme featuring curated collections, storytelling elements, and seamless shopping experience that showcases Indonesia's rich textile heritage.",
+    "summary": "A storytelling Shopify store for an Indonesian fashion brand rooted in textile heritage.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145241/Screenshot_2026-02-04_at_02.00.10_c7wsi1.png",
     "year": "2024",
     "tech": [
@@ -381,6 +390,7 @@
     "title": "Combo",
     "category": "Backend Development",
     "description": "A comprehensive backend development project featuring modern Python technologies for building scalable server-side applications with efficient data management, secure authentication systems, and containerized deployment strategies.",
+    "summary": "A containerized Python backend with secure auth and efficient data handling.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145959/Screenshot_2026-02-04_at_02.12.18_yxp6yy.png",
     "year": "2024",
     "tech": [
@@ -424,6 +434,7 @@
     "title": "Base Data Dashboard",
     "category": "Backend Development",
     "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
+    "summary": "The backend behind a data dashboard: processing, auth and real-time reporting.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146325/Screenshot_2026-02-04_at_02.16.54_xz5lvl.png",
     "year": "2022",
     "tech": [
@@ -465,6 +476,7 @@
     "title": "HMNS",
     "category": "E-Commerce Development",
     "description": "E-commerce platform development for HMNS, a premium Indonesian perfumery brand. Features elegant Shopify theme with sophisticated product presentation, fragrance discovery tools, and seamless shopping experience designed to reflect the brand's artistic approach to scent.",
+    "summary": "A refined Shopify store with fragrance discovery tools for a premium Indonesian perfumery.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146101/Screenshot_2026-02-04_at_02.13.43_dywr1x.png",
     "year": "2021",
     "tech": [
@@ -508,6 +520,7 @@
     "title": "BIONS by BNI",
     "category": "Backend Development",
     "description": "Backend development for BIONS, BNI's integrated business and operational system. Built robust server-side infrastructure to handle enterprise-level banking operations, transaction processing, and data management with high security standards and performance requirements.",
+    "summary": "Secure, enterprise-grade backend for BNI's business and banking operations.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145961/Screenshot_2026-02-04_at_02.11.42_irj1lk.png",
     "year": "2023",
     "tech": [
@@ -552,6 +565,7 @@
     "title": "Green Rebel Foods",
     "category": "E-commerce Development",
     "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
+    "summary": "A Shopify store with subscriptions and variant management.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146105/Screenshot_2026-02-04_at_02.14.10_s2pdwq.png",
     "year": "2021",
     "tech": [
@@ -595,6 +609,7 @@
     "title": "Aza Wear",
     "category": "E-Commerce Development",
     "description": "E-commerce platform development for Aza Wear, featuring modern Shopify theme with fashion-focused product presentation, size and variant management, and seamless shopping experience. Built with scalable architecture to handle fashion inventory and provide elegant customer journey across all devices.",
+    "summary": "A fashion Shopify store with size and variant management for a growing range.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.10_iwhz9a.png",
     "year": "2020",
     "tech": [
@@ -637,6 +652,7 @@
     "title": "Split Bill App",
     "category": "Mobile Development",
     "description": "A user-friendly mobile application designed to simplify bill splitting among friends and groups. Features intuitive interface, real-time calculations, and social sharing capabilities.",
+    "summary": "A mobile app that splits the bill among friends in seconds.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250439/work-split-bill.png",
     "year": "2025",
     "tech": [
@@ -674,6 +690,7 @@
     "title": "State Medical Equipment",
     "category": "E-Commerce Development",
     "description": "E-commerce platform development for State Medical Equipment, featuring custom Shopify theme with product catalog management, medical equipment specifications, and integrated B2B commerce solutions tailored for healthcare industry needs.",
+    "summary": "A B2B Shopify catalog for medical equipment, with full product specs.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.46_bjhlid.png",
     "year": "2020",
     "tech": [

@@ -44,7 +44,7 @@ export const works: WorkRow[] = projects.map((p, i) => ({
   href: p.livePreview || p.url || "#",
   image: p.image,
   video: p.video,
-  description: p.description,
+  description: p.summary?.trim() || p.description,
   media: (p.gallery?.length ? p.gallery : [p.image]).filter(Boolean).slice(0, 3),
   featured: p.featured === true,
 }));
