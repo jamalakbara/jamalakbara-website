@@ -84,19 +84,6 @@ body {
   height: 100%;
   pointer-events: none;
 }
-.f-skip {
-  position: absolute;
-  left: 16px;
-  top: -100px;
-  z-index: 100;
-  padding: 12px 16px;
-  border-radius: 4px;
-  background: var(--f-accent);
-  color: var(--f-white);
-  font: 16px/1.49 var(--f-erode);
-  text-decoration: none;
-}
-.f-skip:focus { top: 16px; }
 .f-main { display: flex; flex-direction: column; gap: 4px; outline: none; }
 
 /* Focus ring (all interactive controls) */
@@ -1077,17 +1064,16 @@ html[data-splash="done"] .f-hero .f-stamp--loop { animation-delay: -720ms; }
 /* home hero breakpoint swaps */
 .f-hero__stamp-m, .f-hero__mrow { display: none; }
 .f-hero__stamp-d { display: inline-flex; }
-/* desktop shows the personal intro; the mobile intro keeps the h1 for AT */
+/* the personal intro shows at every width; the visually hidden h1 keeps the headline for AT/SEO */
 .f-hero__intro-m {
   position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip-path: inset(50%); white-space: nowrap;
 }
 .f-home-contact { padding-bottom: 24px; }
 @media (max-width: 767px) {
-  .f-hero__stamp-d, .f-hero__caption-d, .f-hero__actions-d, .f-hero__intro-d { display: none; }
-  .f-hero__intro-m { position: static; width: auto; height: auto; overflow: visible; clip-path: none; white-space: normal; }
+  .f-hero__stamp-d, .f-hero__caption-d, .f-hero__actions-d { display: none; }
   .f-hero__stamp-m { display: inline-flex; }
-  .f-hero__mrow { display: flex; }
+  .f-hero__mrow { display: flex; flex-wrap: wrap; gap: 24px; }
   .f-home-contact { padding: 32px 16px 24px; }
 }
 
