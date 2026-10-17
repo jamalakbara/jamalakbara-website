@@ -110,4 +110,4 @@ These were part of the original vision and remain targets. Dependencies are alre
 ---
 
 ## 7. Asset Inventory (`public/`)
-`favicon.ico`, `profile-image.png`, `og-image.jpg`, `twitter-image.jpg`, `noise.png` (grain), `manifest.json`, desktop/mobile screenshots, `split-bill.png`. Background videos + project media stream from Cloudinary.
+`favicon.ico`, `profile-image.png`, `og-image.jpg`, `twitter-image.jpg`, `noise.png` (grain), `manifest.json`, desktop/mobile screenshots. Background videos + all project media stream from Cloudinary (`portfolio/images`, `work-*` public IDs).

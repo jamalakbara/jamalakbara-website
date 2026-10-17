@@ -26,9 +26,9 @@
       "Mobile-First Responsive Design"
     ],
     "gallery": [
-      "/work/avelle-campaign.jpg",
-      "/work/avelle-detail.jpg",
-      "/work/avelle-look.jpg"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250432/work-withavelle-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250434/work-withavelle-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250436/work-withavelle-3.webp"
     ],
     "metrics": [
       {
@@ -66,9 +66,7 @@
       "Optimized Core Web Vitals"
     ],
     "gallery": [
-      "/work/adana-studio.jpg",
-      "/work/adana-digital.jpg",
-      "/work/adana-hero.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250261/work-adana-1.webp"
     ],
     "metrics": [
       {
@@ -108,7 +106,9 @@
       "Automated Returns Portal"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250280/work-duma-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250282/work-duma-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250283/work-duma-3.webp"
     ],
     "metrics": [
       {
@@ -149,7 +149,8 @@
       "Social Media Integration"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146623/rawtyperiot_hg0kn8.webp"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250374/work-rawtype-riot-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250377/work-rawtype-riot-2.webp"
     ],
     "metrics": [
       {
@@ -190,9 +191,9 @@
       "Mobile-First Responsive Design"
     ],
     "gallery": [
-      "/work/sonder-campaign.jpg",
-      "/work/sonder-akila.jpg",
-      "/work/sonder-fuguku.jpg"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250380/work-sonderlab-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250382/work-sonderlab-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250384/work-sonderlab-3.webp"
     ],
     "metrics": [
       {
@@ -233,7 +234,7 @@
       "Responsive Reading Experience"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770144902/Screenshot_2026-02-04_at_01.54.37_z6azmr.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250310/work-herotales-1.webp"
     ],
     "metrics": [
       {
@@ -274,7 +275,9 @@
       "Pronunciation Feedback"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770144566/Screenshot_2026-02-04_at_01.45.46_higp2d.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250385/work-speakez-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250387/work-speakez-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250389/work-speakez-3.webp"
     ],
     "metrics": [
       {
@@ -314,7 +317,9 @@
       "Automated Email Marketing"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146104/Screenshot_2026-02-04_at_02.14.36_vhavvm.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250350/work-nawaclo-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250371/work-nawaclo-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250373/work-nawaclo-3.webp"
     ],
     "metrics": [
       {
@@ -355,7 +360,8 @@
       "Gift Recommendation Engine"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145241/Screenshot_2026-02-04_at_02.00.10_c7wsi1.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250337/work-lakon-indonesia-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250340/work-lakon-indonesia-2.webp"
     ],
     "metrics": [
       {
@@ -396,7 +402,9 @@
       "Automated CI/CD Pipelines"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145959/Screenshot_2026-02-04_at_02.12.18_yxp6yy.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145959/Screenshot_2026-02-04_at_02.12.18_yxp6yy.png",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250278/work-combo-detail.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250276/work-combo-closeup.webp"
     ],
     "metrics": [
       {
@@ -436,7 +444,8 @@
       "Interactive Charts & Graphs"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146325/Screenshot_2026-02-04_at_02.16.54_xz5lvl.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250268/work-base-data-dashboard-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250270/work-base-data-dashboard-2.webp"
     ],
     "metrics": [
       {
@@ -477,7 +486,9 @@
       "Educational Content Hub"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146101/Screenshot_2026-02-04_at_02.13.43_dywr1x.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146101/Screenshot_2026-02-04_at_02.13.43_dywr1x.png",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250334/work-hmns-detail.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250311/work-hmns-closeup.webp"
     ],
     "metrics": [
       {
@@ -519,7 +530,9 @@
       "Secure Data Encryption"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145961/Screenshot_2026-02-04_at_02.11.42_irj1lk.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250272/work-bions-bni-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250273/work-bions-bni-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250275/work-bions-bni-3.webp"
     ],
     "metrics": [
       {
@@ -560,7 +573,9 @@
       "Store Locator"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146105/Screenshot_2026-02-04_at_02.14.10_s2pdwq.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250304/work-green-rebel-foods-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250306/work-green-rebel-foods-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250308/work-green-rebel-foods-3.webp"
     ],
     "metrics": [
       {
@@ -600,7 +615,9 @@
       "Multi-Currency Support"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.10_iwhz9a.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250262/work-aza-wear-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250264/work-aza-wear-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250266/work-aza-wear-3.webp"
     ],
     "metrics": [
       {
@@ -618,7 +635,7 @@
     "title": "Split Bill App",
     "category": "Mobile Development",
     "description": "A user-friendly mobile application designed to simplify bill splitting among friends and groups. Features intuitive interface, real-time calculations, and social sharing capabilities.",
-    "image": "/split-bill.png",
+    "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250439/work-split-bill.png",
     "year": "2025",
     "tech": [
       "Swift",
@@ -637,7 +654,7 @@
       "Dark Mode Support"
     ],
     "gallery": [
-      "/split-bill.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250426/work-split-bill-app-1.webp"
     ],
     "metrics": [
       {
@@ -677,7 +694,9 @@
       "Compliance Document Management"
     ],
     "gallery": [
-      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.46_bjhlid.png"
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250428/work-state-medical-equipment-1.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250429/work-state-medical-equipment-2.webp",
+      "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1792250431/work-state-medical-equipment-3.webp"
     ],
     "metrics": [
       {

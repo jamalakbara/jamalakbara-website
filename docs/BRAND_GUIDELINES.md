@@ -115,4 +115,4 @@ Handle is consistently **@jamalakbara** across platforms.
 | `manifest.json` | PWA manifest (`name: "jamalakbara. - Creative Developer"`) |
 | `screenshot-desktop.png`, `screenshot-mobile.png` | Store/preview screenshots |
 
-Project media is hosted on Cloudinary (cloud `dh0spkwh3`) or in `public/work/`. The per-route background videos are no longer used by the public site, though the admin field and data still exist.
+Project media is hosted on Cloudinary (cloud `dh0spkwh3`, asset folder `portfolio/images`). The per-route background videos are no longer used by the public site, though the admin field and data still exist.

@@ -131,7 +131,6 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | `public/brand/stickers/*.svg` | The 12 supplied stickers, unrotated. Rotation comes from the canvas values |
 | `public/brand/numbers/01–09.svg`, `tile-{yellow,lilac,mint,peach}.svg` | Number tiles. Projects 10+ use a blank tile with Comico digits |
 | `public/brand/icons/*.svg` | Numbered capability icons (About) |
-| `public/work/*` | Curated project photography (Withavelle, Adana, Sonderlab galleries) |
 | `public/brand/akbar-portrait-cobalt.jpg` | Cobalt portrait (`about.profileImage`) |
 
 Vectors were rebuilt from Pencil HTML exports. To refresh an asset, export the frame as `html-css` from Pencil and rebuild it with the same approach (nested `<svg>` per path, positioned from the export). Never ship text rendered as an image.

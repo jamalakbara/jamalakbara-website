@@ -12,7 +12,7 @@ Jamalakbara is a multi-page portfolio website for **Jamal Akbar Alam** ("jamalak
 - **Motion**: Framer Motion (`framer-motion`) is the primary in-use animation library. **GSAP** (`gsap` + `@gsap/react`), **Lenis** (smooth scroll), and **React Three Fiber** (`three` + `@react-three/fiber` + `@react-three/drei`) are installed for roadmap features but not yet wired into shipped pages.
 - **State**: Zustand installed; React hooks are the primary mechanism in shipped code.
 - **Content**: git-backed content files (`content/*.json` + `content/journal/*.mdx`) edited via the custom `/admin` CMS or directly — see Architecture.
-- **Media**: Cloudinary (cloud `dh0spkwh3`) and `public/work/` for project images; identity artwork (stamp, stickers, number tiles, capability icons) is vector SVG in `public/brand/`.
+- **Media**: Cloudinary (cloud `dh0spkwh3`) for all project images (asset folder `portfolio/images`, `work-*` public IDs); identity artwork (stamp, stickers, number tiles, capability icons) is vector SVG in `public/brand/`.
 - **Forms**: react-hook-form + zod.
 - **Analytics/SEO**: `@next/third-parties` (Google Analytics) with a cookie-consent gate, dynamic `sitemap.ts` / `robots.ts`, and JSON-LD structured data.
 - **Theme**: single light "Working Folder" theme on the public site. `next-themes` is a dependency but no toggle is shipped.
@@ -101,7 +101,7 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - `getCloudinaryUrl(publicId, options)`, `getProjectImageUrl(imageName, options)`, `getCloudinaryBaseUrl()`.
 - Transforms: width/height/quality/format/crop/gravity; defaults `q_auto,f_auto`.
 - Cloud name from `NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME` (`dh0spkwh3`).
-- Project images stream from Cloudinary (or `public/work/`); a project row's media strip is its `gallery` (up to 3), else `image`.
+- Project images stream from Cloudinary; a project row's media strip is its `gallery` (up to 3), else `image`.
 - The per-route background videos (`pages.*.backgroundVideo`, `lib/backgrounds.ts`) are **no longer rendered** by the public site; the admin field and data remain untouched.
 
 ### Analytics & Consent (`lib/analytics/`)
