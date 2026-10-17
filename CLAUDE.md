@@ -70,7 +70,7 @@ app/
 │   ├── site.css      # Working Folder v2 tokens + classes (public site only)
 │   ├── layout.tsx
 │   ├── page.tsx      # Home (/)
-│   ├── work/  about/  contact/  journal/
+│   ├── work/  about/  contact/  journal/  jurnal/  privacy/
 ├── admin/            # CMS — liquid-glass chrome, no video bg, force-dynamic, noindex
 │   ├── layout.tsx  login/
 │   └── (protected)/  # auth-checked layout: dashboard, projects, journal, site, media, branding

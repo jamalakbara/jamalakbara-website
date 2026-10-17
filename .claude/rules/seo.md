@@ -72,11 +72,12 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - **Favicon is the legacy `app/favicon.ico` by owner preference.** Do not add an `icon.svg` entry to the metadata `icons.icon` list — browsers prefer SVG over ICO and would hide the chosen favicon.
 - The "j." monogram set (`public/icon.svg` source, `public/apple-icon.png` 180, `public/icon-192.png` / `icon-512.png`) serves iOS home-screen and the PWA manifest only.
 - `public/logo.svg` is the text wordmark — never reference it as a favicon/app icon (it imports a remote font and is non-square).
-- Keep `manifest.json` colors on `#0c0908`.
+- Keep `manifest.json` `background_color`/`theme_color` on the Working Folder paper `#F8F6F0` (was `#0c0908` before the Oct 2026 revamp).
 
 ## Revamp guardrails (Working Folder, Oct 2026)
 
 - Page headings keep their CMS text and level; visual line breaks go through `sentenceLines()` / `<br className="f-br-*">` so text content is unchanged. Never duplicate copy per breakpoint.
+- `/privacy` is a server component with hardcoded copy and inline metadata in `app/(site)/privacy/layout.tsx` (not admin-editable, not in the navbar; linked from the cookie banner). Bump its `UPDATED` date when the policy text or the site's data handling (analytics, storage keys, third parties) changes.
 - `app/not-found.tsx` (root) renders the 404 — Next sends HTTP 404 + noindex; never add it to the sitemap.
 - Article `##` headings get `id`s for the in-page index; their text must stay untouched.
 

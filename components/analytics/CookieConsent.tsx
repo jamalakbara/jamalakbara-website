@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
 export function CookieConsentBanner() {
@@ -80,9 +81,9 @@ export function CookieConsentBanner() {
                 We use cookies to enhance your browsing experience, analyze site traffic,
                 and personalize content. By continuing to use this site, you agree to our
                 use of cookies. Learn more in our{' '}
-                <a href="/privacy">
+                <Link href="/privacy">
                   Privacy Policy
-                </a>
+                </Link>
                 .
               </p>
             </div>
