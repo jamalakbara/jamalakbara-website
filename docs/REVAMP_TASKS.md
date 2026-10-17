@@ -1,13 +1,13 @@
 # Working Folder revamp — task tracker
 
-Branch: `revamp/working-folder` (from `development`).
+Branch: `revamp-working-folder` (from `development`).
 Design source: Pencil `jamalakbara.pen` (Working Folder v2). Plan: pixel-perfect 1:1 at 1440 and 390, no changes to functionality, GA or SEO.
 
 Statuses: **Todo** · **In progress** · **Done**. Each task's note says what's being done (In progress) or the result and files touched (Done).
 
 | # | Task | Status | Note |
 | --- | --- | --- | --- |
-| T1 | Branch + tracker file | Done | Branch `revamp/working-folder` created; this file added. |
+| T1 | Branch + tracker file | Done | Branch `revamp-working-folder` created; this file added. |
 | T2 | SEO/GA baseline capture | Done | Snapshot of 19 sitemap URLs (title, meta, canonical/links, JSON-LD, h1/h2, html lang), robots.txt, unknown-route status (404) saved to scratchpad `seo-baseline.json` via `seo-snapshot.mjs`. GA call sites recorded: home CTAs `home_cta` ×2, contact `whatsapp_form` + `email_link`, shell `navbar` / `navbar_lets_talk` / `mobile_menu`, GoogleAnalytics device/page-view. Admin is behind GitHub OAuth, so admin regression is checked by diff (no admin files or shared classes touched) rather than screenshots. |
 | T3 | Fonts (next/font/local: Tanker, Erode, Comico) | Done | Subset to woff2 with fonttools: Tanker 12KB, Erode 12KB (Latin + Latin-1 + punctuation/arrows), Comico 36KB (hero-name glyphs only, down from 1.5MB TTF). `app/fonts/*.woff2`; `app/layout.tsx` exposes `--font-tanker/--font-erode/--font-comico` on body. Space Grotesk/Fraunces kept for admin. All weight 400, per spec. |
 | T4 | Tokens + `f-` component classes (scoped, admin untouched) | Done | New `app/(site)/site.css` (imported only by the site layout + not-found, so admin never loads it; `globals.css` untouched). `--f-*` tokens = canvas `folder-*` values; type roles, panels/folders/tabs, nav notch (exact canvas path), links/buttons/filters, rows, receipt (perforation, barcode, torn edges), note, forms, journal, article prose, about, empty/404, cookie skin, reduced motion. Values pulled from Pencil HTML exports (`scratchpad/spec/*.txt`, text strings mapped back from `tools/*-jobs.json`). Hand-drawn icon set → `components/site/icons.tsx` (paths verbatim). |
@@ -33,4 +33,4 @@ Statuses: **Todo** · **In progress** · **Done**. Each task's note says what's 
   - the home "Say hi" CTA, so `/contact | home_cta` no longer has a source.
   Every other event still fires with its original label. To keep those two series, attach them to the closest new controls (contact-strip "Let's talk", contact folder) — owner's call.
 - **Background-video admin field.** It still saves, but the public site no longer reads it.
-- **Deploy steps.** Merge `revamp/working-folder` → `development` → `main` when approved. Then re-check Search Console after deploy (no SEO change expected).
+- **Deploy steps.** Merge `revamp-working-folder` → `development` → `main` when approved. Then re-check Search Console after deploy (no SEO change expected).
