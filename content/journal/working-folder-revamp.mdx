@@ -1,0 +1,82 @@
+---
+title: "Rebuilding jamalakbara.com as a working folder: pen.dev, Astra, and Opus"
+description: "A portfolio redesign build log: designing the Working Folder look with Astra in pen.dev, then shipping it pixel-for-pixel in Next.js with Claude Opus."
+date: "2026-10-18"
+tags: ["build-log", "design", "ai", "nextjs"]
+draft: false
+---
+
+In May I wrote about [building this site](/journal/building-jamalakbara-com) around a warm, dark, cinematic mood: full-screen video backgrounds per route, a liquid-glass navbar, cream type on brown-black. I liked it. I also stopped believing it said anything about me.
+
+Cinematic dark portfolios are everywhere. Mine was a good one, but it was a good version of a familiar thing, and every page asked a visitor to download a video before they could read a sentence. So I threw the look away and rebuilt the whole public site as something I actually recognise from my desk: a working folder. Warm paper panels, folder tabs, a receipt for services, a handwritten-feeling contact note, a pile of stickers.
+
+This post is about how that happened, because the process was different from anything I'd done before. The design lives in **pen.dev**, it was explored with **Astra**, the design model inside pen.dev, and it was implemented in code with **Claude Opus**. Three tools, each with a clear job — and one job none of them got.
+
+## Designing in pen.dev with Astra
+
+The source of truth for the new site is a single canvas: `jamalakbara.pen`, in pen.dev. Every page exists there as a frame at 1440 wide and again at 390 wide — home, work, about, contact, the journal index, an article page, the 404, and the empty and error states nobody designs until they have to.
+
+Astra is where the exploration happened. I'd describe a direction — paper, not glass; tactile, not cinematic; something a studio would hand you across a table — and get frames back to react to. That loop is fast enough to change how you design. Instead of committing to the first idea that seems fine because building alternatives is expensive, you can look at five versions of the folder tab, or three ways the nav could sit on the page, and throw four away.
+
+Throwing things away was most of the work. A lot of what came back was competent and anonymous, which is what you'd expect: a model that has seen every design will happily give you the average of them. The parts that survived are the parts I pushed on until they stopped looking like anyone else's:
+
+- **Paper and one accent.** Panels are `#F8F6F0` paper on a soft pastel aurora, ink is a warm near-black, and there is exactly one loud colour: cobalt `#2445DB`. Everything interactive is cobalt; nothing decorative is.
+- **Three typefaces, three jobs.** Tanker for display, titles and tabs. Erode for body, actions and meta. Comico only for the hero name and the number digits — a face with that much personality would be exhausting anywhere else.
+- **Objects instead of sections.** Services are a receipt with a perforated edge and a barcode. Contact is a note on top of the folder. About has numbered tiles. The home page ends in a collage of twelve hand-made stickers.
+- **The nav as a folder tab.** The active route sits in a recessed notch cut into the paper, like the tab of the folder you've pulled out of the drawer.
+
+None of that is a prompt. Astra made it cheap to see options; deciding which option was *me* stayed my job. That's the same line I drew in [how I actually use AI](/journal/how-i-use-ai): the tool can generate design, it can't want one.
+
+## Shipping it 1:1 with Opus
+
+My rule for this revamp was strict: the site must match the canvas 1:1 at both widths, and nothing else is allowed to change — not the content, not the analytics, not the SEO. A redesign that quietly drops a canonical tag or an analytics event isn't a redesign, it's a regression with nicer fonts.
+
+Claude Opus did the implementation, working directly against the canvas through pen.dev's MCP tools rather than from screenshots. That distinction matters. Opus could export each frame as HTML and CSS and take real values — exact paddings, line heights, the precise path of the nav notch — instead of eyeballing them. The vector artwork came out the same way: the author stamp, all twelve stickers and the number tiles were rebuilt from the canvas into plain SVGs in `public/brand/`.
+
+Some of the unglamorous wins:
+
+- **Fonts subset hard.** Comico shipped as a 1.5 MB file. Subset to just the glyphs the hero name and digits need, it's about 54 KB. Tanker and Erode are around 12 KB each.
+- **Scoped styles.** The new design lives in its own stylesheet, `app/(site)/site.css`, loaded only by the public site. The admin CMS keeps its old dark styling and never sees a single new rule, so the revamp couldn't break it.
+- **Tokens straight from the canvas.** The variables are the canvas values, renamed once:
+
+```css
+--f-paper: #F8F6F0;   /* panels */
+--f-note: #FFFEFA;    /* the contact note */
+--f-ink: #201E19;     /* text */
+--f-muted: #6E695F;   /* meta */
+--f-accent: #2445DB;  /* cobalt — interactive only */
+```
+
+The thing Opus was best at is the thing I find most tedious: holding a large, precise spec in its head and applying it consistently across nine routes, two widths, and every state. I reviewed every change, argued with some of them, and handed back anything that looked right in code but felt wrong on a phone.
+
+## Pixel diffs as the review loop
+
+"Matches the design" is a claim, so we measured it. For every page: export the frame from pen.dev as a PNG, take a full-page screenshot of the real page in headless Chrome at the same width, and run both through `pixelmatch`. The output is a mismatch percentage and a diff image showing exactly where they disagree.
+
+Final numbers at desktop width: contact 1.7%, journal 1.7%, the 404 0.4%, home 4.0%, article 4.2%. Mobile runs a little higher across the board.
+
+The leftover difference is mostly deliberate. The canvas used placeholder copy in places; the site keeps the real text from my CMS, so lines break differently. The work page was designed with three projects and the real site has seventeen. A diff that goes to zero would mean I'd hardcoded the mockup — the useful version is one where every remaining red pixel has a reason.
+
+## What didn't change
+
+Before touching anything, I captured a baseline of all 19 URLs in the sitemap: status, title, meta description, Open Graph and Twitter tags, canonical, JSON-LD, headings, `html lang`. After the rebuild, the production build was diffed against it. Identical, except for the sitemap's build-time `lastmod`.
+
+Same story for behaviour. The contact form has the same validation rules and messages and still hands off to WhatsApp with the same prefilled text. Cookie consent logic, its storage key and its copy are untouched; the banner just wears the new paper skin. Analytics events still fire with their original labels — except two that were tied to buttons the new design removed, which I've left as an open decision rather than quietly reattaching them somewhere they don't belong.
+
+Heading text stayed exactly what's in the CMS. Where the design breaks a heading across lines, the break is visual only, so crawlers and screen readers see the same sentence as before.
+
+## Small things that mattered
+
+- **The aurora is a shader.** The pastel background behind the paper is a small WebGL port of the canvas shader, rendered at low resolution and frame rate. It pauses when the tab is hidden and goes static under `prefers-reduced-motion`, with a CSS gradient fallback.
+- **The videos are gone.** No per-route background video means no multi-megabyte download before the first sentence. The paper loads instantly; that alone made the site feel faster than any optimisation I did on the old one.
+- **A first-load splash.** Once per session: my name types out, the stamp slams down, settles, and morphs into the hero. Then it never shows again, because a splash you see twice is a toll booth.
+- **Stickers you can touch.** Stickers peel slightly on hover. Pointless in the strictest sense, and exactly the kind of detail that makes a page feel made by a person.
+- **Accessibility as part of the build, not after.** Skip link, a real modal mobile menu with a focus trap that returns focus to the toggle, visible form labels and an error summary that moves focus to the first problem.
+
+## What's left when the build is cheap
+
+The honest summary of this revamp: the expensive part of a redesign used to be implementation, and now it isn't. Astra made exploring directions fast, and Opus made pixel-perfect execution fast. What neither of them could do was decide that a portfolio should feel like a folder on a desk instead of a film trailer — or that the old site, good as it was, had to go.
+
+That's the argument I made in [AI, craft, and what's left when implementation is cheap](/journal/ai-and-craft), and this rebuild was the clearest test of it I've run on myself. When anyone can produce a polished site, taste and judgment are the only parts left to compete on.
+
+If you want a site that looks like your business and nobody else's — designed with care and built to the pixel — [let's talk](/contact).
