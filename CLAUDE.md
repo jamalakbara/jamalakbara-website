@@ -176,7 +176,7 @@ See `.env.example`.
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
 
 ## Icons
-The favicon is the **legacy `app/favicon.ico`** (owner preference — do not swap it for the SVG or list `icon.svg` in metadata icons). The "j." monogram set (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) covers iOS home-screen and manifest icons only; regenerate from glyph outlines if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
+The favicon is **`app/favicon.ico`** — the stamp portrait (cobalt postage stamp, Oct 2026 refresh). Keep it as the only `icons.icon` entry; do not list `icon.svg` in metadata icons. The app-icon set uses the same stamp artwork (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) for iOS home-screen and manifest icons; regenerate all four together if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).
 
 ## Performance Considerations
 - Public site content is static (compile-time JSON imports), no runtime fetch; only `/admin` is dynamic.

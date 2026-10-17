@@ -53,7 +53,7 @@ Brand idea: **a working folder, not a corporate template**. Paper panels, folder
 | **Stickers & number tiles** | The 12 supplied stickers and the illustrated 01–09 tiles keep their own colours. Use the originals and never redraw them. |
 | In running text | The short name stays lowercase with the period: `jamalakbara.` |
 
-Favicon remains the legacy `app/favicon.ico` (owner preference). The "j." monogram set covers iOS and the manifest only.
+Favicon (`app/favicon.ico`) and the app icons (`public/icon.svg`, `apple-icon.png`, `icon-192.png`, `icon-512.png`) all use the stamp portrait — the cobalt postage stamp with the cap-and-glasses face. Refreshed Oct 2026.
 
 ---
 
@@ -104,7 +104,8 @@ Handle is consistently **@jamalakbara** across platforms.
 
 | Asset | Use |
 | --- | --- |
-| `favicon.ico` | Working site icon |
+| `favicon.ico` | Site favicon (stamp portrait) |
+| `icon.svg`, `apple-icon.png`, `icon-192.png`, `icon-512.png` | iOS home-screen + PWA manifest icons (stamp portrait) |
 | `brand/akbar-portrait-cobalt.jpg` | About-page portrait (cobalt treatment) |
 | `brand/stamp.svg`, `brand/stickers/`, `brand/numbers/`, `brand/icons/` | Working Folder identity artwork |
 | `work/` | Curated project photography |
