@@ -29,8 +29,10 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const stackRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // /jurnal (Bahasa journal) has no nav entry of its own — it lights Journal.
+  const navPath = pathname.replace(/^\/jurnal(?=\/|$)/, "/journal");
   const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname.startsWith(href);
+    href === "/" ? navPath === "/" : navPath.startsWith(href);
 
   const close = useCallback((restoreFocus = true) => {
     setMenuOpen(false);
