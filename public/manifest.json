@@ -42,14 +42,14 @@
   "screenshots": [
     {
       "src": "/screenshot-desktop.png",
-      "sizes": "1280x720",
+      "sizes": "2880x1800",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Jamal Akbar Portfolio - Desktop View"
     },
     {
       "src": "/screenshot-mobile.png",
-      "sizes": "375x667",
+      "sizes": "1179x2061",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Jamal Akbar Portfolio - Mobile View"
