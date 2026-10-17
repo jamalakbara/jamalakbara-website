@@ -243,7 +243,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
 
   const wordmark = (onClick?: () => void) => (
     <Link href="/" className="f-wordmark" aria-label="jamalakbara. — Home" onClick={onClick}>
-      JAMALAKBARA.
+      <span className="f-wordmark__roll" aria-hidden="true">JAMALAKBARA.</span>
     </Link>
   );
 
