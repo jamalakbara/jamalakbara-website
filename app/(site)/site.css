@@ -769,6 +769,9 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 .f-art-col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; width: 640px; min-width: 0; }
 .f-art-end { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--f-line); }
 .f-art-margin { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+/* Relay groups: each pin sticks inside its lane, then the lane end hands over to the next group. */
+.f-art-lane { position: absolute; left: 0; right: 0; }
+.f-art-pin { position: sticky; top: 48px; }
 @media (max-width: 1023px) {
   .f-art-id { flex-direction: column; align-items: flex-start; gap: 24px; }
   .f-art-sig, .f-art-titlecol { width: auto; }

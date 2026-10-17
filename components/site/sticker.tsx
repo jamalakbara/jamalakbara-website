@@ -19,8 +19,10 @@ export type StickerSpot = { name: StickerName; x: number; y: number; w: number; 
 // With `base` (the canvas width of the sticker field) positions and sizes are
 // expressed in container-query units, so the composition scales with its
 // container and is exact at the reference width.
+export const cqw = (v: number, base: number) => `${((v / base) * 100).toFixed(4)}cqw`;
+
 export function Sticker({ name, x, y, w, h, r, z, base }: StickerSpot & { z?: number; base?: number }) {
-  const u = (v: number) => (base ? `${((v / base) * 100).toFixed(4)}cqw` : v);
+  const u = (v: number) => (base ? cqw(v, base) : v);
   return (
     <span
       className="f-sticker"
