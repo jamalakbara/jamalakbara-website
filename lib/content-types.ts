@@ -32,6 +32,8 @@ export interface Project {
   url?: string;
   livePreview?: string;
   featured?: boolean;
+  /** hidden from the public site (kept in content for later) */
+  draft?: boolean;
   // New fields for detailed case study
   challenge?: string;
   solution?: string;

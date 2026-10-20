@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ArticleView } from "@/components/site/article-view";
+import { postLang } from "@/lib/post-lang";
 import { getJurnalPost, getJurnalPosts, formatJurnalDate } from "@/lib/jurnal";
 
 type Params = { slug: string };
@@ -20,10 +21,11 @@ export async function generateMetadata({
   const post = getJurnalPost(slug);
   if (!post) return {};
   const url = `https://jamalakbara.com/jurnal/${post.slug}`;
+  const lang = postLang("id", post.slug, post.alternate);
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: url },
+    alternates: { canonical: url, ...(lang ? { languages: lang.languages } : {}) },
     openGraph: {
       type: "article",
       title: post.title,
@@ -82,6 +84,7 @@ export default async function JurnalPostPage({
         position={position}
         total={all.length}
         basePath="/jurnal"
+        lang={postLang("id", post.slug, post.alternate)?.link}
         date={formatJurnalDate(post.date)}
         copy={{
           back: "Semua tulisan jurnal",

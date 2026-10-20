@@ -35,7 +35,9 @@ export type WorkRow = {
   featured: boolean;
 };
 
-export const works: WorkRow[] = projects.map((p, i) => ({
+export const works: WorkRow[] = projects
+  .filter((p) => !p.draft)
+  .map((p, i) => ({
   id: p.id,
   num: String(i + 1).padStart(2, "0"),
   title: p.title,

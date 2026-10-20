@@ -15,6 +15,8 @@ export interface JournalPost {
   date: string; // ISO YYYY-MM-DD
   tags: string[];
   draft: boolean;
+  /** slug of the linked post in the other language section */
+  alternate?: string;
   content: string; // raw MDX body
   readingMinutes: number;
 }
@@ -31,6 +33,7 @@ function parsePost(fileName: string): JournalPost {
     date: data.date ?? "",
     tags: data.tags ?? [],
     draft: data.draft === true,
+    alternate: typeof data.alternate === "string" ? data.alternate : undefined,
     content,
     readingMinutes: Math.max(1, Math.round(words / 200)),
   };

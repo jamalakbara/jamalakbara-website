@@ -11,7 +11,7 @@ import * as github from "@/lib/admin/github";
 
 type Backend = "fs" | "github";
 
-function backend(): Backend {
+export function backend(): Backend {
   const override = process.env.ADMIN_CONTENT_BACKEND;
   if (override === "fs" || override === "github") return override;
   return process.env.VERCEL ? "github" : "fs";
@@ -43,51 +43,58 @@ export async function writeTextFile(
   relPath: string,
   content: string,
   message: string
-): Promise<void> {
+): Promise<string | null> {
   if (backend() === "github") {
-    await github.putFile(relPath, { text: content }, message);
-    return;
+    return github.putFile(relPath, { text: content }, message);
   }
   await fs.mkdir(path.dirname(abs(relPath)), { recursive: true });
   await fs.writeFile(abs(relPath), content, "utf8");
+  return null;
 }
 
 export async function writeBinaryFile(
   relPath: string,
   base64: string,
   message: string
-): Promise<void> {
+): Promise<string | null> {
   if (backend() === "github") {
-    await github.putFile(relPath, { base64 }, message);
-    return;
+    return github.putFile(relPath, { base64 }, message);
   }
   await fs.writeFile(abs(relPath), Buffer.from(base64, "base64"));
+  return null;
 }
 
 export async function deleteContentFile(
   relPath: string,
   message: string
-): Promise<void> {
+): Promise<string | null> {
   if (backend() === "github") {
-    await github.deleteFile(relPath, message);
-    return;
+    return github.deleteFile(relPath, message);
   }
   await fs.rm(abs(relPath), { force: true });
+  return null;
 }
 
-/** Write + delete several files as one commit (one fs pass locally). */
+/** Write + delete several files as one commit (one fs pass locally).
+ *  content: utf8 text, null = delete; or pass base64 for binary files. */
 export async function writeManyFiles(
-  files: { path: string; content: string | null }[],
+  files: { path: string; content: string | null; base64?: string }[],
   message: string
-): Promise<void> {
+): Promise<string | null> {
   if (backend() === "github") {
-    await github.commitMany(files, message);
-    return;
+    return github.commitMany(files, message);
   }
   for (const file of files) {
-    if (file.content === null) await fs.rm(abs(file.path), { force: true });
-    else await fs.writeFile(abs(file.path), file.content, "utf8");
+    if (file.base64 !== undefined) {
+      await fs.mkdir(path.dirname(abs(file.path)), { recursive: true });
+      await fs.writeFile(abs(file.path), Buffer.from(file.base64, "base64"));
+    } else if (file.content === null) await fs.rm(abs(file.path), { force: true });
+    else {
+      await fs.mkdir(path.dirname(abs(file.path)), { recursive: true });
+      await fs.writeFile(abs(file.path), file.content, "utf8");
+    }
   }
+  return null;
 }
 
 export async function listContentDir(relPath: string): Promise<string[]> {
@@ -112,9 +119,9 @@ export async function readProjects(): Promise<Project[]> {
 export async function writeProjects(
   projects: Project[],
   message: string
-): Promise<void> {
+): Promise<string | null> {
   const validated = projectsSchema.parse(projects);
-  await writeTextFile(
+  return writeTextFile(
     PROJECTS_PATH,
     JSON.stringify(validated, null, 2) + "\n",
     message
@@ -131,6 +138,6 @@ export async function writeJsonFile(
   relPath: string,
   data: unknown,
   message: string
-): Promise<void> {
-  await writeTextFile(relPath, JSON.stringify(data, null, 2) + "\n", message);
+): Promise<string | null> {
+  return writeTextFile(relPath, JSON.stringify(data, null, 2) + "\n", message);
 }

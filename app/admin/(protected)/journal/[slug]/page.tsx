@@ -1,46 +1,8 @@
-import { notFound } from "next/navigation";
-import matter from "gray-matter";
-import { readTextFile } from "@/lib/admin/content-store";
-import { PostEditor } from "@/components/admin/post-editor";
-import { saveJournalPost, deleteJournalPost } from "../actions";
-import { PageBody, PageHeading } from "@/components/page-heading";
+import { PostPage } from "@/components/admin/post-page";
 
 export const metadata = { title: "Edit post" };
 
-export default async function EditJournalPostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function EditJournalPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const raw = await readTextFile(`content/journal/${slug}.mdx`);
-  if (raw === null) notFound();
-
-  const { data, content } = matter(raw);
-
-  return (
-    <main>
-      <PageHeading
-        eyebrow="Edit post"
-        title={(data.title as string) ?? slug}
-        back={{ href: "/admin/journal", label: "Journal" }}
-      />
-      <PageBody>
-        <PostEditor
-          save={saveJournalPost}
-          remove={deleteJournalPost}
-          listHref="/admin/journal"
-          initial={{
-            slug,
-            title: (data.title as string) ?? "",
-            description: (data.description as string) ?? "",
-            date: (data.date as string) ?? "",
-            tags: (data.tags as string[]) ?? [],
-            draft: data.draft === true,
-            body: content,
-          }}
-        />
-      </PageBody>
-    </main>
-  );
+  return <PostPage section="journal" slug={slug} />;
 }

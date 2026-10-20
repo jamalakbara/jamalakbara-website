@@ -66,6 +66,8 @@ export async function GET(request: Request) {
         secure_url: string;
         format: string;
         bytes: number;
+        width?: number;
+        height?: number;
         created_at: string;
       }[];
       next_cursor?: string;
@@ -76,6 +78,8 @@ export async function GET(request: Request) {
         url: r.secure_url,
         format: r.format,
         bytes: r.bytes,
+        width: r.width ?? null,
+        height: r.height ?? null,
         createdAt: r.created_at,
       })),
       nextCursor: json.next_cursor ?? null,

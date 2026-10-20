@@ -17,7 +17,8 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 
 ## Admin CMS routes
 
-- Everything under `/admin` and `/api` is non-SEO surface: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts`.
+- Everything under `/admin`, `/api` and `/preview` is non-SEO surface. `/preview/<token>` (admin draft previews) sets `robots: noindex` and is disallowed in `app/robots.ts`.
+- `/admin` and `/api`: `app/admin/layout.tsx` sets `robots: { index: false, follow: false }`, `app/robots.ts` disallows `/admin` + `/api/`, and admin routes must **never** enter `app/sitemap.ts`.
 - Public pages moved into the `app/(site)/` route group (July 2026, CMS launch) — URLs unchanged. The `(site)/layout.tsx` carries `PortfolioShell` + StructuredData + GA; root layout keeps the global metadata. Per-route metadata layouts live inside `(site)/`.
 - Prod admin saves commit to `main` and republish via Vercel rebuild — SEO verification steps below still apply after content changes deploy.
 
@@ -47,6 +48,7 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - `/jurnal` is **not** in the navbar — it is linked from the `/journal` listing page via a "Bahasa Indonesia →" link near the eyebrow. The `/jurnal` listing page mirrors this with "English →".
 - Per-post JSON-LD uses `inLanguage: "id"` — do not change this to "en".
 - `/jurnal` is a separate independent content section, not a translation of `/journal`. Posts can cover the same topics but the content is different and written natively in Bahasa.
+- Optional pairing: `alternate: "<slug>"` in both posts' frontmatter (set in the admin "Bahasa version" panel, kept mutual automatically). Only a mutual, published pair emits `alternates.languages` (hreflang en/id) and the article's language-switch link (`lib/post-lang.ts`); a one-sided or draft link is ignored.
 - The `/jurnal` layout (`app/(site)/jurnal/layout.tsx`) has hardcoded Indonesian metadata — it does not go through `buildPageMetadata()` and is not admin-editable.
 
 ## Content tone and voice

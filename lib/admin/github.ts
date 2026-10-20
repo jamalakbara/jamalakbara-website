@@ -83,7 +83,7 @@ export async function putFile(
   path: string,
   data: { text?: string; base64?: string },
   message: string
-): Promise<void> {
+): Promise<string> {
   const base64 =
     data.base64 ?? Buffer.from(data.text ?? "", "utf8").toString("base64");
   let sha = await getFileSha(path);
@@ -93,16 +93,18 @@ export async function putFile(
     res = await putContents(path, base64, message, sha);
   }
   if (!res.ok) throw new Error(`GitHub putFile ${path}: ${res.status} ${await res.text()}`);
+  return ((await res.json()) as { commit: { sha: string } }).commit.sha;
 }
 
-export async function deleteFile(path: string, message: string): Promise<void> {
+export async function deleteFile(path: string, message: string): Promise<string | null> {
   const sha = await getFileSha(path);
-  if (!sha) return;
+  if (!sha) return null;
   const res = await gh(`/repos/${repo()}/contents/${encodeURI(path)}`, {
     method: "DELETE",
     body: JSON.stringify({ message, sha, branch: branch() }),
   });
   if (!res.ok) throw new Error(`GitHub deleteFile ${path}: ${res.status} ${await res.text()}`);
+  return ((await res.json()) as { commit: { sha: string } }).commit.sha;
 }
 
 export async function listDir(path: string): Promise<string[]> {
@@ -120,10 +122,21 @@ export async function listDir(path: string): Promise<string[]> {
  * content: string = write (utf8), null = delete.
  */
 export async function commitMany(
-  files: { path: string; content: string | null }[],
+  files: { path: string; content: string | null; base64?: string }[],
   message: string
-): Promise<void> {
+): Promise<string> {
   const r = repo();
+  // Binary files go up as blobs first; the tree then points at their sha.
+  const blobShas = new Map<string, string>();
+  for (const f of files) {
+    if (f.base64 === undefined) continue;
+    const blobRes = await gh(`/repos/${r}/git/blobs`, {
+      method: "POST",
+      body: JSON.stringify({ content: f.base64, encoding: "base64" }),
+    });
+    if (!blobRes.ok) throw new Error(`GitHub create blob ${f.path}: ${blobRes.status}`);
+    blobShas.set(f.path, ((await blobRes.json()) as { sha: string }).sha);
+  }
   const refRes = await gh(`/repos/${r}/git/ref/heads/${branch()}`);
   if (!refRes.ok) throw new Error(`GitHub get ref: ${refRes.status}`);
   const baseSha = ((await refRes.json()) as { object: { sha: string } }).object.sha;
@@ -136,7 +149,11 @@ export async function commitMany(
         path: f.path,
         mode: "100644",
         type: "blob",
-        ...(f.content === null ? { sha: null } : { content: f.content }),
+        ...(blobShas.has(f.path)
+          ? { sha: blobShas.get(f.path) }
+          : f.content === null
+            ? { sha: null }
+            : { content: f.content }),
       })),
     }),
   });
@@ -155,4 +172,34 @@ export async function commitMany(
     body: JSON.stringify({ sha: commitSha }),
   });
   if (!updateRes.ok) throw new Error(`GitHub update ref: ${updateRes.status} ${await updateRes.text()}`);
+  return commitSha;
+}
+
+export interface RepoCommit {
+  sha: string;
+  message: string;
+  date: string;
+  files?: string[];
+}
+
+/** Latest commits on the content branch, optionally limited to a path. */
+export async function listCommits(opts: { perPage?: number; path?: string } = {}): Promise<RepoCommit[]> {
+  const params = new URLSearchParams({ sha: branch(), per_page: String(opts.perPage ?? 10) });
+  if (opts.path) params.set("path", opts.path);
+  const res = await gh(`/repos/${repo()}/commits?${params}`);
+  if (!res.ok) throw new Error(`GitHub listCommits: ${res.status}`);
+  const json = (await res.json()) as {
+    sha: string;
+    commit: { message: string; committer: { date: string } };
+  }[];
+  return json.map((c) => ({
+    sha: c.sha,
+    message: c.commit.message.split("\n")[0],
+    date: c.commit.committer.date,
+  }));
+}
+
+export function repoUrl(): string | null {
+  const r = process.env.GITHUB_REPO;
+  return r ? `https://github.com/${r}` : null;
 }

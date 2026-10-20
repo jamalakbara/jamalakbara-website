@@ -1,142 +1,134 @@
 "use client";
 
+// Media inputs (kit "Admin / Field / Media"): a cover/video row and a gallery
+// grid. Values are plain Cloudinary secure_url strings. Uploads are signed
+// server-side (/api/admin/media/sign) and go straight to Cloudinary.
+
 import { useCallback, useEffect, useRef, useState } from "react";
-import { MediaLightbox } from "./media-lightbox";
+import { Check, ImagePlus, Images, Upload, X } from "lucide-react";
+import { cldThumb, formatBytes } from "@/lib/admin/format";
+import { mediaKey } from "@/lib/media-meta";
 
-interface MediaFieldProps {
-  label: string;
-  value: string;
-  onChange: (url: string) => void;
-  /** e.g. "image/*" or "video/*" — also selects which library folder to browse */
-  accept?: string;
-  placeholder?: string;
-}
+export type MediaKind = "image" | "video";
 
-interface MediaItem {
+export interface MediaItem {
   publicId: string;
   url: string;
   format: string;
   bytes: number;
+  width?: number | null;
+  height?: number | null;
+  createdAt?: string;
 }
 
-const isVideoUrl = (v: string) =>
-  /\/video\/upload\//.test(v) || /\.(mp4|mov|webm|m4v|ogv)$/i.test(v);
-const isImageUrl = (v: string) =>
-  /\/image\/upload\//.test(v) || /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(v);
+const FOLDER: Record<MediaKind, string> = { image: "portfolio/images", video: "portfolio/videos" };
 
-/**
- * Asset field: paste a link, upload a file, or select from the Cloudinary
- * library. The stored value is a plain secure_url string. `accept` decides the
- * media kind (image vs video) for uploads, the library filter, and the preview.
- */
+export const isVideoUrl = (v: string) => /\/video\/upload\//.test(v) || /\.(mp4|mov|webm|m4v|ogv)$/i.test(v);
+
+/** Signed direct upload to Cloudinary. Returns the stored secure_url. */
+export async function uploadToCloudinary(file: File, kind: MediaKind): Promise<{ url: string; publicId: string }> {
+  const assetFolder = FOLDER[kind];
+  const signRes = await fetch("/api/admin/media/sign", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ assetFolder }),
+  });
+  if (!signRes.ok) throw new Error("Could not sign upload");
+  const { timestamp, signature, apiKey, cloudName } = await signRes.json();
+
+  const form = new FormData();
+  form.append("file", file);
+  form.append("api_key", apiKey);
+  form.append("timestamp", String(timestamp));
+  form.append("signature", signature);
+  form.append("asset_folder", assetFolder);
+
+  const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`, { method: "POST", body: form });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json?.error?.message || "Upload failed");
+  return { url: json.secure_url as string, publicId: json.public_id as string };
+}
+
+function useUpload(kind: MediaKind, onDone: (url: string) => void) {
+  const ref = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const input = (
+    <input
+      ref={ref}
+      type="file"
+      accept={kind === "video" ? "video/*" : "image/*"}
+      hidden
+      onChange={async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        setBusy(true);
+        setError(null);
+        try {
+          onDone((await uploadToCloudinary(file, kind)).url);
+        } catch (err) {
+          setError(err instanceof Error ? err.message : "Upload failed");
+        } finally {
+          setBusy(false);
+          if (ref.current) ref.current.value = "";
+        }
+      }}
+    />
+  );
+  return { busy, error, input, pick: () => ref.current?.click() };
+}
+
+/** Cover / hover-video row: thumb · name · actions (library, upload, clear). */
 export function MediaField({
   label,
+  hint,
   value,
   onChange,
-  accept = "image/*",
-  placeholder = "https://res.cloudinary.com/…",
-}: MediaFieldProps) {
-  const fileRef = useRef<HTMLInputElement>(null);
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  kind = "image",
+}: {
+  label: string;
+  hint: string;
+  value: string;
+  onChange: (url: string) => void;
+  kind?: MediaKind;
+}) {
   const [picking, setPicking] = useState(false);
-  const [previewing, setPreviewing] = useState(false);
-
-  const kind: "image" | "video" = accept.startsWith("video") ? "video" : "image";
-  const assetFolder = kind === "image" ? "portfolio/images" : "portfolio/videos";
-
-  async function upload(file: File) {
-    setUploading(true);
-    setError(null);
-    try {
-      const signRes = await fetch("/api/admin/media/sign", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ assetFolder }),
-      });
-      if (!signRes.ok) throw new Error("Could not sign upload");
-      const { timestamp, signature, apiKey, cloudName } = await signRes.json();
-
-      const form = new FormData();
-      form.append("file", file);
-      form.append("api_key", apiKey);
-      form.append("timestamp", String(timestamp));
-      form.append("signature", signature);
-      form.append("asset_folder", assetFolder);
-
-      const uploadRes = await fetch(
-        `https://api.cloudinary.com/v1_1/${cloudName}/auto/upload`,
-        { method: "POST", body: form }
-      );
-      const json = await uploadRes.json();
-      if (!uploadRes.ok) {
-        throw new Error(json?.error?.message || "Upload failed");
-      }
-      onChange(json.secure_url as string);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Upload failed");
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = "";
-    }
-  }
-
-  const showVideo = value && isVideoUrl(value);
-  const showImage = value && !showVideo && isImageUrl(value);
-
+  const upload = useUpload(kind, onChange);
   return (
-    <div>
-      <label className="mb-1.5 block text-xs text-[var(--m3)]">{label}</label>
-      <div className="flex items-center gap-2">
-        <input
-          type="url"
-          className="field-input flex-1"
-          value={value}
-          placeholder={placeholder}
-          onChange={(e) => onChange(e.target.value)}
-        />
-        <button
-          type="button"
-          className="liquid-glass shrink-0 rounded-full px-4 py-2 text-xs"
-          onClick={() => setPicking(true)}
-        >
-          Library
-        </button>
-        <button
-          type="button"
-          className="liquid-glass shrink-0 rounded-full px-4 py-2 text-xs"
-          disabled={uploading}
-          onClick={() => fileRef.current?.click()}
-        >
-          {uploading ? "Uploading…" : "Upload"}
-        </button>
-        <input
-          ref={fileRef}
-          type="file"
-          accept={accept}
-          hidden
-          onChange={(e) => {
-            const file = e.target.files?.[0];
-            if (file) void upload(file);
-          }}
-        />
-      </div>
-      {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
-      {(showImage || showVideo) && (
-        <button
-          type="button"
-          className="mt-2 block cursor-pointer rounded-lg border border-[rgba(246,243,240,0.08)] overflow-hidden"
-          onClick={() => setPreviewing(true)}
-          title="Preview"
-        >
-          {showImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={value} alt="" className="h-16 w-auto object-cover" />
+    <div className="a-field">
+      <div className="a-media">
+        {value ? (
+          kind === "video" || isVideoUrl(value) ? (
+            <video className="a-media__thumb" src={value} muted playsInline preload="metadata" />
           ) : (
-            <video src={value} className="h-16 w-auto object-cover" muted playsInline preload="metadata" />
+            // eslint-disable-next-line @next/next/no-img-element
+            <img className="a-media__thumb" src={cldThumb(value)} alt="" />
+          )
+        ) : (
+          <span className="a-media__thumb" />
+        )}
+        <span className="a-media__text">
+          <span className="a-label a-truncate">
+            {label} · {value ? mediaKey(value) : "none"}
+          </span>
+          <span className="a-meta a-muted a-truncate">{upload.busy ? "Uploading…" : hint}</span>
+        </span>
+        <span className="a-media__actions">
+          <button type="button" className="a-iconbtn" aria-label={`Choose ${label} from library`} title="From library" onClick={() => setPicking(true)}>
+            <Images size={16} />
+          </button>
+          <button type="button" className="a-iconbtn" aria-label={`Upload ${label}`} title="Upload" onClick={upload.pick} disabled={upload.busy}>
+            <Upload size={16} />
+          </button>
+          {value && (
+            <button type="button" className="a-iconbtn a-iconbtn--danger" aria-label={`Remove ${label}`} title="Remove" onClick={() => onChange("")}>
+              <X size={16} />
+            </button>
           )}
-        </button>
-      )}
+        </span>
+        {upload.input}
+      </div>
+      {upload.error && <p className="a-field__help a-field__help--error">{upload.error}</p>}
       {picking && (
         <MediaPicker
           kind={kind}
@@ -147,24 +139,84 @@ export function MediaField({
           }}
         />
       )}
-      {previewing && value && (
-        <MediaLightbox
-          url={value}
-          publicId={value.split("/").pop() ?? value}
-          kind={showVideo ? "video" : "image"}
-          onClose={() => setPreviewing(false)}
+    </div>
+  );
+}
+
+/** Gallery grid (max `max`), add from library or upload. */
+export function GalleryField({
+  value,
+  onChange,
+  max = 3,
+}: {
+  value: string[];
+  onChange: (v: string[]) => void;
+  max?: number;
+}) {
+  const [picking, setPicking] = useState(false);
+  const upload = useUpload("image", (url) => onChange([...value, url].slice(0, max)));
+  return (
+    <div className="a-field">
+      <div className="a-field__top">
+        <span>
+          Gallery <span className="a-muted">· shown as the row’s media strip (max {max})</span>
+        </span>
+        <span className="a-field__count">
+          {value.length} / {max}
+        </span>
+      </div>
+      <div className="a-gallery">
+        {value.map((url, i) => (
+          <div key={`${url}-${i}`} className="a-gallery__item">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={cldThumb(url, 480, 440)} alt={`Gallery ${i + 1}`} />
+            <button
+              type="button"
+              className="a-gallery__remove"
+              aria-label={`Remove gallery image ${i + 1}`}
+              onClick={() => onChange(value.filter((_, j) => j !== i))}
+            >
+              <X size={12} />
+            </button>
+          </div>
+        ))}
+        {value.length < max && (
+          <button type="button" className="a-gallery__add" onClick={() => setPicking(true)} disabled={upload.busy}>
+            <ImagePlus size={18} />
+            {upload.busy ? "Uploading…" : "From library"}
+          </button>
+        )}
+      </div>
+      <div style={{ display: "flex", gap: 12 }}>
+        {value.length < max && (
+          <button type="button" className="a-link a-small" onClick={upload.pick}>
+            or upload a new image
+          </button>
+        )}
+      </div>
+      {upload.input}
+      {upload.error && <p className="a-field__help a-field__help--error">{upload.error}</p>}
+      {picking && (
+        <MediaPicker
+          kind="image"
+          onClose={() => setPicking(false)}
+          onSelect={(url) => {
+            onChange([...value, url].slice(0, max));
+            setPicking(false);
+          }}
         />
       )}
     </div>
   );
 }
 
-function MediaPicker({
+/** Library dialog: browse the Cloudinary folder, select one, confirm. */
+export function MediaPicker({
   kind,
   onSelect,
   onClose,
 }: {
-  kind: "image" | "video";
+  kind: MediaKind;
   onSelect: (url: string) => void;
   onClose: () => void;
 }) {
@@ -172,19 +224,20 @@ function MediaPicker({
   const [cursor, setCursor] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [preview, setPreview] = useState<MediaItem | null>(null);
+  const [selected, setSelected] = useState<MediaItem | null>(null);
+  const [query, setQuery] = useState("");
 
   const load = useCallback(
-    async (nextCursor?: string | null) => {
+    async (next?: string | null) => {
       setLoading(true);
       setError(null);
       try {
         const params = new URLSearchParams({ type: kind });
-        if (nextCursor) params.set("cursor", nextCursor);
+        if (next) params.set("cursor", next);
         const res = await fetch(`/api/admin/media?${params}`);
         const json = await res.json();
         if (!res.ok) throw new Error(json.error || "Failed to load media");
-        setItems((prev) => (nextCursor ? [...prev, ...json.resources] : json.resources));
+        setItems((prev) => (next ? [...prev, ...json.resources] : json.resources));
         setCursor(json.nextCursor);
       } catch (e) {
         setError(e instanceof Error ? e.message : "Failed to load media");
@@ -197,92 +250,72 @@ function MediaPicker({
 
   useEffect(() => {
     void load();
-  }, [load]);
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && onClose();
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [load, onClose]);
+
+  const shown = items.filter((i) => !query || i.publicId.toLowerCase().includes(query.toLowerCase()));
 
   return (
-    <div
-      className="fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-black/70 p-4"
-      onClick={onClose}
-    >
-      <div
-        className="liquid-glass max-h-[80vh] w-full max-w-3xl cursor-default overflow-hidden rounded-2xl p-5"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="mb-4 flex items-center justify-between">
-          <h3 className="text-sm text-[var(--m2)]">Select {kind}</h3>
-          <button type="button" className="nav-link cursor-pointer text-xs text-[var(--m3)]" onClick={onClose}>
-            Close
+    <div className="a-scrim" onClick={onClose}>
+      <div className="a-dialog a-dialog--wide" role="dialog" aria-modal="true" aria-label={`Choose ${kind}`} onClick={(e) => e.stopPropagation()}>
+        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          <h2 className="a-title" style={{ flex: 1 }}>
+            Choose {kind}
+          </h2>
+          <button type="button" className="a-iconbtn" aria-label="Close" onClick={onClose}>
+            <X size={18} />
           </button>
         </div>
-        {error && <p className="mb-3 text-sm text-red-400">{error}</p>}
-        <div className="grid max-h-[56vh] grid-cols-2 gap-3 overflow-y-auto sm:grid-cols-3 lg:grid-cols-4">
-          {loading && items.length === 0 &&
-            Array.from({ length: 8 }).map((_, i) => (
-              <div key={`skeleton-${i}`} className="liquid-glass overflow-hidden rounded-xl">
-                <div className="aspect-square w-full animate-pulse bg-[var(--m4)]/10" />
-                <div className="p-2">
-                  <div className="h-2.5 w-3/4 animate-pulse rounded bg-[var(--m4)]/15" />
-                </div>
-              </div>
-            ))}
-          {items.map((item) => (
+        <input className="a-input" type="search" placeholder="Filter by name…" value={query} onChange={(e) => setQuery(e.target.value)} />
+        {error && <p className="a-banner">{error}</p>}
+        <div className="a-mgrid" style={{ overflowY: "auto", minHeight: 200 }}>
+          {shown.map((item) => (
             <button
               key={item.publicId}
               type="button"
-              className="liquid-glass group cursor-pointer overflow-hidden rounded-xl text-left"
-              onClick={() => setPreview(item)}
+              className="a-mcard"
+              aria-pressed={selected?.publicId === item.publicId}
+              onClick={() => setSelected(item)}
+              onDoubleClick={() => onSelect(item.url)}
             >
-              {kind === "image" ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={item.url.replace("/upload/", "/upload/w_400,q_auto,f_auto/")}
-                  alt={item.publicId}
-                  className="aspect-square w-full object-cover transition group-hover:opacity-80"
-                  loading="lazy"
-                />
-              ) : (
-                <video
-                  src={item.url}
-                  className="aspect-square w-full object-cover transition group-hover:opacity-80"
-                  muted
-                  playsInline
-                  preload="metadata"
-                />
-              )}
-              <p className="truncate p-2 text-[11px] text-[var(--m3)]" title={item.publicId}>
-                {item.publicId}
-              </p>
+              <span className="a-mcard__img">
+                {kind === "image" ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={cldThumb(item.url, 400, 300)} alt="" loading="lazy" />
+                ) : (
+                  <video src={item.url} muted playsInline preload="metadata" />
+                )}
+                <span className="a-mcard__check">
+                  <Check size={12} />
+                </span>
+              </span>
+              <span className="a-small a-truncate">{item.publicId}</span>
+              <span className="a-meta a-muted">
+                {item.width && item.height ? `${item.width}×${item.height} · ` : ""}
+                {formatBytes(item.bytes)}
+              </span>
             </button>
           ))}
+          {loading && items.length === 0 && <p className="a-small a-muted">Loading library…</p>}
+          {!loading && shown.length === 0 && <p className="a-small a-muted">No {kind}s found.</p>}
         </div>
-        {loading && items.length > 0 && (
-          <p className="mt-4 text-center text-sm text-[var(--m4)]">Loading…</p>
-        )}
-        {!loading && items.length === 0 && (
-          <p className="py-10 text-center text-sm text-[var(--m4)]">No {kind}s found.</p>
-        )}
-        {cursor && !loading && (
-          <div className="mt-4 flex justify-center">
-            <button
-              type="button"
-              className="liquid-glass cursor-pointer rounded-full px-5 py-2 text-sm"
-              onClick={() => void load(cursor)}
-            >
-              Load more
+        <div className="a-dialog__actions" style={{ alignItems: "center" }}>
+          {cursor && (
+            <button type="button" className="a-btn a-btn--ghost" onClick={() => void load(cursor)} disabled={loading} style={{ marginRight: "auto" }}>
+              {loading ? "Loading…" : "Load more"}
             </button>
-          </div>
-        )}
+          )}
+          <button type="button" className="a-btn a-btn--secondary" onClick={onClose}>
+            Cancel
+          </button>
+          <button type="button" className="a-btn a-btn--primary" disabled={!selected} onClick={() => selected && onSelect(selected.url)}>
+            <Check size={16} />
+            Use this {kind}
+          </button>
+        </div>
       </div>
-
-      {preview && (
-        <MediaLightbox
-          url={preview.url}
-          publicId={preview.publicId}
-          kind={kind}
-          onClose={() => setPreview(null)}
-          onSelect={onSelect}
-        />
-      )}
     </div>
   );
 }
