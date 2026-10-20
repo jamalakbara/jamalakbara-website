@@ -14,10 +14,12 @@ import { ArrowDown, ArrowUpRight, MapPin } from "@/components/site/icons";
 // Home — canvas 14 (QiOko desktop / lYF3g mobile).
 // Order: identity hero → selected-work folder → about/receipt folder → contact folder.
 
-// Selected work: projects with a full three-image strip first (the curated
-// canvas selection), topped up from the ordered list.
-const full = works.filter((w) => w.media.length >= 3);
-const selected = [...full, ...works.filter((w) => !full.includes(w))].slice(0, 3);
+// Selected work: projects starred "Featured on home" in the admin first, then
+// those with a full three-image strip (the curated canvas selection), topped
+// up from the ordered list.
+const featured = works.filter((w) => w.featured);
+const full = works.filter((w) => !w.featured && w.media.length >= 3);
+const selected = [...featured, ...full, ...works.filter((w) => !w.featured && !full.includes(w))].slice(0, 3);
 const years = selected.map((w) => Number(w.year)).filter(Boolean);
 const span = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
 

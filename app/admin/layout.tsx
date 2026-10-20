@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AdminBackground } from "@/components/admin/admin-background";
+import "./admin.css";
 
 export const metadata: Metadata = {
   title: {
@@ -16,15 +16,7 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // body has overflow:hidden (the public site scrolls inside PortfolioShell),
-  // so the admin surface provides its own scroll container.
-  return (
-    <div className="relative h-screen overflow-y-auto bg-[var(--bg)] text-[var(--ink)]">
-      {/* Animated WebGL flow-field background (brand-colored domain-warped
-          noise, cursor-reactive, grain + vignette). Non-interactive, fixed,
-          behind all admin chrome. Freezes under prefers-reduced-motion. */}
-      <AdminBackground />
-      <div className="relative z-10">{children}</div>
-    </div>
-  );
+  // body has overflow:hidden (the public site scrolls inside PortfolioShell);
+  // the admin shell provides its own scroll containers (.a-main / .a-sidebar).
+  return children;
 }

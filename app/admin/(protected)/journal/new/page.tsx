@@ -1,24 +1,7 @@
-import { PostEditor } from "@/components/admin/post-editor";
-import { saveJournalPost, deleteJournalPost } from "../actions";
-import { PageBody, PageHeading } from "@/components/page-heading";
+import { PostPage } from "@/components/admin/post-page";
 
 export const metadata = { title: "New post" };
 
 export default function NewJournalPostPage() {
-  return (
-    <main>
-      <PageHeading
-        eyebrow="New post"
-        title="Write a post"
-        back={{ href: "/admin/journal", label: "Journal" }}
-      />
-      <PageBody>
-        <PostEditor
-          save={saveJournalPost}
-          remove={deleteJournalPost}
-          listHref="/admin/journal"
-        />
-      </PageBody>
-    </main>
-  );
+  return <PostPage section="journal" />;
 }

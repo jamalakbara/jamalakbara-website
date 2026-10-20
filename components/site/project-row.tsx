@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { WorkRow } from "@/lib/site-data";
 import { sentenceCase } from "@/lib/site-format";
 import { NumberTile } from "@/components/site/number-tile";
+import { mediaAlt } from "@/lib/media-meta";
 
 // Editorial project row (canvas "Project / Editorial row"): 400px details
 // column beside a right-aligned media strip. Three strip compositions from the
@@ -26,7 +27,8 @@ function Img({ src, alt, box, sizes }: { src: string; alt: string; box: Box; siz
       className={box.grow ? "f-row__img f-row__img--grow" : "f-row__img"}
       style={{ width: box.grow ? undefined : box.w, height: box.h, background: box.bg }}
     >
-      <Image src={src} alt={alt} fill sizes={sizes} />
+      {/* alt text set in /admin/media wins over the generated fallback */}
+      <Image src={src} alt={mediaAlt(src) ?? alt} fill sizes={sizes} />
     </span>
   );
 }

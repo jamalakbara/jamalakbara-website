@@ -1,266 +1,357 @@
 "use client";
 
-import { useState, useTransition } from "react";
+// Canvas 26 "Project editor": Basics / Media / Story / Results on the left,
+// Publish · Draft preview · SEO rail on the right.
+
+import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Check, GripVertical, Link2, Plus, Trash2 } from "lucide-react";
 import type { Project } from "@/lib/content-types";
-import { MediaField } from "@/components/admin/media-field";
+import { MediaField, GalleryField } from "@/components/admin/media-field";
 import { useConfirm } from "@/components/admin/confirm-dialog";
-import { deleteProject, upsertProject } from "./actions";
-import { input, label } from "@/lib/admin/form-styles";
+import { useToast } from "@/components/admin/toast";
+import { useUnsaved } from "@/components/admin/unsaved";
+import {
+  Chip,
+  Field,
+  PageHeader,
+  Panel,
+  PreviewButton,
+  PreviewPanel,
+  Section,
+  SeoPanel,
+  TagInput,
+  Toggle,
+  usePreview,
+  useSaveShortcut,
+} from "@/components/admin/ui";
+import { projectSeo } from "@/lib/admin/seo-checklist";
+import { mediaKey } from "@/lib/media-meta";
+import { timeAgo } from "@/lib/admin/format";
+import type { LastEdit } from "@/lib/admin/project-meta";
+import { deleteProject, previewProject, upsertProject } from "./actions";
 
-const lines = (s: string) =>
-  s.split("\n").map((l) => l.trim()).filter(Boolean);
-const commas = (s: string) =>
-  s.split(",").map((l) => l.trim()).filter(Boolean);
+type Metric = { label: string; value: string };
 
-type MetricRow = { label: string; value: string };
+function toForm(p?: Project) {
+  return {
+    id: p?.id ?? "",
+    title: p?.title ?? "",
+    category: p?.category ?? "",
+    year: p?.year ?? String(new Date().getFullYear()),
+    description: p?.description ?? "",
+    summary: p?.summary ?? "",
+    image: p?.image ?? "",
+    video: p?.video ?? "",
+    url: p?.url ?? "",
+    livePreview: p?.livePreview ?? "",
+    featured: p?.featured ?? false,
+    draft: p?.draft ?? false,
+    tech: p?.tech ?? [],
+    challenge: p?.challenge ?? "",
+    solution: p?.solution ?? "",
+    features: (p?.features ?? []).join("\n"),
+    gallery: p?.gallery ?? [],
+    testimonialQuote: p?.testimonial?.quote ?? "",
+    testimonialAuthor: p?.testimonial?.author ?? "",
+    testimonialRole: p?.testimonial?.role ?? "",
+    metrics: (p?.metrics ?? []) as Metric[],
+  };
+}
+type Form = ReturnType<typeof toForm>;
 
-export function ProjectForm({ initial }: { initial?: Project }) {
+const slugify = (s: string) =>
+  s.toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/[\s_]+/g, "-").replace(/-+/g, "-");
+
+function buildProject(f: Form): Project {
+  const opt = (s: string) => (s.trim() ? s.trim() : undefined);
+  const features = f.features.split("\n").map((l) => l.trim()).filter(Boolean);
+  const metrics = f.metrics.filter((m) => m.label.trim() && m.value.trim());
+  return {
+    id: f.id.trim(),
+    title: f.title.trim(),
+    category: f.category.trim(),
+    year: f.year.trim(),
+    description: f.description.trim(),
+    summary: opt(f.summary),
+    image: f.image.trim(),
+    video: opt(f.video),
+    url: opt(f.url),
+    livePreview: opt(f.livePreview),
+    featured: f.featured || undefined,
+    draft: f.draft || undefined,
+    tech: f.tech,
+    challenge: opt(f.challenge),
+    solution: opt(f.solution),
+    features: features.length ? features : undefined,
+    gallery: f.gallery.length ? f.gallery : undefined,
+    testimonial: f.testimonialQuote.trim()
+      ? { quote: f.testimonialQuote.trim(), author: f.testimonialAuthor.trim(), role: f.testimonialRole.trim() }
+      : undefined,
+    metrics: metrics.length ? metrics : undefined,
+  };
+}
+
+const YEARS = Array.from({ length: 12 }, (_, i) => String(new Date().getFullYear() + 1 - i));
+const host = (u: string) => u.replace(/^https?:\/\//, "").replace(/\/$/, "");
+
+export function ProjectForm({
+  initial,
+  index,
+  categories,
+  alt,
+  lastEdit,
+}: {
+  initial?: Project;
+  index: number;
+  categories: string[];
+  alt: Record<string, string>;
+  lastEdit: LastEdit | null;
+}) {
   const router = useRouter();
-  const [pending, startTransition] = useTransition();
-  const [error, setError] = useState<string | null>(null);
+  const toast = useToast();
   const { confirm, dialog } = useConfirm();
+  const [pending, startTransition] = useTransition();
+  const [saved, setSaved] = useState(() => toForm(initial));
+  const [form, setForm] = useState(saved);
+  const [slugTouched, setSlugTouched] = useState(Boolean(initial));
+  const [error, setError] = useState<string | null>(null);
 
-  const [form, setForm] = useState({
-    id: initial?.id ?? "",
-    title: initial?.title ?? "",
-    category: initial?.category ?? "",
-    year: initial?.year ?? String(new Date().getFullYear()),
-    description: initial?.description ?? "",
-    summary: initial?.summary ?? "",
-    image: initial?.image ?? "",
-    video: initial?.video ?? "",
-    url: initial?.url ?? "",
-    livePreview: initial?.livePreview ?? "",
-    featured: initial?.featured ?? false,
-    tech: (initial?.tech ?? []).join(", "),
-    challenge: initial?.challenge ?? "",
-    solution: initial?.solution ?? "",
-    features: (initial?.features ?? []).join("\n"),
-    gallery: (initial?.gallery ?? []).join("\n"),
-    testimonialQuote: initial?.testimonial?.quote ?? "",
-    testimonialAuthor: initial?.testimonial?.author ?? "",
-    testimonialRole: initial?.testimonial?.role ?? "",
-  });
-  const [metrics, setMetrics] = useState<MetricRow[]>(initial?.metrics ?? []);
+  const dirty = JSON.stringify(form) !== JSON.stringify(saved);
+  useUnsaved(dirty);
 
-  const set = <K extends keyof typeof form>(key: K, value: (typeof form)[K]) =>
-    setForm((f) => ({ ...f, [key]: value }));
+  const set = <K extends keyof Form>(key: K, value: Form[K]) => setForm((f) => ({ ...f, [key]: value }));
+  const project = useMemo(() => buildProject(form), [form]);
+  const seo = useMemo(() => projectSeo(project, (u) => alt[mediaKey(u)]), [project, alt]);
+  const preview = usePreview(() => previewProject(project));
+  const summaryOver = form.summary.length > 110;
 
-  function buildProject(): Project {
-    const opt = (s: string) => (s.trim() ? s.trim() : undefined);
-    return {
-      id: form.id.trim(),
-      title: form.title.trim(),
-      category: form.category.trim(),
-      year: form.year.trim(),
-      description: form.description.trim(),
-      summary: opt(form.summary),
-      image: form.image.trim(),
-      video: opt(form.video),
-      url: opt(form.url),
-      livePreview: opt(form.livePreview),
-      featured: form.featured || undefined,
-      tech: commas(form.tech),
-      challenge: opt(form.challenge),
-      solution: opt(form.solution),
-      features: lines(form.features).length ? lines(form.features) : undefined,
-      gallery: lines(form.gallery).length ? lines(form.gallery) : undefined,
-      testimonial: form.testimonialQuote.trim()
-        ? {
-            quote: form.testimonialQuote.trim(),
-            author: form.testimonialAuthor.trim(),
-            role: form.testimonialRole.trim(),
-          }
-        : undefined,
-      metrics: metrics.filter((m) => m.label.trim() && m.value.trim()).length
-        ? metrics.filter((m) => m.label.trim() && m.value.trim())
-        : undefined,
-    };
-  }
-
-  function submit(e: React.FormEvent) {
-    e.preventDefault();
+  function save() {
+    if (pending) return;
     setError(null);
     startTransition(async () => {
-      const result = await upsertProject(buildProject(), initial?.id);
-      if (result.ok) router.push("/admin/projects");
-      else setError(result.error);
+      const result = await upsertProject(project, initial?.id);
+      if (!result.ok) {
+        setError(result.error);
+        toast.error(result.error);
+        return;
+      }
+      setSaved(form);
+      toast.saved(result, `“${project.title}”`);
+      if (!initial || initial.id !== result.id) router.replace(`/admin/projects/${result.id}`);
+      else router.refresh();
     });
   }
+  useSaveShortcut(save, dirty);
 
   async function remove() {
     if (!initial) return;
-    if (!(await confirm({ title: `Delete project "${initial.title}"?` }))) return;
-    setError(null);
+    if (!(await confirm({ title: `Delete “${initial.title}”?`, message: "It disappears from /work on the next publish. This can’t be undone here.", confirmLabel: "Delete project" }))) return;
     startTransition(async () => {
       const result = await deleteProject(initial.id);
-      if (result.ok) router.push("/admin/projects");
-      else setError(result.error);
+      if (!result.ok) return toast.error(result.error);
+      toast.saved(result, `Removed “${initial.title}”`);
+      setSaved(form);
+      router.push("/admin/projects");
     });
   }
 
+  const status = form.draft ? "Hidden from site" : lastEdit?.state === "building" ? "Building" : "Published";
+  const subtitle = [form.category || "No category", form.year, initial ? (dirty ? "unsaved edits" : lastEdit ? `last saved ${timeAgo(lastEdit.date)}` : null) : "new project"]
+    .filter(Boolean)
+    .join(" · ");
+
   return (
-    <form onSubmit={submit} className="space-y-8">
-      <section className="liquid-glass cursor-default space-y-4 rounded-2xl p-6">
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className={label}>Title</label>
-            <input className={input} required value={form.title} onChange={(e) => set("title", e.target.value)} />
-          </div>
-          <div>
-            <label className={label}>Slug (id)</label>
-            <input
-              className={input}
-              required
-              pattern="[a-z0-9-]+"
-              title="lowercase letters, numbers, dashes"
-              value={form.id}
-              onChange={(e) => set("id", e.target.value)}
-            />
-          </div>
-          <div>
-            <label className={label}>Category</label>
-            <input className={input} required value={form.category} onChange={(e) => set("category", e.target.value)} />
-          </div>
-          <div>
-            <label className={label}>Year</label>
-            <input className={input} required value={form.year} onChange={(e) => set("year", e.target.value)} />
-          </div>
-        </div>
-        <div>
-          <label className={label}>Description</label>
-          <textarea className={input} rows={3} required value={form.description} onChange={(e) => set("description", e.target.value)} />
-        </div>
-        <div>
-          <label className={label}>Row summary — shown on Work rows, keep it to 2 lines ({form.summary.length}/110)</label>
-          <input className={input} maxLength={110} value={form.summary} onChange={(e) => set("summary", e.target.value)} />
-        </div>
-        <div>
-          <label className={label}>Tech (comma separated)</label>
-          <input className={input} value={form.tech} onChange={(e) => set("tech", e.target.value)} />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div>
-            <label className={label}>Live site URL</label>
-            <input className={input} type="url" value={form.url} onChange={(e) => set("url", e.target.value)} />
-          </div>
-          <div>
-            <label className={label}>Live preview URL</label>
-            <input className={input} type="url" value={form.livePreview} onChange={(e) => set("livePreview", e.target.value)} />
-          </div>
-        </div>
-        <label className="flex cursor-pointer items-center gap-2 text-sm text-[var(--m2)]">
-          <input
-            type="checkbox"
-            checked={form.featured}
-            onChange={(e) => set("featured", e.target.checked)}
-          />
-          Featured
-        </label>
-      </section>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        save();
+      }}
+      className="a-stack"
+    >
+      <PageHeader
+        eyebrow={initial ? "Work / Edit" : "Work / New"}
+        index={String(index + 1).padStart(2, "0")}
+        title={form.title || "Untitled project"}
+        subtitle={subtitle}
+        back={{ href: "/admin/projects", label: "All work" }}
+        actions={
+          <>
+            <PreviewButton preview={preview} />
+            <button type="submit" className="a-btn a-btn--primary" disabled={pending}>
+              <Check size={16} />
+              {pending ? "Saving…" : form.draft ? "Save (hidden)" : "Save & publish"}
+            </button>
+          </>
+        }
+      />
 
-      <section className="liquid-glass cursor-default space-y-4 rounded-2xl p-6">
-        <h2 className="text-sm text-[var(--m2)]">Media</h2>
-        <MediaField label="Thumbnail image" value={form.image} onChange={(v) => set("image", v)} />
-        <MediaField label="Hover video (optional)" accept="video/*" value={form.video} onChange={(v) => set("video", v)} />
-        <div>
-          <label className={label}>Gallery URLs (one per line)</label>
-          <textarea className={input} rows={3} value={form.gallery} onChange={(e) => set("gallery", e.target.value)} />
-        </div>
-      </section>
+      {error && <p className="a-banner">Save failed — {error}</p>}
 
-      <details className="liquid-glass cursor-default rounded-2xl p-6" open={Boolean(initial?.challenge)}>
-        <summary className="cursor-pointer text-sm text-[var(--m2)]">
-          Case study (optional)
-        </summary>
-        <div className="mt-4 space-y-4">
-          <div>
-            <label className={label}>Challenge</label>
-            <textarea className={input} rows={3} value={form.challenge} onChange={(e) => set("challenge", e.target.value)} />
-          </div>
-          <div>
-            <label className={label}>Solution</label>
-            <textarea className={input} rows={3} value={form.solution} onChange={(e) => set("solution", e.target.value)} />
-          </div>
-          <div>
-            <label className={label}>Feature list (one per line)</label>
-            <textarea className={input} rows={4} value={form.features} onChange={(e) => set("features", e.target.value)} />
-          </div>
-
-          <div>
-            <label className={label}>Metrics</label>
-            <div className="space-y-2">
-              {metrics.map((m, i) => (
-                <div key={i} className="flex gap-2">
+      <div className="a-grid a-grid--rail">
+        <div className="a-stack">
+          <Section n="01" title="Basics">
+            <div className="a-row2">
+              <Field label="Title" count={form.title.length} max={60}>
+                <input
+                  className="a-input"
+                  required
+                  value={form.title}
+                  onChange={(e) => {
+                    set("title", e.target.value);
+                    if (!slugTouched) set("id", slugify(e.target.value));
+                  }}
+                />
+              </Field>
+              <Field label="Slug" help={`jamalakbara.com/work#${form.id || "…"}`}>
+                <label className="a-input">
+                  <Link2 size={16} />
                   <input
-                    className={input}
+                    required
+                    pattern="[a-z0-9-]+"
+                    title="lowercase letters, numbers, dashes"
+                    value={form.id}
+                    onChange={(e) => {
+                      setSlugTouched(true);
+                      set("id", e.target.value);
+                    }}
+                  />
+                </label>
+              </Field>
+            </div>
+            <div className="a-row3">
+              <Field label="Category">
+                <input className="a-input" list="a-categories" required value={form.category} onChange={(e) => set("category", e.target.value)} />
+                <datalist id="a-categories">
+                  {categories.map((c) => (
+                    <option key={c} value={c} />
+                  ))}
+                </datalist>
+              </Field>
+              <Field label="Year">
+                <select className="a-input" value={form.year} onChange={(e) => set("year", e.target.value)}>
+                  {[...new Set([form.year, ...YEARS])].map((y) => (
+                    <option key={y}>{y}</option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Live site">
+                <input className="a-input" type="url" placeholder="https://" value={form.url} onChange={(e) => set("url", e.target.value)} />
+              </Field>
+            </div>
+            <Field
+              label="Row summary"
+              count={form.summary.length}
+              max={110}
+              error={summaryOver ? "Keep it under 110 characters." : undefined}
+              help="Shown on the Work rows — two lines at most."
+            >
+              <textarea className="a-input" rows={2} aria-invalid={summaryOver} value={form.summary} onChange={(e) => set("summary", e.target.value)} />
+            </Field>
+            <Field label="Description" count={form.description.length}>
+              <textarea className="a-input" rows={4} required value={form.description} onChange={(e) => set("description", e.target.value)} />
+            </Field>
+          </Section>
+
+          <Section n="02" title="Media">
+            <MediaField label="Cover" hint="Fallback when there is no gallery · Cloudinary" value={form.image} onChange={(v) => set("image", v)} />
+            <GalleryField value={form.gallery} onChange={(v) => set("gallery", v)} />
+            <MediaField label="Hover video" kind="video" hint="MP4 or WebM · plays on hover in the work index" value={form.video} onChange={(v) => set("video", v)} />
+            <Field label="Live preview URL" help="Where the row links when set (else the live site).">
+              <input className="a-input" type="url" placeholder="https://" value={form.livePreview} onChange={(e) => set("livePreview", e.target.value)} />
+            </Field>
+          </Section>
+
+          <Section n="03" title="Story">
+            <Field label="Challenge" count={form.challenge.length}>
+              <textarea className="a-input" rows={4} value={form.challenge} onChange={(e) => set("challenge", e.target.value)} />
+            </Field>
+            <Field label="Solution" count={form.solution.length}>
+              <textarea className="a-input" rows={4} value={form.solution} onChange={(e) => set("solution", e.target.value)} />
+            </Field>
+            <Field label="Features" help="One per line.">
+              <textarea className="a-input" rows={4} value={form.features} onChange={(e) => set("features", e.target.value)} />
+            </Field>
+          </Section>
+
+          <Section n="04" title="Results">
+            <Field label="Tech">
+              <TagInput value={form.tech} onChange={(v) => set("tech", v)} />
+            </Field>
+            <div className="a-field">
+              <span className="a-field__top">Metrics</span>
+              {form.metrics.map((m, i) => (
+                <div key={i} style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                  <GripVertical size={16} color="var(--f-line)" aria-hidden />
+                  <input
+                    className="a-input"
+                    style={{ flex: 3 }}
                     placeholder="Label"
+                    aria-label={`Metric ${i + 1} label`}
                     value={m.label}
-                    onChange={(e) =>
-                      setMetrics((rows) => rows.map((r, j) => (j === i ? { ...r, label: e.target.value } : r)))
-                    }
+                    onChange={(e) => set("metrics", form.metrics.map((r, j) => (j === i ? { ...r, label: e.target.value } : r)))}
                   />
                   <input
-                    className={input}
+                    className="a-input"
+                    style={{ flex: 1 }}
                     placeholder="Value"
+                    aria-label={`Metric ${i + 1} value`}
                     value={m.value}
-                    onChange={(e) =>
-                      setMetrics((rows) => rows.map((r, j) => (j === i ? { ...r, value: e.target.value } : r)))
-                    }
+                    onChange={(e) => set("metrics", form.metrics.map((r, j) => (j === i ? { ...r, value: e.target.value } : r)))}
                   />
-                  <button
-                    type="button"
-                    className="liquid-glass btn-icon"
-                    onClick={() => setMetrics((rows) => rows.filter((_, j) => j !== i))}
-                  >
-                    ×
+                  <button type="button" className="a-iconbtn a-iconbtn--danger" aria-label={`Remove metric ${i + 1}`} onClick={() => set("metrics", form.metrics.filter((_, j) => j !== i))}>
+                    <Trash2 size={16} />
                   </button>
                 </div>
               ))}
-              <button
-                type="button"
-                className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-                onClick={() => setMetrics((rows) => [...rows, { label: "", value: "" }])}
-              >
+              <button type="button" className="a-link a-small" style={{ display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }} onClick={() => set("metrics", [...form.metrics, { label: "", value: "" }])}>
+                <Plus size={14} />
                 Add metric
               </button>
             </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            <div className="sm:col-span-3">
-              <label className={label}>Testimonial quote</label>
-              <textarea className={input} rows={2} value={form.testimonialQuote} onChange={(e) => set("testimonialQuote", e.target.value)} />
+            <Field label="Testimonial quote">
+              <textarea className="a-input" rows={3} value={form.testimonialQuote} onChange={(e) => set("testimonialQuote", e.target.value)} />
+            </Field>
+            <div className="a-row2">
+              <Field label="Author">
+                <input className="a-input" value={form.testimonialAuthor} onChange={(e) => set("testimonialAuthor", e.target.value)} />
+              </Field>
+              <Field label="Role">
+                <input className="a-input" value={form.testimonialRole} onChange={(e) => set("testimonialRole", e.target.value)} />
+              </Field>
             </div>
-            <div>
-              <label className={label}>Author</label>
-              <input className={input} value={form.testimonialAuthor} onChange={(e) => set("testimonialAuthor", e.target.value)} />
-            </div>
-            <div>
-              <label className={label}>Role</label>
-              <input className={input} value={form.testimonialRole} onChange={(e) => set("testimonialRole", e.target.value)} />
-            </div>
-          </div>
+          </Section>
         </div>
-      </details>
 
-      {error && <p className="text-sm text-red-400">{error}</p>}
-
-      <div className="flex items-center justify-between">
-        <button type="submit" disabled={pending} className="btn-solid">
-          {pending ? "Saving…" : initial ? "Save project" : "Create project"}
-        </button>
-        {initial && (
-          <button
-            type="button"
-            onClick={remove}
-            disabled={pending}
-            className="btn-danger"
+        <aside className="a-stack a-sticky">
+          <Panel
+            title="Publish"
+            aside={<Chip kind={form.draft ? "draft" : lastEdit?.state === "building" ? "building" : "live"}>{status}</Chip>}
           >
-            Delete project
-          </button>
-        )}
+            <div style={{ marginTop: -12 }}>
+              <Toggle checked={form.featured} onChange={(v) => set("featured", v)}>
+                Featured on home
+              </Toggle>
+              <Toggle checked={form.draft} onChange={(v) => set("draft", v)}>
+                Hide from site (draft)
+              </Toggle>
+            </div>
+            <hr className="a-divider" />
+            <p className="a-meta a-muted">
+              {lastEdit ? `Last commit ${lastEdit.sha.slice(0, 7)} · ${timeAgo(lastEdit.date)}` : initial ? "No commits found for this project yet." : "Not saved yet."}
+              <br />
+              {form.url ? `Links to ${host(form.url)} · ` : ""}Saving commits to main → Vercel rebuilds in ~2 min
+            </p>
+          </Panel>
+          <PreviewPanel preview={preview} />
+          <SeoPanel report={seo} />
+          {initial && (
+            <button type="button" className="a-btn a-btn--ghost" style={{ color: "var(--f-error)", justifyContent: "space-between" }} onClick={remove} disabled={pending}>
+              Delete this project
+              <Trash2 size={16} />
+            </button>
+          )}
+        </aside>
       </div>
       {dialog}
     </form>

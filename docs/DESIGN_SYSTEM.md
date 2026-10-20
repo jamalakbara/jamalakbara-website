@@ -7,11 +7,11 @@
 - Designer spec + tokens, copied into the repo: `docs/design/working-folder-canvas-spec.md` and `docs/design/design-tokens.json`.
 - Code: `app/(site)/site.css` holds the tokens and component classes. React building blocks live in `components/site/`.
 
-**Scope.** `site.css` is imported only by `app/(site)/layout.tsx` and `app/not-found.tsx`, so `/admin` never loads it. Admin keeps the legacy dark tokens and classes in `app/globals.css` (see §9). Never restyle a shared `globals.css` class for the public site: add an `f-` class in `site.css` instead.
+**Scope.** `site.css` is imported only by `app/(site)/layout.tsx` and `app/not-found.tsx`. The `--f-*` tokens live in `app/folder-tokens.css`, shared by `site.css` and the admin stylesheet `app/admin/admin.css` (§10). Never restyle a shared `globals.css` class for the public site: add an `f-` class in `site.css` instead.
 
 ---
 
-## 1. Color tokens (`--f-*`, on `:root` in `site.css`)
+## 1. Color tokens (`--f-*`, on `:root` in `app/folder-tokens.css`)
 
 | Token | Hex | Role |
 | --- | --- | --- |
@@ -144,6 +144,31 @@ Vectors were rebuilt from Pencil HTML exports. To refresh an asset, export the f
 4. Treat these as expected differences: CMS copy where the canvas used placeholder copy, real data counts, and canvas render artifacts.
 5. Check for horizontal overflow at 320, 390, 768, 1024 and 1440.
 
-## 9. Legacy (admin only)
+## 9. Legacy (`globals.css`)
 
-`app/globals.css` keeps the 2026-06 dark cinematic tokens and classes that `/admin` uses: `--bg`, `--ink`, `--m1…m4`, `--accent`, `.liquid-glass`, `.btn-*`, `.field-input`, `.section-*`, `.journal-prose`, `.nav-link`, `.lang-link`, `.back-link`, and `blurFadeUp`. Space Grotesk and Fraunces are still loaded for admin. The public site does not use any of them.
+`app/globals.css` still holds the 2026-06 dark cinematic tokens and classes (`--bg`, `--ink`, `--m1…m4`, `.liquid-glass`, `.btn-*`, `.field-input`, `.journal-prose`, …). Since the Oct 2026 admin redesign nothing renders with them: the public site uses `site.css`, the admin uses `admin.css`. They are kept only until a cleanup pass removes them; do not build new UI on them.
+
+## 10. Admin — Working Folder, tool-tuned
+
+Canvas: `jamalakbara.pen` frames **23** (Admin / Components kit), **24–32** (desktop 1440: Dashboard, Login, Work list, Project editor, Journal list, Post editor, Site copy, Media, Branding, States) and **24M–31M** (mobile 390, incl. 24N menu open). Stylesheet: `app/admin/admin.css` (imported by `app/admin/layout.tsx`), class prefix `a-`. React kit: `components/admin/ui.tsx` (PageHeader, Panel, Section, Chip, Field, Toggle, TagInput, SeoPanel, PreviewPanel, SaveBar), `shell.tsx`, `toast.tsx`, `unsaved.tsx`, `confirm-dialog.tsx`, `media-field.tsx`.
+
+**Same tokens and faces as the site, denser and quieter.** No aurora, no stickers, no splash.
+
+| Role | Value |
+|---|---|
+| Page background | `--f-surface` (#E8E3D9); panels `--f-paper`, no stroke, radius 12 |
+| Inputs / note panels | `--f-note`, 1px `--f-line`, radius 4; focus border `--f-accent`, error border `--f-error` |
+| Controls | 48px tall (buttons, inputs, nav items, segmented); small buttons 36 |
+| List rows | 80px min, 20px side padding, 1px `--f-line` dividers |
+| Page title | Tanker 40 caps (28 on mobile); folder tab eyebrow Tanker 12 + index |
+| Panel / section title | Tanker 20 caps, header padding 20/24 with a `--f-line` rule |
+| Body / labels / meta | Erode 15 / 14 / 12; muted `--f-muted` |
+| Numbers | Tanker 18 (row index), Tanker 40 (stats) |
+| Mono (sha, MDX editor) | system mono 12–13 |
+| Status chips | 28px, radius 12, 7px dot — Draft `--f-surface`/muted · Published #DCE7DF/`--f-success` · Building #F2E6C9/#C08A1E · Live #DCE1F8/`--f-accent` · Failed #F2D9D6/`--f-error` |
+| Save bar / toasts | `--f-ink` fill, paper text; save bar radius 12, 72px, sticky bottom; toasts radius 4, 340 wide |
+| Icons | lucide-react, 16px, stroke 1.6 in the nav |
+
+**Shell.** Desktop: 248px sidebar on the surface (wordmark tab + "Back office / prod|local" bar, grouped nav with counts, backend card, user + sign out) and an independently scrolling main column (12px gutters, 12px gaps). Below 1024px: ink top bar (64px) with a menu sheet; rails stack under the content.
+
+**Rules.** Text sizes and spacing come from the canvas; don't invent new colors — the five chip washes and #C08A1E warn are the only admin-only values (declared on `.a-shell`). Component resets use `:where()` so every `.a-*` class wins without `!important`. `prefers-reduced-motion` disables admin transitions.

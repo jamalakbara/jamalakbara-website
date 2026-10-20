@@ -11,6 +11,8 @@ export interface JurnalPost {
   date: string;
   tags: string[];
   draft: boolean;
+  /** slug of the linked post in the other language section */
+  alternate?: string;
   content: string;
   readingMinutes: number;
 }
@@ -27,6 +29,7 @@ function parsePost(fileName: string): JurnalPost {
     date: data.date ?? "",
     tags: data.tags ?? [],
     draft: data.draft === true,
+    alternate: typeof data.alternate === "string" ? data.alternate : undefined,
     content,
     readingMinutes: Math.max(1, Math.round(words / 200)),
   };

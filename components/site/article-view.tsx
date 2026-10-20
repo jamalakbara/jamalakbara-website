@@ -100,6 +100,7 @@ export function ArticleView({
   basePath,
   date,
   copy,
+  lang,
 }: {
   post: { title: string; content: string; date: string; readingMinutes: number };
   position: number; // 1-based index in the list
@@ -107,6 +108,8 @@ export function ArticleView({
   basePath: string;
   date: string;
   copy: ArticleCopy;
+  /** linked post in the other language (/journal ↔ /jurnal), set in admin */
+  lang?: { href: string; label: string; hrefLang: "en" | "id" };
 }) {
   const sections = [...post.content.matchAll(/^##\s+(.+?)\s*#*\s*$/gm)].map((m) => {
     const label = m[1].replace(/[`*_]/g, "");
@@ -120,11 +123,16 @@ export function ArticleView({
   return (
     <article className="f-main" style={{ outline: "none" }}>
       <header className="f-panel f-art-head">
-        <div>
+        <div style={lang ? { display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap" } : undefined}>
           <Link href={basePath} className="f-act">
             <ArrowLeft size={16} />
             {copy.back}
           </Link>
+          {lang && (
+            <Link href={lang.href} hrefLang={lang.hrefLang} lang={lang.hrefLang} className="f-act">
+              {lang.label}
+            </Link>
+          )}
         </div>
         <div className="f-art-id">
           <div className="f-art-sig">
