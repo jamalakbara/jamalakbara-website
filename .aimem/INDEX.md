@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 8 (proposed 2, accepted 6)
 - memory: 20 (active 20)
-- handoff: 2 (final 2)
+- handoff: 3 (final 3)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,5 +21,6 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-aq266yxj 2026-10-20 (agent:claude-code) — Done: Admin revamp implemented in code (Phase B) to match jamalakbara.pen frames 23–32/24M–31M: admin.css + shared folder-tokens.css, new shell/kit/toasts/unsaved guard, all screens rebuilt. New feat…
 - hnd-8smgcs25 2026-10-20 (agent:claude-code) — Done: Admin redesign designed in jamalakbara.pen (Working Folder, tool-tuned): frame 23 component kit; 24 Dashboard, 24A Login, 25 Work list, 26 Project editor, 27 Journal list, 28 Post editor, 29 Si…
 - hnd-bz3mp9j0 2026-10-20 (agent:claude-code:claude-opus-5-5) — Done: Seeded aimem from CLAUDE.md, .claude/rules/seo.md, Claude auto-memory and git history: 6 accepted decisions, 16 memories (incl. pinned 'How to run and test' and 'Conventions'), 1 resolved incid…
