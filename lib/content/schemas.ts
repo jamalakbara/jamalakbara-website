@@ -44,6 +44,7 @@ export const projectSchema = z.object({
   url: z.string().url().optional(),
   livePreview: z.string().url().optional(),
   featured: z.boolean().optional(),
+  draft: z.boolean().optional(),
   challenge: z.string().optional(),
   solution: z.string().optional(),
   features: z.array(z.string()).optional(),
@@ -249,3 +250,8 @@ export const pagesSchema = z.object({
 
 export type PagesContent = z.infer<typeof pagesSchema>;
 export type NavLink = z.infer<typeof navigationSchema>[number];
+
+/** content/media.json — per-asset metadata keyed by media key (public id basename). */
+export const mediaMetaSchema = z.object({
+  alt: z.record(z.string(), z.string()),
+});

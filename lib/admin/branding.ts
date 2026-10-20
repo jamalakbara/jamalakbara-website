@@ -43,7 +43,20 @@ export const BRANDING_SLOTS = {
     note: "PNG, exactly 512×512.",
     pngSize: 512,
   },
+  "og-image": {
+    path: "public/og-image.jpg",
+    publicUrl: "/og-image.jpg",
+    label: "Open Graph image",
+    accept: "image/jpeg",
+    note: "JPEG, exactly 1200×630. Link preview on WhatsApp, X and LinkedIn.",
+    pngSize: null,
+  },
 } as const;
+
+/** Files generated from public/icon.svg — kept in sync as one set. */
+export const ICON_SET = ["favicon", "apple-icon", "icon-192", "icon-512"] as const;
+export const ICON_SOURCE = "public/icon.svg";
+export const MANIFEST_PATH = "public/manifest.json";
 
 export type BrandingSlot = keyof typeof BRANDING_SLOTS;
 

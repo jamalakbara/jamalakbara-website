@@ -58,7 +58,6 @@
     ],
     "url": "https://byadana.com",
     "livePreview": "https://byadana.com",
-    "featured": true,
     "challenge": "The project required a scalable architecture and a highly responsive user interface to handle modern web demands while maintaining fast load times.",
     "solution": "Developed a robust frontend using Next.js framework, leveraging server-side rendering and optimal image delivery to ensure top-tier performance.",
     "features": [
@@ -142,7 +141,6 @@
     ],
     "url": "https://rawtyperiot.com",
     "livePreview": "https://rawtyperiot.co",
-    "featured": true,
     "challenge": "Rawtype Riot needed a digital storefront that embodied the rebellious spirit of street culture while managing limited edition drops and high-traffic releases. The brand required a platform that could handle flash sales and maintain performance during peak demand without sacrificing the edgy, artistic aesthetic that defines their identity.",
     "solution": "Developed a custom Shopify theme with bold typography and street-inspired design elements. Implemented advanced queue management for product drops, optimized image delivery for high-quality product photography, and created a seamless mobile-first experience that resonates with their urban audience.",
     "features": [
@@ -228,7 +226,6 @@
     ],
     "url": "https://herotales.vercel.app",
     "livePreview": "https://herotales.vercel.app",
-    "featured": true,
     "challenge": "Parents needed a convenient way to access engaging, age-appropriate bedtime stories that could be personalized for their children. The challenge was to create a platform that combined storytelling with modern technology while maintaining the warmth and engagement of traditional bedtime reading.",
     "solution": "Developed a Next.js application with AI-powered story generation capabilities. Implemented a user-friendly interface that allows parents to customize story elements, created a library of beautifully designed story templates, and optimized the reading experience for both desktop and mobile devices with consideration for low-light reading environments.",
     "features": [
@@ -272,7 +269,6 @@
     ],
     "url": "https://speakez-fe.vercel.app",
     "livePreview": "https://speakez-fe.vercel.app",
-    "featured": true,
     "challenge": "English learners in Indonesia needed an accessible, judgment-free environment to practice speaking English. Traditional learning methods lacked real-time feedback and personalized conversation practice, making it difficult for learners to improve their fluency and confidence.",
     "solution": "Developed an AI-powered conversation platform using Next.js for a responsive frontend and Go for high-performance backend services. Integrated advanced AI models for natural language processing and real-time voice interaction, creating an immersive learning experience that adapts to each user's proficiency level.",
     "features": [
@@ -316,7 +312,6 @@
     ],
     "url": "https://nawaclo.com",
     "livePreview": "https://nawaclo.com",
-    "featured": true,
     "challenge": "Nawaclo needed to transition from a standard template to a fully custom brand experience that could handle their growing inventory and complex product variations. They required a system that could maintain high performance while showcasing high-resolution product imagery.",
     "solution": "Built a bespoke Shopify theme with a focus on visual storytelling and performance. Implemented lazy loading strategies for images, a custom mega-menu for better navigation, and a streamlined checkout process to reduce cart abandonment.",
     "features": [
@@ -359,7 +354,6 @@
     ],
     "url": "https://lakonindonesia.com/",
     "livePreview": "https://lakonindonesia.com/",
-    "featured": true,
     "challenge": "Lakon Indonesia required an e-commerce platform that could tell the story behind each collection while showcasing their made-to-order and upcycled products. The brand needed to communicate their commitment to sustainability and Indonesian craftsmanship, requiring a platform that balanced commercial functionality with rich storytelling.",
     "solution": "Created a custom Shopify theme with dedicated collection story pages, integrated a made-to-order system with custom workflows, and built a visual timeline showcasing the brand's collections throughout the years. Implemented custom product filters for sustainable materials and added a holiday collection system for seasonal drops.",
     "features": [
@@ -403,7 +397,6 @@
     ],
     "url": "https://combo.co.id/",
     "livePreview": "https://combo.co.id/",
-    "featured": true,
     "challenge": "The client required a scalable backend infrastructure to support a multi-platform application with real-time data synchronization needs. The system needed to handle concurrent connections efficiently while maintaining data integrity.",
     "solution": "Architected a microservices-ready backend using Python and FastAPI. Implemented Docker containers for consistent deployment across environments and utilized Redis for high-performance caching to reduce database load.",
     "features": [
@@ -446,7 +439,6 @@
       "Redis"
     ],
     "url": "https://bdd.ai",
-    "featured": true,
     "challenge": "The client needed to visualize massive datasets from multiple sources in real-time. The existing solution was slow and difficult to navigate, making it hard for stakeholders to make quick data-driven decisions.",
     "solution": "Developed a high-performance dashboard using Python/FastAPI for the backend and React for the frontend. Utilized MongoDB for flexible data storage and Redis for caching frequently accessed data, ensuring sub-second response times.",
     "features": [
@@ -488,7 +480,6 @@
     ],
     "url": "https://madeforhmns.com/",
     "livePreview": "https://madeforhmns.com/",
-    "featured": true,
     "challenge": "HMNS needed a digital presence that could convey the artistry and sensory experience of their perfumes through a screen. The challenge was to create an immersive e-commerce experience that educates customers about fragrance notes while maintaining a clean, luxury aesthetic suitable for a premium perfume brand.",
     "solution": "Built a custom Shopify theme with an emphasis on visual storytelling and sensory language. Implemented a fragrance finder tool that helps customers discover scents based on preferences, integrated a rich content section for fragrance education, and created a smooth, app-like browsing experience with subtle animations that complement the brand's premium positioning.",
     "features": [
@@ -533,7 +524,6 @@
     ],
     "url": "https://www.bions.id/",
     "livePreview": "https://www.bions.id/",
-    "featured": true,
     "challenge": "BNI required a scalable backend system that could handle high-volume banking transactions while maintaining strict security protocols and compliance with banking regulations. The system needed to support multiple user roles, real-time data processing, and seamless integration with existing banking infrastructure.",
     "solution": "Developed a robust backend using CodeIgniter 4 with optimized database architecture and caching strategies. Implemented multi-layered security with JWT authentication, role-based access control, and encrypted data transmission. Utilized Redis for session management and high-speed data caching to ensure sub-second response times.",
     "features": [
@@ -578,7 +568,6 @@
     ],
     "url": "https://greenrebelfoods.com",
     "livePreview": "https://greenrebelfoods.com",
-    "featured": true,
     "challenge": "Green Rebel Foods needed a subscription-first e-commerce platform to drive recurring revenue for their plant-based food products. They also needed to educate customers about the benefits of their products through content integration.",
     "solution": "Developed a Shopify store with deep Recharge integration for seamless subscriptions. Created a custom blog and recipe section that links directly to products, driving content-led commerce.",
     "features": [
@@ -621,7 +610,6 @@
     ],
     "url": "https://azawear.com/",
     "livePreview": "https://azawear.com/",
-    "featured": true,
     "challenge": "Aza Wear needed a high-end digital flagship store that reflected their luxury positioning. The challenge was to create an immersive shopping experience that felt like a boutique visit, with high-quality visuals and smooth interactions.",
     "solution": "Designed and developed a premium Shopify theme with a focus on minimalism and typography. Integrated high-resolution video backgrounds, smooth page transitions, and a 'shop the look' feature to increase average order value.",
     "features": [
@@ -661,7 +649,6 @@
       "Figma"
     ],
     "url": "https://github.com/jamalakbara/split-bill",
-    "featured": true,
     "challenge": "Users needed a simple, intuitive way to split complex bills among friends without the friction of account creation or complicated math. Existing apps were often cluttered or required mandatory sign-ups.",
     "solution": "Developed a lightweight, offline-first mobile web app using React. Focused on a minimal UI that allows bill splitting in seconds. Implemented local storage for data persistence without requiring a backend account system.",
     "features": [
@@ -702,7 +689,6 @@
     ],
     "url": "https://statemedicalequipment.com/",
     "livePreview": "https://statemedicalequipment.com/",
-    "featured": true,
     "challenge": "State Medical Equipment required a B2B-focused e-commerce platform that could handle complex medical specifications, bulk ordering, and strict compliance requirements while remaining user-friendly for hospital procurement teams.",
     "solution": "Created a specialized Shopify Plus store with custom B2B logic. Implemented a request-for-quote system, tiered pricing based on customer groups, and detailed product specification sheets.",
     "features": [

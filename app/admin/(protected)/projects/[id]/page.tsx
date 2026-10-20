@@ -1,30 +1,25 @@
 import { notFound } from "next/navigation";
 import { readProjects } from "@/lib/admin/content-store";
+import { readMediaAlt } from "@/lib/admin/media-usage";
+import { lastEditFor } from "@/lib/admin/project-meta";
 import { ProjectForm } from "../project-form";
-import { PageBody, PageHeading } from "@/components/page-heading";
 
 export const metadata = { title: "Edit project" };
 
-export default async function EditProjectPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const projects = await readProjects();
-  const project = projects.find((p) => p.id === id);
-  if (!project) notFound();
+  const index = projects.findIndex((p) => p.id === id);
+  if (index === -1) notFound();
+  const [alt, lastEdit] = await Promise.all([readMediaAlt(), lastEditFor("projects", id)]);
 
   return (
-    <main>
-      <PageHeading
-        eyebrow="Edit project"
-        title={project.title}
-        back={{ href: "/admin/projects", label: "Projects" }}
-      />
-      <PageBody>
-        <ProjectForm initial={project} />
-      </PageBody>
-    </main>
+    <ProjectForm
+      initial={projects[index]}
+      index={index}
+      categories={[...new Set(projects.map((p) => p.category))]}
+      alt={alt}
+      lastEdit={lastEdit}
+    />
   );
 }

@@ -1,0 +1,35 @@
+/* Working Folder tokens shared by the public site (site.css) and /admin
+   (admin/admin.css). Values are 1:1 with the Pencil canvas. */
+
+:root {
+  --f-paper: #f8f6f0;
+  --f-note: #fffefa;
+  --f-ink: #201e19;
+  --f-muted: #6e695f;
+  --f-surface: #e8e3d9;
+  --f-line: #d8d2c8;
+  --f-rule: #bdb5a7; /* receipt/skills rules (canvas value) */
+  --f-perf: #9f998f; /* receipt perforation (canvas value) */
+  --f-accent: #2445db;
+  --f-hover: #1d36af;
+  --f-focus: #2445db;
+  --f-error: #a62929;
+  --f-success: #456d5b;
+  --f-success-wash: #e3ede5;
+  --f-white: #ffffff;
+  --f-aurora-blue: #afbde2;
+  --f-aurora-lilac: #cdc1dd;
+  --f-aurora-mint: #bfd4c8;
+  --f-aurora-peach: #ddc9b8;
+
+  --f-shell: 12px; /* outer shell inset */
+  --f-inset: 40px; /* panel content inset */
+  --f-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* next/font exposes --font-* on <body>, so the family stacks resolve there */
+body {
+  --f-tanker: var(--font-tanker), "Impact", "Arial Narrow", sans-serif;
+  --f-erode: var(--font-erode), "Georgia", serif;
+  --f-comico: var(--font-comico), "Comic Sans MS", cursive;
+}

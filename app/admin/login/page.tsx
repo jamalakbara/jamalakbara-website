@@ -1,57 +1,47 @@
-import { auth, signIn } from "@/lib/auth";
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import Image from "next/image";
+import { ArrowLeft, Github, Lock } from "lucide-react";
+import { auth, signIn } from "@/lib/auth";
+import { Stamp } from "@/components/site/stamp";
 
+// Canvas 24A "Login" / 24A-M.
 export default async function AdminLoginPage() {
   const session = await auth();
   if (session?.login === process.env.ADMIN_GITHUB_LOGIN) redirect("/admin");
 
   return (
-    <main className="relative flex min-h-screen items-center justify-center overflow-hidden px-6">
-      <div className="liquid-glass animate-blur-fade-up w-full max-w-sm rounded-2xl p-8 text-center [cursor:default]">
-        <p className="section-eyebrow mb-5">Admin</p>
-
-        {/* Brand wordmark — styled text, matches the public navbar exactly */}
-        <div
-          className="mb-6 text-2xl"
-          style={{
-            fontFamily: "var(--font-space-grotesk), sans-serif",
-            fontWeight: 600,
-            letterSpacing: "-0.02em",
-            color: "var(--ink)",
-          }}
-        >
-          jamalakbara<span style={{ color: "var(--accent)" }}>.</span>
-        </div>
-
-        <form
-          action={async () => {
-            "use server";
-            await signIn("github", { redirectTo: "/admin" });
-          }}
-        >
-          <button
-            type="submit"
-            className="btn-solid w-full py-3"
+    <main className="a-shell a-login">
+      <div className="a-login__card">
+        <span className="a-login__tab">jamalakbara.</span>
+        <div className="a-login__panel">
+          <div className="a-login__top">
+            <h1 className="a-display">Back office</h1>
+            <Stamp size={40} />
+          </div>
+          <p className="a-text a-muted" style={{ maxWidth: 310 }}>
+            Edit work, journal and site copy. Saves publish to the live site in about two minutes.
+          </p>
+          <form
+            action={async () => {
+              "use server";
+              await signIn("github", { redirectTo: "/admin" });
+            }}
           >
-            <Image
-              src="/github-logo.svg"
-              alt=""
-              width={18}
-              height={18}
-              aria-hidden
-            />
-            Continue with GitHub
-          </button>
-        </form>
-
-        <p className="mt-5 flex items-center justify-center gap-2 text-xs text-[var(--m4)]">
-          <span
-            className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--green)]"
-            style={{ animation: "softPulse 2.4s ease-in-out infinite" }}
-          />
-          Owner access only.
-        </p>
+            <button type="submit" className="a-btn a-btn--ink a-btn--block">
+              <Github size={16} />
+              Continue with GitHub
+            </button>
+          </form>
+          <hr className="a-divider" />
+          <p className="a-meta a-muted" style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <Lock size={13} />
+            Owner access only. Other GitHub accounts are turned away.
+          </p>
+        </div>
+        <Link href="/" className="a-login__back">
+          <ArrowLeft size={14} />
+          Back to jamalakbara.com
+        </Link>
       </div>
     </main>
   );

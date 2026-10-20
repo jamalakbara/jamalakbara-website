@@ -1,631 +1,374 @@
 "use client";
 
-import { useState, useTransition } from "react";
-import Link from "next/link";
+// Canvas 29 "Site copy": folder tabs per page, grouped fields on the left,
+// "Where this shows" + SEO checklist on the right. One save = one commit
+// covering every changed file (pages / about / site-config / navigation).
+
+import { useMemo, useState, useTransition, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { ArrowUpRight, Check, Plus, Trash2 } from "lucide-react";
 import type { AboutContent, SiteConfig } from "@/lib/content-types";
 import type { NavLink, PagesContent } from "@/lib/content/schemas";
 import type { SingletonKey } from "@/lib/admin/singletons";
-import { DEFAULT_BACKGROUNDS } from "@/lib/backgrounds";
 import { MediaField } from "@/components/admin/media-field";
 import { CountrySelect } from "@/components/admin/country-select";
+import { useToast } from "@/components/admin/toast";
+import { useUnsaved } from "@/components/admin/unsaved";
+import { Field, PageHeader, SeoPanel, useSaveShortcut } from "@/components/admin/ui";
+import { seoReport } from "@/lib/admin/seo-checklist";
 import { waNumber } from "@/lib/country-codes";
-import { saveSingleton } from "./actions";
-import { input, label } from "@/lib/admin/form-styles";
+import { saveSiteCopy } from "./actions";
+import { SITE_TABS, type SiteTab } from "./site-tabs";
 
-const AVAILABILITY_OPTIONS = [
-  "Open for new work",
-  "Booked — limited slots",
-  "Currently unavailable",
-] as const;
+const AVAILABILITY_OPTIONS = ["Open for new work", "Booked — limited slots", "Currently unavailable"] as const;
 
-interface SiteEditorProps {
+// Fallback SEO copy the route layouts ship with (shown when a field is blank).
+const SEO_FALLBACK: Record<"home" | "work" | "about" | "contact" | "journal", string> = {
+  home: "Jamal Akbar Alam — Developer & Designer",
+  work: "Work",
+  about: "About",
+  contact: "Contact",
+  journal: "Journal",
+};
+
+interface Props {
   pages: PagesContent;
   about: AboutContent;
   siteConfig: SiteConfig;
   navigation: NavLink[];
+  initialTab: SiteTab;
 }
 
-function useSave() {
-  const [pending, startTransition] = useTransition();
-  const [message, setMessage] = useState<string | null>(null);
-  // Saves one or more singleton files in sequence; reports the first error.
-  const save = (entries: Array<[SingletonKey, unknown]>) => {
-    setMessage(null);
-    startTransition(async () => {
-      for (const [key, value] of entries) {
-        const result = await saveSingleton(key, value);
-        if (!result.ok) {
-          setMessage(result.error);
-          return;
-        }
-      }
-      setMessage("Saved.");
-    });
-  };
-  return { pending, message, save };
-}
-
-function SaveRow({
-  pending,
-  message,
-  onSave,
-}: {
-  pending: boolean;
-  message: string | null;
-  onSave: () => void;
-}) {
+function Group({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
   return (
-    <div className="mt-6 flex items-center gap-3">
-      <button
-        type="button"
-        onClick={onSave}
-        disabled={pending}
-        className="btn-solid"
-      >
-        {pending ? "Saving…" : "Save"}
-      </button>
-      {message && <span className="text-xs text-[var(--m3)]">{message}</span>}
-    </div>
-  );
-}
-
-// Link out to the admin section that manages a page's list items (projects /
-// journal posts), which live outside the site-copy editor.
-function ManageLink({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="liquid-glass inline-flex w-fit items-center gap-1.5 rounded-full px-4 py-1.5 text-xs text-[var(--m2)]"
-    >
+    <section className="a-stack" style={{ gap: 20 }}>
+      <div style={{ paddingBottom: 12, borderBottom: "1px solid var(--f-line)" }}>
+        <h2 className="a-title">{title}</h2>
+        {note && <p className="a-meta a-muted">{note}</p>}
+      </div>
       {children}
-      <span aria-hidden>→</span>
-    </Link>
+    </section>
   );
 }
 
-// Per-route SEO fields (meta title + description). Drives the route's
-// <title>, meta description, canonical, and OpenGraph/Twitter tags via the
-// page layout's buildPageMetadata(). Blank falls back to the shipped default.
-function SeoFields({
-  seo,
+function ListEditor<T>({
+  items,
   onChange,
-  appendBrand = true,
+  blank,
+  addLabel,
+  render,
 }: {
-  seo: { title: string; description: string } | undefined;
-  onChange: (seo: { title: string; description: string }) => void;
-  // Home's title is the full string (also the site-wide default) — no
-  // "| Jamal Akbar Alam" template suffix, unlike other routes.
-  appendBrand?: boolean;
+  items: T[];
+  onChange: (v: T[]) => void;
+  blank: T;
+  addLabel: string;
+  render: (item: T, set: (v: T) => void, i: number) => ReactNode;
 }) {
-  const title = seo?.title ?? "";
-  const description = seo?.description ?? "";
   return (
-    <fieldset className="space-y-3">
-      <legend className="mb-2 text-sm text-[var(--m2)]">SEO</legend>
-      <div>
-        <label className={label}>Meta title</label>
-        <input
-          className={input}
-          value={title}
-          onChange={(e) => onChange({ title: e.target.value, description })}
-        />
-        <p className="mt-1 text-xs text-[var(--m4)]">
-          {appendBrand
-            ? `Shows as “${title || "…"} | Jamal Akbar Alam” in search & tabs.`
-            : `Shows as “${title || "…"}” — this is also the site-wide default title.`}
-        </p>
-      </div>
-      <div>
-        <label className={label}>Meta description (search snippet — keep under ~160 chars)</label>
-        <textarea
-          className={input}
-          rows={2}
-          value={description}
-          onChange={(e) => onChange({ title, description: e.target.value })}
-        />
-      </div>
-    </fieldset>
-  );
-}
-
-/* ---- Home ------------------------------------------------------------- */
-function HomeTab({
-  pages,
-  setPages,
-  siteConfig,
-  setSiteConfig,
-}: {
-  pages: PagesContent;
-  setPages: React.Dispatch<React.SetStateAction<PagesContent>>;
-  siteConfig: SiteConfig;
-  setSiteConfig: React.Dispatch<React.SetStateAction<SiteConfig>>;
-}) {
-  const { pending, message, save } = useSave();
-  const set = (patch: Partial<PagesContent["home"]>) =>
-    setPages((d) => ({ ...d, home: { ...d.home, ...patch } }));
-  return (
-    <div className="space-y-3">
-      <div>
-        <label className={label}>Headline</label>
-        <input className={input} value={pages.home.headline} onChange={(e) => set({ headline: e.target.value })} />
-      </div>
-      <div>
-        <label className={label}>Intro</label>
-        <textarea className={input} rows={2} value={pages.home.intro} onChange={(e) => set({ intro: e.target.value })} />
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className={label}>Tagline (role)</label>
-          <input
-            className={input}
-            value={siteConfig.brand.tagline}
-            onChange={(e) => setSiteConfig((d) => ({ ...d, brand: { ...d.brand, tagline: e.target.value } }))}
-          />
-        </div>
-        <div>
-          <label className={label}>Location</label>
-          <input
-            className={input}
-            value={siteConfig.contact.location}
-            onChange={(e) => setSiteConfig((d) => ({ ...d, contact: { ...d.contact, location: e.target.value } }))}
-          />
-        </div>
-      </div>
-      <div>
-        <label className={label}>Availability</label>
-        <select className={input} value={pages.home.availability} onChange={(e) => set({ availability: e.target.value })}>
-          {AVAILABILITY_OPTIONS.map((o) => (
-            <option key={o} value={o}>{o}</option>
-          ))}
-        </select>
-      </div>
-      <MediaField label="Background video" accept="video/*" value={pages.home.backgroundVideo ?? ""} onChange={(v) => set({ backgroundVideo: v || undefined })} />
-      <SeoFields seo={pages.home.seo} onChange={(seo) => set({ seo })} appendBrand={false} />
-      <SaveRow pending={pending} message={message} onSave={() => save([["pages", pages], ["site-config", siteConfig]])} />
-    </div>
-  );
-}
-
-/* ---- Work ------------------------------------------------------------- */
-function WorkTab({
-  pages,
-  setPages,
-}: {
-  pages: PagesContent;
-  setPages: React.Dispatch<React.SetStateAction<PagesContent>>;
-}) {
-  const { pending, message, save } = useSave();
-  const set = (patch: Partial<PagesContent["work"]>) =>
-    setPages((d) => ({ ...d, work: { ...d.work, ...patch } }));
-  return (
-    <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className={label}>Eyebrow</label>
-          <input className={input} value={pages.work.eyebrow} onChange={(e) => set({ eyebrow: e.target.value })} />
-        </div>
-        <div>
-          <label className={label}>Heading</label>
-          <input className={input} value={pages.work.heading} onChange={(e) => set({ heading: e.target.value })} />
-        </div>
-      </div>
-      <MediaField label="Background video" accept="video/*" value={pages.work.backgroundVideo ?? ""} onChange={(v) => set({ backgroundVideo: v || undefined })} />
-      <SeoFields seo={pages.work.seo} onChange={(seo) => set({ seo })} />
-      <div className="pt-1">
-        <ManageLink href="/admin/projects">Manage work items</ManageLink>
-      </div>
-      <SaveRow pending={pending} message={message} onSave={() => save([["pages", pages]])} />
-    </div>
-  );
-}
-
-/* ---- About ------------------------------------------------------------ */
-function AboutTab({
-  pages,
-  setPages,
-  about,
-  setAbout,
-}: {
-  pages: PagesContent;
-  setPages: React.Dispatch<React.SetStateAction<PagesContent>>;
-  about: AboutContent;
-  setAbout: React.Dispatch<React.SetStateAction<AboutContent>>;
-}) {
-  const { pending, message, save } = useSave();
-  const setPage = (patch: Partial<PagesContent["about"]>) =>
-    setPages((d) => ({ ...d, about: { ...d.about, ...patch } }));
-  const setPara = (i: number, value: string) =>
-    setAbout((d) => ({ ...d, description: d.description.map((p, j) => (j === i ? value : p)) }));
-  const setAreaName = (i: number, value: string) =>
-    setAbout((d) => ({
-      ...d,
-      expertise: {
-        ...d.expertise,
-        areas: d.expertise.areas.map((a, j) => (j === i ? { ...a, name: value } : a)),
-      },
-    }));
-
-  return (
-    <div className="space-y-6">
-      <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm text-[var(--m2)]">Section copy</legend>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className={label}>Eyebrow</label>
-            <input className={input} value={pages.about.eyebrow} onChange={(e) => setPage({ eyebrow: e.target.value })} />
+    <div className="a-stack" style={{ gap: 8 }}>
+      {items.map((item, i) => (
+        <div key={i} style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
+          <div style={{ flex: 1, minWidth: 0, display: "flex", gap: 8 }}>
+            {render(item, (v) => onChange(items.map((x, j) => (j === i ? v : x))), i)}
           </div>
-          <div>
-            <label className={label}>Heading</label>
-            <input className={input} value={pages.about.heading} onChange={(e) => setPage({ heading: e.target.value })} />
-          </div>
-        </div>
-        <div>
-          <label className={label}>Footnote</label>
-          <textarea className={input} rows={2} value={pages.about.footnote} onChange={(e) => setPage({ footnote: e.target.value })} />
-        </div>
-        <MediaField label="Background video" accept="video/*" value={pages.about.backgroundVideo ?? ""} onChange={(v) => setPage({ backgroundVideo: v || undefined })} />
-      </fieldset>
-      <SeoFields seo={pages.about.seo} onChange={(seo) => setPage({ seo })} />
-      <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm text-[var(--m2)]">Bio</legend>
-        <MediaField
-          label="Portrait image"
-          accept="image/*"
-          placeholder="/profile-image.png"
-          value={about.profileImage ?? ""}
-          onChange={(v) => setAbout((d) => ({ ...d, profileImage: v || undefined }))}
-        />
-        <div>
-          <label className={label}>Paragraphs</label>
-          <div className="space-y-2">
-            {about.description.map((para, i) => (
-              <div key={i} className="flex gap-2">
-                <textarea
-                  className={input}
-                  rows={3}
-                  placeholder={`Paragraph ${i + 1}`}
-                  value={para}
-                  onChange={(e) => setPara(i, e.target.value)}
-                />
-                <button
-                  type="button"
-                  className="liquid-glass btn-icon self-start"
-                  onClick={() => setAbout((d) => ({ ...d, description: d.description.filter((_, j) => j !== i) }))}
-                >
-                  ×
-                </button>
-              </div>
-            ))}
-            <button
-              type="button"
-              className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-              onClick={() => setAbout((d) => ({ ...d, description: [...d.description, ""] }))}
-            >
-              Add paragraph
-            </button>
-          </div>
-        </div>
-      </fieldset>
-      <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm text-[var(--m2)]">Expertise chips</legend>
-        <div className="space-y-2">
-          {about.expertise.areas.map((a, i) => (
-            <div key={i} className="flex gap-2">
-              <input
-                className={input}
-                placeholder="Area name"
-                value={a.name}
-                onChange={(e) => setAreaName(i, e.target.value)}
-              />
-              <button
-                type="button"
-                className="liquid-glass btn-icon"
-                onClick={() =>
-                  setAbout((d) => ({
-                    ...d,
-                    expertise: { ...d.expertise, areas: d.expertise.areas.filter((_, j) => j !== i) },
-                  }))
-                }
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-            onClick={() =>
-              setAbout((d) => ({
-                ...d,
-                expertise: {
-                  ...d.expertise,
-                  areas: [...d.expertise.areas, { name: "", technologies: [], description: "" }],
-                },
-              }))
-            }
-          >
-            Add chip
+          <button type="button" className="a-iconbtn a-iconbtn--danger" style={{ marginTop: 8 }} aria-label="Remove" onClick={() => onChange(items.filter((_, j) => j !== i))}>
+            <Trash2 size={16} />
           </button>
         </div>
-      </fieldset>
-      <SaveRow
-        pending={pending}
-        message={message}
-        onSave={() => save([["pages", pages], ["about", about]])}
-      />
+      ))}
+      <button type="button" className="a-link a-small" style={{ display: "inline-flex", alignItems: "center", gap: 6, alignSelf: "flex-start" }} onClick={() => onChange([...items, blank])}>
+        <Plus size={14} />
+        {addLabel}
+      </button>
     </div>
   );
 }
 
-/* ---- Contact ---------------------------------------------------------- */
-function ContactTab({
-  pages,
-  setPages,
-  siteConfig,
-  setSiteConfig,
-}: {
-  pages: PagesContent;
-  setPages: React.Dispatch<React.SetStateAction<PagesContent>>;
-  siteConfig: SiteConfig;
-  setSiteConfig: React.Dispatch<React.SetStateAction<SiteConfig>>;
-}) {
-  const { pending, message, save } = useSave();
-  const set = (patch: Partial<PagesContent["contact"]>) =>
-    setPages((d) => ({ ...d, contact: { ...d.contact, ...patch } }));
-  const setContact = (patch: Partial<SiteConfig["contact"]>) =>
-    setSiteConfig((d) => ({ ...d, contact: { ...d.contact, ...patch } }));
-  return (
-    <div className="space-y-6">
-      <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm text-[var(--m2)]">Section copy</legend>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <label className={label}>Eyebrow</label>
-            <input className={input} value={pages.contact.eyebrow} onChange={(e) => set({ eyebrow: e.target.value })} />
-          </div>
-          <div>
-            <label className={label}>Heading</label>
-            <input className={input} value={pages.contact.heading} onChange={(e) => set({ heading: e.target.value })} />
-          </div>
-        </div>
-        <MediaField label="Background video" accept="video/*" value={pages.contact.backgroundVideo ?? ""} onChange={(v) => set({ backgroundVideo: v || undefined })} />
-      </fieldset>
-      <SeoFields seo={pages.contact.seo} onChange={(seo) => set({ seo })} />
-      <fieldset className="space-y-3">
-        <legend className="mb-2 text-sm text-[var(--m2)]">Contact details</legend>
-        <div>
-          <label className={label}>Email</label>
-          <input className={input} type="email" value={siteConfig.contact.email} onChange={(e) => setContact({ email: e.target.value })} />
-        </div>
-        <div>
-          <label className={label}>WhatsApp</label>
-          <div className="flex items-start gap-2">
-            <CountrySelect
-              value={siteConfig.contact.whatsappCountry ?? "62"}
-              onChange={(dial) => setContact({ whatsappCountry: dial })}
-            />
-            <input
-              className={`${input} flex-1`}
-              placeholder="813 2176 6565"
-              value={siteConfig.contact.whatsappNumber ?? ""}
-              onChange={(e) => setContact({ whatsappNumber: e.target.value || undefined })}
-            />
-          </div>
-          <p className="mt-1 text-xs text-[var(--m4)]">
-            Type the number any way you like. Send opens{" "}
-            wa.me/{waNumber(siteConfig.contact.whatsappCountry, siteConfig.contact.whatsappNumber) || "…"}.
-          </p>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend className="mb-2 text-sm text-[var(--m2)]">Social links</legend>
-        <div className="space-y-2">
-          {siteConfig.social.map((s, i) => (
-            <div key={i} className="flex gap-2">
-              <div className="w-40 shrink-0">
-                <input
-                  className={input}
-                  placeholder="Platform"
-                  value={s.platform}
-                  onChange={(e) =>
-                    setSiteConfig((d) => ({ ...d, social: d.social.map((r, j) => (j === i ? { ...r, platform: e.target.value } : r)) }))
-                  }
-                />
-              </div>
-              <div className="min-w-0 flex-1">
-                <input
-                  className={input}
-                  placeholder="URL"
-                  value={s.url}
-                  onChange={(e) =>
-                    setSiteConfig((d) => ({ ...d, social: d.social.map((r, j) => (j === i ? { ...r, url: e.target.value } : r)) }))
-                  }
-                />
-              </div>
-              <button
-                type="button"
-                className="liquid-glass btn-icon"
-                onClick={() => setSiteConfig((d) => ({ ...d, social: d.social.filter((_, j) => j !== i) }))}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-            onClick={() => setSiteConfig((d) => ({ ...d, social: [...d.social, { platform: "", url: "" }] }))}
-          >
-            Add link
-          </button>
-        </div>
-      </fieldset>
-      <SaveRow
-        pending={pending}
-        message={message}
-        onSave={() => save([["pages", pages], ["site-config", siteConfig]])}
-      />
-    </div>
-  );
-}
-
-/* ---- Journal ---------------------------------------------------------- */
-function JournalTab({
-  pages,
-  setPages,
-}: {
-  pages: PagesContent;
-  setPages: React.Dispatch<React.SetStateAction<PagesContent>>;
-}) {
-  const { pending, message, save } = useSave();
-  const set = (patch: Partial<PagesContent["journal"]>) =>
-    setPages((d) => ({ ...d, journal: { ...d.journal, ...patch } }));
-  return (
-    <div className="space-y-3">
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label className={label}>Eyebrow</label>
-          <input className={input} value={pages.journal.eyebrow} onChange={(e) => set({ eyebrow: e.target.value })} />
-        </div>
-        <div>
-          <label className={label}>Heading</label>
-          <input className={input} value={pages.journal.heading} onChange={(e) => set({ heading: e.target.value })} />
-        </div>
-      </div>
-      <MediaField label="Background video" accept="video/*" value={pages.journal.backgroundVideo ?? ""} onChange={(v) => set({ backgroundVideo: v || undefined })} />
-      <SeoFields seo={pages.journal.seo} onChange={(seo) => set({ seo })} />
-      <div className="pt-1">
-        <ManageLink href="/admin/journal">Manage posts</ManageLink>
-      </div>
-      <SaveRow pending={pending} message={message} onSave={() => save([["pages", pages]])} />
-    </div>
-  );
-}
-
-/* ---- Global ----------------------------------------------------------- */
-function GlobalTab({
-  navigation,
-  setNavigation,
-}: {
-  navigation: NavLink[];
-  setNavigation: React.Dispatch<React.SetStateAction<NavLink[]>>;
-}) {
-  const { pending, message, save } = useSave();
-
-  return (
-    <div className="space-y-6">
-      <fieldset>
-        <legend className="mb-2 text-sm text-[var(--m2)]">Navigation</legend>
-        <div className="space-y-2">
-          {navigation.map((link, i) => (
-            <div key={i} className="flex gap-2">
-              <input
-                className={input}
-                placeholder="Label"
-                value={link.label}
-                onChange={(e) => setNavigation((l) => l.map((r, j) => (j === i ? { ...r, label: e.target.value } : r)))}
-              />
-              <input
-                className={input}
-                placeholder="/path"
-                value={link.href}
-                onChange={(e) => setNavigation((l) => l.map((r, j) => (j === i ? { ...r, href: e.target.value } : r)))}
-              />
-              <button
-                type="button"
-                className="liquid-glass btn-icon"
-                onClick={() => setNavigation((l) => l.filter((_, j) => j !== i))}
-              >
-                ×
-              </button>
-            </div>
-          ))}
-          <button
-            type="button"
-            className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-            onClick={() => setNavigation((l) => [...l, { label: "", href: "/" }])}
-          >
-            Add link
-          </button>
-        </div>
-        <p className="mt-3 text-xs text-[var(--m4)]">
-          New routes also need code changes (sitemap, background video) — see CLAUDE.md.
-        </p>
-      </fieldset>
-      <SaveRow
-        pending={pending}
-        message={message}
-        onSave={() => save([["navigation", navigation]])}
-      />
-    </div>
-  );
-}
-
-// Fill each page's backgroundVideo with its shipped default when unset, so the
-// editor shows the real value instead of an empty field.
-function seedBackgrounds(p: PagesContent): PagesContent {
-  return {
-    ...p,
-    home: { ...p.home, backgroundVideo: p.home.backgroundVideo || DEFAULT_BACKGROUNDS.home },
-    work: { ...p.work, backgroundVideo: p.work.backgroundVideo || DEFAULT_BACKGROUNDS.work },
-    about: { ...p.about, backgroundVideo: p.about.backgroundVideo || DEFAULT_BACKGROUNDS.about },
-    contact: { ...p.contact, backgroundVideo: p.contact.backgroundVideo || DEFAULT_BACKGROUNDS.contact },
-    journal: { ...p.journal, backgroundVideo: p.journal.backgroundVideo || DEFAULT_BACKGROUNDS.journal },
-  };
-}
-
-export function SiteEditor(props: SiteEditorProps) {
-  const [pages, setPages] = useState(() => seedBackgrounds(props.pages));
+export function SiteEditor(props: Props) {
+  const router = useRouter();
+  const toast = useToast();
+  const [pending, startTransition] = useTransition();
+  const [base, setBase] = useState({ pages: props.pages, about: props.about, siteConfig: props.siteConfig, navigation: props.navigation });
+  const [pages, setPages] = useState(props.pages);
   const [about, setAbout] = useState(props.about);
   const [siteConfig, setSiteConfig] = useState(props.siteConfig);
   const [navigation, setNavigation] = useState(props.navigation);
-  const [active, setActive] = useState<string>("home");
+  const [tab, setTab] = useState<SiteTab>(props.initialTab);
+  const [error, setError] = useState<string | null>(null);
 
-  const tabs = [
-    { key: "home", label: "Home" },
-    { key: "work", label: "Work" },
-    { key: "about", label: "About" },
-    { key: "contact", label: "Contact" },
-    { key: "journal", label: "Journal" },
-    { key: "global", label: "Navigation" },
-  ];
+  const changed = useMemo(() => {
+    const list: Array<[SingletonKey, unknown]> = [];
+    if (JSON.stringify(pages) !== JSON.stringify(base.pages)) list.push(["pages", pages]);
+    if (JSON.stringify(about) !== JSON.stringify(base.about)) list.push(["about", about]);
+    if (JSON.stringify(siteConfig) !== JSON.stringify(base.siteConfig)) list.push(["site-config", siteConfig]);
+    if (JSON.stringify(navigation) !== JSON.stringify(base.navigation)) list.push(["navigation", navigation]);
+    return list;
+  }, [pages, about, siteConfig, navigation, base]);
+  const dirty = changed.length > 0;
+  useUnsaved(dirty);
+
+  function save() {
+    if (!dirty || pending) return;
+    setError(null);
+    const label = changed.map(([k]) => k).join(", ");
+    startTransition(async () => {
+      const result = await saveSiteCopy(changed, label);
+      if (!result.ok) {
+        setError(result.error);
+        toast.error(result.error);
+        return;
+      }
+      setBase({ pages, about, siteConfig, navigation });
+      toast.saved(result, `Site copy: ${label}`);
+      router.refresh();
+    });
+  }
+  useSaveShortcut(save, dirty);
+
+  const setPage = <K extends keyof PagesContent>(key: K, patch: Partial<PagesContent[K]>) =>
+    setPages((d) => ({ ...d, [key]: { ...d[key], ...patch } }));
+  const setContact = (patch: Partial<SiteConfig["contact"]>) => setSiteConfig((d) => ({ ...d, contact: { ...d.contact, ...patch } }));
+
+  const current = SITE_TABS.find((t) => t.key === tab)!;
+  const pageKey = tab === "navigation" ? null : tab;
+  const seo = pageKey ? pages[pageKey].seo : undefined;
+  const report = pageKey
+    ? seoReport({
+        path: current.path,
+        title: seo?.title?.trim() || SEO_FALLBACK[pageKey],
+        description: seo?.description ?? "",
+        appendBrand: pageKey !== "home",
+      })
+    : null;
+
+  const seoGroup = pageKey && (
+    <Group
+      title="SEO"
+      note={
+        pageKey === "home"
+          ? "Title and description Google shows for the homepage. Home title is the full title — no “| Jamal Akbar Alam” suffix."
+          : `Shows as “${seo?.title || SEO_FALLBACK[pageKey]} | Jamal Akbar Alam” in search and tabs. Blank uses the shipped default.`
+      }
+    >
+      <Field label="SEO title" count={(seo?.title ?? "").length} max={pageKey === "home" ? 60 : 40}>
+        <input
+          className="a-input"
+          placeholder={SEO_FALLBACK[pageKey]}
+          value={seo?.title ?? ""}
+          onChange={(e) => setPage(pageKey, { seo: { title: e.target.value, description: seo?.description ?? "" } })}
+        />
+      </Field>
+      <Field label="SEO description" count={(seo?.description ?? "").length} max={160} min={120}>
+        <textarea
+          className="a-input"
+          rows={3}
+          value={seo?.description ?? ""}
+          onChange={(e) => setPage(pageKey, { seo: { title: seo?.title ?? "", description: e.target.value } })}
+        />
+      </Field>
+    </Group>
+  );
+
+  const eyebrowHeading = (key: "work" | "about" | "contact" | "journal") => (
+    <div className="a-row2">
+      <Field label="Eyebrow" help="Small label on the folder tab.">
+        <input className="a-input" value={pages[key].eyebrow} onChange={(e) => setPage(key, { eyebrow: e.target.value })} />
+      </Field>
+      <Field label="Heading" count={pages[key].heading.length}>
+        <input className="a-input" value={pages[key].heading} onChange={(e) => setPage(key, { heading: e.target.value })} />
+      </Field>
+    </div>
+  );
 
   return (
-    <div>
-      <div className="mb-6 flex flex-wrap gap-2">
-        {tabs.map((tab) => (
-          <button
-            key={tab.key}
-            type="button"
-            onClick={() => setActive(tab.key)}
-            className="liquid-glass rounded-full px-4 py-1.5 text-xs"
-            style={active === tab.key ? { color: "var(--accent)", borderColor: "rgba(224,135,90,0.35)" } : undefined}
-          >
-            {tab.label}
-          </button>
-        ))}
+    <>
+      <PageHeader
+        eyebrow="Settings / Site copy"
+        index="05"
+        title="Site copy"
+        subtitle={dirty ? `Unsaved: ${changed.map(([k]) => k).join(", ")} · one save = one commit` : "Words and SEO for every public page. One save = one commit."}
+        actions={
+          <>
+            <a className="a-btn a-btn--secondary" href={current.path} target="_blank" rel="noreferrer">
+              <ArrowUpRight size={16} />
+              Open {current.key === "home" || current.key === "navigation" ? "home" : current.path}
+            </a>
+            <button type="button" className="a-btn a-btn--primary" onClick={save} disabled={!dirty || pending}>
+              <Check size={16} />
+              {pending ? "Saving…" : "Save & publish"}
+            </button>
+          </>
+        }
+      />
+      {error && <p className="a-banner">Save failed — {error}</p>}
+
+      <div>
+        <div className="a-tabs" role="tablist" aria-label="Page">
+          {SITE_TABS.map((t, i) => (
+            <button key={t.key} type="button" role="tab" className="a-tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}>
+              <span className="a-eyebrow">{t.label}</span>
+              <span className="a-meta">{String(i + 1).padStart(2, "0")}</span>
+            </button>
+          ))}
+        </div>
+        <div className="a-tabpanel" role="tabpanel">
+          <div className="a-grid a-grid--rail" style={{ padding: 24, gap: 24 }}>
+            <div className="a-stack" style={{ gap: 32 }}>
+              {tab === "home" && (
+                <>
+                  <Group title="Hero" note="The first panel on / — name, stamp and opening line.">
+                    <Field label="Headline" count={pages.home.headline.length}>
+                      <input className="a-input" value={pages.home.headline} onChange={(e) => setPage("home", { headline: e.target.value })} />
+                    </Field>
+                    <Field label="Intro" count={pages.home.intro.length}>
+                      <textarea className="a-input" rows={3} value={pages.home.intro} onChange={(e) => setPage("home", { intro: e.target.value })} />
+                    </Field>
+                    <div className="a-row2">
+                      <Field label="Role line" count={siteConfig.brand.tagline.length} max={60}>
+                        <input className="a-input" value={siteConfig.brand.tagline} onChange={(e) => setSiteConfig((d) => ({ ...d, brand: { ...d.brand, tagline: e.target.value } }))} />
+                      </Field>
+                      <Field label="Location">
+                        <input className="a-input" value={siteConfig.contact.location} onChange={(e) => setContact({ location: e.target.value })} />
+                      </Field>
+                    </div>
+                    <Field label="Availability">
+                      <select className="a-input" value={pages.home.availability} onChange={(e) => setPage("home", { availability: e.target.value })}>
+                        {[...new Set([pages.home.availability, ...AVAILABILITY_OPTIONS])].map((o) => (
+                          <option key={o}>{o}</option>
+                        ))}
+                      </select>
+                    </Field>
+                  </Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "work" && (
+                <>
+                  <Group title="Index" note="Title panel on /work. Projects themselves live under Work.">{eyebrowHeading("work")}</Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "about" && (
+                <>
+                  <Group title="Section" note="Title panel and footnote on /about.">
+                    {eyebrowHeading("about")}
+                    <Field label="Footnote" count={pages.about.footnote.length}>
+                      <textarea className="a-input" rows={2} value={pages.about.footnote} onChange={(e) => setPage("about", { footnote: e.target.value })} />
+                    </Field>
+                  </Group>
+                  <Group title="Bio">
+                    <MediaField label="Portrait" hint="Shown beside the bio" value={about.profileImage ?? ""} onChange={(v) => setAbout((d) => ({ ...d, profileImage: v || undefined }))} />
+                    <div className="a-field">
+                      <span className="a-field__top">Paragraphs</span>
+                      <ListEditor
+                        items={about.description}
+                        onChange={(v) => setAbout((d) => ({ ...d, description: v }))}
+                        blank=""
+                        addLabel="Add paragraph"
+                        render={(p, set, i) => (
+                          <textarea className="a-input" rows={3} aria-label={`Paragraph ${i + 1}`} value={p} onChange={(e) => set(e.target.value)} />
+                        )}
+                      />
+                    </div>
+                    <div className="a-field">
+                      <span className="a-field__top">Expertise chips</span>
+                      <ListEditor
+                        items={about.expertise.areas}
+                        onChange={(v) => setAbout((d) => ({ ...d, expertise: { ...d.expertise, areas: v } }))}
+                        blank={{ name: "", technologies: [], description: "" }}
+                        addLabel="Add chip"
+                        render={(a, set, i) => (
+                          <input className="a-input" aria-label={`Chip ${i + 1}`} value={a.name} onChange={(e) => set({ ...a, name: e.target.value })} />
+                        )}
+                      />
+                    </div>
+                  </Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "contact" && (
+                <>
+                  <Group title="Section" note="Title panel on /contact.">{eyebrowHeading("contact")}</Group>
+                  <Group title="Contact details" note="Used by the contact note, footer strip and JSON-LD.">
+                    <Field label="Email">
+                      <input className="a-input" type="email" value={siteConfig.contact.email} onChange={(e) => setContact({ email: e.target.value })} />
+                    </Field>
+                    <Field
+                      label="WhatsApp"
+                      help={`Type the number any way you like. Send opens wa.me/${waNumber(siteConfig.contact.whatsappCountry, siteConfig.contact.whatsappNumber) || "…"}.`}
+                    >
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <CountrySelect value={siteConfig.contact.whatsappCountry ?? "62"} onChange={(dial) => setContact({ whatsappCountry: dial })} />
+                        <input className="a-input" placeholder="813 2176 6565" value={siteConfig.contact.whatsappNumber ?? ""} onChange={(e) => setContact({ whatsappNumber: e.target.value || undefined })} />
+                      </div>
+                    </Field>
+                    <div className="a-field">
+                      <span className="a-field__top">Social links</span>
+                      <ListEditor
+                        items={siteConfig.social}
+                        onChange={(v) => setSiteConfig((d) => ({ ...d, social: v }))}
+                        blank={{ platform: "", url: "" }}
+                        addLabel="Add link"
+                        render={(s, set) => (
+                          <>
+                            <input className="a-input" style={{ width: 160, flex: "none" }} placeholder="Platform" value={s.platform} onChange={(e) => set({ ...s, platform: e.target.value })} />
+                            <input className="a-input" placeholder="https://" value={s.url} onChange={(e) => set({ ...s, url: e.target.value })} />
+                          </>
+                        )}
+                      />
+                    </div>
+                  </Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "journal" && (
+                <>
+                  <Group title="Index" note="Title panel on /journal. Posts live under Journal and Jurnal.">{eyebrowHeading("journal")}</Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "navigation" && (
+                <Group title="Navigation" note="The folder nav on every public page, in this order.">
+                  <ListEditor
+                    items={navigation}
+                    onChange={setNavigation}
+                    blank={{ label: "", href: "/" }}
+                    addLabel="Add link"
+                    render={(l, set) => (
+                      <>
+                        <input className="a-input" placeholder="Label" value={l.label} onChange={(e) => set({ ...l, label: e.target.value })} />
+                        <input className="a-input" placeholder="/path" value={l.href} onChange={(e) => set({ ...l, href: e.target.value })} />
+                      </>
+                    )}
+                  />
+                  <p className="a-meta a-muted">A brand-new route also needs code (page, metadata layout, sitemap) — see CLAUDE.md.</p>
+                </Group>
+              )}
+            </div>
+
+            <aside className="a-stack a-sticky" style={{ top: 12 }}>
+              <div className="a-field">
+                <span className="a-field__top">Where this shows</span>
+                <a className="a-media" href={current.path} target="_blank" rel="noreferrer">
+                  <span className="a-media__text">
+                    <span className="a-label">jamalakbara.com{current.path === "/" ? "" : current.path}</span>
+                    <span className="a-meta a-muted">
+                      {tab === "navigation" ? "Folder nav on every page" : tab === "home" ? "Hero panel + homepage search result" : "Title panel + search result"}
+                    </span>
+                  </span>
+                  <ArrowUpRight size={16} />
+                </a>
+              </div>
+              {report && <SeoPanel report={report} />}
+            </aside>
+          </div>
+        </div>
       </div>
-      <div className="liquid-glass cursor-default rounded-2xl p-6">
-        {active === "home" && (
-          <HomeTab pages={pages} setPages={setPages} siteConfig={siteConfig} setSiteConfig={setSiteConfig} />
-        )}
-        {active === "work" && <WorkTab pages={pages} setPages={setPages} />}
-        {active === "about" && (
-          <AboutTab pages={pages} setPages={setPages} about={about} setAbout={setAbout} />
-        )}
-        {active === "contact" && (
-          <ContactTab
-            pages={pages}
-            setPages={setPages}
-            siteConfig={siteConfig}
-            setSiteConfig={setSiteConfig}
-          />
-        )}
-        {active === "journal" && <JournalTab pages={pages} setPages={setPages} />}
-        {active === "global" && (
-          <GlobalTab navigation={navigation} setNavigation={setNavigation} />
-        )}
-      </div>
-    </div>
+    </>
   );
 }

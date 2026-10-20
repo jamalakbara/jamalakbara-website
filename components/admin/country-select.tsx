@@ -43,33 +43,35 @@ export function CountrySelect({
   }, [open]);
 
   return (
-    <div ref={ref} className="relative shrink-0">
+    <div ref={ref} style={{ position: "relative", flexShrink: 0 }}>
       <button
         type="button"
-        className="field-input flex w-28 cursor-pointer items-center justify-between gap-1"
+        className="a-input"
+        style={{ width: 120, justifyContent: "space-between" }}
         onClick={() => setOpen((o) => !o)}
       >
-        <span className="truncate">
+        <span className="a-truncate">
           {selected ? `${flagEmoji(selected.iso2)} +${selected.dial}` : "Select"}
         </span>
-        <span aria-hidden className="text-[var(--m4)]">▾</span>
+        <span aria-hidden className="a-muted">▾</span>
       </button>
       {open && (
-        <div className="liquid-glass absolute left-0 top-full z-50 mt-1 w-72 overflow-hidden rounded-xl p-2">
+        <div className="a-panel a-panel--note" style={{ position: "absolute", left: 0, top: "calc(100% + 4px)", zIndex: 50, width: 288, padding: 8, boxShadow: "0 12px 32px rgb(32 30 25 / 0.16)" }}>
           <input
             ref={inputRef}
-            className="field-input mb-2 w-full text-xs"
+            className="a-input"
+            style={{ marginBottom: 8, minHeight: 40 }}
             placeholder="Search country or code…"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <div className="max-h-64 overflow-y-auto">
+          <div style={{ maxHeight: 256, overflowY: "auto" }}>
             {filtered.map((c) => (
               <button
                 key={c.iso2}
                 type="button"
-                className="flex w-full cursor-pointer items-center gap-2 rounded-lg px-2 py-1.5 text-left text-xs hover:bg-[var(--m4)]/10"
-                style={c.dial === value ? { color: "var(--accent)" } : undefined}
+                className="a-navitem a-small"
+                style={{ height: 36, width: "100%", textAlign: "left", ...(c.dial === value ? { color: "var(--f-accent)" } : {}) }}
                 onClick={() => {
                   onChange(c.dial);
                   setOpen(false);
@@ -77,12 +79,12 @@ export function CountrySelect({
                 }}
               >
                 <span>{flagEmoji(c.iso2)}</span>
-                <span className="flex-1 truncate">{c.name}</span>
-                <span className="text-[var(--m4)]">+{c.dial}</span>
+                <span className="a-truncate" style={{ flex: 1 }}>{c.name}</span>
+                <span className="a-muted">+{c.dial}</span>
               </button>
             ))}
             {filtered.length === 0 && (
-              <p className="px-2 py-3 text-center text-xs text-[var(--m4)]">No match.</p>
+              <p className="a-small a-muted" style={{ padding: 12, textAlign: "center" }}>No match.</p>
             )}
           </div>
         </div>
