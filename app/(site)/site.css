@@ -90,12 +90,18 @@
    PortfolioShell — 0, or negative for sections taller than the viewport);
    later siblings paint over earlier ones as they scroll up. */
 .f-main > * { position: sticky; top: var(--f-stick, 0px); }
+/* The closing strip is a footer, not a stacked sheet: it rides up attached to
+   the section above instead of sliding over it. Relative, not static, so that
+   section still paints over the sticky ones before it. */
+.f-main > :has(+ .f-strip), .f-main > .f-strip { position: relative; top: auto; }
 /* Covered section sinks back as the next one slides over (--f-cover 0→1). */
 .f-main > [data-covered] {
   scale: calc(1 - var(--f-cover, 0) * 0.04);
   transform-origin: 50% 0;
   filter: brightness(calc(1 - var(--f-cover, 0) * 0.1));
 }
+/* Opacity, not visibility: its links stay in the tab order. */
+.f-main > [data-buried] { opacity: 0; }
 .f-tabrail { display: flex; align-items: flex-end; height: 36px; }
 .f-tab {
   display: flex;

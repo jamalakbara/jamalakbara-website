@@ -126,6 +126,12 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
         }
         el.style.setProperty("--f-cover", c.toFixed(3));
         el.toggleAttribute("data-covered", c > 0);
+        // The section above the strip scrolls away instead of pinning, so
+        // anything still stuck behind it would show through the gap above the strip.
+        el.toggleAttribute(
+          "data-buried",
+          c >= 1 && next.offsetHeight >= el.offsetHeight && !!next.nextElementSibling?.matches(".f-strip"),
+        );
       });
     };
     const onScroll = () => {
@@ -190,24 +196,36 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     const root = scrollRef.current;
     const main = root?.querySelector<HTMLElement>("#main");
     if (!root || !main || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(
+    const show = (entries: IntersectionObserverEntry[]) => {
+      let i = 0;
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        const el = e.target as HTMLElement;
+        el.style.setProperty("--rv-d", `${Math.min(i++, 5) * 80}ms`);
+        el.dataset.rv = "in";
+        io.unobserve(el);
+        tail.unobserve(el);
+      }
+    };
+    const io = new IntersectionObserver(show, { root, rootMargin: "0px 0px -10% 0px" });
+    // The last 10% of the page can never scroll up past that inset (the strip's
+    // stamp, on tall windows), so it reveals on entering the viewport instead.
+    const tail = new IntersectionObserver(
       (entries) => {
-        let i = 0;
-        for (const e of entries) {
-          if (!e.isIntersecting) continue;
-          const el = e.target as HTMLElement;
-          el.style.setProperty("--rv-d", `${Math.min(i++, 5) * 80}ms`);
-          el.dataset.rv = "in";
-          io.unobserve(el);
-        }
+        const left = root.scrollHeight - root.scrollTop - root.clientHeight;
+        if (left < root.clientHeight * 0.1) show(entries);
       },
-      { root, rootMargin: "0px 0px -10% 0px" },
+      { root },
     );
+    const watch = (el: HTMLElement) => {
+      io.observe(el);
+      tail.observe(el);
+    };
     const arm = () => {
       const fold = root.getBoundingClientRect().bottom;
       main.querySelectorAll<HTMLElement>(REVEAL).forEach((el) => {
         // Strict Mode double-invokes effects: re-observe leftovers.
-        if (el.dataset.rv === "pending") return void io.observe(el);
+        if (el.dataset.rv === "pending") return void watch(el);
         if (el.dataset.rv) return;
         const r = el.getBoundingClientRect();
         if (r.top < fold || r.height === 0) {
@@ -215,7 +233,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           return;
         }
         el.dataset.rv = "pending";
-        io.observe(el);
+        watch(el);
       });
     };
     const mo = new MutationObserver(arm);
@@ -223,6 +241,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     arm();
     return () => {
       io.disconnect();
+      tail.disconnect();
       mo.disconnect();
     };
   }, [pathname]);

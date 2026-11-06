@@ -92,7 +92,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | Project / Editorial row (+ media strip A/B/C) | `components/site/project-row.tsx`, number tiles in `number-tile.tsx` |
 | Receipt (perforation, barcode, torn edges) | `components/site/receipt.tsx` |
 | Contact / Note (copy-email stamp) | `components/site/contact-note.tsx` |
-| Contact footer strip | `components/site/contact-strip.tsx` |
+| Contact footer strip (not a stacked sheet: scrolls attached to the section above) | `components/site/contact-strip.tsx` |
 | Empty state / 404 stage | `components/site/empty-state.tsx` |
 | Journal editorial row | `components/site/journal-index.tsx` |
 | Article reading surface | `components/site/article-view.tsx`, `.f-prose` |
