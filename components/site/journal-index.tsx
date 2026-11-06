@@ -33,7 +33,7 @@ const STICKERS: StickerSpot[] = [
   { name: "less-noise-more-craft", x: 658, y: 104, w: 160, h: 128.436, r: 7 },
   { name: "make-it-useful", x: 888, y: 70, w: 104, h: 98.455, r: 12 },
   { name: "dev-laptop", x: 762, y: 192, w: 116, h: 105.311, r: -7 },
-  { name: "kopi-susu", x: 1014, y: 157, w: 56, h: 113.275, r: -5 },
+  { name: "kopi-susu", x: 996, y: 146, w: 56, h: 113.275, r: -5 },
 ];
 
 export function JournalIndex({
