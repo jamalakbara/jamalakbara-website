@@ -76,7 +76,7 @@ export default function AboutPage() {
         </div>
         <Stickers
           spots={[{ name: "make-it-useful", x: 1196, y: 420, w: 144, h: 136.323, r: -7 }]}
-          className="f-stickers f-stickers--margin"
+          className="f-stickers f-stickers--margin f-stickers--beside"
           base={1416}
         />
       </Folder>

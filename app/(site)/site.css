@@ -429,6 +429,9 @@
 .f-title-panel__intro { width: 360px; flex-shrink: 0; }
 .f-loc { display: inline-flex; align-items: center; gap: 6px; }
 .f-stickers { position: absolute; inset: 0; pointer-events: none; }
+/* Margin fields stop at the 1416 canvas: the panels they sit in keep a fixed height, so a field that kept
+   scaling past it would push its stickers out of the panel. Wider screens centre the composition instead. */
+.f-stickers--margin { inset-inline: max(0px, calc(50% - 708px)); }
 .f-sticker {
   position: absolute;
   transform-origin: top left;
@@ -743,7 +746,7 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 /* Margin: fills the TOC column under the list; the field spans the full surface width
    (canvas x is surface-relative) and clips vertically at the surface bottom. */
 .f-art-margin { position: relative; flex: 1; pointer-events: none; }
-.f-art-margin__field { position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--f-inset)); width: calc(100cqw + 2 * var(--f-inset)); overflow-y: clip; }
+.f-art-margin__field { position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--f-inset)); width: min(calc(100cqw + 2 * var(--f-inset)), 1416px); overflow-y: clip; }
 /* Relay groups: each pin sticks inside its lane, then the lane end hands over to the next group. */
 .f-art-lane { position: absolute; left: 0; right: 0; }
 .f-art-pin { position: sticky; top: 48px; }
@@ -1022,6 +1025,10 @@ html[data-splash="done"] .f-hero .f-stamp--loop { animation-delay: -720ms; }
 }
 @media (max-width: 1023px) {
   .f-stickers--margin { display: none; }
+}
+/* Stickers beside a fixed reading column: below this width the column reaches under them. */
+@media (max-width: 1419px) {
+  .f-stickers--beside { display: none; }
 }
 @media (max-width: 767px) {
   .f-title-panel { min-height: 0; gap: 32px; padding: 24px 16px 32px; }

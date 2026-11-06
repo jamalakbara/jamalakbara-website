@@ -77,7 +77,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 - Panels have a 12 px radius at every size. Controls have 4 px. Note and receipt are square. Project images are square-edged.
 - **Folders:** 12 px lead-in, then a 36 px tab rail, then the paper body. Tabs are 220 px wide on desktop and 150 px on mobile, with offsets 0 / 180 / 360 (desktop) and 0 / 88 / 176 (mobile). The body's top-left corner is square only when the tab sits flush left. The root gap between panels is 4 px.
 - **Reading column:** 640 px max. Article and journal rows use a 400 px left column, a 48 px gap, and a 640 px main column.
-- **Sticker fields** (`<Stickers base={…}>`) place stickers with container-query units, so a composition is exact at its canvas width and scales elsewhere. Bases: title panels and article margins 1416, home collage 1336 / 346, mobile title panel 378.
+- **Sticker fields** (`<Stickers base={…}>`) place stickers with container-query units, so a composition is exact at its canvas width and scales down below it. Bases: title panels and article margins 1416, home collage 1336 / 346, mobile title panel 378. Title panels and folders keep a fixed height, so margin fields stop growing at 1416 and centre on wider screens (article margins stay left, in the TOC column); only the home collage, which has its own aspect ratio, keeps scaling up. A sticker beside the reading column (`.f-stickers--beside`) hides below 1420, where the column reaches under it.
 
 ## 4. Components → code
 
