@@ -1,0 +1,223 @@
+"use client";
+
+import { useRef, useState } from "react";
+import Link from "next/link";
+import { contact } from "@/lib/site-data";
+import { GAEvents } from "@/lib/analytics/events";
+import { TitlePanel } from "@/components/site/title-panel";
+import { ContactNote, type NoteCopy } from "@/components/site/contact-note";
+import { ContactStrip } from "@/components/site/contact-strip";
+import type { StickerSpot } from "@/components/site/sticker";
+import { Check, MapPin, Send } from "@/components/site/icons";
+import { sentenceLines } from "@/lib/site-format";
+
+// Contact view shared by /contact (canvas 19: qlvWa / IWLZT, validation 19A,
+// success 19C) and /kontak (canvas 40). Only the copy differs.
+// Behaviour is unchanged: client-side checks, then the brief opens in WhatsApp.
+
+type Errors = { name?: string; email?: string; message?: string };
+
+export type ContactCopy = {
+  /** BCP-47 language of the page when it differs from <html lang> */
+  contentLang?: string;
+  label: string;
+  heading: string;
+  intro: string;
+  tab: string;
+  formLabel: string;
+  name: string;
+  namePlaceholder: string;
+  email: string;
+  emailPlaceholder: string;
+  project: string;
+  projectPlaceholder: string;
+  submit: string;
+  privacyNote: string;
+  privacyLink: string;
+  errorName: string;
+  errorEmail: string;
+  errorMessage: string;
+  statusHeading: string;
+  statusBody: string;
+  sentHeading: string;
+  sentBody: string;
+  /** first line of the WhatsApp message; {name} is replaced */
+  greeting: string;
+  replyTo: string;
+  note?: NoteCopy;
+  strip: { heading: string; label: string; href: string };
+};
+
+// wa.me number, composed in site-data from the CMS country + local fields
+// (already digits only). Falls back to the shipped default when unset.
+const WHATSAPP_NUMBER = contact.whatsapp || "6281321766565";
+
+const STICKERS: StickerSpot[] = [
+  { name: "make-it-useful", x: 470, y: 74, w: 126, h: 119.283, r: 6 },
+  { name: "debug-duck", x: 700, y: 150, w: 76.633, h: 86.4, r: -10 },
+  { name: "pen-tool", x: 850, y: 44, w: 68.697, h: 81, r: -14 },
+];
+
+export function ContactView({ copy }: { copy: ContactCopy }) {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [errors, setErrors] = useState<Errors>({});
+  const [sent, setSent] = useState(false);
+  const fields = {
+    name: useRef<HTMLInputElement>(null),
+    email: useRef<HTMLInputElement>(null),
+    message: useRef<HTMLTextAreaElement>(null),
+  };
+
+  const update =
+    (key: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const value = e.target.value;
+      setForm((f) => ({ ...f, [key]: value }));
+      setErrors((prev) => ({ ...prev, [key]: undefined }));
+    };
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const next: Errors = {};
+    if (!form.name.trim()) next.name = copy.errorName;
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email))
+      next.email = copy.errorEmail;
+    if (!form.message.trim()) next.message = copy.errorMessage;
+    if (Object.keys(next).length) {
+      setErrors(next);
+      const first = (["name", "email", "message"] as const).find((k) => next[k]);
+      if (first) fields[first].current?.focus();
+      return;
+    }
+    setErrors({});
+
+    const text = [
+      copy.greeting.replace("{name}", form.name.trim()),
+      "",
+      form.message.trim(),
+      "",
+      `${copy.replyTo} ${form.email.trim()}`,
+    ].join("\n");
+    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+
+    GAEvents.trackContactMessage("whatsapp_form");
+    setSent(true);
+  };
+
+  const hasErrors = Boolean(errors.name || errors.email || errors.message);
+
+  const field = (
+    key: "name" | "email",
+    label: string,
+    type: string,
+    placeholder: string,
+    autoComplete: string,
+  ) => (
+    <div className="f-field">
+      <label className="f-field__label" htmlFor={`f-${key}`}>
+        {label}
+      </label>
+      {errors[key] && (
+        <p className="f-field__err" id={`f-${key}-err`}>
+          {errors[key]}
+        </p>
+      )}
+      <input
+        ref={fields[key]}
+        id={`f-${key}`}
+        className="f-input"
+        type={type}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        value={form[key]}
+        onChange={update(key)}
+        aria-invalid={errors[key] ? true : undefined}
+        aria-describedby={errors[key] ? `f-${key}-err` : undefined}
+      />
+    </div>
+  );
+
+  return (
+    <>
+      <TitlePanel
+        label={copy.label}
+        contentLang={copy.contentLang}
+        aside={
+          <span className="f-loc f-meta f-muted">
+            <MapPin size={14} />
+            Bandung, Indonesia
+          </span>
+        }
+        heading={<h1 className="f-display f-display--caps">{sentenceLines(copy.heading)}</h1>}
+        intro={<p className="f-body">{copy.intro}</p>}
+        stickers={STICKERS}
+        mobileStickers={[{ name: "debug-duck", x: 270, y: 74, w: 59.603, h: 67.2, r: -10 }]}
+      />
+
+      <section lang={copy.contentLang} className="f-folder" aria-label={copy.tab}>
+        <div className="f-tab">
+          <span className="f-tabtext">{copy.tab}</span>
+          <span className="f-tab__n f-muted">01</span>
+        </div>
+        <div className="f-folder__body f-folder__body--flush f-split">
+          {sent ? (
+            <div className="f-form f-sent" role="status">
+              <span className="f-sent__icon">
+                <Check size={24} />
+              </span>
+              <p className="f-sent__h">{copy.sentHeading}</p>
+              <p className="f-sent__p">{copy.sentBody}</p>
+            </div>
+          ) : (
+            <form className="f-form" onSubmit={submit}>
+              <span className="f-tabtext">{copy.formLabel}</span>
+              {hasErrors && (
+                <div className="f-status" role="alert">
+                  <p className="f-status__h">{copy.statusHeading}</p>
+                  <p className="f-action f-muted">{copy.statusBody}</p>
+                </div>
+              )}
+              <div className="f-form__row">
+                {field("name", copy.name, "text", copy.namePlaceholder, "name")}
+                {field("email", copy.email, "email", copy.emailPlaceholder, "email")}
+              </div>
+              <div className="f-field">
+                <label className="f-field__label" htmlFor="f-message">
+                  {copy.project}
+                </label>
+                {errors.message && (
+                  <p className="f-field__err" id="f-message-err">
+                    {errors.message}
+                  </p>
+                )}
+                <textarea
+                  ref={fields.message}
+                  id="f-message"
+                  className="f-input"
+                  placeholder={copy.projectPlaceholder}
+                  value={form.message}
+                  onChange={update("message")}
+                  aria-invalid={errors.message ? true : undefined}
+                  aria-describedby={errors.message ? "f-message-err" : undefined}
+                />
+              </div>
+              <div className="f-form__actions">
+                <button type="submit" className="f-btn f-btn--primary">
+                  <Send size={16} />
+                  {copy.submit}
+                </button>
+                <span className="f-meta f-muted">
+                  {copy.privacyNote} <Link href="/privacy" style={{ textDecoration: "underline" }}>{copy.privacyLink}</Link>
+                </span>
+              </div>
+            </form>
+          )}
+          <ContactNote trackEmail copy={copy.note} />
+        </div>
+      </section>
+
+      <ContactStrip {...copy.strip} variant="arrow" contentLang={copy.contentLang} />
+    </>
+  );
+}

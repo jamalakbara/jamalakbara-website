@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import type { WorkRow } from "@/lib/site-data";
 import { sentenceCase } from "@/lib/site-format";
 import { NumberTile } from "@/components/site/number-tile";
@@ -95,7 +96,7 @@ export function ProjectRow({
   headingLevel?: 2 | 3;
 }) {
   const pattern = PATTERNS[variant % 3];
-  const external = row.href && row.href !== "#";
+  const external = !row.caseHref && row.href && row.href !== "#";
   const H = headingLevel === 2 ? "h2" : "h3";
   const inner = (
     <>
@@ -116,6 +117,13 @@ export function ProjectRow({
       {external && <span className="f-sr">(opens in a new tab)</span>}
     </>
   );
+  if (row.caseHref) {
+    return (
+      <Link className="f-row" href={row.caseHref}>
+        {inner}
+      </Link>
+    );
+  }
   return external ? (
     <a className="f-row" href={row.href} target="_blank" rel="noopener noreferrer">
       {inner}

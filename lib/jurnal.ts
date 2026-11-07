@@ -13,6 +13,8 @@ export interface JurnalPost {
   draft: boolean;
   /** slug of the linked post in the other language section */
   alternate?: string;
+  /** owner-picked slugs for the "Keep reading" block */
+  related: string[];
   content: string;
   readingMinutes: number;
 }
@@ -30,6 +32,7 @@ function parsePost(fileName: string): JurnalPost {
     tags: data.tags ?? [],
     draft: data.draft === true,
     alternate: typeof data.alternate === "string" ? data.alternate : undefined,
+    related: Array.isArray(data.related) ? data.related : [],
     content,
     readingMinutes: Math.max(1, Math.round(words / 200)),
   };

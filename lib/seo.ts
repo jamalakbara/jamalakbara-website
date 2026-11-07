@@ -4,7 +4,7 @@ import { pages } from "@/lib/content";
 const SITE_URL = "https://jamalakbara.com";
 const SITE_NAME = "Jamal Akbar Alam";
 
-type PageKey = "work" | "about" | "contact" | "journal";
+type PageKey = "work" | "about" | "contact" | "journal" | "jurnal" | "kontak";
 
 /**
  * Builds a route's metadata from admin-editable SEO fields in
@@ -19,7 +19,7 @@ export function buildPageMetadata(
   key: PageKey,
   path: string,
   fallback: { title: string; description: string },
-  opts?: { template?: boolean },
+  opts?: { template?: boolean; locale?: string; languages?: Record<string, string> },
 ): Metadata {
   const seo = pages[key].seo;
   const title = seo?.title?.trim() || fallback.title;
@@ -32,8 +32,17 @@ export function buildPageMetadata(
       ? { default: title, template: `%s | ${SITE_NAME}` }
       : title,
     description,
-    alternates: { canonical: url },
-    openGraph: { title: ogTitle, description, url },
+    alternates: {
+      canonical: url,
+      ...(opts?.languages
+        ? {
+            languages: Object.fromEntries(
+              Object.entries(opts.languages).map(([lang, p]) => [lang, `${SITE_URL}${p}`]),
+            ),
+          }
+        : {}),
+    },
+    openGraph: { title: ogTitle, description, url, ...(opts?.locale ? { locale: opts.locale } : {}) },
     twitter: { title: ogTitle, description },
   };
 }

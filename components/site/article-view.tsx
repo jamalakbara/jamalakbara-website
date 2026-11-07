@@ -3,6 +3,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { Stamp } from "@/components/site/stamp";
 import { Sticker, cqw, type StickerSpot } from "@/components/site/sticker";
 import { ContactStrip } from "@/components/site/contact-strip";
+import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
 import { pad2 } from "@/lib/site-format";
 import { ArrowDown, ArrowLeft, ArrowUp } from "@/components/site/icons";
 
@@ -101,6 +102,9 @@ export function ArticleView({
   date,
   copy,
   lang,
+  contentLang,
+  related,
+  strip,
 }: {
   post: { title: string; content: string; date: string; readingMinutes: number };
   position: number; // 1-based index in the list
@@ -110,6 +114,12 @@ export function ArticleView({
   copy: ArticleCopy;
   /** linked post in the other language (/journal ↔ /jurnal), set in admin */
   lang?: { href: string; label: string; hrefLang: "en" | "id" };
+  /** BCP-47 language of the article when it differs from <html lang> */
+  contentLang?: string;
+  /** "Keep reading" block at the end of the article */
+  related?: { heading: string; items: RelatedItem[] };
+  /** closing strip copy; defaults to the English one */
+  strip?: { heading: string; label: string; href: string };
 }) {
   const sections = [...post.content.matchAll(/^##\s+(.+?)\s*#*\s*$/gm)].map((m) => {
     const label = m[1].replace(/[`*_]/g, "");
@@ -121,7 +131,7 @@ export function ArticleView({
   };
 
   return (
-    <article className="f-main" style={{ outline: "none" }}>
+    <article lang={contentLang} className="f-main" style={{ outline: "none" }}>
       <header className="f-panel f-art-head">
         <div style={lang ? { display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap" } : undefined}>
           <Link href={basePath} className="f-act">
@@ -177,6 +187,7 @@ export function ArticleView({
             <div className="f-prose">
               <MDXRemote source={post.content} components={components} />
             </div>
+            {related && <RelatedPosts heading={related.heading} items={related.items} />}
             <div className="f-art-end">
               <Link href={basePath} className="f-act">
                 <ArrowLeft size={16} />
@@ -191,7 +202,7 @@ export function ArticleView({
         </div>
       </section>
 
-      <ContactStrip />
+      <ContactStrip {...strip} />
     </article>
   );
 }

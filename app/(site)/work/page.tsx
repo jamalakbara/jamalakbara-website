@@ -47,7 +47,7 @@ export default function WorkPage() {
       <TitlePanel
         label="WORK / PROJECT INDEX"
         aside={<span className="f-meta f-muted">{count(works.length)}</span>}
-        heading={<h2 className="f-display f-display--caps">{sentenceLines(work.heading)}</h2>}
+        heading={<h1 className="f-display f-display--caps">{sentenceLines(work.heading)}</h1>}
         intro={<p className="f-body">Websites and digital storefronts. A closer look at the things I design and build.</p>}
         stickers={STICKERS}
       />

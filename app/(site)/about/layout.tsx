@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { StructuredData } from "@/components/structured-data";
 import { buildPageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = buildPageMetadata("about", "/about", {
@@ -10,5 +11,10 @@ export const metadata: Metadata = buildPageMetadata("about", "/about", {
 export default function AboutLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return (
+    <>
+      <StructuredData type="Person" />
+      {children}
+    </>
+  );
 }

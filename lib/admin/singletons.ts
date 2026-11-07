@@ -6,6 +6,7 @@ import {
   heroSchema,
   navigationSchema,
   pagesSchema,
+  seoSettingsSchema,
   serviceSchema,
   siteConfigSchema,
 } from "@/lib/content/schemas";
@@ -36,6 +37,7 @@ export const SINGLETONS = {
     label: "About (SEO)",
   },
   cta: { path: "content/site/cta.json", schema: ctaSchema, label: "CTA" },
+  seo: { path: "content/site/seo.json", schema: seoSettingsSchema, label: "SEO" },
 } as const satisfies Record<string, { path: string; schema: ZodType; label: string }>;
 
 export type SingletonKey = keyof typeof SINGLETONS;

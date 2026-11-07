@@ -6,7 +6,7 @@
     "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1781452916/bg-home_oaxs7i.mp4",
     "seo": {
       "title": "Jamal Akbar Alam — Developer & Designer",
-      "description": "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well."
+      "description": "Jamal Akbar Alam is a developer and designer in Bandung, Indonesia, building clean, fast websites, web apps, and Shopify stores, from interface to code."
     }
   },
   "work": {
@@ -25,7 +25,7 @@
     "backgroundVideo": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1781452916/bg-about_zkw2rg.mp4",
     "seo": {
       "title": "About",
-      "description": "About Jamal Akbar Alam — a developer and designer based in Bandung, Indonesia, who works across design and development to turn ideas into clean, fast, easy-to-use products."
+      "description": "About Jamal Akbar Alam, a developer and designer in Bandung, Indonesia, turning ideas into clean, fast, easy-to-use websites and digital products."
     }
   },
   "contact": {
@@ -44,6 +44,22 @@
     "seo": {
       "title": "Journal",
       "description": "Journal by Jamal Akbar Alam — build logs and notes on web development and design: Next.js, animation, UI engineering, and the craft behind the work."
+    }
+  },
+  "jurnal": {
+    "eyebrow": "JURNAL",
+    "heading": "Catatan dari meja kerja.",
+    "seo": {
+      "title": "Jurnal",
+      "description": "Catatan dan tulisan dari Akbar, developer dan desainer dari Bandung. Tentang web development, Shopify, desain, dan proses di balik setiap build."
+    }
+  },
+  "kontak": {
+    "eyebrow": "KONTAK / SAPA AKU",
+    "heading": "Punya ide? Yuk ngobrol.",
+    "seo": {
+      "title": "Kontak",
+      "description": "Punya ide website atau aplikasi? Hubungi Akbar, developer dan desainer di Bandung, buat ngobrol soal project kalian lewat WhatsApp atau email."
     }
   }
 }
