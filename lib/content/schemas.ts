@@ -60,6 +60,9 @@ export const projectSchema = z.object({
 export const projectsSchema = z.array(projectSchema);
 
 export const servicePageSchema = z.object({
+  lang: z.enum(["en", "id"]),
+  /** slug of the same page in the other language */
+  alternate: z.string().optional(),
   slug: z
     .string()
     .min(1)
@@ -265,8 +268,6 @@ export const pagesSchema = z.object({
   }),
   contact: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
   journal: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
-  jurnal: z.object({ eyebrow: z.string(), heading: z.string(), seo }),
-  kontak: z.object({ eyebrow: z.string(), heading: z.string(), seo }),
 });
 
 // content/site/seo.json: values behind the site's JSON-LD (/admin/seo).
@@ -308,4 +309,41 @@ export type NavLink = z.infer<typeof navigationSchema>[number];
 /** content/media.json — per-asset metadata keyed by media key (public id basename). */
 export const mediaMetaSchema = z.object({
   alt: z.record(z.string(), z.string()),
+  altId: z.record(z.string(), z.string()).optional(),
+});
+
+const seoText = z.object({ title: z.string(), description: z.string() });
+
+/** content/i18n/id/projects.json: Bahasa copy for one project. */
+export const idProjectSchema = z.object({
+  category: z.string(),
+  summary: z.string().max(110),
+  description: z.string(),
+  challenge: z.string(),
+  solution: z.string(),
+  features: z.array(z.string()),
+  metricLabels: z.array(z.string()),
+  seo: seoText,
+});
+
+/** content/i18n/id/site.json: Bahasa copy for the site. */
+export const idSiteSchema = z.object({
+  published: z.boolean(),
+  navigation: z.array(z.object({ href: z.string(), label: z.string() })),
+  tagline: z.string(),
+  location: z.string(),
+  pages: z.object({
+    home: z.object({ availability: z.string(), headline: z.string(), intro: z.string(), seo: seoText }),
+    work: z.object({ eyebrow: z.string(), heading: z.string(), seo: seoText }),
+    about: z.object({ eyebrow: z.string(), heading: z.string(), footnote: z.string(), seo: seoText }),
+    contact: z.object({ eyebrow: z.string(), heading: z.string(), seo: seoText }),
+    journal: z.object({ eyebrow: z.string(), heading: z.string(), seo: seoText }),
+  }),
+  about: z.object({ description: z.array(z.string()) }),
+  seo: z.object({
+    website: z.object({ description: z.string() }),
+    identity: z.object({ description: z.string(), jobTitles: z.array(z.string()) }),
+    business: z.object({ description: z.string(), services: z.array(z.string()) }),
+  }),
+  ui: z.record(z.string(), z.unknown()),
 });

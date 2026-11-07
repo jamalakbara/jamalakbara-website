@@ -9,7 +9,6 @@ export function TitlePanel({
   intro,
   stickers = [],
   mobileStickers = [],
-  contentLang,
 }: {
   label: React.ReactNode;
   aside?: React.ReactNode;
@@ -18,11 +17,9 @@ export function TitlePanel({
   stickers?: StickerSpot[];
   /** canvas mobile title-panel stickers (378px-wide panel) */
   mobileStickers?: StickerSpot[];
-  /** BCP-47 language of this panel when it differs from <html lang> */
-  contentLang?: string;
 }) {
   return (
-    <section lang={contentLang} className={mobileStickers.length ? "f-title-panel f-title-panel--msticker" : "f-title-panel"}>
+    <section className={mobileStickers.length ? "f-title-panel f-title-panel--msticker" : "f-title-panel"}>
       <div className="f-title-panel__label">
         <span className="f-tabtext">{label}</span>
         {aside}

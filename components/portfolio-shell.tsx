@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BAHASA_NAV, BAHASA_SECTION_LIVE, NAV_LINKS, contact, isBahasaPath, languageLink } from "@/lib/site-data";
+import { ID_PUBLISHED } from "@/lib/i18n/config";
+import { useLanguageTargets, useSite } from "@/lib/i18n/context";
+import { basePath, languageHref } from "@/lib/i18n/routes";
 import { GAEvents } from "@/lib/analytics/events";
 import { Aurora } from "@/components/site/aurora";
 import { StickerPeel } from "@/components/site/sticker-peel";
@@ -31,16 +33,16 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const shellRef = useRef<HTMLDivElement>(null);
   const menuOpenRef = useRef(false);
 
-  // /layanan, /jurnal and /kontak are the Bahasa section: own nav, own home link.
-  const bahasa = isBahasaPath(pathname);
-  const links = bahasa ? BAHASA_NAV : NAV_LINKS;
-  const homeHref = bahasa ? BAHASA_NAV[0].href : "/";
-  const language = languageLink(pathname);
-  // Until the section is live, /jurnal sits under the English nav and lights Journal.
-  const navPath = bahasa ? pathname : pathname.replace(/^\/jurnal(?=\/|$)/, "/journal");
+  const site = useSite();
+  const { contact, ui, path } = site;
+  const links = site.nav;
+  const homeHref = path("/");
+  const targets = useLanguageTargets();
+  const language = { href: languageHref(pathname, targets), label: ui.nav.language, lang: site.lang === "en" ? "id" : "en" };
+  const navPath = basePath(pathname);
   const isActive = (href: string) => {
-    if (href === "/") return navPath === "/";
-    return href.startsWith("/layanan") ? navPath.startsWith("/layanan") : navPath.startsWith(href);
+    const target = basePath(href);
+    return target === "/" ? navPath === "/" : navPath.startsWith(target);
   };
 
   const close = useCallback((restoreFocus = true) => {
@@ -324,7 +326,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   );
 
   const wordmark = (onClick?: () => void) => (
-    <Link href={homeHref} className="f-wordmark" aria-label={bahasa ? "jamalakbara. — Beranda" : "jamalakbara. — Home"} onClick={onClick}>
+    <Link href={homeHref} className="f-wordmark" aria-label={ui.nav.homeLabel} onClick={onClick}>
       <span className="f-wordmark__roll" aria-hidden="true">JAMALAKBARA.</span>
     </Link>
   );
@@ -337,7 +339,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           <StickerPeel />
 
           {/* ---- Desktop / tablet navigation ---- */}
-          <nav lang={bahasa ? "id" : undefined} className="f-nav" aria-label={bahasa ? "Utama" : "Primary"}>
+          <nav className="f-nav" aria-label={ui.nav.primary}>
             <div
               className="f-nav__start"
               style={active ? undefined : { borderRadius: 12, paddingRight: 40 }}
@@ -346,7 +348,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               {(before.length > 0 || !active) && (
                 <div className="f-nav__links">
                   {before.map(navLink)}
-                  {!active && BAHASA_SECTION_LIVE && languageNavLink}
+                  {!active && ID_PUBLISHED && languageNavLink}
                 </div>
               )}
             </div>
@@ -356,9 +358,9 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
                   <span className="f-notch__fill" aria-hidden="true" />
                   {navLink(active)}
                 </div>
-                <div className={after.length || BAHASA_SECTION_LIVE ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
+                <div className={after.length || ID_PUBLISHED ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
                   {after.map(navLink)}
-                  {BAHASA_SECTION_LIVE && languageNavLink}
+                  {ID_PUBLISHED && languageNavLink}
                 </div>
               </>
             )}
@@ -371,7 +373,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               ref={toggleRef}
               type="button"
               className="f-iconbtn"
-              aria-label={bahasa ? "Buka menu" : "Open menu"}
+              aria-label={ui.nav.openMenu}
               aria-expanded={menuOpen}
               aria-controls="f-mobile-menu"
               onClick={() => setMenuOpen(true)}
@@ -393,7 +395,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
         data-open={menuOpen}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={ui.nav.menu}
         aria-hidden={!menuOpen}
       >
         <div className="f-menu__scrim" onClick={() => close(false)} />
@@ -403,7 +405,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
             <button
               type="button"
               className="f-iconbtn"
-              aria-label={bahasa ? "Tutup menu" : "Close menu"}
+              aria-label={ui.nav.closeMenu}
               tabIndex={menuOpen ? 0 : -1}
               onClick={() => close()}
             >
@@ -425,7 +427,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               <span className="f-menu__label">{l.label}</span>
             </Link>
           ))}
-          {BAHASA_SECTION_LIVE && (
+          {ID_PUBLISHED && (
             <Link
               href={language.href}
               hrefLang={language.lang}

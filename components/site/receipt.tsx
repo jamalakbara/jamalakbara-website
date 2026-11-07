@@ -1,15 +1,11 @@
+"use client";
+
 import { ArrowUpRight } from "@/components/site/icons";
+import { useSite } from "@/lib/i18n/context";
 
 // Services receipt (canvas "About / Perforated receipt paper"). Copy is the
 // approved canvas copy; perforation (35 dashes), barcode (57 bars, every 4th
 // is 3px) and the 6px zig-zag torn edges reproduce the canvas geometry.
-
-const ENTRIES = [
-  ["01  WEB APP DEVELOPMENT", "Fast, useful apps for the browser."],
-  ["02  MOBILE APP DEVELOPMENT", "iOS & Android, from one codebase."],
-  ["03  DESKTOP APP DEVELOPMENT", "Apps that live on your computer."],
-  ["04  UI/UX DESIGN", "Layouts & interfaces that are easy to use."],
-] as const;
 
 const zig = (down: boolean) => {
   let d = down ? "M0 0" : "M0 8";
@@ -36,47 +32,48 @@ const Perf = () => (
 );
 
 export function Receipt() {
+  const { receipt: t } = useSite().ui;
   return (
     <div className="f-receipt">
       <Edge d={TOP} />
       <div className="f-receipt__body">
         <p className="f-receipt__name">JAMAL AKBAR ALAM</p>
-        <p className="f-receipt__sub">{"SERVICES MENU\nDESIGN · DEVELOPMENT · SHIP"}</p>
+        <p className="f-receipt__sub">{t.sub}</p>
         <Perf />
         <div className="f-receipt__pair f-meta">
-          <span>WHAT I CAN DO</span>
-          <span>FOR YOU</span>
+          <span>{t.whatICanDo}</span>
+          <span>{t.forYou}</span>
         </div>
         <ul style={{ display: "contents", listStyle: "none" }}>
-          {ENTRIES.map(([h, d]) => (
-            <li key={h} className="f-receipt__entry f-meta">
+          {t.entries.map((entry) => (
+            <li key={entry.name} className="f-receipt__entry f-meta">
               <span className="f-receipt__entry-h">
-                {h}
+                {entry.name}
                 <ArrowUpRight size={14} />
               </span>
-              <span>{d}</span>
+              <span>{entry.desc}</span>
             </li>
           ))}
         </ul>
         <Perf />
         <div className="f-receipt__pair f-receipt__total">
-          <span>LET’S BUILD</span>
-          <span>TOGETHER</span>
+          <span>{t.letsBuild}</span>
+          <span>{t.together}</span>
         </div>
         <div className="f-receipt__pair f-meta">
-          <span>SCOPE</span>
-          <span>TAILORED TO YOU</span>
+          <span>{t.scope}</span>
+          <span>{t.tailored}</span>
         </div>
         <div className="f-receipt__pair f-receipt__approach">
-          <span>MADE WITH</span>
-          <span>CARE</span>
+          <span>{t.madeWith}</span>
+          <span>{t.care}</span>
         </div>
         <div className="f-barcode" aria-hidden="true">
           {Array.from({ length: 57 }, (_, i) => (
             <i key={i} className={i % 4 === 0 ? "w" : undefined} />
           ))}
         </div>
-        <p className="f-receipt__foot">{"HAVE A PROJECT IN MIND?\nLET’S MAKE IT USEFUL."}</p>
+        <p className="f-receipt__foot">{t.foot}</p>
       </div>
       <Edge d={BOTTOM} />
     </div>

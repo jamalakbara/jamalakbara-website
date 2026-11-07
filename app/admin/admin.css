@@ -256,6 +256,10 @@
 .a-chip--live::before { background: var(--f-accent); }
 .a-chip--failed { background: var(--a-err-wash); }
 .a-chip--failed::before { background: var(--f-error); }
+.a-chip--bahasa { background: var(--a-ok-wash); }
+.a-chip--bahasa::before { background: var(--f-success); }
+.a-chip--missing { background: var(--a-err-wash); }
+.a-chip--missing::before { background: var(--f-error); }
 .a-dot { width: 8px; height: 8px; border-radius: 999px; flex-shrink: 0; background: var(--f-accent); }
 .a-dot--building { background: var(--a-warn); }
 .a-dot--failed { background: var(--f-error); }

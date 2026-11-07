@@ -51,6 +51,14 @@ export async function mediaUsage(): Promise<Record<string, MediaUse[]>> {
 
 export const MEDIA_META_PATH = "content/media.json";
 
+export async function readMediaAltId(): Promise<Record<string, string>> {
+  try {
+    return (await readJsonFile<{ altId?: Record<string, string> }>(MEDIA_META_PATH)).altId ?? {};
+  } catch {
+    return {};
+  }
+}
+
 export async function readMediaAlt(): Promise<Record<string, string>> {
   try {
     return (await readJsonFile<{ alt: Record<string, string> }>(MEDIA_META_PATH)).alt ?? {};

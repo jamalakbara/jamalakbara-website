@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { auth, signOut } from "@/lib/auth";
 import { backend, backendLabel, listContentDir, readProjects } from "@/lib/admin/content-store";
+import { loadTranslationReport } from "@/lib/admin/translations";
 import { vercelConfigured } from "@/lib/admin/vercel";
 import { AdminShell } from "@/components/admin/shell";
 
@@ -15,16 +16,17 @@ export default async function ProtectedAdminLayout({
   const session = await auth();
   if (!session || session.login !== process.env.ADMIN_GITHUB_LOGIN) redirect("/admin/login");
 
-  const [projects, journal, jurnal] = await Promise.all([
+  const [projects, journal, jurnal, translations] = await Promise.all([
     readProjects().then((p) => p.length).catch(() => 0),
     mdxCount("content/journal").catch(() => 0),
     mdxCount("content/jurnal").catch(() => 0),
+    loadTranslationReport().then((r) => r.total - r.done).catch(() => 0),
   ]);
 
   return (
     <AdminShell
       info={{
-        counts: { projects, journal, jurnal },
+        counts: { projects, journal, jurnal, translations },
         backend: {
           label: backendLabel(),
           github: backend() === "github",

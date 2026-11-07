@@ -91,7 +91,7 @@ export function Section({ n, title, children }: { n: string; title: string; chil
 
 /* ---- Status ------------------------------------------------------------- */
 
-export type ChipKind = "draft" | "published" | "building" | "live" | "failed";
+export type ChipKind = "draft" | "published" | "building" | "live" | "failed" | "bahasa" | "missing";
 
 const CHIP_LABEL: Record<ChipKind, string> = {
   draft: "Draft",
@@ -99,10 +99,44 @@ const CHIP_LABEL: Record<ChipKind, string> = {
   building: "Building",
   live: "Live",
   failed: "Failed",
+  bahasa: "Bahasa ready",
+  missing: "Bahasa missing",
 };
 
 export function Chip({ kind, children }: { kind: ChipKind; children?: ReactNode }) {
   return <span className={`a-chip a-chip--${kind}`}>{children ?? CHIP_LABEL[kind]}</span>;
+}
+
+/* ---- Language ----------------------------------------------------------- */
+
+export type EditLanguage = "en" | "id";
+
+/** Canvas "Language bar": which language an editor is writing. */
+export function LanguageBar({
+  value,
+  onChange,
+  note,
+}: {
+  value: EditLanguage;
+  onChange: (lang: EditLanguage) => void;
+  note: string;
+}) {
+  return (
+    <div className="a-panel" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "12px 16px" }}>
+      <span>
+        <span className="a-label">Editing language</span>
+        <br />
+        <span className="a-meta a-muted">{note}</span>
+      </span>
+      <span className="a-seg" style={{ height: 36 }}>
+        {(["en", "id"] as const).map((lang) => (
+          <button key={lang} type="button" className="a-seg__item" aria-pressed={value === lang} onClick={() => onChange(lang)}>
+            {lang.toUpperCase()}
+          </button>
+        ))}
+      </span>
+    </div>
+  );
 }
 
 /* ---- Fields ------------------------------------------------------------- */

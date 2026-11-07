@@ -1,5 +1,39 @@
 import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 import { auth } from "@/lib/auth";
+import { ID_PUBLISHED } from "@/lib/i18n/config";
+
+/**
+ * Language routing for public pages. English stays at the root: /work is
+ * served from /en/work without changing the URL. Bahasa lives under /id. Its
+ * old /jurnal URLs keep working until launch, then redirect.
+ */
+function routeLanguage(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  const url = req.nextUrl.clone();
+
+  if (/^\/en(\/|$)/.test(pathname)) {
+    url.pathname = pathname.slice(3) || "/";
+    return NextResponse.redirect(url, 308);
+  }
+  if (/^\/kontak\/?$/.test(pathname)) {
+    url.pathname = ID_PUBLISHED ? "/id/contact" : "/contact";
+    return NextResponse.redirect(url, ID_PUBLISHED ? 308 : 307);
+  }
+  if (/^\/jurnal(\/|$)/.test(pathname)) {
+    url.pathname = pathname.replace("/jurnal", "/id/journal");
+    return ID_PUBLISHED ? NextResponse.redirect(url, 308) : NextResponse.rewrite(url);
+  }
+  if (/^\/id(\/|$)/.test(pathname)) {
+    if (!ID_PUBLISHED && /^\/id\/journal(\/|$)/.test(pathname)) {
+      url.pathname = pathname.replace("/id/journal", "/jurnal");
+      return NextResponse.redirect(url, 307);
+    }
+    return NextResponse.next();
+  }
+  url.pathname = pathname === "/" ? "/en" : `/en${pathname}`;
+  return NextResponse.rewrite(url);
+}
 
 /**
  * Early gate for the admin surface. Real authorization happens
@@ -60,6 +94,10 @@ export default auth((req) => {
     if (isLoggedIn && isLoginPage) {
       return NextResponse.redirect(new URL(dashRedirect, req.nextUrl));
     }
+  }
+
+  if (!isAdminHost && !pathname.startsWith("/admin") && !pathname.startsWith("/api")) {
+    return routeLanguage(req);
   }
 
   if (needsRewrite) {

@@ -4699,6 +4699,30 @@
                           "height": 26
                         }
                       ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Nr0kw",
+                      "name": "Language link",
+                      "height": 48,
+                      "padding": [
+                        0,
+                        17
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "gKKvZ",
+                          "name": "Label",
+                          "fill": "$folder-muted",
+                          "content": "BAHASA",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -4965,6 +4989,33 @@
                       },
                       "width": 67,
                       "height": 26
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "GeHK2",
+                  "name": "Menu / Language",
+                  "width": "fill_container",
+                  "height": 56,
+                  "fill": "$folder-paper",
+                  "cornerRadius": 12,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "fOaob",
+                      "name": "Label",
+                      "fill": "$folder-muted",
+                      "content": "BAHASA",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -8537,6 +8588,30 @@
                       "height": 26
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "t6OG84",
+                  "name": "Language link",
+                  "height": 48,
+                  "padding": [
+                    0,
+                    17
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "xFiur",
+                      "name": "Label",
+                      "fill": "$folder-muted",
+                      "content": "BAHASA",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
                 }
               ]
             }
@@ -8800,6 +8875,30 @@
                       "height": 26
                     }
                   ]
+                },
+                {
+                  "type": "frame",
+                  "id": "BPWqy",
+                  "name": "Language link",
+                  "height": 48,
+                  "padding": [
+                    0,
+                    17
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Fm72w",
+                      "name": "Label",
+                      "fill": "$folder-muted",
+                      "content": "BAHASA",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
                 }
               ]
             }
@@ -9047,7 +9146,6 @@
               "type": "frame",
               "id": "UsIOj",
               "name": "Panel / End",
-              "width": 28,
               "height": "fill_container",
               "fill": "$folder-paper",
               "cornerRadius": [
@@ -9057,7 +9155,39 @@
                 0
               ],
               "gap": 12,
-              "alignItems": "center"
+              "padding": [
+                0,
+                40,
+                0,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZyNoG",
+                  "name": "Language link",
+                  "height": 48,
+                  "padding": [
+                    0,
+                    17
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "scq3M",
+                      "name": "Label",
+                      "fill": "$folder-muted",
+                      "content": "BAHASA",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 16,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -134682,6 +134812,12 @@
                       ]
                     },
                     {
+                      "id": "jrSqw",
+                      "type": "ref",
+                      "ref": "LoUjR",
+                      "name": "Language status"
+                    },
+                    {
                       "id": "xJJKF",
                       "type": "ref",
                       "ref": "LYeDk",
@@ -137237,6 +137373,32 @@
                                   "content": ""
                                 }
                               }
+                            },
+                            {
+                              "id": "WL3QI",
+                              "type": "ref",
+                              "ref": "mFEX6",
+                              "name": "Nav / Translations",
+                              "width": "fill_container",
+                              "descendants": {
+                                "u0yW89": {
+                                  "icon": "languages"
+                                },
+                                "UNkbG": {
+                                  "enabled": false
+                                },
+                                "zQ55W": {
+                                  "enabled": true,
+                                  "content": "Translations",
+                                  "width": "fill_container"
+                                },
+                                "yi0Vx": {
+                                  "enabled": false
+                                },
+                                "S2ulEr": {
+                                  "content": ""
+                                }
+                              }
                             }
                           ]
                         },
@@ -138359,6 +138521,150 @@
               ]
             }
           ]
+        },
+        {
+          "type": "frame",
+          "id": "LoUjR",
+          "name": "Admin / Chip / Bahasa ready",
+          "reusable": true,
+          "height": 28,
+          "fill": "$folder-surface",
+          "cornerRadius": 4,
+          "gap": 6,
+          "padding": [
+            0,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "Bukrb",
+              "name": "Dot",
+              "fill": "$folder-success",
+              "width": 7,
+              "height": 7
+            },
+            {
+              "type": "text",
+              "id": "O7csf",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Bahasa ready",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "FkM5T",
+          "name": "Admin / Chip / Bahasa missing",
+          "reusable": true,
+          "height": 28,
+          "fill": "$folder-surface",
+          "cornerRadius": 4,
+          "gap": 6,
+          "padding": [
+            0,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "Ua8l1",
+              "name": "Dot",
+              "fill": "$folder-error",
+              "width": 7,
+              "height": 7
+            },
+            {
+              "type": "text",
+              "id": "O6mw85",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Bahasa missing",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "Bwe9C",
+          "name": "Admin / Chip / Paired",
+          "reusable": true,
+          "height": 28,
+          "fill": "$folder-surface",
+          "cornerRadius": 4,
+          "gap": 6,
+          "padding": [
+            0,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "xGXhQ",
+              "name": "Dot",
+              "fill": "$folder-accent",
+              "width": 7,
+              "height": 7
+            },
+            {
+              "type": "text",
+              "id": "Ur005",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Paired",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "rQiSH",
+          "name": "Admin / Chip / Own language",
+          "reusable": true,
+          "height": 28,
+          "fill": "$folder-surface",
+          "cornerRadius": 4,
+          "gap": 6,
+          "padding": [
+            0,
+            10
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "n9neW",
+              "name": "Dot",
+              "fill": "$folder-muted",
+              "width": 7,
+              "height": 7
+            },
+            {
+              "type": "text",
+              "id": "K4ndY",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Own language",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
         }
       ]
     },
@@ -138371,7 +138677,7 @@
       "context": "Admin overview aligned with the Working Folder frontsite. Exact font artwork on canvas; source text retained in hidden layers and metadata.",
       "clip": true,
       "width": 1440,
-      "height": 1344,
+      "height": 1504,
       "fill": "$folder-surface",
       "children": [
         {
@@ -138759,6 +139065,82 @@
                   }
                 }
               }
+            },
+            {
+              "type": "frame",
+              "id": "jRiIW",
+              "name": "Bahasa progress",
+              "width": "fill_container",
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "BkSxl",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LXMBK",
+                      "name": "Title",
+                      "fill": "$folder-ink",
+                      "content": "BAHASA PROGRESS",
+                      "lineHeight": 1.1,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 18,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "z1qjx",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "41 of 96 fields",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QsvDr",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "zyUyV",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 480,
+                      "height": 6
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "P5jqT",
+                  "name": "Note",
+                  "fill": "$folder-muted",
+                  "content": "Site offline in Bahasa until required copy is complete.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
             },
             {
               "type": "frame",
@@ -143544,7 +143926,7 @@
       "name": "26 — Admin / Project editor / Desktop 1440",
       "clip": true,
       "width": 1440,
-      "height": 2160,
+      "height": 2248,
       "fill": "$folder-surface",
       "children": [
         {
@@ -143727,6 +144109,60 @@
                   "content": "Save & publish"
                 }
               }
+            },
+            {
+              "type": "frame",
+              "id": "WpYHa",
+              "name": "Language bar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "gap": 12,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "wKEH8",
+                  "name": "Text",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "IH31F",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Editing language",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "eERR7",
+                      "name": "Note",
+                      "fill": "$folder-muted",
+                      "content": "Copy and SEO change per language. Media and tech are shared.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "JuBGc",
+                  "type": "ref",
+                  "ref": "t96irl",
+                  "name": "Lang switch"
+                }
+              ]
             },
             {
               "type": "frame",
@@ -146844,6 +147280,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "C6mrU",
+                      "type": "ref",
+                      "ref": "Bwe9C",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -147152,6 +147594,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "IRHeo",
+                      "type": "ref",
+                      "ref": "rQiSH",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -147460,6 +147908,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "oRxpy",
+                      "type": "ref",
+                      "ref": "Bwe9C",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -147768,6 +148222,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "c5lFCg",
+                      "type": "ref",
+                      "ref": "rQiSH",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -148076,6 +148536,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "dmjgR",
+                      "type": "ref",
+                      "ref": "Bwe9C",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -148384,6 +148850,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "SE2G6",
+                      "type": "ref",
+                      "ref": "rQiSH",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -148692,6 +149164,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "fs9bH",
+                      "type": "ref",
+                      "ref": "Bwe9C",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -149000,6 +149478,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "PmUgN",
+                      "type": "ref",
+                      "ref": "rQiSH",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -149308,6 +149792,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "TfGhz",
+                      "type": "ref",
+                      "ref": "Bwe9C",
+                      "name": "Pair status"
                     }
                   ]
                 },
@@ -149616,6 +150106,12 @@
                           "fill": "$folder-ink"
                         }
                       ]
+                    },
+                    {
+                      "id": "tQBgp",
+                      "type": "ref",
+                      "ref": "rQiSH",
+                      "name": "Pair status"
                     }
                   ]
                 }
@@ -151610,7 +152106,7 @@
       "name": "29 — Admin / Site copy / Desktop 1440",
       "clip": true,
       "width": 1440,
-      "height": 1200,
+      "height": 1288,
       "fill": "$folder-surface",
       "children": [
         {
@@ -151786,6 +152282,60 @@
                   "content": "Save & publish"
                 }
               }
+            },
+            {
+              "type": "frame",
+              "id": "mTD90",
+              "name": "Language bar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "gap": 12,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "S7B6ve",
+                  "name": "Text",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "E85z2",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Editing language",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "JCW7w",
+                      "name": "Note",
+                      "fill": "$folder-muted",
+                      "content": "Bahasa saves to content/i18n/id.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "SJaLm",
+                  "type": "ref",
+                  "ref": "t96irl",
+                  "name": "Lang switch"
+                }
+              ]
             },
             {
               "type": "frame",
@@ -153375,7 +153925,7 @@
       "name": "30 — Admin / Media / Desktop 1440",
       "clip": true,
       "width": 1440,
-      "height": 1260,
+      "height": 1348,
       "fill": "$folder-surface",
       "children": [
         {
@@ -153551,6 +154101,60 @@
                   "content": "Upload"
                 }
               }
+            },
+            {
+              "type": "frame",
+              "id": "X0TWCc",
+              "name": "Language bar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "gap": 12,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "l0uXM",
+                  "name": "Text",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x5VqLs",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Editing language",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "nQ09K",
+                      "name": "Note",
+                      "fill": "$folder-muted",
+                      "content": "Alt text changes per language.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "WMniY",
+                  "type": "ref",
+                  "ref": "t96irl",
+                  "name": "Lang switch"
+                }
+              ]
             },
             {
               "type": "frame",
@@ -158418,6 +159022,82 @@
           ]
         },
         {
+          "type": "frame",
+          "id": "GyzHM",
+          "name": "Bahasa progress",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "qbe0n",
+              "name": "Head",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "AWs7P",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "BAHASA PROGRESS",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 18,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "ga7Oh",
+                  "name": "Count",
+                  "fill": "$folder-muted",
+                  "content": "41 of 96 fields",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tVscT",
+              "name": "Track",
+              "width": "fill_container",
+              "height": 6,
+              "fill": "$folder-surface",
+              "cornerRadius": 3,
+              "children": [
+                {
+                  "type": "rectangle",
+                  "cornerRadius": 3,
+                  "id": "SkPQC",
+                  "name": "Fill",
+                  "fill": "$folder-accent",
+                  "width": 150,
+                  "height": 6
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "UrVFE",
+              "name": "Note",
+              "fill": "$folder-muted",
+              "content": "Site offline in Bahasa until required copy is complete.",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
           "id": "EHTAg",
           "type": "ref",
           "ref": "PSNxZ",
@@ -161749,6 +162429,60 @@
         },
         {
           "type": "frame",
+          "id": "v8GkYr",
+          "name": "Language bar",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "J4JuSe",
+              "name": "Text",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "h8yKjI",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Editing language",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "oeTWw",
+                  "name": "Note",
+                  "fill": "$folder-muted",
+                  "content": "Media and tech are shared.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "id": "L4tW68",
+              "type": "ref",
+              "ref": "t96irl",
+              "name": "Lang switch"
+            }
+          ]
+        },
+        {
+          "type": "frame",
           "id": "sA9sb",
           "name": "Section / Basics",
           "width": "fill_container",
@@ -162891,6 +163625,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "mTp1w",
+                  "type": "ref",
+                  "ref": "Bwe9C",
+                  "name": "Pair status"
                 }
               ]
             },
@@ -163026,6 +163766,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "nNNsD",
+                  "type": "ref",
+                  "ref": "rQiSH",
+                  "name": "Pair status"
                 }
               ]
             },
@@ -163151,6 +163897,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "I8wydu",
+                  "type": "ref",
+                  "ref": "Bwe9C",
+                  "name": "Pair status"
                 }
               ]
             },
@@ -163276,6 +164028,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "th2e4",
+                  "type": "ref",
+                  "ref": "rQiSH",
+                  "name": "Pair status"
                 }
               ]
             },
@@ -163401,6 +164159,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "F81cqk",
+                  "type": "ref",
+                  "ref": "Bwe9C",
+                  "name": "Pair status"
                 }
               ]
             },
@@ -163536,6 +164300,12 @@
                   "fontFamily": "$admin-body",
                   "fontSize": 16,
                   "fontWeight": "normal"
+                },
+                {
+                  "id": "cyixr",
+                  "type": "ref",
+                  "ref": "rQiSH",
+                  "name": "Pair status"
                 }
               ]
             }
@@ -166769,6 +167539,60 @@
         },
         {
           "type": "frame",
+          "id": "mRt1D",
+          "name": "Language bar",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "PIMCw",
+              "name": "Text",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ySYXR",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Editing language",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "cDyUc",
+                  "name": "Note",
+                  "fill": "$folder-muted",
+                  "content": "Saves to content/i18n/id.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "id": "gaRn2",
+              "type": "ref",
+              "ref": "t96irl",
+              "name": "Lang switch"
+            }
+          ]
+        },
+        {
+          "type": "frame",
           "id": "Ca6Lo",
           "name": "Panel",
           "width": "fill_container",
@@ -167247,6 +168071,60 @@
                   "content": "Search media…"
                 }
               }
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "FfU8w",
+          "name": "Language bar",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "gap": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "KiWqv",
+              "name": "Text",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Kuzo3",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Editing language",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "mtjTV",
+                  "name": "Note",
+                  "fill": "$folder-muted",
+                  "content": "Alt text per language.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "id": "W9Pp1",
+              "type": "ref",
+              "ref": "t96irl",
+              "name": "Lang switch"
             }
           ]
         },
@@ -181322,7 +182200,7 @@
       "context": "Edits content/site/seo.json. One save = one commit, same as Site copy.",
       "clip": true,
       "width": 1440,
-      "height": 1200,
+      "height": 1288,
       "fill": "$folder-surface",
       "children": [
         {
@@ -181527,6 +182405,60 @@
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "WdA7k",
+              "name": "Language bar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "gap": 12,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "LBtAW",
+                  "name": "Text",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "J8Y2ag",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Editing language",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "TnPAz",
+                      "name": "Note",
+                      "fill": "$folder-muted",
+                      "content": "Descriptions change per language. Names and links are shared.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "CfJoC",
+                  "type": "ref",
+                  "ref": "t96irl",
+                  "name": "Lang switch"
                 }
               ]
             },
@@ -182714,7 +183646,7 @@
       "context": "Edits one entry in content/service-pages.json. Uses SeoPanel with servicePageSeo().",
       "clip": true,
       "width": 1440,
-      "height": 2180,
+      "height": 2268,
       "fill": "$folder-surface",
       "children": [
         {
@@ -182919,6 +183851,60 @@
                       ]
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "wpcFQ",
+              "name": "Language bar",
+              "width": "fill_container",
+              "height": 64,
+              "fill": "$folder-paper",
+              "cornerRadius": 12,
+              "gap": 12,
+              "padding": [
+                0,
+                16
+              ],
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "tWQ6B",
+                  "name": "Text",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "YBFLj",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Editing language",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "Kbs83",
+                      "name": "Note",
+                      "fill": "$folder-muted",
+                      "content": "Switches between the paired pages.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "id": "KqlER",
+                  "type": "ref",
+                  "ref": "t96irl",
+                  "name": "Lang switch"
                 }
               ]
             },
@@ -184637,6 +185623,12 @@
                               "fontWeight": "normal"
                             }
                           ]
+                        },
+                        {
+                          "id": "csNGz",
+                          "type": "ref",
+                          "ref": "FkM5T",
+                          "name": "English twin status"
                         }
                       ]
                     }
@@ -185065,7 +186057,7 @@
       "x": 0,
       "y": 70200,
       "name": "40 — Kontak / Bahasa nav / Desktop 1440",
-      "context": "Bahasa section: /layanan, /jurnal and /kontak share this nav. Language link swaps to the English site. Form behaviour matches /contact.",
+      "context": "Superseded: Bahasa uses the translated main nav at /id. Replaced by /id frames imported from the running site.",
       "clip": true,
       "width": 1440,
       "fill": {
@@ -185699,7 +186691,7 @@
       "x": 1560,
       "y": 70200,
       "name": "40 — Kontak / Bahasa nav / Mobile 390",
-      "context": "Bahasa section: /layanan, /jurnal and /kontak share this nav. Language link swaps to the English site. Form behaviour matches /contact.",
+      "context": "Superseded: see desktop frame.",
       "clip": true,
       "width": 390,
       "fill": {
@@ -186215,6 +187207,2524 @@
                   "type": "ref",
                   "ref": "EaXCh",
                   "name": "Identity stamp"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "bMoSu",
+      "x": 6300,
+      "y": 66600,
+      "name": "41 — Admin / Translations / Desktop 1440",
+      "context": "Progress for the Bahasa site. Missing rows link to their editor. Publish toggle unlocks when required copy is complete.",
+      "clip": true,
+      "width": 1440,
+      "height": 1100,
+      "fill": "$folder-surface",
+      "children": [
+        {
+          "id": "FB6xL",
+          "type": "ref",
+          "ref": "dX0UB",
+          "name": "Sidebar",
+          "height": "fill_container",
+          "descendants": {
+            "Rq627": {
+              "fill": "#00000000"
+            },
+            "Rq627/p1xDg": {
+              "fill": "$folder-muted"
+            },
+            "Rq627/lOt8E": {
+              "height": 27
+            },
+            "Rq627/GXlRJ": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/2196347782.png",
+                "mode": "contain"
+              },
+              "width": 73,
+              "height": 27
+            },
+            "Rq627/ajlN2": {
+              "fill": "$folder-ink"
+            },
+            "zOAa5": {
+              "fill": "$folder-ink"
+            },
+            "zOAa5/u0yW89": {
+              "fill": "$folder-paper"
+            },
+            "zOAa5/UNkbG": {
+              "height": 27
+            },
+            "zOAa5/Wk8Fm": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/3926296350.png",
+                "mode": "contain"
+              },
+              "width": 61,
+              "height": 27
+            },
+            "zOAa5/zQ55W": {
+              "fill": "$folder-paper"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "ehYnd",
+          "name": "Main",
+          "width": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            24,
+            24,
+            32,
+            8
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "T5I9yB",
+              "name": "Page header",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "khEN1",
+                  "name": "Tab",
+                  "height": 34,
+                  "fill": "$folder-paper",
+                  "cornerRadius": [
+                    10,
+                    10,
+                    0,
+                    0
+                  ],
+                  "gap": 16,
+                  "padding": [
+                    0,
+                    16
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "w7Yglo",
+                      "name": "Eyebrow",
+                      "fill": "$folder-ink",
+                      "content": "CONTENT / TRANSLATIONS",
+                      "lineHeight": 1.1,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "eeqDr",
+                  "name": "Panel",
+                  "width": "fill_container",
+                  "fill": "$folder-paper",
+                  "cornerRadius": [
+                    0,
+                    12,
+                    12,
+                    12
+                  ],
+                  "layout": "vertical",
+                  "gap": 6,
+                  "padding": 32,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "wtwAv",
+                      "name": "Title",
+                      "fill": "$folder-ink",
+                      "content": "Translations",
+                      "lineHeight": 1.1,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 44,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "YjAl1",
+                      "name": "Subtitle",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "What still needs Bahasa before the site can go live.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "ue7N5",
+              "name": "Body",
+              "width": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Kfl3t",
+                  "name": "Left",
+                  "width": 760,
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "cb4b2",
+                      "name": "Progress list",
+                      "width": "fill_container",
+                      "fill": "$folder-paper",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "padding": [
+                        8,
+                        20
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "GebNb",
+                          "name": "Pages",
+                          "width": "fill_container",
+                          "stroke": "$folder-line",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            14,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "jcg0x",
+                              "name": "Head",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "O4wCl",
+                                  "name": "Text",
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "CyU58",
+                                      "name": "Title",
+                                      "fill": "$folder-ink",
+                                      "content": "Pages",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "nxVXC",
+                                      "name": "Detail",
+                                      "fill": "$folder-muted",
+                                      "content": "Home, Work, About, Contact, Journal",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Nkl5z",
+                                  "name": "Count",
+                                  "fill": "$folder-muted",
+                                  "content": "14 of 30",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "SxsSe",
+                              "name": "Track",
+                              "width": "fill_container",
+                              "height": 6,
+                              "fill": "$folder-surface",
+                              "cornerRadius": 3,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 3,
+                                  "id": "beyTg",
+                                  "name": "Fill",
+                                  "fill": "$folder-accent",
+                                  "width": 331,
+                                  "height": 6
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "LHrRt",
+                          "name": "Interface text",
+                          "width": "fill_container",
+                          "stroke": "$folder-line",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            14,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "aY8FG",
+                              "name": "Head",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "qSxGp",
+                                  "name": "Text",
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "nW9Is",
+                                      "name": "Title",
+                                      "fill": "$folder-ink",
+                                      "content": "Interface text",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "pSHZy",
+                                      "name": "Detail",
+                                      "fill": "$folder-muted",
+                                      "content": "Nav, buttons, forms, cookie banner",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "gXe4O",
+                                  "name": "Count",
+                                  "fill": "$folder-muted",
+                                  "content": "22 of 44",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "RevVB",
+                              "name": "Track",
+                              "width": "fill_container",
+                              "height": 6,
+                              "fill": "$folder-surface",
+                              "cornerRadius": 3,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 3,
+                                  "id": "uIOeX",
+                                  "name": "Fill",
+                                  "fill": "$folder-accent",
+                                  "width": 360,
+                                  "height": 6
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "K9KXJ",
+                          "name": "Projects",
+                          "width": "fill_container",
+                          "stroke": "$folder-line",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            14,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "QOAHr",
+                              "name": "Head",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "W2HHw4",
+                                  "name": "Text",
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "Ath6h",
+                                      "name": "Title",
+                                      "fill": "$folder-ink",
+                                      "content": "Projects",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "Envy1",
+                                      "name": "Detail",
+                                      "fill": "$folder-muted",
+                                      "content": "Withavelle, Duma and 15 more",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "NCAoY",
+                                  "name": "Count",
+                                  "fill": "$folder-muted",
+                                  "content": "3 of 17",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "G6nRGT",
+                              "name": "Track",
+                              "width": "fill_container",
+                              "height": 6,
+                              "fill": "$folder-surface",
+                              "cornerRadius": 3,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 3,
+                                  "id": "O8ewMO",
+                                  "name": "Fill",
+                                  "fill": "$folder-accent",
+                                  "width": 130,
+                                  "height": 6
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "FwZEO",
+                          "name": "Privacy policy",
+                          "width": "fill_container",
+                          "stroke": "$folder-line",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            14,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Rn8S1",
+                              "name": "Head",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "fLg1G",
+                                  "name": "Text",
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "DfxMZ",
+                                      "name": "Title",
+                                      "fill": "$folder-ink",
+                                      "content": "Privacy policy",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "o3eMa",
+                                      "name": "Detail",
+                                      "fill": "$folder-muted",
+                                      "content": "Required before publishing",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "VEukD",
+                                  "name": "Count",
+                                  "fill": "$folder-muted",
+                                  "content": "0 of 1",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "gFPHY",
+                              "name": "Track",
+                              "width": "fill_container",
+                              "height": 6,
+                              "fill": "$folder-surface",
+                              "cornerRadius": 3,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 3,
+                                  "id": "p8owp",
+                                  "name": "Fill",
+                                  "fill": "$folder-accent",
+                                  "width": 2,
+                                  "height": 6
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "R1OAH7",
+                          "name": "Services",
+                          "width": "fill_container",
+                          "stroke": "$folder-line",
+                          "strokeWidth": {
+                            "bottom": 1
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            14,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "mAEOs",
+                              "name": "Head",
+                              "width": "fill_container",
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "AhfY3",
+                                  "name": "Text",
+                                  "layout": "vertical",
+                                  "children": [
+                                    {
+                                      "type": "text",
+                                      "id": "zEmhh",
+                                      "name": "Title",
+                                      "fill": "$folder-ink",
+                                      "content": "Services",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 15,
+                                      "fontWeight": "normal"
+                                    },
+                                    {
+                                      "type": "text",
+                                      "id": "Wwk4c",
+                                      "name": "Detail",
+                                      "fill": "$folder-muted",
+                                      "content": "Jasa website Bandung + English twin",
+                                      "lineHeight": 1.4,
+                                      "fontFamily": "$admin-body",
+                                      "fontSize": 13,
+                                      "fontWeight": "normal"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "ybUrJ",
+                                  "name": "Count",
+                                  "fill": "$folder-muted",
+                                  "content": "1 of 2",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 13,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "aUH0K",
+                              "name": "Track",
+                              "width": "fill_container",
+                              "height": 6,
+                              "fill": "$folder-surface",
+                              "cornerRadius": 3,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 3,
+                                  "id": "ivQQk",
+                                  "name": "Fill",
+                                  "fill": "$folder-accent",
+                                  "width": 360,
+                                  "height": 6
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "fXb0H",
+                  "name": "Right",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "yzLko",
+                      "name": "Publish",
+                      "width": "fill_container",
+                      "fill": "$folder-paper",
+                      "cornerRadius": 12,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MPamN",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "PUBLISH BAHASA",
+                          "lineHeight": 1.1,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "m7C398",
+                          "name": "Toggle row",
+                          "opacity": 0.5,
+                          "height": 48,
+                          "gap": 10,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "jvjPG",
+                              "name": "Track",
+                              "width": 36,
+                              "height": 20,
+                              "fill": "$folder-line",
+                              "cornerRadius": 10,
+                              "padding": 3,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "A4sukl",
+                                  "name": "Knob",
+                                  "fill": "$folder-white",
+                                  "width": 14,
+                                  "height": 14
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "JIUOG",
+                              "name": "Label",
+                              "fill": "$folder-ink",
+                              "content": "Publish Bahasa site",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$admin-body",
+                              "fontSize": 15,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "RkkCw",
+                          "name": "Note",
+                          "fill": "$folder-muted",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Locked until pages, interface text and privacy policy are done. Projects can follow later.",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "rD3Zv",
+                          "name": "Missing",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "B2J3H",
+                              "name": "Home hero text",
+                              "width": "fill_container",
+                              "height": 44,
+                              "stroke": "$folder-line",
+                              "strokeWidth": {
+                                "bottom": 1
+                              },
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "ZX5Gi",
+                                  "name": "Label",
+                                  "fill": "$folder-ink",
+                                  "content": "Home hero text",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon",
+                                  "id": "F9nKJ",
+                                  "name": "arrow-right",
+                                  "width": 16,
+                                  "height": 16,
+                                  "icon": "arrow-right",
+                                  "library": "lucide",
+                                  "fill": "$folder-muted"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MYadq",
+                              "name": "About story",
+                              "width": "fill_container",
+                              "height": 44,
+                              "stroke": "$folder-line",
+                              "strokeWidth": {
+                                "bottom": 1
+                              },
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "q5geP2",
+                                  "name": "Label",
+                                  "fill": "$folder-ink",
+                                  "content": "About story",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon",
+                                  "id": "sUOaf",
+                                  "name": "arrow-right",
+                                  "width": 16,
+                                  "height": 16,
+                                  "icon": "arrow-right",
+                                  "library": "lucide",
+                                  "fill": "$folder-muted"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "oGaTp",
+                              "name": "Privacy policy",
+                              "width": "fill_container",
+                              "height": 44,
+                              "stroke": "$folder-line",
+                              "strokeWidth": {
+                                "bottom": 1
+                              },
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "tBsO7",
+                                  "name": "Label",
+                                  "fill": "$folder-ink",
+                                  "content": "Privacy policy",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 14,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon",
+                                  "id": "HMCqG",
+                                  "name": "arrow-right",
+                                  "width": 16,
+                                  "height": 16,
+                                  "icon": "arrow-right",
+                                  "library": "lucide",
+                                  "fill": "$folder-muted"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YRgTq",
+      "x": 7900,
+      "y": 66600,
+      "name": "41M — Admin / Translations / Mobile 390",
+      "clip": true,
+      "width": 390,
+      "height": 1200,
+      "fill": "$folder-surface",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 12,
+      "children": [
+        {
+          "id": "fH0AJ",
+          "type": "ref",
+          "ref": "DuPyK",
+          "name": "Top bar",
+          "width": "fill_container",
+          "descendants": {
+            "FYHAS": {
+              "width": 49,
+              "height": 21
+            },
+            "o98di5": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/1048894907.png",
+                "mode": "contain"
+              },
+              "width": 49,
+              "height": 21
+            },
+            "TpFPD": {
+              "content": "SITE COPY"
+            },
+            "znilm": {
+              "width": 101,
+              "height": 25
+            },
+            "iNy0G": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/553297865.png",
+                "mode": "contain"
+              },
+              "width": 101,
+              "height": 25
+            },
+            "Wodbo": {
+              "content": "Home · 2 unsaved"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "zhfXV",
+          "name": "Page header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "Uryuw",
+              "name": "Tab",
+              "height": 34,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
+                0,
+                0
+              ],
+              "gap": 16,
+              "padding": [
+                0,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "mXI7C",
+                  "name": "Eyebrow",
+                  "fill": "$folder-ink",
+                  "content": "TRANSLATIONS",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "kOrEB",
+              "name": "Panel",
+              "width": "fill_container",
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
+              ],
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jE2pv",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "Translations",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 32,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "D0OnfL",
+                  "name": "Subtitle",
+                  "fill": "$folder-ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "What still needs Bahasa.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "S4oyUD",
+          "name": "Progress list",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "padding": [
+            8,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "Y1gsjm",
+              "name": "Pages",
+              "width": "fill_container",
+              "stroke": "$folder-line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ivgxW",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Mu60m",
+                      "name": "Text",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "i3x3as",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "Pages",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Z7ofU",
+                          "name": "Detail",
+                          "fill": "$folder-muted",
+                          "content": "Home, Work, About, Contact, Journal",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "IInG9",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "14 of 30",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "dvfrV",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "HgkjS",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 147,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "GbvJy",
+              "name": "Interface text",
+              "width": "fill_container",
+              "stroke": "$folder-line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "G9SjL",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Qd21E",
+                      "name": "Text",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "IFunK",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "Interface text",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qNVae",
+                          "name": "Detail",
+                          "fill": "$folder-muted",
+                          "content": "Nav, buttons, forms, cookie banner",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "A0hW2",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "22 of 44",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "jVcN3",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "X24n4",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 160,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "mgZ6n",
+              "name": "Projects",
+              "width": "fill_container",
+              "stroke": "$folder-line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "kLoPv",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "oxZwd",
+                      "name": "Text",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "Bt3xc",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "Projects",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "iQDyA",
+                          "name": "Detail",
+                          "fill": "$folder-muted",
+                          "content": "Withavelle, Duma and 15 more",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "WkMTs",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "3 of 17",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "g4vAjM",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "RcEt6",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 58,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "xbEiC",
+              "name": "Privacy policy",
+              "width": "fill_container",
+              "stroke": "$folder-line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "zQjJz",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "XBNct",
+                      "name": "Text",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uksgD",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "Privacy policy",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "jKIJP",
+                          "name": "Detail",
+                          "fill": "$folder-muted",
+                          "content": "Required before publishing",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "x4jOkS",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "0 of 1",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "imtgs",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "hNfOs",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 2,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "eo78d",
+              "name": "Services",
+              "width": "fill_container",
+              "stroke": "$folder-line",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "W1d0c",
+                  "name": "Head",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "tTA4o",
+                      "name": "Text",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rhF3c",
+                          "name": "Title",
+                          "fill": "$folder-ink",
+                          "content": "Services",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "M6FSP",
+                          "name": "Detail",
+                          "fill": "$folder-muted",
+                          "content": "Jasa website Bandung + English twin",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "haHFG",
+                      "name": "Count",
+                      "fill": "$folder-muted",
+                      "content": "1 of 2",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "r6FVq",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 6,
+                  "fill": "$folder-surface",
+                  "cornerRadius": 3,
+                  "children": [
+                    {
+                      "type": "rectangle",
+                      "cornerRadius": 3,
+                      "id": "jnSOF",
+                      "name": "Fill",
+                      "fill": "$folder-accent",
+                      "width": 160,
+                      "height": 6
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "N4ebcM",
+          "name": "Publish",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "gap": 12,
+          "padding": 20,
+          "children": [
+            {
+              "type": "text",
+              "id": "XCidf",
+              "name": "Title",
+              "fill": "$folder-ink",
+              "content": "PUBLISH BAHASA",
+              "lineHeight": 1.1,
+              "fontFamily": "$admin-display",
+              "fontSize": 18,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "f013ud",
+              "name": "Toggle row",
+              "opacity": 0.5,
+              "height": 48,
+              "gap": 10,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "Ivnor",
+                  "name": "Track",
+                  "width": 36,
+                  "height": 20,
+                  "fill": "$folder-line",
+                  "cornerRadius": 10,
+                  "padding": 3,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "hkj1h",
+                      "name": "Knob",
+                      "fill": "$folder-white",
+                      "width": 14,
+                      "height": 14
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "oHS7U",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Publish Bahasa site",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "XJQ3u",
+              "name": "Note",
+              "fill": "$folder-muted",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Locked until pages, interface text and privacy policy are done. Projects can follow later.",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "svHWI",
+              "name": "Missing",
+              "width": "fill_container",
+              "layout": "vertical",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "fovMU",
+                  "name": "Home hero text",
+                  "width": "fill_container",
+                  "height": 44,
+                  "stroke": "$folder-line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Cmiaq",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Home hero text",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "FKAqf",
+                      "name": "arrow-right",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "arrow-right",
+                      "library": "lucide",
+                      "fill": "$folder-muted"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "r6aFO",
+                  "name": "About story",
+                  "width": "fill_container",
+                  "height": 44,
+                  "stroke": "$folder-line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BkRQ1",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "About story",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "jo9Xb",
+                      "name": "arrow-right",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "arrow-right",
+                      "library": "lucide",
+                      "fill": "$folder-muted"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "L4pZP",
+                  "name": "Privacy policy",
+                  "width": "fill_container",
+                  "height": 44,
+                  "stroke": "$folder-line",
+                  "strokeWidth": {
+                    "bottom": 1
+                  },
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "J5UXhU",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "Privacy policy",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "sgv94",
+                      "name": "arrow-right",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "arrow-right",
+                      "library": "lucide",
+                      "fill": "$folder-muted"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "WZCAl",
+      "x": 8410,
+      "y": 66600,
+      "name": "36M — Admin / SEO / Mobile 390",
+      "clip": true,
+      "width": 390,
+      "height": 1200,
+      "fill": "$folder-surface",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 12,
+      "children": [
+        {
+          "id": "M5ajar",
+          "type": "ref",
+          "ref": "DuPyK",
+          "name": "Top bar",
+          "width": "fill_container",
+          "descendants": {
+            "FYHAS": {
+              "width": 49,
+              "height": 21
+            },
+            "o98di5": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/1048894907.png",
+                "mode": "contain"
+              },
+              "width": 49,
+              "height": 21
+            },
+            "TpFPD": {
+              "content": "SITE COPY"
+            },
+            "znilm": {
+              "width": 101,
+              "height": 25
+            },
+            "iNy0G": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/553297865.png",
+                "mode": "contain"
+              },
+              "width": 101,
+              "height": 25
+            },
+            "Wodbo": {
+              "content": "Home · 2 unsaved"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "yEiW3",
+          "name": "Page header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "YTPJX",
+              "name": "Tab",
+              "height": 34,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
+                0,
+                0
+              ],
+              "gap": 16,
+              "padding": [
+                0,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "eALX4",
+                  "name": "Eyebrow",
+                  "fill": "$folder-ink",
+                  "content": "SETTINGS / SEO",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vFtzi",
+              "name": "Panel",
+              "width": "fill_container",
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
+              ],
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "h7L9mq",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "Search data",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 32,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "JNldI",
+                  "name": "Subtitle",
+                  "fill": "$folder-ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "What Google reads about you.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "C8CatB",
+          "name": "Language bar",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "j1viH",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Editing language",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "id": "Ls5Eu",
+              "type": "ref",
+              "ref": "t96irl",
+              "name": "Lang switch"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "J930l",
+          "name": "Fields",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "gap": 16,
+          "padding": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "DSk0g",
+              "name": "Field / Name",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "UuMYn",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Name",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "krDEQ",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZmdCs",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Jamal Akbar Alam",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "fkryo",
+              "name": "Field / Description",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "vaAmy",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Description",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "hP8VY",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 96,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "FSdWE",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Full-stack developer and UI/UX designer based in Bandung.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "dNgnd",
+              "name": "Field / Phone",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "jqLxI",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Phone",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "W0jBIX",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "juys1",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "+6281321766565",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "S1noQP",
+      "x": 8920,
+      "y": 66600,
+      "name": "37M — Admin / Service pages / Mobile 390",
+      "clip": true,
+      "width": 390,
+      "height": 1200,
+      "fill": "$folder-surface",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 12,
+      "children": [
+        {
+          "id": "M6XZc",
+          "type": "ref",
+          "ref": "DuPyK",
+          "name": "Top bar",
+          "width": "fill_container",
+          "descendants": {
+            "FYHAS": {
+              "width": 49,
+              "height": 21
+            },
+            "o98di5": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/1048894907.png",
+                "mode": "contain"
+              },
+              "width": 49,
+              "height": 21
+            },
+            "TpFPD": {
+              "content": "SITE COPY"
+            },
+            "znilm": {
+              "width": 101,
+              "height": 25
+            },
+            "iNy0G": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/553297865.png",
+                "mode": "contain"
+              },
+              "width": 101,
+              "height": 25
+            },
+            "Wodbo": {
+              "content": "Home · 2 unsaved"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "a7XLkl",
+          "name": "Page header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "FcejO",
+              "name": "Tab",
+              "height": 34,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
+                0,
+                0
+              ],
+              "gap": 16,
+              "padding": [
+                0,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "v8v5Z",
+                  "name": "Eyebrow",
+                  "fill": "$folder-ink",
+                  "content": "SERVICE PAGES",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "gfCpp",
+              "name": "Panel",
+              "width": "fill_container",
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
+              ],
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "F7uoA",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "Service pages",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 32,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "hFFVW",
+                  "name": "Subtitle",
+                  "fill": "$folder-ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Landing pages in both languages.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "JZElz",
+          "name": "List",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "padding": [
+            8,
+            20
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "MROOp",
+              "name": "Row",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                14,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "p1GWpK",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "Jasa website Bandung",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "K8508",
+                  "name": "URL",
+                  "fill": "$folder-muted",
+                  "content": "/id/services/jasa-website-bandung",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                },
+                {
+                  "id": "mtPOT",
+                  "type": "ref",
+                  "ref": "FkM5T",
+                  "name": "English twin status"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "M2DZzt",
+      "x": 9430,
+      "y": 66600,
+      "name": "38M — Admin / Service page editor / Mobile 390",
+      "clip": true,
+      "width": 390,
+      "height": 1200,
+      "fill": "$folder-surface",
+      "layout": "vertical",
+      "gap": 12,
+      "padding": 12,
+      "children": [
+        {
+          "id": "UigpA",
+          "type": "ref",
+          "ref": "DuPyK",
+          "name": "Top bar",
+          "width": "fill_container",
+          "descendants": {
+            "FYHAS": {
+              "width": 49,
+              "height": 21
+            },
+            "o98di5": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/1048894907.png",
+                "mode": "contain"
+              },
+              "width": 49,
+              "height": 21
+            },
+            "TpFPD": {
+              "content": "SITE COPY"
+            },
+            "znilm": {
+              "width": 101,
+              "height": 25
+            },
+            "iNy0G": {
+              "fill": {
+                "type": "image",
+                "enabled": true,
+                "url": "jamalakbara-assets/553297865.png",
+                "mode": "contain"
+              },
+              "width": 101,
+              "height": 25
+            },
+            "Wodbo": {
+              "content": "Home · 2 unsaved"
+            }
+          }
+        },
+        {
+          "type": "frame",
+          "id": "JM66i",
+          "name": "Page header",
+          "width": "fill_container",
+          "layout": "vertical",
+          "children": [
+            {
+              "type": "frame",
+              "id": "kRxy4",
+              "name": "Tab",
+              "height": 34,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
+                0,
+                0
+              ],
+              "gap": 16,
+              "padding": [
+                0,
+                16
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "ra4xN",
+                  "name": "Eyebrow",
+                  "fill": "$folder-ink",
+                  "content": "SERVICE PAGES / EDIT",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Rhtyp",
+              "name": "Panel",
+              "width": "fill_container",
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
+              ],
+              "layout": "vertical",
+              "gap": 6,
+              "padding": 20,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "eDWXv",
+                  "name": "Title",
+                  "fill": "$folder-ink",
+                  "content": "Jasa website Bandung",
+                  "lineHeight": 1.1,
+                  "fontFamily": "$admin-display",
+                  "fontSize": 32,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "Z6FMgq",
+                  "name": "Subtitle",
+                  "fill": "$folder-ink",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "/id/services/jasa-website-bandung · draft",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 15,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "E8RfrH",
+          "name": "Language bar",
+          "width": "fill_container",
+          "height": 64,
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "padding": [
+            0,
+            16
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "F4921",
+              "name": "Label",
+              "fill": "$folder-ink",
+              "content": "Editing language",
+              "lineHeight": 1.4,
+              "fontFamily": "$admin-body",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            },
+            {
+              "id": "eTOnV",
+              "type": "ref",
+              "ref": "t96irl",
+              "name": "Lang switch"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "dRQSV",
+          "name": "Fields",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "gap": 16,
+          "padding": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "VEV8n",
+              "name": "Field / Title",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "P088X",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Title",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "gUgGn",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "eyfOn",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Jasa website di Bandung, dikerjain langsung sama yang bikin.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "IIrqj",
+              "name": "Field / Intro",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qCRnf",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Intro",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "u6upl",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 96,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "VXct0",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Aku Akbar, developer dan desainer dari Bandung.",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "b6hbN",
+              "name": "Field / Linked English page",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "rMjaY",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Linked English page",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "wKrEF",
+                  "name": "Input",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ej59a",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "Not linked",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    }
+                  ]
                 }
               ]
             }

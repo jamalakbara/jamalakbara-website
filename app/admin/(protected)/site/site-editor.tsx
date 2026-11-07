@@ -14,7 +14,8 @@ import { MediaField } from "@/components/admin/media-field";
 import { CountrySelect } from "@/components/admin/country-select";
 import { useToast } from "@/components/admin/toast";
 import { useUnsaved } from "@/components/admin/unsaved";
-import { Field, PageHeader, SeoPanel, useSaveShortcut } from "@/components/admin/ui";
+import { Field, LanguageBar, PageHeader, SeoPanel, useSaveShortcut, type EditLanguage } from "@/components/admin/ui";
+import type { IdSite } from "@/lib/i18n/completeness";
 import { seoReport } from "@/lib/admin/seo-checklist";
 import { waNumber } from "@/lib/country-codes";
 import { saveSiteCopy } from "./actions";
@@ -23,14 +24,12 @@ import { SITE_TABS, type SiteTab } from "./site-tabs";
 const AVAILABILITY_OPTIONS = ["Open for new work", "Booked — limited slots", "Currently unavailable"] as const;
 
 // Fallback SEO copy the route layouts ship with (shown when a field is blank).
-const SEO_FALLBACK: Record<"home" | "work" | "about" | "contact" | "journal" | "jurnal" | "kontak", string> = {
+const SEO_FALLBACK: Record<"home" | "work" | "about" | "contact" | "journal", string> = {
   home: "Jamal Akbar Alam — Developer & Designer",
   work: "Work",
   about: "About",
   contact: "Contact",
   journal: "Journal",
-  jurnal: "Jurnal",
-  kontak: "Kontak",
 };
 
 interface Props {
@@ -38,6 +37,7 @@ interface Props {
   about: AboutContent;
   siteConfig: SiteConfig;
   navigation: NavLink[];
+  idSite: IdSite;
   initialTab: SiteTab;
 }
 
@@ -90,11 +90,13 @@ export function SiteEditor(props: Props) {
   const router = useRouter();
   const toast = useToast();
   const [pending, startTransition] = useTransition();
-  const [base, setBase] = useState({ pages: props.pages, about: props.about, siteConfig: props.siteConfig, navigation: props.navigation });
+  const [base, setBase] = useState({ pages: props.pages, about: props.about, siteConfig: props.siteConfig, navigation: props.navigation, idSite: props.idSite });
   const [pages, setPages] = useState(props.pages);
   const [about, setAbout] = useState(props.about);
   const [siteConfig, setSiteConfig] = useState(props.siteConfig);
   const [navigation, setNavigation] = useState(props.navigation);
+  const [idSite, setIdSite] = useState(props.idSite);
+  const [language, setLanguage] = useState<EditLanguage>("en");
   const [tab, setTab] = useState<SiteTab>(props.initialTab);
   const [error, setError] = useState<string | null>(null);
 
@@ -104,8 +106,9 @@ export function SiteEditor(props: Props) {
     if (JSON.stringify(about) !== JSON.stringify(base.about)) list.push(["about", about]);
     if (JSON.stringify(siteConfig) !== JSON.stringify(base.siteConfig)) list.push(["site-config", siteConfig]);
     if (JSON.stringify(navigation) !== JSON.stringify(base.navigation)) list.push(["navigation", navigation]);
+    if (JSON.stringify(idSite) !== JSON.stringify(base.idSite)) list.push(["i18n-site", idSite]);
     return list;
-  }, [pages, about, siteConfig, navigation, base]);
+  }, [pages, about, siteConfig, navigation, idSite, base]);
   const dirty = changed.length > 0;
   useUnsaved(dirty);
 
@@ -120,7 +123,7 @@ export function SiteEditor(props: Props) {
         toast.error(result.error);
         return;
       }
-      setBase({ pages, about, siteConfig, navigation });
+      setBase({ pages, about, siteConfig, navigation, idSite });
       toast.saved(result, `Site copy: ${label}`);
       router.refresh();
     });
@@ -133,10 +136,13 @@ export function SiteEditor(props: Props) {
 
   const current = SITE_TABS.find((t) => t.key === tab)!;
   const pageKey = tab === "navigation" ? null : tab;
-  const seo = pageKey ? pages[pageKey].seo : undefined;
+  const bahasa = language === "id";
+  const seo = pageKey ? (bahasa ? idSite.pages[pageKey].seo : pages[pageKey].seo) : undefined;
+  const setIdPage = <K extends keyof IdSite["pages"]>(key: K, patch: Partial<IdSite["pages"][K]>) =>
+    setIdSite((d) => ({ ...d, pages: { ...d.pages, [key]: { ...d.pages[key], ...patch } } }));
   const report = pageKey
     ? seoReport({
-        path: current.path,
+        path: bahasa ? `/id${current.path === "/" ? "" : current.path}` : current.path,
         title: seo?.title?.trim() || SEO_FALLBACK[pageKey],
         description: seo?.description ?? "",
         appendBrand: pageKey !== "home",
@@ -157,7 +163,11 @@ export function SiteEditor(props: Props) {
           className="a-input"
           placeholder={SEO_FALLBACK[pageKey]}
           value={seo?.title ?? ""}
-          onChange={(e) => setPage(pageKey, { seo: { title: e.target.value, description: seo?.description ?? "" } })}
+          onChange={(e) => {
+            const next = { title: e.target.value, description: seo?.description ?? "" };
+            if (bahasa) setIdPage(pageKey, { seo: next });
+            else setPage(pageKey, { seo: next });
+          }}
         />
       </Field>
       <Field label="SEO description" count={(seo?.description ?? "").length} max={160} min={120}>
@@ -165,13 +175,17 @@ export function SiteEditor(props: Props) {
           className="a-input"
           rows={3}
           value={seo?.description ?? ""}
-          onChange={(e) => setPage(pageKey, { seo: { title: seo?.title ?? "", description: e.target.value } })}
+          onChange={(e) => {
+            const next = { title: seo?.title ?? "", description: e.target.value };
+            if (bahasa) setIdPage(pageKey, { seo: next });
+            else setPage(pageKey, { seo: next });
+          }}
         />
       </Field>
     </Group>
   );
 
-  const eyebrowHeading = (key: "work" | "about" | "contact" | "journal" | "jurnal" | "kontak") => (
+  const eyebrowHeading = (key: "work" | "about" | "contact" | "journal") => (
     <div className="a-row2">
       <Field label="Eyebrow" help="Small label on the folder tab.">
         <input className="a-input" value={pages[key].eyebrow} onChange={(e) => setPage(key, { eyebrow: e.target.value })} />
@@ -204,9 +218,11 @@ export function SiteEditor(props: Props) {
       />
       {error && <p className="a-banner">Save failed — {error}</p>}
 
+      <LanguageBar value={language} onChange={setLanguage} note="Bahasa saves to content/i18n/id. Images and contact details are shared." />
+
       <div>
         <div className="a-tabs" role="tablist" aria-label="Page">
-          {SITE_TABS.filter((t) => t.key !== "kontak").map((t, i) => (
+          {SITE_TABS.map((t, i) => (
             <button key={t.key} type="button" role="tab" className="a-tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}>
               <span className="a-eyebrow">{t.label}</span>
               <span className="a-meta">{String(i + 1).padStart(2, "0")}</span>
@@ -216,7 +232,93 @@ export function SiteEditor(props: Props) {
         <div className="a-tabpanel" role="tabpanel">
           <div className="a-grid a-grid--rail" style={{ padding: 24, gap: 24 }}>
             <div className="a-stack" style={{ gap: 32 }}>
-              {tab === "home" && (
+              {bahasa && pageKey && (
+                <>
+                  <Group title="Bahasa copy" note="English shows as the placeholder.">
+                    {pageKey === "home" && (
+                      <>
+                        <Field label="Headline" count={idSite.pages.home.headline.length}>
+                          <input className="a-input" placeholder={pages.home.headline} value={idSite.pages.home.headline} onChange={(e) => setIdPage("home", { headline: e.target.value })} />
+                        </Field>
+                        <Field label="Intro" count={idSite.pages.home.intro.length}>
+                          <textarea className="a-input" rows={3} placeholder={pages.home.intro} value={idSite.pages.home.intro} onChange={(e) => setIdPage("home", { intro: e.target.value })} />
+                        </Field>
+                        <div className="a-row2">
+                          <Field label="Role line">
+                            <input className="a-input" placeholder={siteConfig.brand.tagline} value={idSite.tagline} onChange={(e) => setIdSite((d) => ({ ...d, tagline: e.target.value }))} />
+                          </Field>
+                          <Field label="Location">
+                            <input className="a-input" placeholder={siteConfig.contact.location} value={idSite.location} onChange={(e) => setIdSite((d) => ({ ...d, location: e.target.value }))} />
+                          </Field>
+                        </div>
+                        <Field label="Availability">
+                          <input className="a-input" placeholder={pages.home.availability} value={idSite.pages.home.availability} onChange={(e) => setIdPage("home", { availability: e.target.value })} />
+                        </Field>
+                      </>
+                    )}
+                    {pageKey !== "home" && (
+                      <div className="a-row2">
+                        <Field label="Eyebrow">
+                          <input className="a-input" placeholder={pages[pageKey].eyebrow} value={idSite.pages[pageKey].eyebrow} onChange={(e) => setIdPage(pageKey, { eyebrow: e.target.value })} />
+                        </Field>
+                        <Field label="Heading" count={idSite.pages[pageKey].heading.length}>
+                          <input className="a-input" placeholder={pages[pageKey].heading} value={idSite.pages[pageKey].heading} onChange={(e) => setIdPage(pageKey, { heading: e.target.value })} />
+                        </Field>
+                      </div>
+                    )}
+                    {pageKey === "about" && (
+                      <>
+                        <Field label="Footnote">
+                          <textarea className="a-input" rows={2} placeholder={pages.about.footnote} value={idSite.pages.about.footnote} onChange={(e) => setIdPage("about", { footnote: e.target.value })} />
+                        </Field>
+                        {about.description.map((para, i) => (
+                          <Field key={i} label={`Paragraph ${i + 1}`}>
+                            <textarea
+                              className="a-input"
+                              rows={3}
+                              placeholder={para}
+                              value={idSite.about.description[i] ?? ""}
+                              onChange={(e) =>
+                                setIdSite((d) => {
+                                  const description = about.description.map((_, j) => d.about.description[j] ?? "");
+                                  description[i] = e.target.value;
+                                  return { ...d, about: { description } };
+                                })
+                              }
+                            />
+                          </Field>
+                        ))}
+                      </>
+                    )}
+                  </Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {bahasa && tab === "navigation" && (
+                <Group title="Navigation" note="Bahasa labels. Links and order follow the English list.">
+                  {navigation.map((item) => (
+                    <Field key={item.href} label={item.href}>
+                      <input
+                        className="a-input"
+                        placeholder={item.label}
+                        value={idSite.navigation.find((n) => n.href === item.href)?.label ?? ""}
+                        onChange={(e) =>
+                          setIdSite((d) => ({
+                            ...d,
+                            navigation: navigation.map((n) => ({
+                              href: n.href,
+                              label: n.href === item.href ? e.target.value : (d.navigation.find((x) => x.href === n.href)?.label ?? ""),
+                            })),
+                          }))
+                        }
+                      />
+                    </Field>
+                  ))}
+                </Group>
+              )}
+
+              {!bahasa && tab === "home" && (
                 <>
                   <Group title="Hero" note="The first panel on / — name, stamp and opening line.">
                     <Field label="Headline" count={pages.home.headline.length}>
@@ -245,14 +347,14 @@ export function SiteEditor(props: Props) {
                 </>
               )}
 
-              {tab === "work" && (
+              {!bahasa && tab === "work" && (
                 <>
                   <Group title="Index" note="Title panel on /work. Projects themselves live under Work.">{eyebrowHeading("work")}</Group>
                   {seoGroup}
                 </>
               )}
 
-              {tab === "about" && (
+              {!bahasa && tab === "about" && (
                 <>
                   <Group title="Section" note="Title panel and footnote on /about.">
                     {eyebrowHeading("about")}
@@ -291,7 +393,7 @@ export function SiteEditor(props: Props) {
                 </>
               )}
 
-              {tab === "contact" && (
+              {!bahasa && tab === "contact" && (
                 <>
                   <Group title="Section" note="Title panel on /contact.">{eyebrowHeading("contact")}</Group>
                   <Group title="Contact details" note="Used by the contact note, footer strip and JSON-LD.">
@@ -327,28 +429,14 @@ export function SiteEditor(props: Props) {
                 </>
               )}
 
-              {tab === "journal" && (
+              {!bahasa && tab === "journal" && (
                 <>
                   <Group title="Index" note="Title panel on /journal. Posts live under Journal and Jurnal.">{eyebrowHeading("journal")}</Group>
                   {seoGroup}
                 </>
               )}
 
-              {tab === "jurnal" && (
-                <>
-                  <Group title="Index" note="Title panel on /jurnal, the Bahasa journal.">{eyebrowHeading("jurnal")}</Group>
-                  {seoGroup}
-                </>
-              )}
-
-              {tab === "kontak" && (
-                <>
-                  <Group title="Index" note="Title panel on /kontak, the Bahasa contact page.">{eyebrowHeading("kontak")}</Group>
-                  {seoGroup}
-                </>
-              )}
-
-              {tab === "navigation" && (
+              {!bahasa && tab === "navigation" && (
                 <Group title="Navigation" note="The folder nav on every public page, in this order.">
                   <ListEditor
                     items={navigation}

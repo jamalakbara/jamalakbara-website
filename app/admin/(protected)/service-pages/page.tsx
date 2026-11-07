@@ -22,7 +22,7 @@ export default async function AdminServicePagesPage() {
         eyebrow="Content / Service pages"
         index="03"
         title="Service pages"
-        subtitle="Landing pages under /layanan, written for Bahasa searches."
+        subtitle="Landing pages in both languages, each linked to its twin."
         actions={newPage}
       />
       <div className="a-panel">
@@ -36,10 +36,13 @@ export default async function AdminServicePagesPage() {
                 <div key={page.slug} className={`a-row a-row--link${page.draft ? " a-row--dim" : ""}`}>
                   <Link href={`/admin/service-pages/${page.slug}`} className="a-row__text">
                     <span className="a-row__title a-truncate">{page.seo.title || page.title}</span>
-                    <span className="a-row__meta a-truncate">/layanan/{page.slug}</span>
+                    <span className="a-row__meta a-truncate">{page.lang === "id" ? "/id" : ""}/services/{page.slug}</span>
                   </Link>
                   <span className="a-meta a-muted a-row__hide-m">
-                    {seo.passed} / {seo.total} checks
+                    {page.lang.toUpperCase()} · {seo.passed} / {seo.total} checks
+                  </span>
+                  <span className="a-row__hide-m">
+                    <Chip kind={page.alternate ? "bahasa" : "missing"}>{page.alternate ? "Linked" : "No twin"}</Chip>
                   </span>
                   <Chip kind={page.draft ? "draft" : "published"}>{page.draft ? "Draft" : "Published"}</Chip>
                   <Link href={`/admin/service-pages/${page.slug}`} className="a-iconbtn" aria-label={`Edit ${page.title}`}>

@@ -8,7 +8,7 @@ import { Stamp } from "@/components/site/stamp";
 // letter, the stamp slams onto the middle of it, then glides into its slot
 // between JAMAL and AKBAR (the hero lockup). On home the lockup then morphs
 // onto the real hero name; elsewhere the overlay lifts away.
-// Gated before paint by the inline script in app/(site)/layout.tsx:
+// Gated before paint by the inline script in app/[lang]/layout.tsx:
 // html[data-splash] = "run" | "off" | "done" (site.css hides it unless "run").
 
 // Text runs exactly as the hero splits them: "JAMAL" | stamp | "AKBAR ALAM".

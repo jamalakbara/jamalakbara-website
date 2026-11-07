@@ -1,7 +1,8 @@
 "use client";
 
+import { Fragment } from "react";
 import Link from "next/link";
-import { home, works } from "@/lib/site-data";
+import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { Folder } from "@/components/site/folder";
 import { ProjectRow } from "@/components/site/project-row";
@@ -14,21 +15,6 @@ import { ArrowDown, ArrowRight, ArrowUpRight, MapPin } from "@/components/site/i
 // Home — canvas 14 (QiOko desktop / lYF3g mobile).
 // Order: identity hero → selected-work folder → journal strip (canvas 35) →
 // about/receipt folder → contact folder.
-
-// Selected work: projects starred "Featured on home" in the admin first, then
-// those with a full three-image strip (the curated canvas selection), topped
-// up from the ordered list.
-const featured = works.filter((w) => w.featured);
-const full = works.filter((w) => !w.featured && w.media.length >= 3);
-const selected = [...featured, ...full, ...works.filter((w) => !w.featured && !full.includes(w))].slice(0, 3);
-const years = selected.map((w) => Number(w.year)).filter(Boolean);
-const span = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
-
-const SKILLS = [
-  ["Design", "Clear layouts, visual hierarchy and easy-to-use interfaces."],
-  ["Development", "Responsive websites built with speed and usability in mind."],
-  ["Ship", "Launch-ready websites and apps, tested and ready to go live."],
-] as const;
 
 const COLLAGE_D: StickerSpot[] = [
   { name: "dev-mode", x: 38, y: 98, w: 162.655, h: 166, r: 9 },
@@ -62,11 +48,32 @@ const COLLAGE_M: StickerSpot[] = [
 
 export type LatestPost = { href: string; title: string; date: string };
 
+// "\n" in copy becomes a <br />, keeping the canvas line breaks.
+function Lines({ text }: { text: string }) {
+  return text.split("\n").map((line, i) => (
+    <Fragment key={i}>
+      {i > 0 && <br />}
+      {line}
+    </Fragment>
+  ));
+}
+
 export function HomeView({ latest }: { latest: LatestPost[] }) {
+  const { home, works, path, serviceLinks, ui } = useSite();
+  const t = ui.home;
+  // Selected work: projects starred "Featured on home" in the admin first, then
+  // those with a full three-image strip (the curated canvas selection), topped
+  // up from the ordered list.
+  const featured = works.filter((w) => w.featured);
+  const full = works.filter((w) => !w.featured && w.media.length >= 3);
+  const selected = [...featured, ...full, ...works.filter((w) => !w.featured && !full.includes(w))].slice(0, 3);
+  const years = selected.map((w) => Number(w.year)).filter(Boolean);
+  const span = years.length ? `${Math.min(...years)}–${Math.max(...years)}` : "";
+
   const exploreWork = (
     <a href="#selected-work" className="f-link">
       <span className="f-link__row">
-        Explore work
+        {t.exploreWork}
         <ArrowDown size={16} />
       </span>
       <span className="f-link__line" />
@@ -76,7 +83,7 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
   return (
     <>
       {/* ---- Identity hero ---- */}
-      <section className="f-panel f-hero" aria-label="Introduction">
+      <section className="f-panel f-hero" aria-label={t.introLabel}>
         <div className="f-hero__center">
           <p className="f-identity f-hero__name" aria-label="Jamal Akbar Alam">
             <span className="f-hero__name-line" aria-hidden="true">
@@ -94,18 +101,13 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
 
         <div className="f-hero__bottom">
           <div className="f-hero__caption f-hero__caption-d">
-            <span className="f-meta">A PERSONAL NOTE</span>
+            <span className="f-meta">{t.noteLabel}</span>
             <span className="f-action">
-              Mostly coding, sometimes moving things
-              <br />a few pixels until they feel right.
+              <Lines text={t.note} />
             </span>
           </div>
           <p className="f-hero__intro f-hero__intro-d">
-            I’m Akbar, a developer and designer
-            <br />
-            in Bandung. Here’s some of what
-            <br />
-            I’ve been working on.
+            <Lines text={t.intro} />
           </p>
           <div className="f-hero__intro f-hero__intro-m">
             <h1 className="f-hero__h1">{home.headline}</h1>
@@ -113,10 +115,9 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
           <div className="f-hero__actions f-hero__actions-d">{exploreWork}</div>
           <div className="f-hero__mrow">
             <div className="f-hero__caption">
-              <span className="f-meta">A PERSONAL NOTE</span>
+              <span className="f-meta">{t.noteLabel}</span>
               <span className="f-action">
-                Mostly coding, sometimes moving things
-                <br />a few pixels until they feel right.
+                <Lines text={t.note} />
               </span>
             </div>
             {exploreWork}
@@ -125,20 +126,20 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
       </section>
 
       {/* ---- Selected work ---- */}
-      <Folder tab="SELECTED WORK" n="01" id="selected-work" labelledBy="selected-work-h">
+      <Folder tab={t.selectedTab} n="01" id="selected-work" labelledBy="selected-work-h">
         <div className="f-sec">
           <div className="f-sec-intro">
-            <span className="f-meta">SELECTED WORK{span ? ` / ${span}` : ""}</span>
+            <span className="f-meta">{t.selectedTab}{span ? ` / ${span}` : ""}</span>
             <div className="f-sec-intro__row">
               <h2 id="selected-work-h" className="f-display">
-                Selected work.
+                {t.selectedHeading}
               </h2>
               <Link
-                href="/work"
+                href={path("/work")}
                 className="f-btn f-btn--secondary"
                 onClick={() => GAEvents.trackNavigationClick("/work", "home_cta")}
               >
-                Explore all
+                {t.exploreAll}
                 <ArrowUpRight size={16} />
               </Link>
             </div>
@@ -151,10 +152,10 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
 
       {/* ---- From the journal ---- */}
       {latest.length > 0 && (
-        <Folder tab="FROM THE JOURNAL" n="02" labelledBy="home-journal-h">
+        <Folder tab={t.journalTab} n="02" labelledBy="home-journal-h">
           <div className="f-jstrip">
             <h2 id="home-journal-h" className="f-sr">
-              From the journal
+              {t.journalHeading}
             </h2>
             {latest.map((post) => (
               <Link key={post.href} href={post.href} className="f-jstrip__row">
@@ -165,8 +166,8 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
                 </span>
               </Link>
             ))}
-            <Link href="/journal" className="f-act">
-              All journal entries
+            <Link href={path("/journal")} className="f-act">
+              {t.journalAll}
               <ArrowRight size={16} />
             </Link>
           </div>
@@ -174,30 +175,29 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
       )}
 
       {/* ---- About / receipt ---- */}
-      <Folder tab="ABOUT" n="03" offset={[180, 88]} labelledBy="home-about-h" bodyClassName="f-grid-paper">
+      <Folder tab={t.aboutTab} n="03" offset={[180, 88]} labelledBy="home-about-h" bodyClassName="f-grid-paper">
         <div className="f-story">
           <div className="f-story__col">
-            <span className="f-meta">ABOUT / SKILLS &amp; SERVICES</span>
+            <span className="f-meta">{t.aboutLabel}</span>
             <h2 id="home-about-h" className="f-display f-pre">
-              {"From first idea\nto final build."}
+              {t.aboutHeading}
             </h2>
             <p className="f-body">{home.intro}</p>
             <div className="f-skills">
-              <span className="f-meta">WHAT I BRING</span>
-              {SKILLS.map(([name, desc]) => (
-                <div key={name} className="f-skill">
-                  <h3 className="f-title">{name}</h3>
-                  <p className="f-body">{desc}</p>
+              <span className="f-meta">{t.bringLabel}</span>
+              {t.skills.map((skill) => (
+                <div key={skill.name} className="f-skill">
+                  <h3 className="f-title">{skill.name}</h3>
+                  <p className="f-body">{skill.desc}</p>
                 </div>
               ))}
             </div>
             <p className="f-body">
-              Design and development, in the same conversation. I care about how a website looks—and how it
-              works.
+              {t.aboutClosing}
             </p>
             <span className="f-sig">
               <MapPin size={18} />
-              <span className="f-meta">BANDUNG, INDONESIA</span>
+              <span className="f-meta">{ui.common.locationCaps}</span>
             </span>
           </div>
           <Receipt />
@@ -205,15 +205,15 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
       </Folder>
 
       {/* ---- Contact ---- */}
-      <Folder tab="CONTACT" n="04" offset={[360, 176]} labelledBy="home-contact-h">
+      <Folder tab={t.contactTab} n="04" offset={[360, 176]} labelledBy="home-contact-h">
         <div className="f-sec f-home-contact">
           <div className="f-invite">
             <div className="f-invite__h">
-              <span className="f-meta">LET’S WORK TOGETHER</span>
+              <span className="f-meta">{t.contactLabel}</span>
               <h2 id="home-contact-h" className="f-display f-pre">
-                {"Have something\nin mind?"}
+                {t.contactHeading}
               </h2>
-              <p className="f-body">Tell me what you’re building. I can help with the design, the development, or both.</p>
+              <p className="f-body">{t.contactBody}</p>
             </div>
             <ContactNote socialLimit={2} />
           </div>
@@ -221,7 +221,12 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
           <Stickers spots={COLLAGE_M} className="f-collage f-collage--m" base={346} />
           <div className="f-copyright f-meta">
             <span>© {new Date().getFullYear()} Jamal Akbar Alam</span>
-            <span>BANDUNG, INDONESIA</span>
+            {serviceLinks.map((l) => (
+              <Link key={l.href} href={l.href}>
+                {l.label}
+              </Link>
+            ))}
+            <span>{ui.common.locationCaps}</span>
           </div>
         </div>
       </Folder>

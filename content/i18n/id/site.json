@@ -1,0 +1,343 @@
+{
+  "published": false,
+  "navigation": [
+    {
+      "href": "/",
+      "label": ""
+    },
+    {
+      "href": "/work",
+      "label": ""
+    },
+    {
+      "href": "/journal",
+      "label": ""
+    },
+    {
+      "href": "/about",
+      "label": ""
+    },
+    {
+      "href": "/contact",
+      "label": ""
+    }
+  ],
+  "tagline": "",
+  "location": "",
+  "pages": {
+    "home": {
+      "availability": "",
+      "headline": "",
+      "intro": "",
+      "seo": {
+        "title": "",
+        "description": ""
+      }
+    },
+    "work": {
+      "eyebrow": "",
+      "heading": "",
+      "seo": {
+        "title": "",
+        "description": ""
+      }
+    },
+    "about": {
+      "eyebrow": "",
+      "heading": "",
+      "footnote": "",
+      "seo": {
+        "title": "",
+        "description": ""
+      }
+    },
+    "contact": {
+      "eyebrow": "KONTAK / SAPA AKU",
+      "heading": "Punya ide? Yuk ngobrol.",
+      "seo": {
+        "title": "Kontak",
+        "description": "Punya ide website atau aplikasi? Hubungi Akbar, developer dan desainer di Bandung, buat ngobrol soal project kalian lewat WhatsApp atau email."
+      }
+    },
+    "journal": {
+      "eyebrow": "JURNAL",
+      "heading": "Catatan dari meja kerja.",
+      "seo": {
+        "title": "Jurnal",
+        "description": "Catatan dan tulisan dari Akbar, developer dan desainer dari Bandung. Tentang web development, Shopify, desain, dan proses di balik setiap build."
+      }
+    }
+  },
+  "about": {
+    "description": [
+      "",
+      ""
+    ]
+  },
+  "seo": {
+    "website": {
+      "description": ""
+    },
+    "identity": {
+      "description": "",
+      "jobTitles": []
+    },
+    "business": {
+      "description": "",
+      "services": []
+    }
+  },
+  "ui": {
+    "common": {
+      "location": "",
+      "locationCaps": "",
+      "opensNewTab": "",
+      "backToTop": "Kembali ke atas",
+      "backHome": "",
+      "seeTheWork": ""
+    },
+    "nav": {
+      "primary": "",
+      "homeLabel": "",
+      "openMenu": "",
+      "closeMenu": "",
+      "menu": "",
+      "language": "English"
+    },
+    "strip": {
+      "heading": "",
+      "label": ""
+    },
+    "home": {
+      "introLabel": "",
+      "noteLabel": "",
+      "note": "",
+      "intro": "",
+      "exploreWork": "",
+      "selectedTab": "",
+      "selectedHeading": "",
+      "exploreAll": "",
+      "journalTab": "",
+      "journalHeading": "",
+      "journalAll": "",
+      "aboutTab": "",
+      "aboutLabel": "",
+      "aboutHeading": "",
+      "bringLabel": "",
+      "skills": [
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        }
+      ],
+      "aboutClosing": "",
+      "contactTab": "",
+      "contactLabel": "",
+      "contactHeading": "",
+      "contactBody": ""
+    },
+    "work": {
+      "label": "",
+      "intro": "",
+      "tab": "",
+      "project": "",
+      "projects": "",
+      "shown": "",
+      "filterLabel": "",
+      "allWork": "",
+      "end": "",
+      "emptyLabel": "",
+      "emptyHeading": "",
+      "emptyBody": "",
+      "emptyAction": "",
+      "imageAlt": ""
+    },
+    "caseStudy": {
+      "back": "",
+      "label": "",
+      "tab": "",
+      "notesLabel": "",
+      "notes": "",
+      "category": "",
+      "year": "",
+      "stack": "",
+      "visit": "",
+      "challenge": "",
+      "solution": "",
+      "built": ""
+    },
+    "about": {
+      "label": "",
+      "intro": "",
+      "storyTab": "",
+      "shortLabel": "",
+      "portraitAlt": "",
+      "portraitCaption": "",
+      "quote": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "doTab": "",
+      "bringLabel": "",
+      "doHeading": [
+        "",
+        "",
+        ""
+      ],
+      "capabilities": [
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        }
+      ]
+    },
+    "receipt": {
+      "sub": "",
+      "whatICanDo": "",
+      "forYou": "",
+      "entries": [
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        },
+        {
+          "name": "",
+          "desc": ""
+        }
+      ],
+      "letsBuild": "",
+      "together": "",
+      "scope": "",
+      "tailored": "",
+      "madeWith": "",
+      "care": "",
+      "foot": ""
+    },
+    "journal": {
+      "label": "JURNAL",
+      "intro": "Catatan soal desain, development,\ndan kerjaan.",
+      "otherLanguage": "English",
+      "tab": "SEMUA TULISAN",
+      "entry": "tulisan",
+      "entries": "tulisan",
+      "newest": "Terbaru dulu",
+      "latest": "PALING BARU",
+      "end": "Segitu dulu untuk sekarang.",
+      "emptyLabel": "BELUM ADA TULISAN",
+      "emptyHeading": "MASIH DITULIS.",
+      "emptyBody": "Belum ada tulisan — segera hadir."
+    },
+    "article": {
+      "back": "Semua tulisan jurnal",
+      "backEnd": "Kembali ke jurnal",
+      "writtenBy": "DITULIS OLEH",
+      "minRead": "{n} menit baca",
+      "tab": "CATATAN BACA",
+      "toc": "DI TULISAN INI",
+      "keepReading": "Baca juga",
+      "otherLanguage": "Read in English →"
+    },
+    "contact": {
+      "label": "KONTAK / SAPA AKU",
+      "intro": "Ceritain apa yang lagi kalian bangun. Aku bisa bantu desain, development, atau dua-duanya.",
+      "tab": "KIRIM PESAN",
+      "formLabel": "BRIEF PROJECT",
+      "name": "Nama",
+      "namePlaceholder": "Nama kalian",
+      "email": "Email",
+      "emailPlaceholder": "kamu@contoh.com",
+      "project": "Project",
+      "projectPlaceholder": "Project-nya soal apa?",
+      "submit": "Kirim pesan",
+      "privacyNote": "Email kalian aman, nggak dibagikan.",
+      "privacyLink": "Kebijakan privasi",
+      "errorName": "Nama kalian siapa?",
+      "errorEmail": "Email-nya kayaknya belum bener.",
+      "errorMessage": "Ceritain sedikit soal project-nya.",
+      "statusHeading": "Ada yang belum diisi.",
+      "statusBody": "Cek kolom yang ditandai, terus kirim lagi.",
+      "sentHeading": "Lagi buka WhatsApp…",
+      "sentBody": "Tinggal tekan kirim di chat, nanti aku balas dalam sehari atau dua hari.",
+      "greeting": "Halo Akbar, aku {name}.",
+      "replyTo": "Balas ke:",
+      "stripHeading": "",
+      "stripLabel": ""
+    },
+    "note": {
+      "label": "CATATAN BUAT AKBAR",
+      "mail": "Kirim email",
+      "copied": "Tersalin",
+      "failed": "Gagal menyalin, pilih alamatnya manual",
+      "copyLabel": "Salin alamat email"
+    },
+    "services": {
+      "tab": "",
+      "toc": "",
+      "faq": "",
+      "more": ""
+    },
+    "privacy": {
+      "label": "",
+      "title": "",
+      "updated": "",
+      "tab": "",
+      "toc": "",
+      "description": ""
+    },
+    "notFound": {
+      "ariaLabel": "",
+      "label": "",
+      "heading": "",
+      "body": "",
+      "exploreWork": ""
+    },
+    "cookie": {
+      "title": "Pemberitahuan Cookie",
+      "body": "Website ini pakai cookie buat bikin pengalaman browsing lebih enak, menganalisis trafik, dan menyesuaikan konten. Dengan lanjut pakai website ini, kalian setuju sama penggunaan cookie. Baca selengkapnya di",
+      "privacy": "Kebijakan Privasi",
+      "acceptAll": "Terima Semua",
+      "necessaryOnly": "Yang Perlu Saja",
+      "customize": "Atur",
+      "preferences": "Preferensi Cookie",
+      "essential": "Cookie Wajib",
+      "essentialHint": "Dibutuhkan biar website berjalan dengan baik.",
+      "analytics": "Cookie Analitik",
+      "analyticsHint": "Bantu aku paham gimana pengunjung pakai website ini.",
+      "marketing": "Cookie Pemasaran",
+      "marketingHint": "Dipakai buat menampilkan iklan yang relevan.",
+      "preferenceCookies": "Cookie Preferensi",
+      "preferenceHint": "Mengaktifkan fitur tambahan dan personalisasi.",
+      "save": "Simpan Preferensi"
+    }
+  }
+}
