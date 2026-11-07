@@ -1,10 +1,10 @@
 import { MetadataRoute } from 'next'
 import { getJournalPosts } from '@/lib/journal'
 import { getJurnalPosts } from '@/lib/jurnal'
+import { caseStudies, publishedServicePages } from '@/lib/site-data'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://jamalakbara.com'
-  const lastModified = new Date()
 
   const routes = [
     { path: '', priority: 1 },
@@ -18,7 +18,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticEntries = routes.map((r) => ({
     url: `${baseUrl}${r.path}`,
-    lastModified,
     changeFrequency: 'monthly' as const,
     priority: r.priority,
   }))
@@ -37,5 +36,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }))
 
-  return [...staticEntries, ...postEntries, ...jurnalEntries]
+  const caseEntries = caseStudies.map((p) => ({
+    url: `${baseUrl}/work/${p.id}`,
+    changeFrequency: 'yearly' as const,
+    priority: 0.7,
+  }))
+
+  const serviceEntries = publishedServicePages.map((p) => ({
+    url: `${baseUrl}/layanan/${p.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }))
+
+  return [...staticEntries, ...serviceEntries, ...caseEntries, ...postEntries, ...jurnalEntries]
 }

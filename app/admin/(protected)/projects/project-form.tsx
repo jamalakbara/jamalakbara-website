@@ -47,6 +47,9 @@ function toForm(p?: Project) {
     livePreview: p?.livePreview ?? "",
     featured: p?.featured ?? false,
     draft: p?.draft ?? false,
+    caseStudy: p?.caseStudy ?? false,
+    seoTitle: p?.seo?.title ?? "",
+    seoDescription: p?.seo?.description ?? "",
     tech: p?.tech ?? [],
     challenge: p?.challenge ?? "",
     solution: p?.solution ?? "",
@@ -80,6 +83,8 @@ function buildProject(f: Form): Project {
     livePreview: opt(f.livePreview),
     featured: f.featured || undefined,
     draft: f.draft || undefined,
+    caseStudy: f.caseStudy || undefined,
+    seo: f.seoTitle.trim() || f.seoDescription.trim() ? { title: f.seoTitle.trim(), description: f.seoDescription.trim() } : undefined,
     tech: f.tech,
     challenge: opt(f.challenge),
     solution: opt(f.solution),
@@ -203,7 +208,7 @@ export function ProjectForm({
                   }}
                 />
               </Field>
-              <Field label="Slug" help={`jamalakbara.com/work#${form.id || "…"}`}>
+              <Field label="Slug" help={`jamalakbara.com/work${form.caseStudy ? "/" : "#"}${form.id || "…"}`}>
                 <label className="a-input">
                   <Link2 size={16} />
                   <input
@@ -320,6 +325,21 @@ export function ProjectForm({
                 <input className="a-input" value={form.testimonialRole} onChange={(e) => set("testimonialRole", e.target.value)} />
               </Field>
             </div>
+          </Section>
+
+          <Section n="05" title="Case study">
+            <p className="a-meta a-muted">
+              Check challenge, solution and metrics before you publish. Off keeps the row linking to the live site.
+            </p>
+            <Toggle checked={form.caseStudy} onChange={(v) => set("caseStudy", v)}>
+              Publish case study page
+            </Toggle>
+            <Field label="SEO title" count={form.seoTitle.length} max={40} help="Blank uses the project title.">
+              <input className="a-input" value={form.seoTitle} onChange={(e) => set("seoTitle", e.target.value)} />
+            </Field>
+            <Field label="SEO description" count={form.seoDescription.length} max={160} min={120} help="Blank uses the row summary.">
+              <textarea className="a-input" rows={3} value={form.seoDescription} onChange={(e) => set("seoDescription", e.target.value)} />
+            </Field>
           </Section>
         </div>
 

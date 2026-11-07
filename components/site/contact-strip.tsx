@@ -10,15 +10,18 @@ export function ContactStrip({
   href = "/contact",
   variant = "stamp",
   onClick,
+  contentLang,
 }: {
   heading?: string;
   label?: string;
   href?: string;
   variant?: "stamp" | "arrow";
   onClick?: () => void;
+  /** BCP-47 language when it differs from <html lang> */
+  contentLang?: string;
 }) {
   return (
-    <section className="f-strip" aria-label={heading}>
+    <section lang={contentLang} className="f-strip" aria-label={heading}>
       <p className="f-strip__h">{heading}</p>
       <Link href={href} className="f-strip__link" onClick={onClick}>
         {label}

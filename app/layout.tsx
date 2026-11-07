@@ -9,7 +9,7 @@ import "./globals.css";
 // title — no "%s | …" template suffix. Blank falls back to the shipped copy.
 const HOME_TITLE_FALLBACK = "Jamal Akbar Alam — Developer & Designer";
 const HOME_DESC_FALLBACK =
-  "Akbar (Jamal Akbar Alam) is a developer and designer with a love for building things on the web. He works across design and development, turning ideas into clean, fast, easy-to-use products. From the interface to the code behind it, he cares about the details that make something feel right, and he's always drawn to projects worth building well.";
+  "Jamal Akbar Alam is a developer and designer in Bandung, Indonesia, building clean, fast websites, web apps, and Shopify stores, from interface to code.";
 const homeTitle = pages.home.seo?.title?.trim() || HOME_TITLE_FALLBACK;
 const homeDescription = pages.home.seo?.description?.trim() || HOME_DESC_FALLBACK;
 

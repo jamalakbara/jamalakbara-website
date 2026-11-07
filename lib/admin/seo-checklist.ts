@@ -132,12 +132,23 @@ export interface ProjectSeoFields {
   summary?: string;
   image: string;
   tech: string[];
+  caseStudy?: boolean;
+  seo?: { title: string; description: string };
 }
 
-/** Projects have no page of their own: they show as rows on /work and in the
- *  Work JSON-LD, so the checks cover what those surfaces read. */
+/** Without a published case study a project is only a row on /work, so the
+ *  checks cover what that row reads. With one, they cover /work/<id>. */
 export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string | undefined): SeoReport {
   const summary = (p.summary ?? "").trim();
+  if (p.caseStudy) {
+    return seoReport({
+      path: `/work/${p.id}`,
+      title: p.seo?.title?.trim() || p.title,
+      description: p.seo?.description?.trim() || summary,
+      slug: p.id,
+      cover: { set: Boolean(p.image), alt: Boolean(p.image && altFor(p.image)) },
+    });
+  }
   return seoReport({
     path: `/work#${p.id}`,
     title: `${p.title} — ${p.category}`,
@@ -153,6 +164,27 @@ export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string 
             ok: p.description.toLowerCase().includes(p.tech[0].toLowerCase()),
           }]
         : []),
+    ],
+  });
+}
+
+export interface ServicePageSeoFields {
+  slug: string;
+  title: string;
+  sections: unknown[];
+  faq: unknown[];
+  seo: { title: string; description: string };
+}
+
+export function servicePageSeo(p: ServicePageSeoFields): SeoReport {
+  return seoReport({
+    path: `/layanan/${p.slug}`,
+    title: p.seo.title.trim() || p.title,
+    description: p.seo.description,
+    slug: p.slug,
+    extra: [
+      { label: "At least 2 content sections", ok: p.sections.length >= 2 },
+      { label: "At least 3 FAQ items", ok: p.faq.length >= 3 },
     ],
   });
 }

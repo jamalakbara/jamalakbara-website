@@ -19,6 +19,7 @@ import {
   Quote,
   ArrowUpRight,
   Trash2,
+  X,
 } from "lucide-react";
 import { useConfirm } from "@/components/admin/confirm-dialog";
 import { useToast } from "@/components/admin/toast";
@@ -69,12 +70,15 @@ export function PostEditor({
   initial,
   count,
   others,
+  siblings,
   lastEdit,
 }: {
   section: Section;
   initial?: PostInput;
   count: number;
   others: OtherPost[];
+  /** posts in this section, for the Keep reading picker */
+  siblings: { slug: string; title: string; draft: boolean }[];
   lastEdit: LastEdit | null;
 }) {
   const meta = SECTIONS[section];
@@ -220,6 +224,8 @@ export function PostEditor({
   const linked = others.find((o) => o.slug === form.alternate);
   // Posts on the other side that are free (or already ours).
   const linkable = others.filter((o) => !o.alternate || o.alternate === initial?.slug || o.slug === form.alternate);
+  const related = form.related ?? [];
+  const relatedOptions = siblings.filter((p) => !p.draft && p.slug !== initial?.slug && !related.includes(p.slug));
 
   return (
     <form
@@ -360,6 +366,51 @@ export function PostEditor({
               <p className="a-meta a-muted">
                 {section === "journal" ? "Jurnal" : "Bahasa"} posts are written natively, not translated — linking only adds hreflang and a language switch. Both posts update in one commit.
               </p>
+            </div>
+          </section>
+
+          <section className="a-panel">
+            <div className="a-panel__head">
+              <h2 className="a-title">Keep reading</h2>
+            </div>
+            <div className="a-panel__body">
+              {related.map((slug) => (
+                <div key={slug} className="a-media">
+                  <span className="a-media__text">
+                    <span className="a-label a-truncate">{siblings.find((p) => p.slug === slug)?.title ?? slug}</span>
+                  </span>
+                  <button
+                    type="button"
+                    className="a-iconbtn"
+                    aria-label={`Remove ${slug}`}
+                    onClick={() => {
+                      const next = related.filter((r) => r !== slug);
+                      set("related", next.length ? next : undefined);
+                    }}
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ))}
+              {related.length < 3 && (
+                <Field label="Add a post">
+                  <select
+                    className="a-input"
+                    value=""
+                    onChange={(e) => {
+                      if (e.target.value) set("related", [...related, e.target.value]);
+                    }}
+                  >
+                    <option value="">Choose a post…</option>
+                    {relatedOptions.map((p) => (
+                      <option key={p.slug} value={p.slug}>
+                        {p.title}
+                      </option>
+                    ))}
+                  </select>
+                </Field>
+              )}
+              <p className="a-meta a-muted">Pick up to 3 posts in this language. Empty uses shared tags, then the latest posts.</p>
             </div>
           </section>
 

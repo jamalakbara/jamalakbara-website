@@ -3,7 +3,7 @@
 **Last updated:** 2026-10-17. This replaces the dark cinematic system (2026-06) on the public site.
 
 **Sources of truth**
-- Canvas: Pencil `jamalakbara.pen` (Working Folder v2). Reference frames: Home `QiOko` / `lYF3g`, Work `Pb8Dp` / `vs4kI`, About `BWDyJ` / `U7cNrD`, Contact `qlvWa` / `IWLZT`, Journal `NDBsB` / `b7j55z`, Article `m54Zq` / `c73NeH`, 404 `Y57IP` / `huATr`.
+- Canvas: Pencil `docs/design/jamalakbara.pen` (Working Folder v2). New frames (Nov 2026) use Anton and Newsreader as stand-ins for Tanker and Erode, so match them on layout, not glyphs: 33 case study, 34 service page, 35 Keep reading + home journal strip, 36 admin SEO, 37/38 admin service pages, 39 editor additions, 40 Bahasa nav + /kontak. Reference frames: Home `QiOko` / `lYF3g`, Work `Pb8Dp` / `vs4kI`, About `BWDyJ` / `U7cNrD`, Contact `qlvWa` / `IWLZT`, Journal `NDBsB` / `b7j55z`, Article `m54Zq` / `c73NeH`, 404 `Y57IP` / `huATr`.
 - Designer spec + tokens, copied into the repo: `docs/design/working-folder-canvas-spec.md` and `docs/design/design-tokens.json`.
 - Code: `app/(site)/site.css` holds the tokens and component classes. React building blocks live in `components/site/`.
 
@@ -103,6 +103,8 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | Icons (hand-drawn set) | `components/site/icons.tsx`: ArrowUpRight, ArrowRight, ArrowUp, ArrowLeft, ArrowDown, MapPin, Loader, Menu, Close, Send, Check |
 
 **Arrow semantics:** down means in-page, up-right means external or "see more", right means go to a page, left means back.
+
+**Added Nov 2026** (end of `site.css`): `.f-case-*` case study, `.f-svc-*` service page, `.f-related*` Keep reading, `.f-jstrip*` home journal strip. Case and service pages reuse `.f-art-head` and `.f-art-surface`.
 
 ## 5. States & interaction
 

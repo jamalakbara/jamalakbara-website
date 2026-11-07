@@ -1,0 +1,45 @@
+[
+  {
+    "slug": "jasa-website-bandung",
+    "draft": true,
+    "eyebrow": "LAYANAN / WEBSITE",
+    "title": "Jasa website di Bandung, dikerjain langsung sama yang bikin.",
+    "intro": "Aku Akbar, developer dan desainer dari Bandung. Aku bantu bisnis bikin website yang cepat, gampang dipakai, dan kelihatan kayak punya kalian sendiri, bukan template.",
+    "sections": [
+      {
+        "heading": "Yang aku kerjain",
+        "body": "Company profile, toko online Shopify, landing page, dan web app. Desain dan development aku pegang sendiri, jadi kalian ngobrol langsung sama orang yang ngerjain, tanpa perantara."
+      },
+      {
+        "heading": "Gimana prosesnya",
+        "body": "Kita mulai dari ngobrol soal bisnis dan tujuan kalian. Habis itu aku susun struktur dan desain, kalian review, baru masuk development. Setelah live, aku bantu pastiin semuanya jalan dan gampang kalian urus sendiri."
+      },
+      {
+        "heading": "Kenapa bukan template",
+        "body": "Template bisa jalan buat mulai, tapi sering berat, mirip sama website lain, dan susah diubah pas bisnis kalian berkembang. Website yang dibuat sesuai kebutuhan lebih cepat, lebih jelas, dan lebih gampang ditemukan di Google."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Berapa lama bikin website?",
+        "answer": "Tergantung ukuran dan kebutuhannya. Kita sepakatin timeline di awal, setelah aku paham apa yang kalian butuhkan."
+      },
+      {
+        "question": "Berapa biaya bikin website di Bandung?",
+        "answer": "Biaya tergantung jumlah halaman, fitur, dan kebutuhan desain. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Klien harus dari Bandung?",
+        "answer": "Nggak harus. Aku berbasis di Bandung dan kerja bareng klien dari seluruh Indonesia secara online."
+      }
+    ],
+    "cta": {
+      "heading": "Punya rencana website?",
+      "label": "Ceritain ke aku"
+    },
+    "seo": {
+      "title": "Jasa Website Bandung",
+      "description": "Jasa website di Bandung untuk company profile, toko online Shopify, dan web app. Desain dan development langsung sama Akbar, cepat dan bukan template."
+    }
+  }
+]

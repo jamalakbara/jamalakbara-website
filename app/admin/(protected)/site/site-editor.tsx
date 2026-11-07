@@ -23,12 +23,14 @@ import { SITE_TABS, type SiteTab } from "./site-tabs";
 const AVAILABILITY_OPTIONS = ["Open for new work", "Booked — limited slots", "Currently unavailable"] as const;
 
 // Fallback SEO copy the route layouts ship with (shown when a field is blank).
-const SEO_FALLBACK: Record<"home" | "work" | "about" | "contact" | "journal", string> = {
+const SEO_FALLBACK: Record<"home" | "work" | "about" | "contact" | "journal" | "jurnal" | "kontak", string> = {
   home: "Jamal Akbar Alam — Developer & Designer",
   work: "Work",
   about: "About",
   contact: "Contact",
   journal: "Journal",
+  jurnal: "Jurnal",
+  kontak: "Kontak",
 };
 
 interface Props {
@@ -39,7 +41,7 @@ interface Props {
   initialTab: SiteTab;
 }
 
-function Group({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
+export function Group({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
   return (
     <section className="a-stack" style={{ gap: 20 }}>
       <div style={{ paddingBottom: 12, borderBottom: "1px solid var(--f-line)" }}>
@@ -169,7 +171,7 @@ export function SiteEditor(props: Props) {
     </Group>
   );
 
-  const eyebrowHeading = (key: "work" | "about" | "contact" | "journal") => (
+  const eyebrowHeading = (key: "work" | "about" | "contact" | "journal" | "jurnal" | "kontak") => (
     <div className="a-row2">
       <Field label="Eyebrow" help="Small label on the folder tab.">
         <input className="a-input" value={pages[key].eyebrow} onChange={(e) => setPage(key, { eyebrow: e.target.value })} />
@@ -204,7 +206,7 @@ export function SiteEditor(props: Props) {
 
       <div>
         <div className="a-tabs" role="tablist" aria-label="Page">
-          {SITE_TABS.map((t, i) => (
+          {SITE_TABS.filter((t) => t.key !== "kontak").map((t, i) => (
             <button key={t.key} type="button" role="tab" className="a-tab" aria-selected={tab === t.key} onClick={() => setTab(t.key)}>
               <span className="a-eyebrow">{t.label}</span>
               <span className="a-meta">{String(i + 1).padStart(2, "0")}</span>
@@ -328,6 +330,20 @@ export function SiteEditor(props: Props) {
               {tab === "journal" && (
                 <>
                   <Group title="Index" note="Title panel on /journal. Posts live under Journal and Jurnal.">{eyebrowHeading("journal")}</Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "jurnal" && (
+                <>
+                  <Group title="Index" note="Title panel on /jurnal, the Bahasa journal.">{eyebrowHeading("jurnal")}</Group>
+                  {seoGroup}
+                </>
+              )}
+
+              {tab === "kontak" && (
+                <>
+                  <Group title="Index" note="Title panel on /kontak, the Bahasa contact page.">{eyebrowHeading("kontak")}</Group>
                   {seoGroup}
                 </>
               )}

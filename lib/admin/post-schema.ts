@@ -17,6 +17,8 @@ export const postSchema = z.object({
     .string()
     .regex(/^[a-z0-9-]+$/)
     .optional(),
+  /** up to 3 same-language slugs for the "Keep reading" block */
+  related: z.array(z.string().regex(/^[a-z0-9-]+$/)).max(3).optional(),
   body: z.string().min(1),
 });
 

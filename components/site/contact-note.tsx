@@ -11,15 +11,27 @@ import { ArrowUpRight } from "@/components/site/icons";
 // if the clipboard is unavailable/denied the address stays selectable and the
 // mail link remains, with a polite announcement.
 
+export type NoteCopy = { label: string; mail: string; copied: string; failed: string; copyLabel: string };
+
+const NOTE_EN: NoteCopy = {
+  label: "A NOTE TO AKBAR",
+  mail: "Send an email",
+  copied: "Copied",
+  failed: "Couldn’t copy — select the address",
+  copyLabel: "Copy email address",
+};
+
 type CopyState = "idle" | "copied" | "failed";
 
 export function ContactNote({
   socialLimit,
   trackEmail = false,
+  copy: text = NOTE_EN,
 }: {
   socialLimit?: number;
   /** fire the existing contact "email_link" GA event (contact page only, as before) */
   trackEmail?: boolean;
+  copy?: NoteCopy;
 }) {
   const [state, setState] = useState<CopyState>("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -40,17 +52,17 @@ export function ContactNote({
   };
 
   const socials = socialLimit ? contact.socials.slice(0, socialLimit) : contact.socials;
-  const msg = state === "copied" ? "Copied" : state === "failed" ? "Couldn’t copy — select the address" : "";
+  const msg = state === "copied" ? text.copied : state === "failed" ? text.failed : "";
 
   return (
     <div className="f-note">
       <div className="f-note__head">
-        <span className="f-meta">A NOTE TO AKBAR</span>
+        <span className="f-meta">{text.label}</span>
         <button
           type="button"
           className="f-iconbtn f-copy"
           onClick={copy}
-          aria-label={`Copy email address ${contact.email}`}
+          aria-label={`${text.copyLabel} ${contact.email}`}
           data-state={state}
           data-msg={msg}
         >
@@ -67,7 +79,7 @@ export function ContactNote({
           className="f-uline"
           onClick={trackEmail ? () => GAEvents.trackContactMessage("email_link") : undefined}
         >
-          Send an email
+          {text.mail}
           <ArrowUpRight size={16} />
         </a>
       </div>

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { ArticleView } from "@/components/site/article-view";
 import { postLang } from "@/lib/post-lang";
 import { getJurnalPost, getJurnalPosts, formatJurnalDate } from "@/lib/jurnal";
+import { pickRelated } from "@/lib/related-posts";
+import { BAHASA_STRIP, serviceLinks } from "@/lib/site-data";
 
 type Params = { slug: string };
 
@@ -28,6 +30,7 @@ export async function generateMetadata({
     alternates: { canonical: url, ...(lang ? { languages: lang.languages } : {}) },
     openGraph: {
       type: "article",
+      locale: "id_ID",
       title: post.title,
       description: post.description,
       url,
@@ -84,6 +87,19 @@ export default async function JurnalPostPage({
         position={position}
         total={all.length}
         basePath="/jurnal"
+        related={{
+          heading: "Baca juga",
+          items: [
+            ...pickRelated(post, all).map((p) => ({
+              href: `/jurnal/${p.slug}`,
+              title: p.title,
+              meta: formatJurnalDate(p.date),
+            })),
+            ...serviceLinks.map((l) => ({ href: l.href, title: l.label, meta: "Layanan" })),
+          ],
+        }}
+        contentLang="id"
+        strip={BAHASA_STRIP}
         lang={postLang("id", post.slug, post.alternate)?.link}
         date={formatJurnalDate(post.date)}
         copy={{

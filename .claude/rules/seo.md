@@ -9,11 +9,31 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - **Never let a route inherit the root canonical.** The root layout's canonical points at the homepage; an uncorrected child route tells Google it is a duplicate of `/`.
 - Title template gotcha: the root `title.template` ("%s | Jamal Akbar Alam") does **not** propagate past a nested layout that sets `title` as a plain string. If a section has child routes (like `/journal/[slug]`), its layout must re-declare `title: { default, template }` — see `app/(site)/journal/layout.tsx`.
 
-### Admin-editable per-route SEO (`/work`, `/about`, `/contact`, `/journal`)
-- These four layouts build metadata via `buildPageMetadata()` in `lib/seo.ts`, which reads `pages.<route>.seo` ({ `title`, `description` }) from `content/site/pages.json` — editable in the admin **Site** editor (SEO fieldset per tab). The layout's inline object is the **fallback** used when a field is blank.
+### Admin-editable per-route SEO (`/work`, `/about`, `/contact`, `/journal`, `/jurnal`)
+- These layouts build metadata via `buildPageMetadata()` in `lib/seo.ts`, which reads `pages.<route>.seo` ({ `title`, `description` }) from `content/site/pages.json` — editable in the admin **Site** editor (SEO fieldset per tab). The layout's inline object is the **fallback** used when a field is blank.
 - `title` is the short route title (feeds the `%s | Jamal Akbar Alam` template); OG/Twitter titles derive as `<title> — Jamal Akbar Alam`. Editing SEO in admin publishes on the normal commit→rebuild cycle.
 - Home (`/`) is also admin-driven, but **specially**: its editable `title`/`description` come from `pages.home.seo` and are wired directly in the root `app/layout.tsx` (not via `buildPageMetadata`), because that title is the FULL homepage title AND the site-wide default/fallback (no `%s | …` suffix). The template, OG image, icons, keywords, and verification stay hardcoded in the root layout — only the title/description text is admin-editable. Home's admin SEO field uses `appendBrand={false}`.
 - The `seo` field is optional in `pagesSchema` (`lib/content/schemas.ts`); if you add a new admin-editable route, extend that schema, seed `pages.json`, and route the layout through `buildPageMetadata()`.
+
+## Structured data
+
+- `components/structured-data.tsx` reads `content/site/seo.json` (admin **SEO** screen). Each type renders only where it describes the page: `WebSite` + `Person` on home, `Person` on `/about`, `LocalBusiness` on `/contact` and service pages, `Project` + `Breadcrumb` on case studies.
+- `FAQ` markup goes only on a page that shows the same FAQ. Never add it to `(site)/layout.tsx`.
+- Business data stays at city level. Do not reintroduce postal code, street or coordinates.
+- Do not add a `SearchAction`: the site has no search route.
+
+## Bahasa section
+
+- **Not live yet:** `BAHASA_SECTION_LIVE` in `lib/site-data.ts` is false, so these rules apply only once it ships. Until then `/jurnal` uses the English nav and `/kontak` redirects to `/contact`.
+- `/layanan`, `/jurnal` and `/kontak` are a separate Bahasa section (`isBahasaPath()` in `lib/site-data.ts`): own nav (`BAHASA_NAV`), closing strip (`BAHASA_STRIP`), cookie banner copy and contact form. Visitors should not meet English until they use the language link.
+- The nav's language link is the only link from English pages into this section, besides the existing `/journal` link. Do not add other links from English pages.
+- `/contact` and `/kontak` are hreflang alternates. `/privacy` is the one English page linked from the section.
+
+## Case studies and service pages
+
+- `/work/<id>` exists only for non-draft projects with `caseStudy: true`. The owner reviews each project's claims before switching it on.
+- `/layanan/<slug>` comes from `content/service-pages.json`. Drafts have no route and no sitemap entry. Copy is Bahasa, `lang="id"` on the article, not in the navbar. `serviceLinks` adds them to the Keep reading block on `/jurnal` articles, and the first published page fills the Layanan nav link.
+- Both enter `app/sitemap.ts` automatically. `/work` keeps `template: true` so `/work/[id]` titles get the suffix.
 
 ## Admin CMS routes
 
@@ -38,18 +58,18 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - Per-post SEO is automatic via `app/(site)/journal/[slug]/page.tsx`: `generateMetadata` (title, description, canonical, OG article) and `Article` JSON-LD with `inLanguage: "en"`. Do not add manual meta tags inside post content.
 - `lib/journal.ts` is the only reader; `app/sitemap.ts` pulls post URLs and dates from it. New posts need no sitemap edits.
 - Post `description` doubles as the meta description — write it as a search snippet (under ~160 chars, contains the topic keyword).
-- Posts should cross-link related posts and end client-facing posts with a CTA linking `/contact`.
+- Posts should cross-link related posts and end client-facing posts with a CTA linking `/contact`. The "Keep reading" block adds links automatically; `related` in frontmatter (post editor) overrides the pick.
 - Dates must be staggered (not all the same) — Google uses recency as a freshness signal. Update `date` when making substantial edits.
 
 ## Jurnal posts (Bahasa Indonesia — `/jurnal`)
 
 - Posts are MDX files in `content/jurnal/*.mdx`. Same frontmatter shape as `/journal`: `title`, `description`, `date` (YYYY-MM-DD), `tags`, `draft`.
 - `lib/jurnal.ts` is the only reader. `app/sitemap.ts` pulls from both `getJournalPosts()` and `getJurnalPosts()`. New posts need no sitemap edits.
-- `/jurnal` is **not** in the navbar — it is linked from the `/journal` listing page via a "Bahasa Indonesia →" link near the eyebrow. The `/jurnal` listing page mirrors this with "English →".
+- `/jurnal` is **not** in the English navbar. It belongs to the Bahasa section, see below. `/journal` also links it via a "Bahasa Indonesia →" link near the eyebrow, and `/jurnal` mirrors this with "English →".
 - Per-post JSON-LD uses `inLanguage: "id"` — do not change this to "en".
 - `/jurnal` is a separate independent content section, not a translation of `/journal`. Posts can cover the same topics but the content is different and written natively in Bahasa.
 - Optional pairing: `alternate: "<slug>"` in both posts' frontmatter (set in the admin "Bahasa version" panel, kept mutual automatically). Only a mutual, published pair emits `alternates.languages` (hreflang en/id) and the article's language-switch link (`lib/post-lang.ts`); a one-sided or draft link is ignored.
-- The `/jurnal` layout (`app/(site)/jurnal/layout.tsx`) has hardcoded Indonesian metadata — it does not go through `buildPageMetadata()` and is not admin-editable.
+- The `/jurnal` layout (`app/(site)/jurnal/layout.tsx`) goes through `buildPageMetadata()` with `locale: "id_ID"`; its SEO and index copy are editable in the admin **Site** editor (Jurnal tab). `/jurnal` content carries `lang="id"` on its sections; the root `<html lang>` stays `en`.
 
 ## Content tone and voice
 
@@ -65,7 +85,7 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 - Contractions and informal vocabulary: "nggak", "gimana", "kayak", "banget", "udah" are natural here.
 - Still opinionated and substantive — casual tone does not mean thin content. Every post should have a real argument.
 - Target Indonesian search queries: "jasa website bandung", "shopify developer indonesia", "developer bandung", etc. Work the keyword into the title and first paragraph naturally — not stuffed.
-- End posts with a CTA to `/contact`. Internal links use `/contact`, `/work`, `/jurnal/[slug]` etc.
+- End posts with a CTA to `/kontak`. Internal links stay in the Bahasa section: `/kontak`, `/layanan/[slug]`, `/jurnal/[slug]`.
 - `description` should read naturally in Bahasa and contain the primary search term.
 - Do NOT write `/jurnal` posts in English. Do NOT mix languages within a post.
 
@@ -78,7 +98,7 @@ Conventions for keeping this site's SEO intact. Established July 2026 alongside 
 
 ## Revamp guardrails (Working Folder, Oct 2026)
 
-- Page headings keep their CMS text and level; visual line breaks go through `sentenceLines()` / `<br className="f-br-*">` so text content is unchanged. Never duplicate copy per breakpoint.
+- Page headings keep their CMS text, and every public page has exactly one `h1` (Nov 2026: `/work`, `/about`, `/contact` moved from `h2`); visual line breaks go through `sentenceLines()` / `<br className="f-br-*">` so text content is unchanged. Never duplicate copy per breakpoint.
 - `/privacy` is a server component with hardcoded copy and inline metadata in `app/(site)/privacy/layout.tsx` (not admin-editable, not in the navbar; linked from the cookie banner). Bump its `UPDATED` date when the policy text or the site's data handling (analytics, storage keys, third parties) changes.
 - `app/not-found.tsx` (root) renders the 404 — Next sends HTTP 404 + noindex; never add it to the sitemap.
 - Article `##` headings get `id`s for the in-page index; their text must stay untouched.

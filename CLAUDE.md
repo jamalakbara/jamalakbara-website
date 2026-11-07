@@ -36,12 +36,13 @@ npm run lint           # ESLint (eslint-config-next)
 Content lives as **files in the repo** (git is the database) and is editable through the custom CMS at **`/admin`**:
 
 - **`content/projects.json`** — ONE ordered array of all projects (array index = display order).
-- **`content/site/*.json`** — singletons: `site-config`, `navigation`, `hero`, `services`, `about`, `comprehensive-about`, `cta`, `pages` (per-page copy).
+- **`content/site/*.json`** — singletons: `site-config`, `navigation`, `hero`, `services`, `about`, `comprehensive-about`, `cta`, `pages` (per-page copy), `seo` (JSON-LD values, /admin/seo).
+- **`content/service-pages.json`** — Bahasa landing pages at `/layanan/<slug>` (/admin/service-pages).
 - **`content/journal/*.mdx`** / **`content/jurnal/*.mdx`** — posts (frontmatter: `title`, `description`, `date`, `tags`, `draft`, optional `alternate` = slug of the linked post in the other language).
 - **`content/media.json`** — `{ alt: { <mediaKey>: text } }`, alt text set in /admin/media (`lib/media-meta.ts`; Work rows use it).
 - **`lib/content-types.ts`** — canonical TS interfaces; **`lib/content/schemas.ts`** — matching zod schemas (admin write-path validation only).
 - **`lib/content/index.ts`** — typed static JSON imports for the site (inlined at build; works in client components).
-- **`lib/site-data.ts`** — derived view-model constants consumed by pages: `NAV_LINKS`, `BRAND`, `home`, `works` (maps projects → `WorkRow`), `work`, `about`, `contact`.
+- **`lib/site-data.ts`** — derived view-model constants consumed by pages: `NAV_LINKS`, `BRAND`, `home`, `works` (maps projects → `WorkRow`), `caseStudies`, `work`, `about`, `jurnal`, `publishedServicePages`, `serviceLinks`, `contact`.
 
 **Site read path** (build-time, static):
 ```typescript
@@ -54,7 +55,7 @@ Pages typically consume the pre-shaped constants from `@/lib/site-data` instead.
 ### Admin CMS (`/admin`)
 - **Auth**: GitHub OAuth via next-auth v5 (`lib/auth.ts`), single allowed login (`ADMIN_GITHUB_LOGIN`), JWT session, no DB. `proxy.ts` gates `/admin/*` + `/api/admin/*`; every server action/route handler also calls `requireAdmin()` (defense in depth).
 - **Design**: canvas frames 23–32 / 24M–31M in `jamalakbara.pen`; spec in `docs/DESIGN_SYSTEM.md` §10. Shell = `components/admin/shell.tsx` (sidebar + mobile menu), kit = `components/admin/ui.tsx`, toasts `toast.tsx`, unsaved-changes guard `unsaved.tsx` (wrap in-admin links in `GuardedLink`, editors call `useUnsaved(dirty)`).
-- **Routes**: `app/admin/login` (public) + `app/admin/(protected)/…` — dashboard, `projects` (CRUD/reorder/featured/draft), `journal` + `jurnal` (shared `components/admin/posts-index|post-page|post-editor`, actions in `lib/admin/post-actions.ts`), `site` (folder tabs, one commit per save), `media` (Cloudinary library, usage, alt text), `branding` (slots in `lib/admin/branding.ts`, icon-set regenerate from `public/icon.svg` via sharp, manifest colours).
+- **Routes**: `app/admin/login` (public) + `app/admin/(protected)/…` — dashboard, `projects` (CRUD/reorder/featured/draft), `journal` + `jurnal` (shared `components/admin/posts-index|post-page|post-editor`, actions in `lib/admin/post-actions.ts`), `site` (folder tabs, one commit per save), `media` (Cloudinary library, usage, alt text), `branding` (slots in `lib/admin/branding.ts`, icon-set regenerate from `public/icon.svg` via sharp, manifest colours), `service-pages` (CRUD, actions in `lib/admin/service-page-actions.ts`), `seo` (JSON-LD values, saved through `saveSiteCopy`).
 - **Server actions return `ActionResult`** (`lib/admin/action-result.ts`) with the commit `sha` (null on fs) — the client toast watches that commit's Vercel build (committed → building → live/failed).
 - **Features with their backends**:
   - Publish status / deploy log — `lib/admin/activity.ts` (commits from GitHub, or local `git log` on fs) + `lib/admin/vercel.ts` (Vercel REST deployments; needs `VERCEL_TOKEN` + `VERCEL_PROJECT_ID`, optional `VERCEL_TEAM_ID`; without them commits show with no build state). Polling: `GET /api/admin/deploys[?sha=]`.
@@ -62,7 +63,7 @@ Pages typically consume the pre-shaped constants from `@/lib/site-data` instead.
   - SEO checklist — `lib/admin/seo-checklist.ts` (pure; editors + dashboard "Needs attention").
   - EN ↔ ID linking — `alternate` frontmatter kept mutual in one commit by `savePost`/`deletePost`; the public article pages turn a mutual, published pair into hreflang alternates + a language switch (`lib/post-lang.ts`).
   - Media usage + alt — `lib/admin/media-usage.ts`, `GET /api/admin/media/usage`, `saveMediaAlt` → `content/media.json`.
-- **Content shape additions**: `Project.draft` hides a project from the site (`works` filters it); `featured` = picked first for the home "Selected work" (3 slots).
+- **Content shape additions**: `Project.draft` hides a project from the site (`works` filters it); `featured` = picked first for the home "Selected work" (3 slots); `caseStudy` publishes `/work/<id>` and points the row at it (off = row links to the live site, route 404s); `seo` = that page's title/description. Post `related` = up to 3 same-language slugs for "Keep reading" (`lib/related-posts.ts`, falls back to shared tags, then latest).
 - **API**: `app/api/admin/media` (list/delete), `media/sign` (signed uploads), `media/usage`, `deploys`, `preview/mdx` (editor preview compile).
 - Admin is `force-dynamic`, `noindex`, robots-disallowed, never in the sitemap, and NOT wrapped by `PortfolioShell` (it has its own scroll containers — `body` is `overflow:hidden`).
 - **Publishing model**: prod saves commit to `main` → Vercel rebuild. `main` drifts ahead of `development` with content-only commits — merge `main → development` periodically.
@@ -79,7 +80,10 @@ app/
 ├── (site)/           # public site, wrapped by PortfolioShell (+ StructuredData, GA, CookieConsent)
 │   ├── site.css      # Working Folder v2 tokens + classes (public site only)
 │   ├── layout.tsx
-│   ├── page.tsx      # Home (/)
+│   ├── page.tsx      # Home (/): server wrapper around components/site/home-view.tsx
+│   ├── work/[id]/    # Case study, only for projects with caseStudy on
+│   ├── layanan/[slug]/ # Service landing pages (Bahasa)
+│   ├── kontak/       # Bahasa contact, shares components/site/contact-view.tsx
 │   ├── work/  about/  contact/  journal/  jurnal/  privacy/
 ├── admin/            # CMS — Working Folder tool-tuned (admin.css), force-dynamic, noindex
 │   ├── layout.tsx  login/
@@ -131,7 +135,7 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - Theme is **not** in a Tailwind config; it lives as CSS custom properties.
 
 ### Design system — read `docs/DESIGN_SYSTEM.md` first
-- Canvas source: Pencil `jamalakbara.pen` (Working Folder v2); designer spec + tokens in `docs/design/`.
+- Canvas source: Pencil `docs/design/jamalakbara.pen` (Working Folder v2); designer spec + tokens in `docs/design/`.
 - Tokens (`app/(site)/site.css`): `--f-paper #F8F6F0`, `--f-note #FFFEFA`, `--f-ink #201E19`, `--f-muted #6E695F`, `--f-surface #E8E3D9`, `--f-line #D8D2C8`, `--f-accent #2445DB`, `--f-hover #1D36AF`, `--f-error #A62929`, `--f-success #456D5B`.
 - Type: **Tanker** (display/titles/tabs/wordmark), **Erode** (body/actions/meta), **Comico** (hero name + number digits only; subset — re-subset if used for other text). All weight 400. CSS line-heights = canvas ratio + 0.09 (canvas adds the faces' line gap); role classes carry `padding-block: 1px`.
 - Classes: `.f-panel`, `.f-folder`/`.f-tab`, `.f-display`/`.f-title`/`.f-body`/`.f-action`/`.f-meta`, `.f-btn--primary|secondary`, `.f-link`/`.f-uline`/`.f-act`, `.f-filter`, `.f-input`, `.f-row`, `.f-receipt`, `.f-note`, `.f-prose`.
@@ -184,6 +188,7 @@ See `.env.example`.
 
 ## Known Gaps
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
+- `next build` runs Turbopack on Next 16 and can fail once fetching Google fonts; a rerun passes.
 
 ## Icons
 The favicon is **`app/favicon.ico`** — the stamp portrait (cobalt postage stamp, Oct 2026 refresh). Keep it as the only `icons.icon` entry; do not list `icon.svg` in metadata icons. The app-icon set uses the same stamp artwork (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) for iOS home-screen and manifest icons; regenerate all four together if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).

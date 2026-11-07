@@ -1,4 +1,3 @@
-import { StructuredData } from "@/components/structured-data";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { CookieConsentBanner } from "@/components/analytics/CookieConsent";
 import { PortfolioShell } from "@/components/portfolio-shell";
@@ -18,11 +17,6 @@ export default function SiteLayout({
   return (
     <>
       <script dangerouslySetInnerHTML={{ __html: SPLASH_GATE }} />
-      <StructuredData type="WebSite" />
-      <StructuredData type="Person" />
-      <StructuredData type="LocalBusiness" />
-      <StructuredData type="FAQ" />
-
       <Splash />
       <PortfolioShell>{children}</PortfolioShell>
 

@@ -3,9 +3,51 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { isBahasaPath } from '@/lib/site-data'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
+const COPY = {
+  en: {
+    title: 'Cookie Notice',
+    body: 'We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use this site, you agree to our use of cookies. Learn more in our',
+    privacy: 'Privacy Policy',
+    acceptAll: 'Accept All',
+    necessaryOnly: 'Necessary Only',
+    customize: 'Customize',
+    preferences: 'Cookie Preferences',
+    essential: 'Essential Cookies',
+    essentialHint: 'Required for the site to function properly.',
+    analytics: 'Analytics Cookies',
+    analyticsHint: 'Help us understand how visitors interact with our website.',
+    marketing: 'Marketing Cookies',
+    marketingHint: 'Used to deliver personalized advertisements.',
+    preferenceCookies: 'Preference Cookies',
+    preferenceHint: 'Allow enhanced functionality and personalization.',
+    save: 'Save Preferences',
+  },
+  id: {
+    title: 'Pemberitahuan Cookie',
+    body: 'Website ini pakai cookie buat bikin pengalaman browsing lebih enak, menganalisis trafik, dan menyesuaikan konten. Dengan lanjut pakai website ini, kalian setuju sama penggunaan cookie. Baca selengkapnya di',
+    privacy: 'Kebijakan Privasi',
+    acceptAll: 'Terima Semua',
+    necessaryOnly: 'Yang Perlu Saja',
+    customize: 'Atur',
+    preferences: 'Preferensi Cookie',
+    essential: 'Cookie Wajib',
+    essentialHint: 'Dibutuhkan biar website berjalan dengan baik.',
+    analytics: 'Cookie Analitik',
+    analyticsHint: 'Bantu aku paham gimana pengunjung pakai website ini.',
+    marketing: 'Cookie Pemasaran',
+    marketingHint: 'Dipakai buat menampilkan iklan yang relevan.',
+    preferenceCookies: 'Cookie Preferensi',
+    preferenceHint: 'Mengaktifkan fitur tambahan dan personalisasi.',
+    save: 'Simpan Preferensi',
+  },
+}
+
 export function CookieConsentBanner() {
+  const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(false)
   const [preferences, setPreferences] = useState<CookieConsentOptions>(
     CookieConsent.getDefaultConsent()
@@ -60,6 +102,8 @@ export function CookieConsentBanner() {
     }))
   }
 
+  const t = isBahasaPath(pathname) ? COPY.id : COPY.en
+
   if (!isVisible) return null
 
   return (
@@ -75,14 +119,12 @@ export function CookieConsentBanner() {
             {/* Cookie Notice */}
             <div style={{ flex: 1, minWidth: 0 }}>
               <h3>
-                Cookie Notice
+                {t.title}
               </h3>
               <p>
-                We use cookies to enhance your browsing experience, analyze site traffic,
-                and personalize content. By continuing to use this site, you agree to our
-                use of cookies. Learn more in our{' '}
+                {t.body}{' '}
                 <Link href="/privacy">
-                  Privacy Policy
+                  {t.privacy}
                 </Link>
                 .
               </p>
@@ -95,20 +137,20 @@ export function CookieConsentBanner() {
                   onClick={handleAcceptAll}
                   className="f-btn f-btn--primary"
                 >
-                  Accept All
+                  {t.acceptAll}
                 </button>
                 <button
                   onClick={handleAcceptNecessary}
                   className="f-btn f-btn--secondary"
                 >
-                  Necessary Only
+                  {t.necessaryOnly}
                 </button>
               </div>
 
               {/* Custom Preferences Toggle */}
               <details className="group relative">
                 <summary className="f-btn f-btn--secondary list-none">
-                  Customize
+                  {t.customize}
                 </summary>
 
                 <motion.div
@@ -118,14 +160,14 @@ export function CookieConsentBanner() {
                   className="f-cookie f-cookie__panel"
                 >
                   <h4 className="f-cookie__panel-h">
-                    Cookie Preferences
+                    {t.preferences}
                   </h4>
 
                   <div>
                     {/* Necessary Cookies */}
                     <div className="f-cookie__opt">
                       <label>
-                        Essential Cookies
+                        {t.essential}
                       </label>
                       <input
                         type="checkbox"
@@ -135,13 +177,13 @@ export function CookieConsentBanner() {
                       />
                     </div>
                     <p className="f-cookie__hint">
-                      Required for the site to function properly.
+                      {t.essentialHint}
                     </p>
 
                     {/* Analytics Cookies */}
                     <div className="f-cookie__opt">
                       <label>
-                        Analytics Cookies
+                        {t.analytics}
                       </label>
                       <input
                         type="checkbox"
@@ -151,13 +193,13 @@ export function CookieConsentBanner() {
                       />
                     </div>
                     <p className="f-cookie__hint">
-                      Help us understand how visitors interact with our website.
+                      {t.analyticsHint}
                     </p>
 
                     {/* Marketing Cookies */}
                     <div className="f-cookie__opt">
                       <label>
-                        Marketing Cookies
+                        {t.marketing}
                       </label>
                       <input
                         type="checkbox"
@@ -167,13 +209,13 @@ export function CookieConsentBanner() {
                       />
                     </div>
                     <p className="f-cookie__hint">
-                      Used to deliver personalized advertisements.
+                      {t.marketingHint}
                     </p>
 
                     {/* Preference Cookies */}
                     <div className="f-cookie__opt">
                       <label>
-                        Preference Cookies
+                        {t.preferenceCookies}
                       </label>
                       <input
                         type="checkbox"
@@ -183,7 +225,7 @@ export function CookieConsentBanner() {
                       />
                     </div>
                     <p className="f-cookie__hint">
-                      Allow enhanced functionality and personalization.
+                      {t.preferenceHint}
                     </p>
                   </div>
 
@@ -191,7 +233,7 @@ export function CookieConsentBanner() {
                     onClick={handleSavePreferences}
                     className="f-btn f-btn--primary f-cookie__save"
                   >
-                    Save Preferences
+                    {t.save}
                   </button>
                 </motion.div>
               </details>

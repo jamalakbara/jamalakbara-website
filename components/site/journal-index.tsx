@@ -41,11 +41,17 @@ export function JournalIndex({
   basePath,
   copy,
   formatDate,
+  contentLang,
+  strip,
 }: {
   posts: IndexPost[];
   basePath: string;
   copy: IndexCopy;
   formatDate: (iso: string) => string;
+  /** BCP-47 language of the listing when it differs from <html lang> */
+  contentLang?: string;
+  /** closing strip copy; defaults to the English one */
+  strip?: { heading: string; label: string; href: string };
 }) {
   return (
     <>
@@ -60,9 +66,10 @@ export function JournalIndex({
         heading={<h1 className="f-display f-display--caps">{sentenceLines(copy.heading)}</h1>}
         intro={<p className="f-body f-pre f-journal-intro">{copy.intro}</p>}
         stickers={STICKERS}
+        contentLang={contentLang}
       />
 
-      <section className="f-folder" aria-label={copy.tab}>
+      <section lang={contentLang} className="f-folder" aria-label={copy.tab}>
         <div className="f-tab">
           <span className="f-tabtext">{copy.tab}</span>
           <span className="f-tab__n f-muted">{copy.entries(posts.length)}</span>
@@ -110,7 +117,7 @@ export function JournalIndex({
         </div>
       </section>
 
-      <ContactStrip />
+      <ContactStrip {...strip} contentLang={contentLang} />
     </>
   );
 }
