@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArticleView } from "@/components/site/article-view";
 import { postLang } from "@/lib/post-lang";
 import { getJournalPost, getJournalPosts, formatPostDate } from "@/lib/journal";
+import { pickRelated } from "@/lib/related-posts";
 
 type Params = { slug: string };
 
@@ -84,6 +85,14 @@ export default async function JournalPostPage({
         position={position}
         total={all.length}
         basePath="/journal"
+        related={{
+          heading: "Keep reading",
+          items: pickRelated(post, all).map((p) => ({
+            href: `/journal/${p.slug}`,
+            title: p.title,
+            meta: formatPostDate(p.date),
+          })),
+        }}
         lang={postLang("en", post.slug, post.alternate)?.link}
         date={formatPostDate(post.date)}
         copy={{

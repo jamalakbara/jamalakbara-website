@@ -10,6 +10,8 @@ import {
   GitBranch,
   Images,
   Languages,
+  Megaphone,
+  Search,
   LayoutGrid,
   LogOut,
   Menu,
@@ -37,6 +39,7 @@ const NAV: { group: string; items: NavItem[] }[] = [
       { label: "Work", href: "/admin/projects", icon: BriefcaseBusiness, count: "projects" },
       { label: "Journal", href: "/admin/journal", icon: NotebookPen, count: "journal" },
       { label: "Jurnal", href: "/admin/jurnal", icon: Languages, count: "jurnal" },
+      { label: "Service pages", href: "/admin/service-pages", icon: Megaphone },
     ],
   },
   {
@@ -45,6 +48,7 @@ const NAV: { group: string; items: NavItem[] }[] = [
       { label: "Site copy", href: "/admin/site", icon: FileText },
       { label: "Media", href: "/admin/media", icon: Images },
       { label: "Branding", href: "/admin/branding", icon: Stamp },
+      { label: "SEO", href: "/admin/seo", icon: Search },
     ],
   },
 ];

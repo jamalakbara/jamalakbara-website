@@ -19,6 +19,7 @@ export async function PostPage({ section, slug }: { section: Section; slug?: str
       initial={post ?? undefined}
       count={mine.length}
       others={others.map((p) => ({ slug: p.slug, title: p.title, draft: p.draft, alternate: p.alternate }))}
+      siblings={mine.map((p) => ({ slug: p.slug, title: p.title, draft: p.draft }))}
       lastEdit={lastEdit}
     />
   );

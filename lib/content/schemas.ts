@@ -45,6 +45,8 @@ export const projectSchema = z.object({
   livePreview: z.string().url().optional(),
   featured: z.boolean().optional(),
   draft: z.boolean().optional(),
+  caseStudy: z.boolean().optional(),
+  seo: z.object({ title: z.string(), description: z.string() }).optional(),
   challenge: z.string().optional(),
   solution: z.string().optional(),
   features: z.array(z.string()).optional(),
@@ -56,6 +58,23 @@ export const projectSchema = z.object({
 });
 
 export const projectsSchema = z.array(projectSchema);
+
+export const servicePageSchema = z.object({
+  slug: z
+    .string()
+    .min(1)
+    .regex(/^[a-z0-9-]+$/, "lowercase letters, numbers and dashes only"),
+  draft: z.boolean().optional(),
+  eyebrow: z.string().min(1),
+  title: z.string().min(1),
+  intro: z.string().min(1),
+  sections: z.array(z.object({ heading: z.string().min(1), body: z.string().min(1) })),
+  faq: z.array(z.object({ question: z.string().min(1), answer: z.string().min(1) })),
+  cta: z.object({ heading: z.string().min(1), label: z.string().min(1) }),
+  seo: z.object({ title: z.string(), description: z.string() }),
+});
+
+export const servicePagesSchema = z.array(servicePageSchema);
 
 export const navigationSchema = z.array(
   z.object({ label: z.string().min(1), href: z.string().min(1) })
@@ -246,8 +265,43 @@ export const pagesSchema = z.object({
   }),
   contact: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
   journal: z.object({ eyebrow: z.string(), heading: z.string(), backgroundVideo, seo }),
+  jurnal: z.object({ eyebrow: z.string(), heading: z.string(), seo }),
+  kontak: z.object({ eyebrow: z.string(), heading: z.string(), seo }),
 });
 
+// content/site/seo.json: values behind the site's JSON-LD (/admin/seo).
+export const seoSettingsSchema = z.object({
+  website: z.object({
+    name: z.string().min(1),
+    alternateName: z.string(),
+    description: z.string().min(1),
+  }),
+  identity: z.object({
+    name: z.string().min(1),
+    alternateNames: z.array(z.string()),
+    jobTitles: z.array(z.string()),
+    description: z.string().min(1),
+    image: mediaRef,
+    sameAs: z.array(z.string().url()),
+    knowsAbout: z.array(z.string()),
+    awards: z.array(z.string()),
+    alumniOf: z.string(),
+  }),
+  business: z.object({
+    enabled: z.boolean(),
+    name: z.string().min(1),
+    alternateName: z.string(),
+    description: z.string().min(1),
+    phone: z.string(),
+    city: z.string().min(1),
+    region: z.string(),
+    country: z.string().min(1),
+    services: z.array(z.string()),
+    areaServed: z.array(z.string()),
+  }),
+});
+
+export type SeoSettings = z.infer<typeof seoSettingsSchema>;
 export type PagesContent = z.infer<typeof pagesSchema>;
 export type NavLink = z.infer<typeof navigationSchema>[number];
 

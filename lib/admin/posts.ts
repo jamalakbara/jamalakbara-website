@@ -57,6 +57,7 @@ export async function readPost(section: Section, slug: string): Promise<PostInpu
     tags: (data.tags as string[]) ?? [],
     draft: data.draft === true,
     alternate: typeof data.alternate === "string" ? data.alternate : undefined,
+    related: Array.isArray(data.related) ? (data.related as string[]) : undefined,
     body: content,
   };
 }
@@ -72,6 +73,7 @@ export function serializePost(input: PostInput): string {
     `tags: [${input.tags.map(q).join(", ")}]`,
     `draft: ${input.draft}`,
     ...(input.alternate ? [`alternate: ${q(input.alternate)}`] : []),
+    ...(input.related?.length ? [`related: [${input.related.map(q).join(", ")}]`] : []),
   ];
   const body = input.body.startsWith("\n") ? input.body : `\n${input.body}`;
   return `---\n${lines.join("\n")}\n---\n${body.endsWith("\n") ? body : body + "\n"}`;

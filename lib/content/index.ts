@@ -9,11 +9,13 @@ import type {
   HeroContent,
   Project,
   Service,
+  ServicePage,
   SiteConfig,
 } from "@/lib/content-types";
-import type { NavLink, PagesContent } from "@/lib/content/schemas";
+import type { NavLink, PagesContent, SeoSettings } from "@/lib/content/schemas";
 
 import projectsJson from "@/content/projects.json";
+import servicePagesJson from "@/content/service-pages.json";
 import siteConfigJson from "@/content/site/site-config.json";
 import navigationJson from "@/content/site/navigation.json";
 import heroJson from "@/content/site/hero.json";
@@ -22,8 +24,10 @@ import aboutJson from "@/content/site/about.json";
 import comprehensiveAboutJson from "@/content/site/comprehensive-about.json";
 import ctaJson from "@/content/site/cta.json";
 import pagesJson from "@/content/site/pages.json";
+import seoJson from "@/content/site/seo.json";
 
 export const projects = projectsJson as Project[];
+export const servicePages = servicePagesJson as ServicePage[];
 export const siteConfig = siteConfigJson as SiteConfig;
 export const navigation = navigationJson as NavLink[];
 export const hero = heroJson as HeroContent;
@@ -32,3 +36,4 @@ export const about = aboutJson as AboutContent;
 export const comprehensiveAbout = comprehensiveAboutJson as ComprehensiveAboutContent;
 export const cta = ctaJson as CTAContent;
 export const pages = pagesJson as PagesContent;
+export const seoSettings = seoJson as SeoSettings;

@@ -16,7 +16,9 @@ import { getActivity, parseEdit, recentCommits, type Activity } from "@/lib/admi
 import { listPosts, type PostRow } from "@/lib/admin/posts";
 import { mediaStats } from "@/lib/admin/cloudinary";
 import { readMediaAlt } from "@/lib/admin/media-usage";
-import { postSeo, projectSeo } from "@/lib/admin/seo-checklist";
+import { postSeo, projectSeo, servicePageSeo } from "@/lib/admin/seo-checklist";
+import { readJsonFile } from "@/lib/admin/content-store";
+import type { ServicePage } from "@/lib/content-types";
 import { mediaKey } from "@/lib/media-meta";
 import { repoUrl } from "@/lib/admin/github";
 import { vercelDashboardUrl } from "@/lib/admin/vercel";
@@ -61,7 +63,9 @@ export default async function AdminDashboardPage() {
   ];
   const oldestDraft = drafts.reduce((max, p) => Math.max(max, p.date ? daysSince(p.date) : 0), 0);
   // Failing SEO checks across published items, grouped by kind of problem.
+  const servicePages = await readJsonFile<ServicePage[]>("content/service-pages.json");
   const seoItems = [
+    ...servicePages.filter((p) => !p.draft).map((p) => ({ checks: servicePageSeo(p).checks, href: `/admin/service-pages/${p.slug}` })),
     ...projects.filter((p) => !p.draft).map((p) => ({ checks: projectSeo(p, altFor).checks, href: `/admin/projects/${p.id}` })),
     ...journal.filter((p) => !p.draft).map((p) => ({ checks: postSeo(p, "/journal").checks, href: `/admin/journal/${p.slug}` })),
     ...jurnal.filter((p) => !p.draft).map((p) => ({ checks: postSeo(p, "/jurnal").checks, href: `/admin/jurnal/${p.slug}` })),

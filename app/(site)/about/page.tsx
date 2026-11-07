@@ -41,7 +41,7 @@ export default function AboutPage() {
             Bandung, Indonesia
           </span>
         }
-        heading={<h2 className="f-display f-display--caps">{sentenceLines(about.heading)}</h2>}
+        heading={<h1 className="f-display f-display--caps">{sentenceLines(about.heading)}</h1>}
         intro={<p className="f-body">Hi, I’m Akbar — a developer and designer based in Bandung, Indonesia.</p>}
         stickers={STICKERS}
         mobileStickers={[{ name: "kopi-susu", x: 282, y: 64, w: 51.415, h: 104, r: 9 }]}

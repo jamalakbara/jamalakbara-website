@@ -1,0 +1,74 @@
+{
+  "website": {
+    "name": "Jamal Akbar Alam",
+    "alternateName": "jamalakbara.",
+    "description": "Portfolio of Jamal Akbar Alam, a developer and designer in Bandung, Indonesia, building websites, web apps, and Shopify stores."
+  },
+  "identity": {
+    "name": "Jamal Akbar Alam",
+    "alternateNames": [
+      "jamalakbara",
+      "Akbar",
+      "Chairil Akbar"
+    ],
+    "jobTitles": [
+      "Full-Stack Developer",
+      "UI/UX Designer",
+      "Creative Developer",
+      "Mobile Developer"
+    ],
+    "description": "Jamal Akbar Alam is a full-stack developer and UI/UX designer based in Bandung, Indonesia, building web and mobile products for Indonesian and Southeast Asian clients.",
+    "image": "https://jamalakbara.com/profile-image.png",
+    "sameAs": [
+      "https://github.com/jamalakbara",
+      "https://linkedin.com/in/jamalakbara",
+      "https://twitter.com/jamalakbara",
+      "https://facebook.com/jamalakbara",
+      "https://instagram.com/jamalakbara"
+    ],
+    "knowsAbout": [
+      "Web Development",
+      "Mobile Development",
+      "UI/UX Design",
+      "Frontend Development",
+      "Backend Development",
+      "React Development",
+      "Next.js Development",
+      "TypeScript Development",
+      "Shopify Development",
+      "E-Commerce Development",
+      "Payment Gateway Integration",
+      "Performance Optimization"
+    ],
+    "awards": [
+      "AWS Certified Cloud Practitioner",
+      "Advanced React & Next.js Development Certification",
+      "Professional Scrum Master (PSM I)"
+    ],
+    "alumniOf": "Telkom University"
+  },
+  "business": {
+    "enabled": true,
+    "name": "jamalakbara.",
+    "alternateName": "Jamal Akbar Alam Creative Development",
+    "description": "Web development, mobile development, Shopify development, and UI/UX design from Bandung, Indonesia.",
+    "phone": "+6281321766565",
+    "city": "Bandung",
+    "region": "West Java",
+    "country": "ID",
+    "services": [
+      "Web Development",
+      "Mobile Development",
+      "Backend Development",
+      "UI/UX Design",
+      "Shopify Development"
+    ],
+    "areaServed": [
+      "Bandung",
+      "Jakarta",
+      "Surabaya",
+      "Indonesia",
+      "Southeast Asia"
+    ]
+  }
+}

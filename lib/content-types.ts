@@ -34,6 +34,10 @@ export interface Project {
   featured?: boolean;
   /** hidden from the public site (kept in content for later) */
   draft?: boolean;
+  /** publishes the /work/<id> case study page; off until the owner reviews it */
+  caseStudy?: boolean;
+  /** case study page SEO; blank falls back to title + summary */
+  seo?: { title: string; description: string };
   // New fields for detailed case study
   challenge?: string;
   solution?: string;
@@ -48,6 +52,19 @@ export interface Project {
     label: string;
     value: string;
   }[];
+}
+
+/** content/service-pages.json: Bahasa landing pages at /layanan/<slug>. */
+export interface ServicePage {
+  slug: string;
+  draft?: boolean;
+  eyebrow: string;
+  title: string;
+  intro: string;
+  sections: { heading: string; body: string }[];
+  faq: { question: string; answer: string }[];
+  cta: { heading: string; label: string };
+  seo: { title: string; description: string };
 }
 
 export interface NavigationItem {
