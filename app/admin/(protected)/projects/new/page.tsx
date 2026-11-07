@@ -2,6 +2,8 @@ import { readProjects } from "@/lib/admin/content-store";
 import { readMediaAlt } from "@/lib/admin/media-usage";
 import { ProjectForm } from "../project-form";
 
+// New projects get Bahasa copy after their first save.
+
 export const metadata = { title: "New project" };
 
 export default async function NewProjectPage() {

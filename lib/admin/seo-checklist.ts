@@ -1,5 +1,6 @@
 // Shared SEO checklist for the admin editors (project, post, site page) and
 // the dashboard "SEO warnings" count. Pure — runs on client and server.
+// Paths follow the language being edited.
 // Limits follow .claude/rules/seo.md: descriptions are search snippets
 // (~120–160 chars), titles fit Google's ~60 char display.
 
@@ -116,7 +117,7 @@ export interface PostSeoFields {
 
 export function postSeo(post: PostSeoFields, base: "/journal" | "/jurnal"): SeoReport {
   return seoReport({
-    path: `${base}/${post.slug}`,
+    path: `${base === "/jurnal" ? "/id/journal" : base}/${post.slug}`,
     title: post.title,
     description: post.description,
     slug: post.slug,
@@ -138,11 +139,12 @@ export interface ProjectSeoFields {
 
 /** Without a published case study a project is only a row on /work, so the
  *  checks cover what that row reads. With one, they cover /work/<id>. */
-export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string | undefined): SeoReport {
+export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string | undefined, lang: "en" | "id" = "en"): SeoReport {
+  const prefix = lang === "id" ? "/id" : "";
   const summary = (p.summary ?? "").trim();
   if (p.caseStudy) {
     return seoReport({
-      path: `/work/${p.id}`,
+      path: `${prefix}/work/${p.id}`,
       title: p.seo?.title?.trim() || p.title,
       description: p.seo?.description?.trim() || summary,
       slug: p.id,
@@ -150,7 +152,7 @@ export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string 
     });
   }
   return seoReport({
-    path: `/work#${p.id}`,
+    path: `${prefix}/work#${p.id}`,
     title: `${p.title} — ${p.category}`,
     description: p.description,
     slug: p.id,
@@ -169,6 +171,7 @@ export function projectSeo(p: ProjectSeoFields, altFor: (url: string) => string 
 }
 
 export interface ServicePageSeoFields {
+  lang: "en" | "id";
   slug: string;
   title: string;
   sections: unknown[];
@@ -178,7 +181,7 @@ export interface ServicePageSeoFields {
 
 export function servicePageSeo(p: ServicePageSeoFields): SeoReport {
   return seoReport({
-    path: `/layanan/${p.slug}`,
+    path: `${p.lang === "id" ? "/id" : ""}/services/${p.slug}`,
     title: p.seo.title.trim() || p.title,
     description: p.seo.description,
     slug: p.slug,

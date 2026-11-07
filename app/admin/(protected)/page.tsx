@@ -18,6 +18,7 @@ import { mediaStats } from "@/lib/admin/cloudinary";
 import { readMediaAlt } from "@/lib/admin/media-usage";
 import { postSeo, projectSeo, servicePageSeo } from "@/lib/admin/seo-checklist";
 import { readJsonFile } from "@/lib/admin/content-store";
+import { loadTranslationReport } from "@/lib/admin/translations";
 import type { ServicePage } from "@/lib/content-types";
 import { mediaKey } from "@/lib/media-meta";
 import { repoUrl } from "@/lib/admin/github";
@@ -63,7 +64,10 @@ export default async function AdminDashboardPage() {
   ];
   const oldestDraft = drafts.reduce((max, p) => Math.max(max, p.date ? daysSince(p.date) : 0), 0);
   // Failing SEO checks across published items, grouped by kind of problem.
-  const servicePages = await readJsonFile<ServicePage[]>("content/service-pages.json");
+  const [servicePages, translations] = await Promise.all([
+    readJsonFile<ServicePage[]>("content/service-pages.json"),
+    loadTranslationReport(),
+  ]);
   const seoItems = [
     ...servicePages.filter((p) => !p.draft).map((p) => ({ checks: servicePageSeo(p).checks, href: `/admin/service-pages/${p.slug}` })),
     ...projects.filter((p) => !p.draft).map((p) => ({ checks: projectSeo(p, altFor).checks, href: `/admin/projects/${p.id}` })),
@@ -157,6 +161,22 @@ export default async function AdminDashboardPage() {
         </div>
 
         <div className="a-stack">
+          <Panel title="Bahasa progress" bodyClass="a-panel__body">
+            <div className="a-meter" style={{ padding: 0 }}>
+              <div className="a-meter__top">
+                <span>{translations.ready ? "Required copy done" : "Site offline in Bahasa until required copy is done"}</span>
+                <span className="a-meter__val" data-state={translations.ready ? undefined : "warn"}>
+                  {translations.done} of {translations.total}
+                </span>
+              </div>
+              <div className="a-meter__track">
+                <div className="a-meter__bar" data-state={translations.ready ? undefined : "warn"} style={{ width: `${(translations.done / translations.total) * 100}%` }} />
+              </div>
+            </div>
+            <Link href="/admin/translations" className="a-link a-small">
+              Open Translations
+            </Link>
+          </Panel>
           <Panel title="Needs attention" bodyClass="a-panel__body">
             <div style={{ marginTop: -16, marginBottom: -16 }}>
               {drafts.length > 0 && (

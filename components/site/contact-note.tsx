@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { contact } from "@/lib/site-data";
+import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { Stamp } from "@/components/site/stamp";
 import { ArrowUpRight } from "@/components/site/icons";
@@ -11,28 +11,18 @@ import { ArrowUpRight } from "@/components/site/icons";
 // if the clipboard is unavailable/denied the address stays selectable and the
 // mail link remains, with a polite announcement.
 
-export type NoteCopy = { label: string; mail: string; copied: string; failed: string; copyLabel: string };
-
-const NOTE_EN: NoteCopy = {
-  label: "A NOTE TO AKBAR",
-  mail: "Send an email",
-  copied: "Copied",
-  failed: "Couldn’t copy — select the address",
-  copyLabel: "Copy email address",
-};
-
 type CopyState = "idle" | "copied" | "failed";
 
 export function ContactNote({
   socialLimit,
   trackEmail = false,
-  copy: text = NOTE_EN,
 }: {
   socialLimit?: number;
   /** fire the existing contact "email_link" GA event (contact page only, as before) */
   trackEmail?: boolean;
-  copy?: NoteCopy;
 }) {
+  const { contact, ui } = useSite();
+  const text = ui.note;
   const [state, setState] = useState<CopyState>("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {

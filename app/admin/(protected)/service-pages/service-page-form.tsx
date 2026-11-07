@@ -5,7 +5,8 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowUpRight, Check, Plus, Trash2 } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, Check, Link2, Plus, Trash2 } from "lucide-react";
 import type { ServicePage } from "@/lib/content-types";
 import { servicePageSeo } from "@/lib/admin/seo-checklist";
 import { deleteServicePage, upsertServicePage } from "@/lib/admin/service-page-actions";
@@ -18,6 +19,7 @@ const slugify = (s: string) =>
   s.toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/[\s_]+/g, "-").replace(/-+/g, "-");
 
 const blank = (): ServicePage => ({
+  lang: "id",
   slug: "",
   draft: true,
   eyebrow: "LAYANAN",
@@ -29,7 +31,7 @@ const blank = (): ServicePage => ({
   seo: { title: "", description: "" },
 });
 
-export function ServicePageForm({ initial }: { initial?: ServicePage }) {
+export function ServicePageForm({ initial, pages }: { initial?: ServicePage; pages: ServicePage[] }) {
   const router = useRouter();
   const toast = useToast();
   const { confirm, dialog } = useConfirm();
@@ -48,6 +50,9 @@ export function ServicePageForm({ initial }: { initial?: ServicePage }) {
   const removeAt = (key: "sections" | "faq", i: number) => setForm((f) => ({ ...f, [key]: f[key].filter((_, j) => j !== i) }));
 
   const seo = useMemo(() => servicePageSeo(form), [form]);
+  const publicPath = `${form.lang === "id" ? "/id" : ""}/services/${form.slug || "…"}`;
+  const twins = pages.filter((p) => p.lang !== form.lang);
+  const twin = twins.find((p) => p.slug === form.alternate);
 
   function save() {
     if (pending) return;
@@ -91,12 +96,12 @@ export function ServicePageForm({ initial }: { initial?: ServicePage }) {
         eyebrow={initial ? "Service pages / Edit" : "Service pages / New"}
         index="03"
         title={form.seo.title || form.title || "Untitled page"}
-        subtitle={`/layanan/${form.slug || "…"} · ${form.draft ? "draft" : "published"}${dirty ? " · unsaved edits" : ""}`}
+        subtitle={`${publicPath} · ${form.draft ? "draft" : "published"}${dirty ? " · unsaved edits" : ""}`}
         back={{ href: "/admin/service-pages", label: "All service pages" }}
         actions={
           <>
             {initial && !initial.draft && (
-              <a className="a-btn a-btn--secondary" href={`/layanan/${initial.slug}`} target="_blank" rel="noreferrer">
+              <a className="a-btn a-btn--secondary" href={publicPath} target="_blank" rel="noreferrer">
                 <ArrowUpRight size={16} />
                 Open page
               </a>
@@ -118,7 +123,7 @@ export function ServicePageForm({ initial }: { initial?: ServicePage }) {
               <Field label="Eyebrow" help="Small label above the title.">
                 <input className="a-input" required value={form.eyebrow} onChange={(e) => set("eyebrow", e.target.value)} />
               </Field>
-              <Field label="Slug" help={`jamalakbara.com/layanan/${form.slug || "…"}`}>
+              <Field label="Slug" help={`jamalakbara.com${publicPath}`}>
                 <input
                   className="a-input"
                   required
@@ -208,6 +213,33 @@ export function ServicePageForm({ initial }: { initial?: ServicePage }) {
         </div>
 
         <aside className="a-stack a-sticky">
+          <Panel title="Language" bodyClass="a-panel__body">
+            <Field label="Page language">
+              <select className="a-input" value={form.lang} onChange={(e) => setForm((f) => ({ ...f, lang: e.target.value as ServicePage["lang"], alternate: undefined }))}>
+                <option value="en">English</option>
+                <option value="id">Bahasa Indonesia</option>
+              </select>
+            </Field>
+            <Field label={form.lang === "id" ? "Linked English page" : "Linked Bahasa page"} help="Adds hreflang and the language link.">
+              <select className="a-input" value={form.alternate ?? ""} onChange={(e) => set("alternate", e.target.value || undefined)}>
+                <option value="">Not linked</option>
+                {twins.map((p) => (
+                  <option key={p.slug} value={p.slug}>
+                    {p.seo.title || p.title}
+                  </option>
+                ))}
+              </select>
+            </Field>
+            {twin && (
+              <Link href={`/admin/service-pages/${twin.slug}`} className="a-media">
+                <Link2 size={16} color="var(--f-muted)" />
+                <span className="a-media__text">
+                  <span className="a-label a-truncate">{twin.seo.title || twin.title}</span>
+                </span>
+                <ArrowUpRight size={16} />
+              </Link>
+            )}
+          </Panel>
           <Panel title="Publish" aside={<Chip kind={form.draft ? "draft" : "published"}>{form.draft ? "Draft" : "Published"}</Chip>}>
             <div style={{ marginTop: -12 }}>
               <Toggle checked={!form.draft} onChange={(v) => set("draft", !v)}>

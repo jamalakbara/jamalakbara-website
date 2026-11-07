@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { requireAdmin } from "@/lib/auth";
-import { mediaUsage, readMediaAlt } from "@/lib/admin/media-usage";
+import { mediaUsage, readMediaAlt, readMediaAltId } from "@/lib/admin/media-usage";
 
 // Usage map + alt text for the media library (keyed by media key).
 export async function GET() {
@@ -10,8 +10,8 @@ export async function GET() {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
   try {
-    const [usage, alt] = await Promise.all([mediaUsage(), readMediaAlt()]);
-    return NextResponse.json({ usage, alt });
+    const [usage, alt, altId] = await Promise.all([mediaUsage(), readMediaAlt(), readMediaAltId()]);
+    return NextResponse.json({ usage, alt, altId });
   } catch (e) {
     return NextResponse.json({ error: e instanceof Error ? e.message : "usage scan failed" }, { status: 500 });
   }

@@ -3,51 +3,12 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { isBahasaPath } from '@/lib/site-data'
+import { useSite } from '@/lib/i18n/context'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
-const COPY = {
-  en: {
-    title: 'Cookie Notice',
-    body: 'We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use this site, you agree to our use of cookies. Learn more in our',
-    privacy: 'Privacy Policy',
-    acceptAll: 'Accept All',
-    necessaryOnly: 'Necessary Only',
-    customize: 'Customize',
-    preferences: 'Cookie Preferences',
-    essential: 'Essential Cookies',
-    essentialHint: 'Required for the site to function properly.',
-    analytics: 'Analytics Cookies',
-    analyticsHint: 'Help us understand how visitors interact with our website.',
-    marketing: 'Marketing Cookies',
-    marketingHint: 'Used to deliver personalized advertisements.',
-    preferenceCookies: 'Preference Cookies',
-    preferenceHint: 'Allow enhanced functionality and personalization.',
-    save: 'Save Preferences',
-  },
-  id: {
-    title: 'Pemberitahuan Cookie',
-    body: 'Website ini pakai cookie buat bikin pengalaman browsing lebih enak, menganalisis trafik, dan menyesuaikan konten. Dengan lanjut pakai website ini, kalian setuju sama penggunaan cookie. Baca selengkapnya di',
-    privacy: 'Kebijakan Privasi',
-    acceptAll: 'Terima Semua',
-    necessaryOnly: 'Yang Perlu Saja',
-    customize: 'Atur',
-    preferences: 'Preferensi Cookie',
-    essential: 'Cookie Wajib',
-    essentialHint: 'Dibutuhkan biar website berjalan dengan baik.',
-    analytics: 'Cookie Analitik',
-    analyticsHint: 'Bantu aku paham gimana pengunjung pakai website ini.',
-    marketing: 'Cookie Pemasaran',
-    marketingHint: 'Dipakai buat menampilkan iklan yang relevan.',
-    preferenceCookies: 'Cookie Preferensi',
-    preferenceHint: 'Mengaktifkan fitur tambahan dan personalisasi.',
-    save: 'Simpan Preferensi',
-  },
-}
-
 export function CookieConsentBanner() {
-  const pathname = usePathname()
+  const { path, ui } = useSite()
+  const t = ui.cookie
   const [isVisible, setIsVisible] = useState(false)
   const [preferences, setPreferences] = useState<CookieConsentOptions>(
     CookieConsent.getDefaultConsent()
@@ -102,8 +63,6 @@ export function CookieConsentBanner() {
     }))
   }
 
-  const t = isBahasaPath(pathname) ? COPY.id : COPY.en
-
   if (!isVisible) return null
 
   return (
@@ -123,7 +82,7 @@ export function CookieConsentBanner() {
               </h3>
               <p>
                 {t.body}{' '}
-                <Link href="/privacy">
+                <Link href={path("/privacy")}>
                   {t.privacy}
                 </Link>
                 .

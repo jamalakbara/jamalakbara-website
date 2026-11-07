@@ -4,8 +4,6 @@ export const SITE_TABS = [
   { key: "about", label: "About", path: "/about" },
   { key: "contact", label: "Contact", path: "/contact" },
   { key: "journal", label: "Journal", path: "/journal" },
-  { key: "jurnal", label: "Jurnal", path: "/jurnal" },
-  { key: "kontak", label: "Kontak", path: "/kontak" },
   { key: "navigation", label: "Navigation", path: "/" },
 ] as const;
 
