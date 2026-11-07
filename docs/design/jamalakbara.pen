@@ -137303,52 +137303,6 @@
                               }
                             },
                             {
-                              "id": "rUDuV",
-                              "type": "ref",
-                              "ref": "mFEX6",
-                              "name": "Nav / Jurnal",
-                              "width": "fill_container",
-                              "descendants": {
-                                "u0yW89": {
-                                  "icon": "languages"
-                                },
-                                "UNkbG": {
-                                  "width": "fill_container",
-                                  "height": 27
-                                },
-                                "Wk8Fm": {
-                                  "width": 44,
-                                  "height": 27,
-                                  "fill": {
-                                    "type": "image",
-                                    "enabled": true,
-                                    "url": "jamalakbara-assets/1770874472.png",
-                                    "mode": "contain"
-                                  }
-                                },
-                                "zQ55W": {
-                                  "content": "Jurnal"
-                                },
-                                "yi0Vx": {
-                                  "width": 10,
-                                  "height": 24
-                                },
-                                "s0T8D1": {
-                                  "width": 10,
-                                  "height": 24,
-                                  "fill": {
-                                    "type": "image",
-                                    "enabled": true,
-                                    "url": "jamalakbara-assets/1061994090.png",
-                                    "mode": "contain"
-                                  }
-                                },
-                                "S2ulEr": {
-                                  "content": "6"
-                                }
-                              }
-                            },
-                            {
                               "id": "ORSZ4",
                               "type": "ref",
                               "ref": "mFEX6",
@@ -138810,34 +138764,6 @@
                 "type": "image",
                 "enabled": true,
                 "url": "jamalakbara-assets/3322939840.png",
-                "mode": "contain"
-              }
-            },
-            "rUDuV/UNkbG": {
-              "width": "fill_container",
-              "height": 27
-            },
-            "rUDuV/Wk8Fm": {
-              "width": 44,
-              "height": 27,
-              "fill": {
-                "type": "image",
-                "enabled": true,
-                "url": "jamalakbara-assets/1770874472.png",
-                "mode": "contain"
-              }
-            },
-            "rUDuV/yi0Vx": {
-              "width": 10,
-              "height": 24
-            },
-            "rUDuV/s0T8D1": {
-              "width": 10,
-              "height": 24,
-              "fill": {
-                "type": "image",
-                "enabled": true,
-                "url": "jamalakbara-assets/1061994090.png",
                 "mode": "contain"
               }
             },
@@ -146503,110 +146429,36 @@
               "children": [
                 {
                   "type": "frame",
-                  "id": "c1qBz",
-                  "name": "Language",
+                  "id": "V0YWov",
+                  "name": "Language filter",
                   "height": 48,
                   "fill": "$folder-surface",
-                  "cornerRadius": "$folder-radius-control",
-                  "gap": 2,
+                  "cornerRadius": 6,
+                  "gap": 4,
                   "padding": 4,
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "frame",
-                      "id": "LqBOS",
-                      "name": "Seg English · 11",
-                      "height": "fill_container",
+                      "id": "l9lq4S",
+                      "name": "Seg All · 17",
+                      "height": 40,
                       "fill": "$folder-note",
-                      "cornerRadius": 3,
-                      "gap": 8,
+                      "cornerRadius": 4,
                       "padding": [
                         0,
-                        14
+                        12
                       ],
+                      "justifyContent": "center",
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "frame",
-                          "id": "cA73R",
-                          "name": "Code / Fontshare",
-                          "metadata": {
-                            "type": "fontshare-text",
-                            "content": "EN",
-                            "fontFamily": "$folder-display",
-                            "fontSize": 13
-                          },
-                          "width": 16,
-                          "height": 21,
-                          "layout": "vertical",
-                          "justifyContent": "center",
-                          "children": [
-                            {
-                              "type": "rectangle",
-                              "id": "qo6sA",
-                              "name": "Code / Font artwork",
-                              "fill": {
-                                "type": "image",
-                                "enabled": true,
-                                "url": "jamalakbara-assets/424074076.png",
-                                "mode": "contain"
-                              },
-                              "width": 16,
-                              "height": 21
-                            }
-                          ]
-                        },
-                        {
                           "type": "text",
-                          "id": "KfMG7",
-                          "x": 14,
-                          "y": 10,
-                          "name": "Code",
-                          "enabled": false,
-                          "fill": "$folder-accent",
-                          "content": "EN",
-                          "fontFamily": "$admin-display",
-                          "fontSize": 13,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "g3VyG",
-                          "name": "Label / Fontshare",
-                          "metadata": {
-                            "type": "fontshare-text",
-                            "content": "English · 11",
-                            "fontFamily": "$folder-body",
-                            "fontSize": 14
-                          },
-                          "width": 68,
-                          "height": 27,
-                          "layout": "vertical",
-                          "justifyContent": "center",
-                          "children": [
-                            {
-                              "type": "rectangle",
-                              "id": "A9C1z",
-                              "name": "Label / Font artwork",
-                              "fill": {
-                                "type": "image",
-                                "enabled": true,
-                                "url": "jamalakbara-assets/2973021088.png",
-                                "mode": "contain"
-                              },
-                              "width": 68,
-                              "height": 27
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "AP4nH",
-                          "x": 36,
-                          "y": 13,
+                          "id": "TFlSd",
                           "name": "Label",
-                          "enabled": false,
                           "fill": "$folder-ink",
-                          "content": "English · 11",
+                          "content": "All · 17",
+                          "lineHeight": 1.4,
                           "fontFamily": "$admin-body",
                           "fontSize": 14,
                           "fontWeight": "normal"
@@ -146615,100 +146467,72 @@
                     },
                     {
                       "type": "frame",
-                      "id": "SiaML",
-                      "name": "Seg Bahasa · 6",
-                      "height": "fill_container",
-                      "fill": "#00000000",
-                      "cornerRadius": 3,
-                      "gap": 8,
+                      "id": "uHMUj",
+                      "name": "Seg EN 11",
+                      "height": 40,
+                      "cornerRadius": 4,
                       "padding": [
                         0,
-                        14
+                        12
                       ],
+                      "justifyContent": "center",
                       "alignItems": "center",
                       "children": [
                         {
-                          "type": "frame",
-                          "id": "H3yHv",
-                          "name": "Code / Fontshare",
-                          "metadata": {
-                            "type": "fontshare-text",
-                            "content": "ID",
-                            "fontFamily": "$folder-display",
-                            "fontSize": 13
-                          },
-                          "width": 13,
-                          "height": 21,
-                          "layout": "vertical",
-                          "justifyContent": "center",
-                          "children": [
-                            {
-                              "type": "rectangle",
-                              "id": "yjQOT",
-                              "name": "Code / Font artwork",
-                              "fill": {
-                                "type": "image",
-                                "enabled": true,
-                                "url": "jamalakbara-assets/3068808016.png",
-                                "mode": "contain"
-                              },
-                              "width": 13,
-                              "height": 21
-                            }
-                          ]
-                        },
-                        {
                           "type": "text",
-                          "id": "Zd18f",
-                          "x": 14,
-                          "y": 10,
+                          "id": "e79FMt",
                           "name": "Code",
-                          "enabled": false,
-                          "fill": "$folder-muted",
-                          "content": "ID",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
                           "fontFamily": "$admin-display",
                           "fontSize": 13,
                           "fontWeight": "normal"
                         },
                         {
-                          "type": "frame",
-                          "id": "YxIr1",
-                          "name": "Label / Fontshare",
-                          "metadata": {
-                            "type": "fontshare-text",
-                            "content": "Bahasa · 6",
-                            "fontFamily": "$folder-body",
-                            "fontSize": 14
-                          },
-                          "width": 64,
-                          "height": 27,
-                          "layout": "vertical",
-                          "justifyContent": "center",
-                          "children": [
-                            {
-                              "type": "rectangle",
-                              "id": "d2h6J",
-                              "name": "Label / Font artwork",
-                              "fill": {
-                                "type": "image",
-                                "enabled": true,
-                                "url": "jamalakbara-assets/1012501615.png",
-                                "mode": "contain"
-                              },
-                              "width": 64,
-                              "height": 27
-                            }
-                          ]
+                          "type": "text",
+                          "id": "KOIaJ",
+                          "name": "Count",
+                          "fill": "$folder-ink",
+                          "content": " 11",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-body",
+                          "fontSize": 14,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "s0j6e",
+                      "name": "Seg ID 6",
+                      "height": 40,
+                      "cornerRadius": 4,
+                      "padding": [
+                        0,
+                        12
+                      ],
+                      "justifyContent": "center",
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "rk4Yz",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "ID",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
-                          "id": "abXPw",
-                          "x": 34,
-                          "y": 13,
-                          "name": "Label",
-                          "enabled": false,
-                          "fill": "$folder-muted",
-                          "content": "Bahasa · 6",
+                          "id": "k9VRNF",
+                          "name": "Count",
+                          "fill": "$folder-ink",
+                          "content": " 6",
+                          "lineHeight": 1.4,
                           "fontFamily": "$admin-body",
                           "fontSize": 14,
                           "fontWeight": "normal"
@@ -147089,6 +146913,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "nck4t",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "nNJ8M",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "hHsNe",
                       "name": "Text",
                       "width": "fill_container",
@@ -147396,6 +147244,30 @@
                           "fill": "$folder-muted",
                           "content": "2026",
                           "fontFamily": "$admin-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Up2or",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MpkaE",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
                           "fontSize": 12,
                           "fontWeight": "normal"
                         }
@@ -147717,6 +147589,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "RKnNu",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "vxxkL",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "ID",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "aJedO",
                       "name": "Text",
                       "width": "fill_container",
@@ -148024,6 +147920,30 @@
                           "fill": "$folder-muted",
                           "content": "2026",
                           "fontFamily": "$admin-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "V9otcR",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "k0oxJ",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
                           "fontSize": 12,
                           "fontWeight": "normal"
                         }
@@ -148345,6 +148265,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "N4gwC",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "IbOw5",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "I8TZDb",
                       "name": "Text",
                       "width": "fill_container",
@@ -148652,6 +148596,30 @@
                           "fill": "$folder-muted",
                           "content": "2026",
                           "fontFamily": "$admin-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "s2OBdU",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "EWBb2",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "ID",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
                           "fontSize": 12,
                           "fontWeight": "normal"
                         }
@@ -148973,6 +148941,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "LZJGO",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "hNFke",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "CjJsD",
                       "name": "Text",
                       "width": "fill_container",
@@ -149280,6 +149272,30 @@
                           "fill": "$folder-muted",
                           "content": "2026",
                           "fontFamily": "$admin-body",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "cwn6I",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "kFsej",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
                           "fontSize": 12,
                           "fontWeight": "normal"
                         }
@@ -149601,6 +149617,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "TfICi",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "P8MXat",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "ID",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "ysowV",
                       "name": "Text",
                       "width": "fill_container",
@@ -149915,6 +149955,30 @@
                     },
                     {
                       "type": "frame",
+                      "id": "FaLEU",
+                      "name": "Language",
+                      "fill": "$folder-surface",
+                      "cornerRadius": 4,
+                      "padding": [
+                        2,
+                        6
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "A2nKLQ",
+                          "name": "Code",
+                          "fill": "$folder-accent",
+                          "content": "EN",
+                          "lineHeight": 1.4,
+                          "fontFamily": "$admin-display",
+                          "fontSize": 12,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
                       "id": "ifoJ5",
                       "name": "Text",
                       "width": "fill_container",
@@ -150129,7 +150193,7 @@
       "name": "28 — Admin / Post editor / Desktop 1440",
       "clip": true,
       "width": 1440,
-      "height": 1248,
+      "height": 1358,
       "fill": "$folder-surface",
       "children": [
         {
@@ -151554,6 +151618,80 @@
                               "type": "ref",
                               "ref": "vhXFC",
                               "name": "State"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pYq6a",
+                          "name": "Field / Language",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 6,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "F6pbi",
+                              "name": "Label",
+                              "fill": "$folder-ink",
+                              "content": "Language",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$admin-body",
+                              "fontSize": 14,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Clm6R",
+                              "name": "Select",
+                              "width": "fill_container",
+                              "height": 48,
+                              "fill": "$folder-note",
+                              "cornerRadius": 4,
+                              "stroke": "$folder-line",
+                              "strokeWidth": 1,
+                              "padding": [
+                                0,
+                                12
+                              ],
+                              "justifyContent": "space_between",
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "TX33P",
+                                  "name": "Value",
+                                  "fill": "$folder-ink",
+                                  "content": "English",
+                                  "lineHeight": 1.4,
+                                  "fontFamily": "$admin-body",
+                                  "fontSize": 15,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "icon",
+                                  "id": "TGi2Y",
+                                  "name": "chevron-down",
+                                  "width": 16,
+                                  "height": 16,
+                                  "icon": "chevron-down",
+                                  "library": "lucide",
+                                  "fill": "$folder-muted"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "yqKfA",
+                              "name": "Help",
+                              "fill": "$folder-muted",
+                              "textGrowth": "fixed-width",
+                              "width": "fill_container",
+                              "content": "Changing it on a saved post moves it to the other language.",
+                              "lineHeight": 1.4,
+                              "fontFamily": "$admin-body",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
                             }
                           ]
                         },
@@ -163292,6 +163430,124 @@
               ]
             },
             {
+              "type": "frame",
+              "id": "uPbdW",
+              "name": "Language filter",
+              "width": "fill_container",
+              "height": 44,
+              "fill": "$folder-surface",
+              "cornerRadius": 6,
+              "gap": 4,
+              "padding": 4,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "vi7uG",
+                  "name": "Seg All · 17",
+                  "width": "fill_container",
+                  "height": 36,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S5XMQ",
+                      "name": "Label",
+                      "fill": "$folder-ink",
+                      "content": "All · 17",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "E51El",
+                  "name": "Seg EN 11",
+                  "width": "fill_container",
+                  "height": 36,
+                  "cornerRadius": 4,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ODfzX",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "EN",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "UtmqI",
+                      "name": "Count",
+                      "fill": "$folder-ink",
+                      "content": " 11",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "QKhLM",
+                  "name": "Seg ID 6",
+                  "width": "fill_container",
+                  "height": 36,
+                  "cornerRadius": 4,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "F3oxGO",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "ID",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "g4u6e",
+                      "name": "Count",
+                      "fill": "$folder-ink",
+                      "content": " 6",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
               "type": "text",
               "id": "ZqwuJ",
               "x": 20,
@@ -163304,131 +163560,6 @@
               "fontFamily": "$admin-display",
               "fontSize": 34,
               "fontWeight": "normal"
-            },
-            {
-              "type": "frame",
-              "id": "ANcFc",
-              "name": "Segments",
-              "width": "fill_container",
-              "height": 44,
-              "fill": "$folder-surface",
-              "cornerRadius": "$folder-radius-control",
-              "gap": 2,
-              "padding": 4,
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "pfL1U",
-                  "name": "Seg English · 11",
-                  "width": "fill_container",
-                  "height": "fill_container",
-                  "fill": "$folder-note",
-                  "cornerRadius": 3,
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "vTeXd",
-                      "name": "Label / Fontshare",
-                      "metadata": {
-                        "type": "fontshare-text",
-                        "content": "English · 11",
-                        "fontFamily": "$folder-body",
-                        "fontSize": 14
-                      },
-                      "width": 68,
-                      "height": 27,
-                      "layout": "vertical",
-                      "justifyContent": "center",
-                      "children": [
-                        {
-                          "type": "rectangle",
-                          "id": "QLZrI",
-                          "name": "Label / Font artwork",
-                          "fill": {
-                            "type": "image",
-                            "enabled": true,
-                            "url": "jamalakbara-assets/2973021088.png",
-                            "mode": "contain"
-                          },
-                          "width": 68,
-                          "height": 27
-                        }
-                      ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "P1ZxQ",
-                      "x": 18.5,
-                      "y": 11,
-                      "name": "Label",
-                      "enabled": false,
-                      "fill": "$folder-ink",
-                      "content": "English · 11",
-                      "fontFamily": "$admin-body",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "hudO0",
-                  "name": "Seg Bahasa · 6",
-                  "width": "fill_container",
-                  "height": "fill_container",
-                  "fill": "#00000000",
-                  "cornerRadius": 3,
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "XzCFX",
-                      "name": "Label / Fontshare",
-                      "metadata": {
-                        "type": "fontshare-text",
-                        "content": "Bahasa · 6",
-                        "fontFamily": "$folder-body",
-                        "fontSize": 14
-                      },
-                      "width": 64,
-                      "height": 27,
-                      "layout": "vertical",
-                      "justifyContent": "center",
-                      "children": [
-                        {
-                          "type": "rectangle",
-                          "id": "tWSQJ",
-                          "name": "Label / Font artwork",
-                          "fill": {
-                            "type": "image",
-                            "enabled": true,
-                            "url": "jamalakbara-assets/1012501615.png",
-                            "mode": "contain"
-                          },
-                          "width": 64,
-                          "height": 27
-                        }
-                      ]
-                    },
-                    {
-                      "type": "text",
-                      "id": "TUFMj",
-                      "x": 25.5,
-                      "y": 11,
-                      "name": "Label",
-                      "enabled": false,
-                      "fill": "$folder-muted",
-                      "content": "Bahasa · 6",
-                      "fontFamily": "$admin-body",
-                      "fontSize": 14,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                }
-              ]
             },
             {
               "id": "J9emOH",
@@ -163582,6 +163713,30 @@
                 },
                 {
                   "type": "frame",
+                  "id": "r22lN9",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "y4elGD",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "EN",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "FVcJe",
                   "name": "Title / Fontshare",
                   "metadata": {
@@ -163723,6 +163878,30 @@
                 },
                 {
                   "type": "frame",
+                  "id": "npqGy",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "OJBxs",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "EN",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "hzqwB",
                   "name": "Title / Fontshare",
                   "metadata": {
@@ -163849,6 +164028,30 @@
                       "type": "ref",
                       "ref": "vhXFC",
                       "name": "Status"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "EVy2q",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "x1amz",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "ID",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -163985,6 +164188,30 @@
                 },
                 {
                   "type": "frame",
+                  "id": "aTUEH",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "JdB38",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "EN",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "U0Fnh",
                   "name": "Title / Fontshare",
                   "metadata": {
@@ -164111,6 +164338,30 @@
                       "type": "ref",
                       "ref": "u6KbqF",
                       "name": "Status"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "KRvAZ",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "pjVlV",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "EN",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
                     }
                   ]
                 },
@@ -164257,6 +164508,30 @@
                 },
                 {
                   "type": "frame",
+                  "id": "aHZzd",
+                  "name": "Language",
+                  "fill": "$folder-surface",
+                  "cornerRadius": 4,
+                  "padding": [
+                    2,
+                    6
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "dOhG6",
+                      "name": "Code",
+                      "fill": "$folder-accent",
+                      "content": "ID",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-display",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
                   "id": "Njyxi",
                   "name": "Title / Fontshare",
                   "metadata": {
@@ -164321,7 +164596,7 @@
       "name": "28M — Admin / Post editor / Mobile 390",
       "clip": true,
       "width": 390,
-      "height": 1100,
+      "height": 1250,
       "fill": "$folder-surface",
       "layout": "vertical",
       "gap": 12,
@@ -164664,6 +164939,92 @@
                       "fontWeight": "normal"
                     }
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "QPVwQ",
+          "name": "Post language",
+          "width": "fill_container",
+          "fill": "$folder-paper",
+          "cornerRadius": 12,
+          "layout": "vertical",
+          "padding": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "HJ08h",
+              "name": "Field / Language",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 6,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "GwTIM",
+                  "name": "Label",
+                  "fill": "$folder-ink",
+                  "content": "Language",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "OaSD4",
+                  "name": "Select",
+                  "width": "fill_container",
+                  "height": 48,
+                  "fill": "$folder-note",
+                  "cornerRadius": 4,
+                  "stroke": "$folder-line",
+                  "strokeWidth": 1,
+                  "padding": [
+                    0,
+                    12
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "G0OaK",
+                      "name": "Value",
+                      "fill": "$folder-ink",
+                      "content": "English",
+                      "lineHeight": 1.4,
+                      "fontFamily": "$admin-body",
+                      "fontSize": 15,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "icon",
+                      "id": "p08Xl8",
+                      "name": "chevron-down",
+                      "width": 16,
+                      "height": 16,
+                      "icon": "chevron-down",
+                      "library": "lucide",
+                      "fill": "$folder-muted"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "BZd4B",
+                  "name": "Help",
+                  "fill": "$folder-muted",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Changing it on a saved post moves it to the other language.",
+                  "lineHeight": 1.4,
+                  "fontFamily": "$admin-body",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
                 }
               ]
             }
