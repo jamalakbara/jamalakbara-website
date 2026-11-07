@@ -72,7 +72,7 @@ export default async function AdminDashboardPage() {
     ...servicePages.filter((p) => !p.draft).map((p) => ({ checks: servicePageSeo(p).checks, href: `/admin/service-pages/${p.slug}` })),
     ...projects.filter((p) => !p.draft).map((p) => ({ checks: projectSeo(p, altFor).checks, href: `/admin/projects/${p.id}` })),
     ...journal.filter((p) => !p.draft).map((p) => ({ checks: postSeo(p, "/journal").checks, href: `/admin/journal/${p.slug}` })),
-    ...jurnal.filter((p) => !p.draft).map((p) => ({ checks: postSeo(p, "/jurnal").checks, href: `/admin/jurnal/${p.slug}` })),
+    ...jurnal.filter((p) => !p.draft).map((p) => ({ checks: postSeo(p, "/jurnal").checks, href: `/admin/journal/${p.slug}?lang=id` })),
   ].filter((i) => i.checks.some((c) => !c.ok));
   const seoKinds = new Map<string, number>();
   for (const i of seoItems) {
@@ -127,8 +127,8 @@ export default async function AdminDashboardPage() {
       <div className="a-stats">
         <Stat href="/admin/projects" label="Projects" icon={<BriefcaseBusiness size={16} />} value={projects.length}
           sub={`${projects.filter((p) => p.featured).length} featured on home${projects.some((p) => p.draft) ? ` · ${projects.filter((p) => p.draft).length} hidden` : ""}`} />
-        <Stat href="/admin/journal" label="Journal · EN" icon={<NotebookPen size={16} />} value={journal.length} sub={draftLabel(journal)} />
-        <Stat href="/admin/jurnal" label="Jurnal · ID" icon={<Languages size={16} />} value={jurnal.length} sub={draftLabel(jurnal)} />
+        <Stat href="/admin/journal?lang=en" label="Journal · EN" icon={<NotebookPen size={16} />} value={journal.length} sub={draftLabel(journal)} />
+        <Stat href="/admin/journal?lang=id" label="Journal · ID" icon={<Languages size={16} />} value={jurnal.length} sub={draftLabel(jurnal)} />
         <Stat href="/admin/media" label="Media" icon={<Images size={16} />} value={media ? media.images + media.videos : "—"}
           sub={media ? `Cloudinary${media.storageBytes ? ` · ${formatBytes(media.storageBytes)}` : ""}` : "Cloudinary not reachable"} />
       </div>
@@ -184,7 +184,7 @@ export default async function AdminDashboardPage() {
                   icon={<FilePen size={16} />}
                   title={`${drafts.length} draft${drafts.length === 1 ? "" : "s"} waiting`}
                   body={`${drafts.filter((d) => d.section === "journal").length} Journal · ${drafts.filter((d) => d.section === "jurnal").length} Jurnal — oldest is ${oldestDraft} days`}
-                  href={`/admin/${drafts[0].section}?status=draft`}
+                  href={`/admin/journal?status=draft${drafts[0].section === "jurnal" ? "&lang=id" : ""}`}
                   cta="Review"
                 />
               )}

@@ -10,7 +10,6 @@ import {
   Globe,
   GitBranch,
   Images,
-  Languages,
   Megaphone,
   Search,
   LayoutGrid,
@@ -39,7 +38,6 @@ const NAV: { group: string; items: NavItem[] }[] = [
     items: [
       { label: "Work", href: "/admin/projects", icon: BriefcaseBusiness, count: "projects" },
       { label: "Journal", href: "/admin/journal", icon: NotebookPen, count: "journal" },
-      { label: "Jurnal", href: "/admin/jurnal", icon: Languages, count: "jurnal" },
       { label: "Service pages", href: "/admin/service-pages", icon: Megaphone },
       { label: "Translations", href: "/admin/translations", icon: Globe, count: "translations" },
     ],

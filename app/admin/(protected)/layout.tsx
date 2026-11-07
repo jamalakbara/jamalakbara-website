@@ -26,7 +26,7 @@ export default async function ProtectedAdminLayout({
   return (
     <AdminShell
       info={{
-        counts: { projects, journal, jurnal, translations },
+        counts: { projects, journal: journal + jurnal, jurnal, translations },
         backend: {
           label: backendLabel(),
           github: backend() === "github",

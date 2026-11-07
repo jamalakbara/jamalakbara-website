@@ -11,7 +11,7 @@ import { GuardedLink } from "@/components/admin/unsaved";
 const ACTIONS = [
   { label: "New project", href: "/admin/projects/new", keys: "NP", icon: Plus },
   { label: "New journal post", href: "/admin/journal/new", keys: "NJ", icon: NotebookPen },
-  { label: "Tulis jurnal baru", href: "/admin/jurnal/new", keys: "NI", icon: Languages },
+  { label: "New Bahasa post", href: "/admin/journal/new?lang=id", keys: "NI", icon: Languages },
   { label: "Upload media", href: "/admin/media?upload=1", keys: "U", icon: Upload },
   { label: "Edit home hero", href: "/admin/site?tab=home", keys: "GH", icon: PenLine },
 ];
