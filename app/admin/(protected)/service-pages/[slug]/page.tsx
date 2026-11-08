@@ -10,5 +10,5 @@ export default async function EditServicePage({ params }: { params: Promise<{ sl
   const pages = await readJsonFile<ServicePage[]>("content/service-pages.json");
   const page = pages.find((p) => p.slug === slug);
   if (!page) notFound();
-  return <ServicePageForm initial={page} />;
+  return <ServicePageForm initial={page} pages={pages} />;
 }

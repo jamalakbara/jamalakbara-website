@@ -23,7 +23,7 @@ const catLabel = (c: string) => {
 };
 
 
-export function ProjectsList({ initial }: { initial: Project[] }) {
+export function ProjectsList({ initial, translated }: { initial: Project[]; translated: string[] }) {
   const router = useRouter();
   const toast = useToast();
   const [base, setBase] = useState(initial);
@@ -31,6 +31,8 @@ export function ProjectsList({ initial }: { initial: Project[] }) {
   const [featured, setFeatured] = useState(() => new Set(initial.filter((p) => p.featured).map((p) => p.id)));
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState(ALL);
+  const [onlyMissing, setOnlyMissing] = useState(false);
+  const ready = useMemo(() => new Set(translated), [translated]);
   const [pending, startTransition] = useTransition();
 
   const byId = useMemo(() => new Map(base.map((p) => [p.id, p])), [base]);
@@ -49,11 +51,12 @@ export function ProjectsList({ initial }: { initial: Project[] }) {
   }, [base]);
 
   const q = query.trim().toLowerCase();
-  const filtering = q !== "" || filter !== ALL;
+  const filtering = q !== "" || filter !== ALL || onlyMissing;
   const visible = order.filter((id) => {
     const p = byId.get(id);
     if (!p) return false;
     if (filter !== ALL && catKey(p.category) !== filter) return false;
+    if (onlyMissing && ready.has(p.id)) return false;
     return !q || `${p.title} ${p.category} ${p.tech.join(" ")}`.toLowerCase().includes(q);
   });
 
@@ -93,6 +96,9 @@ export function ProjectsList({ initial }: { initial: Project[] }) {
             </button>
           ))}
         </div>
+        <button type="button" className="a-filter" aria-pressed={onlyMissing} onClick={() => setOnlyMissing((v) => !v)}>
+          Bahasa missing
+        </button>
         <span className="a-toolbar__spacer" />
         <span className="a-meta a-muted a-row__hide-m" style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
           <GripVertical size={14} />
@@ -107,6 +113,7 @@ export function ProjectsList({ initial }: { initial: Project[] }) {
           <Reorder.Group as="div" axis="y" values={order} onReorder={setOrder} className="a-list">
             {visible.map((id) => (
               <Row
+                bahasa={ready.has(id)}
                 key={id}
                 project={byId.get(id)!}
                 index={order.indexOf(id)}
@@ -148,12 +155,14 @@ function Row({
   draggable,
   featured,
   onStar,
+  bahasa,
 }: {
   project: Project;
   index: number;
   draggable: boolean;
   featured: boolean;
   onStar: () => void;
+  bahasa: boolean;
 }) {
   const controls = useDragControls();
   const [dragging, setDragging] = useState(false);
@@ -188,6 +197,9 @@ function Row({
           {project.category} · {project.year}
         </span>
       </Link>
+      <span className="a-row__hide-m">
+        <Chip kind={bahasa ? "bahasa" : "missing"} />
+      </span>
       <span className="a-row__hide-m">
         <Chip kind={project.draft ? "draft" : "published"} />
       </span>

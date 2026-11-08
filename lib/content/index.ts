@@ -25,6 +25,9 @@ import comprehensiveAboutJson from "@/content/site/comprehensive-about.json";
 import ctaJson from "@/content/site/cta.json";
 import pagesJson from "@/content/site/pages.json";
 import seoJson from "@/content/site/seo.json";
+import uiJson from "@/content/site/ui.json";
+import idSiteJson from "@/content/i18n/id/site.json";
+import idProjectsJson from "@/content/i18n/id/projects.json";
 
 export const projects = projectsJson as Project[];
 export const servicePages = servicePagesJson as ServicePage[];
@@ -37,3 +40,24 @@ export const comprehensiveAbout = comprehensiveAboutJson as ComprehensiveAboutCo
 export const cta = ctaJson as CTAContent;
 export const pages = pagesJson as PagesContent;
 export const seoSettings = seoJson as SeoSettings;
+export const ui = uiJson;
+export const idSite = idSiteJson as Omit<typeof idSiteJson, "seo"> & {
+  seo: {
+    website: { description: string };
+    identity: { description: string; jobTitles: string[] };
+    business: { description: string; services: string[] };
+  };
+};
+export const idProjects = idProjectsJson as Record<
+  string,
+  {
+    category: string;
+    summary: string;
+    description: string;
+    challenge: string;
+    solution: string;
+    features: string[];
+    metricLabels: string[];
+    seo: { title: string; description: string };
+  }
+>;

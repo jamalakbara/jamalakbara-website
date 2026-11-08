@@ -40,6 +40,7 @@ export function MediaLibrary({
   const [error, setError] = useState<string | null>(null);
   const [usage, setUsage] = useState<Record<string, Use[]> | null>(null);
   const [alt, setAlt] = useState<Record<string, string>>({});
+  const [altId, setAltId] = useState<Record<string, string>>({});
   const [filter, setFilter] = useState<Filter>("all");
   const [view, setView] = useState<"grid" | "list">("grid");
   const [query, setQuery] = useState("");
@@ -66,6 +67,7 @@ export function MediaLibrary({
     const json = await res.json();
     setUsage(json.usage);
     setAlt(json.alt);
+    setAltId(json.altId ?? {});
   }, []);
 
   useEffect(() => {
@@ -300,6 +302,8 @@ export function MediaLibrary({
             onClose={() => setSelectedId(null)}
             onDelete={() => remove(selected)}
             onAltSaved={(value) => setAlt((a) => ({ ...a, [mediaKey(selected.publicId)]: value }))}
+            altId={altId[mediaKey(selected.publicId)] ?? ""}
+            onAltIdSaved={(value) => setAltId((a) => ({ ...a, [mediaKey(selected.publicId)]: value }))}
           />
         )}
       </div>
@@ -316,6 +320,8 @@ function Details({
   onClose,
   onDelete,
   onAltSaved,
+  altId,
+  onAltIdSaved,
 }: {
   item: Item;
   uses: Use[];
@@ -324,11 +330,22 @@ function Details({
   onClose: () => void;
   onDelete: () => void;
   onAltSaved: (value: string) => void;
+  altId: string;
+  onAltIdSaved: (value: string) => void;
 }) {
   const toast = useToast();
   const [draft, setDraft] = useState(alt);
+  const [draftId, setDraftId] = useState(altId);
   const [saving, setSaving] = useState(false);
   const [copied, setCopied] = useState(false);
+
+  async function saveAltId() {
+    if (draftId.trim() === altId.trim()) return;
+    const result = await saveMediaAlt(mediaKey(item.publicId), draftId, "id");
+    if (!result.ok) return toast.error(result.error);
+    onAltIdSaved(draftId.trim());
+    toast.saved(result, `Bahasa alt text · ${mediaKey(item.publicId)}`);
+  }
 
   async function saveAlt() {
     if (draft.trim() === alt.trim()) return;
@@ -386,10 +403,15 @@ function Details({
           )}
         </div>
         {item.kind === "image" && (
+          <>
+          <Field label="Alt text (Bahasa)" count={draftId.length} max={125} help="Used on /id pages. Blank uses the English alt text.">
+            <input className="a-input" value={draftId} maxLength={125} onChange={(e) => setDraftId(e.target.value)} onBlur={saveAltId} onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), saveAltId())} />
+          </Field>
           <Field label="Alt text" count={draft.length} max={125} help="Read by screen readers and Google Images. Saved to content/media.json — the Work rows use it.">
             <input className="a-input" value={draft} maxLength={125} onChange={(e) => setDraft(e.target.value)} onBlur={saveAlt} onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), saveAlt())} />
             {saving && <span className="a-meta a-muted">Saving…</span>}
           </Field>
+          </>
         )}
         <div style={{ display: "flex", gap: 8 }}>
           <button

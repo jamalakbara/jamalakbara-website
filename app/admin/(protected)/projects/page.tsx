@@ -2,12 +2,15 @@ import Link from "next/link";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { readProjects } from "@/lib/admin/content-store";
 import { PageHeader } from "@/components/admin/ui";
+import { readIdProjects } from "@/lib/admin/translations";
+import { projectReady } from "@/lib/i18n/completeness";
 import { ProjectsList } from "./projects-list";
 
 export const metadata = { title: "Work" };
 
 export default async function AdminProjectsPage() {
-  const projects = await readProjects();
+  const [projects, overlays] = await Promise.all([readProjects(), readIdProjects()]);
+  const translated = projects.filter((p) => projectReady(p, overlays[p.id])).map((p) => p.id);
   return (
     <>
       <PageHeader
@@ -28,7 +31,7 @@ export default async function AdminProjectsPage() {
           </>
         }
       />
-      <ProjectsList initial={projects} />
+      <ProjectsList initial={projects} translated={translated} />
     </>
   );
 }

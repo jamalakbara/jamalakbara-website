@@ -7,9 +7,9 @@ import { usePathname } from "next/navigation";
 import {
   BriefcaseBusiness,
   FileText,
+  Globe,
   GitBranch,
   Images,
-  Languages,
   Megaphone,
   Search,
   LayoutGrid,
@@ -23,7 +23,7 @@ import { GuardedLink, UnsavedProvider } from "@/components/admin/unsaved";
 import { ToastProvider } from "@/components/admin/toast";
 
 export interface ShellInfo {
-  counts: { projects: number; journal: number; jurnal: number };
+  counts: { projects: number; journal: number; jurnal: number; translations: number };
   backend: { label: string; github: boolean; branch: string };
   vercel: boolean;
   user: { login: string; image: string | null };
@@ -38,8 +38,8 @@ const NAV: { group: string; items: NavItem[] }[] = [
     items: [
       { label: "Work", href: "/admin/projects", icon: BriefcaseBusiness, count: "projects" },
       { label: "Journal", href: "/admin/journal", icon: NotebookPen, count: "journal" },
-      { label: "Jurnal", href: "/admin/jurnal", icon: Languages, count: "jurnal" },
       { label: "Service pages", href: "/admin/service-pages", icon: Megaphone },
+      { label: "Translations", href: "/admin/translations", icon: Globe, count: "translations" },
     ],
   },
   {

@@ -1,0 +1,13 @@
+[data-interface-preview],
+[data-interface-preview] *,
+[data-interface-preview] *::before,
+[data-interface-preview] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+[data-interface-preview] :is(.f-main > *, .f-nav, .f-page > .f-mnav, .f-art-pin) {
+  position: relative;
+  top: auto;
+}

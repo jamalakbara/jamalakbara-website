@@ -4,35 +4,36 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Eye, Link2, Pencil, Plus, Search } from "lucide-react";
 import type { PostRow } from "@/lib/admin/posts";
-import type { Section } from "@/lib/admin/sections";
+import { SECTIONS, postHref, type Section } from "@/lib/admin/sections";
+import { localePath } from "@/lib/i18n/routes";
 import { Chip } from "@/components/admin/ui";
 import { GuardedLink } from "@/components/admin/unsaved";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+type Row = PostRow & { section: Section };
+
 export function PostsList({
-  section,
   rows,
-  counts,
-  otherTitles,
+  initialLang,
   initialStatus,
 }: {
-  section: Section;
-  rows: PostRow[];
-  counts: { journal: number; jurnal: number };
-  otherTitles: Record<string, string>;
+  rows: Row[];
+  initialLang: "all" | "en" | "id";
   initialStatus: "all" | "draft" | "published";
 }) {
+  const [lang, setLang] = useState(initialLang);
+  const titleOf = (section: Section, slug: string) => rows.find((r) => r.section === section && r.slug === slug)?.title;
+  const counts = { en: rows.filter((r) => r.section === "journal").length, id: rows.filter((r) => r.section === "jurnal").length };
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState(initialStatus);
   const [tag, setTag] = useState("");
-  const other = section === "journal" ? "jurnal" : "journal";
-  const otherCode = section === "journal" ? "ID" : "EN";
 
   const tags = useMemo(() => [...new Set(rows.flatMap((r) => r.tags))].sort(), [rows]);
   const q = query.trim().toLowerCase();
   const shown = rows.filter(
     (r) =>
+      (lang === "all" || SECTIONS[r.section].lang === lang) &&
       (status === "all" || (status === "draft") === r.draft) &&
       (!tag || r.tags.includes(tag)) &&
       (!q || `${r.title} ${r.tags.join(" ")}`.toLowerCase().includes(q))
@@ -42,14 +43,17 @@ export function PostsList({
   return (
     <>
       <div className="a-panel a-toolbar">
-        <nav className="a-seg" aria-label="Language">
-          <GuardedLink href="/admin/journal" className="a-seg__item" aria-current={section === "journal" ? "page" : undefined}>
-            <span className="a-seg__code">EN</span> English · {counts.journal}
-          </GuardedLink>
-          <GuardedLink href="/admin/jurnal" className="a-seg__item" aria-current={section === "jurnal" ? "page" : undefined}>
-            <span className="a-seg__code">ID</span> Bahasa · {counts.jurnal}
-          </GuardedLink>
-        </nav>
+        <div className="a-seg" role="group" aria-label="Filter by language">
+          <button type="button" className="a-seg__item" aria-pressed={lang === "all"} onClick={() => setLang("all")}>
+            All · {rows.length}
+          </button>
+          <button type="button" className="a-seg__item" aria-pressed={lang === "en"} onClick={() => setLang("en")}>
+            <span className="a-seg__code">EN</span> {counts.en}
+          </button>
+          <button type="button" className="a-seg__item" aria-pressed={lang === "id"} onClick={() => setLang("id")}>
+            <span className="a-seg__code">ID</span> {counts.id}
+          </button>
+        </div>
         <label className="a-input" style={{ width: 260, maxWidth: "100%" }}>
           <Search size={16} />
           <input type="search" placeholder="Search titles, tags…" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search posts" />
@@ -79,24 +83,29 @@ export function PostsList({
           <div className="a-list">
             {shown.map((r) => {
               const [y, m, d] = r.date.split("-");
-              const linked = r.alternate && otherTitles[r.alternate];
+              const meta = SECTIONS[r.section];
+              const other = meta.other;
+              const otherCode = SECTIONS[other].code;
+              const linked = r.alternate && titleOf(other, r.alternate);
               return (
-                <div key={r.slug} className={`a-row${r.draft ? " a-row--dim" : ""}`}>
+                <div key={`${r.section}-${r.slug}`} className={`a-row${r.draft ? " a-row--dim" : ""}`}>
                   <span className="a-row__date">
                     <span className="a-eyebrow">{m ? `${MONTHS[Number(m) - 1]} ${Number(d)}` : "—"}</span>
                     <span className="a-meta a-muted">{y}</span>
                   </span>
-                  <Link href={`/admin/${section}/${r.slug}`} className="a-row__text">
-                    <span className="a-row__title a-truncate">{r.title}</span>
+                  <Link href={postHref(r.section, r.slug)} className="a-row__text">
+                    <span className="a-row__title a-truncate">
+                      <span className="a-seg__code">{meta.code}</span> {r.title}
+                    </span>
                     <span className="a-row__meta a-truncate">{r.tags.join(" · ")}</span>
                   </Link>
                   <span className="a-row__hide-m">
                     {linked ? (
-                      <Link href={`/admin/${other}/${r.alternate}`} className="a-row__link a-row__link--on" title={otherTitles[r.alternate!]}>
+                      <Link href={postHref(other, r.alternate!)} className="a-row__link a-row__link--on" title={titleOf(other, r.alternate!)}>
                         <Link2 size={14} /> {otherCode} linked
                       </Link>
                     ) : (
-                      <Link href={`/admin/${section}/${r.slug}#lang`} className="a-row__link">
+                      <Link href={`${postHref(r.section, r.slug)}#lang`} className="a-row__link">
                         <Plus size={14} /> Add {otherCode} version
                       </Link>
                     )}
@@ -104,11 +113,11 @@ export function PostsList({
                   <Chip kind={r.draft ? "draft" : "published"} />
                   <span className="a-row__side a-row__hide-m">
                     {!r.draft && (
-                      <a className="a-iconbtn" href={`/${section}/${r.slug}`} target="_blank" rel="noreferrer" aria-label={`View ${r.title}`}>
+                      <a className="a-iconbtn" href={localePath(meta.lang, `/journal/${r.slug}`)} target="_blank" rel="noreferrer" aria-label={`View ${r.title}`}>
                         <Eye size={16} />
                       </a>
                     )}
-                    <Link className="a-iconbtn" href={`/admin/${section}/${r.slug}`} aria-label={`Edit ${r.title}`}>
+                    <Link className="a-iconbtn" href={postHref(r.section, r.slug)} aria-label={`Edit ${r.title}`}>
                       <Pencil size={16} />
                     </Link>
                   </span>

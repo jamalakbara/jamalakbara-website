@@ -1,38 +1,47 @@
+"use client";
+
 import Link from "next/link";
 import { Stamp } from "@/components/site/stamp";
-import { ArrowRight } from "@/components/site/icons";
+import { useSite } from "@/lib/i18n/context";
 
-// Page-closing strip (canvas "* / Contact footer"). Default: "Have something
-// in mind?" → /contact with the stamp; the contact page uses the work variant.
+interface FooterActionProps {
+  href: string;
+  label: string;
+  onClick?: () => void;
+}
+
+// Canvas Footer / Action: the stamp is shared by every destination.
+export function FooterAction({ href, label, onClick }: FooterActionProps) {
+  return (
+    <Link href={href} className="f-strip__link" onClick={onClick}>
+      <span>{label}</span>
+      <Stamp size={44} />
+    </Link>
+  );
+}
+
+// Canvas Footer / Strip: responsive desktop and mobile variants of one system.
 export function ContactStrip({
-  heading = "Have something in mind?",
-  label = "Let’s talk",
-  href = "/contact",
-  variant = "stamp",
+  heading,
+  label,
+  href,
   onClick,
-  contentLang,
 }: {
   heading?: string;
   label?: string;
   href?: string;
-  variant?: "stamp" | "arrow";
   onClick?: () => void;
-  /** BCP-47 language when it differs from <html lang> */
-  contentLang?: string;
 }) {
+  const site = useSite();
+  const title = heading ?? site.ui.strip.heading;
   return (
-    <section lang={contentLang} className="f-strip" aria-label={heading}>
-      <p className="f-strip__h">{heading}</p>
-      <Link href={href} className="f-strip__link" onClick={onClick}>
-        {label}
-        {variant === "stamp" ? (
-          <Stamp size={44} />
-        ) : (
-          <span className="f-strip__badge">
-            <ArrowRight size={16} />
-          </span>
-        )}
-      </Link>
+    <section className="f-strip" aria-label={title}>
+      <p className="f-strip__h">{title}</p>
+      <FooterAction
+        href={href ?? site.path("/contact")}
+        label={label ?? site.ui.strip.label}
+        onClick={onClick}
+      />
     </section>
   );
 }

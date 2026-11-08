@@ -29,8 +29,13 @@ async function linkChange(section: Section, slug: string, alternate: string | nu
 export async function savePost(
   section: Section,
   input: PostInput,
-  originalSlug?: string
+  originalSlug?: string,
+  /** the language the post was saved in, when it is being moved */
+  fromSection?: Section
 ): Promise<ActionResult<{ slug: string }>> {
+  if (originalSlug && fromSection && fromSection !== section) {
+    return movePost(fromSection, section, input, originalSlug);
+  }
   try {
     await requireAdmin();
     if (!(section in SECTIONS)) return { ok: false, error: `unknown section "${section}"` };
@@ -76,8 +81,43 @@ export async function savePost(
         ? `content(${section}): rename ${originalSlug} → ${parsed.slug}`
         : `content(${section}): ${verb} ${parsed.slug}`;
     const sha = await writeManyFiles(changes, message);
-    revalidatePath(`/admin/${section}`);
-    revalidatePath(`/admin/${other}`);
+    revalidatePath("/admin/journal");
+    return { ok: true, sha, slug: parsed.slug };
+  } catch (e) {
+    return fail(e);
+  }
+}
+
+/** Change a post's language: write it in the new folder, remove the old file,
+ *  and unlink the post it was paired with. One commit. */
+async function movePost(
+  from: Section,
+  to: Section,
+  input: PostInput,
+  originalSlug: string
+): Promise<ActionResult<{ slug: string }>> {
+  try {
+    await requireAdmin();
+    const parsed = postSchema.parse({ ...input, alternate: undefined, related: undefined });
+    if ((await readTextFile(postPath(to, parsed.slug))) !== null) {
+      return { ok: false, error: `a ${SECTIONS[to].name} post "${parsed.slug}" already exists` };
+    }
+    const before = await readPost(from, originalSlug);
+    if (!before) return { ok: false, error: `post "${originalSlug}" not found` };
+
+    const changes: FileChange[] = [
+      { path: postPath(from, originalSlug), content: null },
+      { path: postPath(to, parsed.slug), content: serializePost(parsed) },
+    ];
+    if (before.alternate) {
+      const partner = await readPost(SECTIONS[from].other, before.alternate);
+      if (partner?.alternate === originalSlug) {
+        const c = await linkChange(SECTIONS[from].other, before.alternate, null);
+        if (c) changes.push(c);
+      }
+    }
+    const sha = await writeManyFiles(changes, `content(${to}): move ${originalSlug} from ${SECTIONS[from].name}`);
+    revalidatePath("/admin/journal");
     return { ok: true, sha, slug: parsed.slug };
   } catch (e) {
     return fail(e);
@@ -99,7 +139,7 @@ export async function deletePost(section: Section, slug: string): Promise<Action
       }
     }
     const sha = await writeManyFiles(changes, `content(${section}): remove ${slug}`);
-    revalidatePath(`/admin/${section}`);
+    revalidatePath("/admin/journal");
     return { ok: true, sha };
   } catch (e) {
     return fail(e);

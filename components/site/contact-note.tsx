@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { contact } from "@/lib/site-data";
+import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
+import { IconButton } from "@/components/site/button";
 import { Stamp } from "@/components/site/stamp";
 import { ArrowUpRight } from "@/components/site/icons";
 
@@ -11,28 +12,18 @@ import { ArrowUpRight } from "@/components/site/icons";
 // if the clipboard is unavailable/denied the address stays selectable and the
 // mail link remains, with a polite announcement.
 
-export type NoteCopy = { label: string; mail: string; copied: string; failed: string; copyLabel: string };
-
-const NOTE_EN: NoteCopy = {
-  label: "A NOTE TO AKBAR",
-  mail: "Send an email",
-  copied: "Copied",
-  failed: "Couldn’t copy — select the address",
-  copyLabel: "Copy email address",
-};
-
 type CopyState = "idle" | "copied" | "failed";
 
 export function ContactNote({
   socialLimit,
   trackEmail = false,
-  copy: text = NOTE_EN,
 }: {
   socialLimit?: number;
   /** fire the existing contact "email_link" GA event (contact page only, as before) */
   trackEmail?: boolean;
-  copy?: NoteCopy;
 }) {
+  const { contact, ui } = useSite();
+  const text = ui.note;
   const [state, setState] = useState<CopyState>("idle");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   useEffect(() => () => {
@@ -58,16 +49,15 @@ export function ContactNote({
     <div className="f-note">
       <div className="f-note__head">
         <span className="f-meta">{text.label}</span>
-        <button
-          type="button"
-          className="f-iconbtn f-copy"
+        <IconButton
+          className="f-copy"
           onClick={copy}
           aria-label={`${text.copyLabel} ${contact.email}`}
           data-state={state}
           data-msg={msg}
         >
           <Stamp size={44} />
-        </button>
+        </IconButton>
       </div>
       <p className="f-note__email">{contact.email}</p>
       <span className="f-sr" role="status" aria-live="polite">

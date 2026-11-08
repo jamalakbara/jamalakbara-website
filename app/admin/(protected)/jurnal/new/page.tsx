@@ -1,7 +1,5 @@
-import { PostPage } from "@/components/admin/post-page";
+import { redirect } from "next/navigation";
 
-export const metadata = { title: "New post" };
-
-export default function NewJurnalPostPage() {
-  return <PostPage section="jurnal" />;
+export default function NewJurnalRedirect() {
+  redirect("/admin/journal/new?lang=id");
 }

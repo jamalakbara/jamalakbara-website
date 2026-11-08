@@ -4,22 +4,15 @@ import { Stamp } from "@/components/site/stamp";
 import { Sticker, cqw, type StickerSpot } from "@/components/site/sticker";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
+import { getSite, fill, type Ui } from "@/lib/i18n";
+import type { Lang } from "@/lib/i18n/config";
+import { contentHref, localePath } from "@/lib/i18n/routes";
 import { pad2 } from "@/lib/site-format";
 import { ArrowDown, ArrowLeft, ArrowUp } from "@/components/site/icons";
 
 // Article — canvas 16 (m54Zq / c73NeH). Server component shared by
-// /journal/[slug] and /jurnal/[slug]; metadata + JSON-LD stay in the pages.
+// journal posts in both languages; metadata + JSON-LD stay in the page.
 // "In this entry" anchors come from the post's own `##` headings.
-
-export type ArticleCopy = {
-  back: string; // "All journal entries"
-  backEnd: string; // "Back to journal"
-  writtenBy: string;
-  minRead: (n: number) => string;
-  tab: string; // "READING NOTES"
-  toc: string; // "IN THIS ENTRY"
-  backToTop: string;
-};
 
 // Margin stickers in relay groups: each group pins near the top of the viewport
 // while its lane is in view, then the next group pushes it off. The field sits in
@@ -98,29 +91,25 @@ export function ArticleView({
   post,
   position,
   total,
-  basePath,
+  language,
   date,
-  copy,
   lang,
-  contentLang,
   related,
-  strip,
+  ui = getSite(language).ui,
 }: {
   post: { title: string; content: string; date: string; readingMinutes: number };
   position: number; // 1-based index in the list
   total: number;
-  basePath: string;
+  language: Lang;
   date: string;
-  copy: ArticleCopy;
   /** linked post in the other language (/journal ↔ /jurnal), set in admin */
   lang?: { href: string; label: string; hrefLang: "en" | "id" };
-  /** BCP-47 language of the article when it differs from <html lang> */
-  contentLang?: string;
   /** "Keep reading" block at the end of the article */
-  related?: { heading: string; items: RelatedItem[] };
-  /** closing strip copy; defaults to the English one */
-  strip?: { heading: string; label: string; href: string };
+  related?: RelatedItem[];
+  ui?: Ui;
 }) {
+  const copy = ui.article;
+  const basePath = localePath(language, "/journal");
   const sections = [...post.content.matchAll(/^##\s+(.+?)\s*#*\s*$/gm)].map((m) => {
     const label = m[1].replace(/[`*_]/g, "");
     return { label, id: slugify(label) };
@@ -128,10 +117,11 @@ export function ArticleView({
 
   const components = {
     h2: ({ children }: { children?: React.ReactNode }) => <h2 id={slugify(textOf(children))}>{children}</h2>,
+    a: ({ href = "", children }: { href?: string; children?: React.ReactNode }) => <a href={contentHref(language, href)}>{children}</a>,
   };
 
   return (
-    <article lang={contentLang} className="f-main" style={{ outline: "none" }}>
+    <article className="f-main" style={{ outline: "none" }}>
       <header className="f-panel f-art-head">
         <div style={lang ? { display: "flex", justifyContent: "space-between", gap: 16, flexWrap: "wrap" } : undefined}>
           <Link href={basePath} className="f-act">
@@ -154,7 +144,7 @@ export function ArticleView({
             <span className="f-meta f-muted" style={{ whiteSpace: "pre" }}>
               <time dateTime={post.date}>{date}</time>
               {"  ·  "}
-              {copy.minRead(post.readingMinutes)}
+              {fill(copy.minRead, { n: post.readingMinutes })}
             </span>
             <h1 className="f-display f-display--caps">{post.title}</h1>
           </div>
@@ -187,14 +177,14 @@ export function ArticleView({
             <div className="f-prose">
               <MDXRemote source={post.content} components={components} />
             </div>
-            {related && <RelatedPosts heading={related.heading} items={related.items} />}
+            {related && <RelatedPosts heading={copy.keepReading} items={related} />}
             <div className="f-art-end">
               <Link href={basePath} className="f-act">
                 <ArrowLeft size={16} />
                 {copy.backEnd}
               </Link>
               <a href="#main" className="f-act">
-                {copy.backToTop}
+                {ui.common.backToTop}
                 <ArrowUp size={16} />
               </a>
             </div>
@@ -202,7 +192,7 @@ export function ArticleView({
         </div>
       </section>
 
-      <ContactStrip {...strip} />
+      <ContactStrip />
     </article>
   );
 }
