@@ -43,6 +43,7 @@
   gap: 4px;
   min-height: 100%;
   padding: var(--f-shell);
+  padding-inline: max(var(--f-shell), calc((100% - 1416px) / 2));
   isolation: isolate;
 }
 .f-aurora {
