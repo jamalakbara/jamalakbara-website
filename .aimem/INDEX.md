@@ -10,7 +10,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 3. END: run `aimem handoff` (Done / Not done / Next / Blocked). Supersede records, never delete them.
 
 ## Counts
-- decision: 10 (proposed 4, accepted 6)
+- decision: 11 (proposed 5, accepted 6)
 - memory: 23 (active 23)
 - handoff: 11 (final 11)
 - incident: 1 (resolved 1)
