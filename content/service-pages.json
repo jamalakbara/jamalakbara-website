@@ -2,45 +2,381 @@
   {
     "lang": "id",
     "slug": "jasa-website-bandung",
-    "draft": true,
+    "draft": false,
     "eyebrow": "LAYANAN / WEBSITE",
-    "title": "Jasa website di Bandung, dikerjain langsung sama yang bikin.",
-    "intro": "Aku Akbar, developer dan desainer dari Bandung. Aku bantu bisnis bikin website yang cepat, gampang dipakai, dan kelihatan kayak punya kalian sendiri, bukan template.",
+    "title": "Jasa website Bandung, dikerjain langsung sama yang bikin.",
+    "intro": "Cari jasa pembuatan website di Bandung? Aku Akbar, developer dan desainer yang ngerjain website dari desain sampai live, sendiri. Bikinnya cepet, gampang dipake, dan sesuai sama apa yang kalian pengen, bukan template.",
     "sections": [
       {
-        "heading": "Yang aku kerjain",
-        "body": "Company profile, toko online Shopify, landing page, dan web app. Desain dan development aku pegang sendiri, jadi kalian ngobrol langsung sama orang yang ngerjain, tanpa perantara."
+        "heading": "Website apa aja yang aku bikin",
+        "body": "Company profile buat bisnis yang perlu keliatan meyakinkan, landing page buat campaign atau produk, toko online (Shopify atau WooCommerce) buat jualan rutin, dan web app kalau kalian butuh fitur khusus. Desain dan development aku pegang sendiri, jadi kalian ngobrol langsung sama orang yang ngerjain, tanpa perantara."
+      },
+      {
+        "heading": "Cocok buat siapa",
+        "body": "Bisnis kecil sampai menengah, studio, brand, dan komunitas di Bandung yang butuh website yang jelas dan gak ribet. Kalau kalian udah punya website tapi lambat, susah diubah, atau kelihatan sama kayak yang lain, aku juga bisa bantu bikin ulang."
       },
       {
         "heading": "Gimana prosesnya",
         "body": "Kita mulai dari ngobrol soal bisnis dan tujuan kalian. Habis itu aku susun struktur dan desain, kalian review, baru masuk development. Setelah live, aku bantu pastiin semuanya jalan dan gampang kalian urus sendiri."
       },
       {
-        "heading": "Kenapa bukan template",
-        "body": "Template bisa jalan buat mulai, tapi sering berat, mirip sama website lain, dan susah diubah pas bisnis kalian berkembang. Website yang dibuat sesuai kebutuhan lebih cepat, lebih jelas, dan lebih gampang ditemukan di Google."
+        "heading": "Apa aja sih yang kalian dapet",
+        "body": "Tampilan yang rapi di HP dan laptop, loading yang cepet, dan struktur halaman yang udah disiapin biar gampang ditemukan di Google. Aku pake React dan Next.js, jadi websitenya ringan dan bisa tumbuh bareng bisnis kalian."
+      },
+      {
+        "heading": "Kenapa gak pake template",
+        "body": "Template emang enak buat awalan, tapi sering berat, mirip sama website lain, dan susah diubah pas bisnis kalian berkembang. Website yang dibuat sesuai kebutuhan lebih cepat, lebih jelas, dan lebih gampang ditemukan di Google."
+      },
+      {
+        "heading": "Soal biaya",
+        "body": "Biaya bikin website tergantung jumlah halaman, fitur (misalnya toko online atau pembayaran), dan seberapa banyak desain yang dibutuhkan. Sebagai gambaran, landing page mulai dari Rp3 juta, company profile mulai dari Rp6 juta, dan toko online mulai dari Rp10 juta. Semuanya udah termasuk desain custom, 2 kali revisi, dan maintenance gratis sebulan setelah live. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas sebelum kita mulai."
       }
     ],
     "faq": [
       {
         "question": "Berapa lama bikin website?",
-        "answer": "Tergantung ukuran dan kebutuhannya. Kita sepakatin timeline di awal, setelah aku paham apa yang kalian butuhkan."
+        "answer": "Tergantung ukuran dan kebutuhannya. Kita sepakatin timeline di awal, setelah aku paham apa yang kalian pengen."
       },
       {
         "question": "Berapa biaya bikin website di Bandung?",
-        "answer": "Biaya tergantung jumlah halaman, fitur, dan kebutuhan desain. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+        "answer": "Landing page mulai dari Rp3 juta, company profile mulai dari Rp6 juta, dan toko online mulai dari Rp10 juta. Angka akhirnya tergantung jumlah halaman, fitur, dan kebutuhan desain. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Apa aja yang termasuk di harganya?",
+        "answer": "Tergantung jenis website, rinciannya ada di halaman tiap layanan. Di semua jenis udah termasuk desain custom, 2 kali revisi, dan maintenance gratis sebulan setelah live. Domain dan hosting dibayar terpisah."
+      },
+      {
+        "question": "Pembayarannya gimana?",
+        "answer": "50% DP di awal dan 50% sisanya sebelum website live. Detailnya kita sepakatin di awal bareng estimasi."
       },
       {
         "question": "Klien harus dari Bandung?",
-        "answer": "Nggak harus. Aku berbasis di Bandung dan kerja bareng klien dari seluruh Indonesia secara online."
+        "answer": "Gak harus. Aku emang di Bandung tapi kalo kerja bareng klien bisa dari seluruh Indonesia secara online kok."
+      },
+      {
+        "question": "Sekalian dibikinin desainnya?",
+        "answer": "Iya. Aku ngerjain desain dan development sendiri, jadi kalian gak perlu cari desainer terpisah."
+      },
+      {
+        "question": "Setelah website live, masih dibantuin?",
+        "answer": "Iya. Ada maintenance gratis sebulan setelah live, dan websitenya disiapin biar gampang kalian urus sendiri."
+      },
+      {
+        "question": "Website-nya pasti muncul di halaman satu Google?",
+        "answer": "Gak ada yang bisa janjiin posisi di Google, termasuk aku. Yang aku kerjain: struktur yang rapi, loading cepat, dan tampilan yang jelas di HP, jadi websitenya punya dasar yang bagus buat ditemukan."
       }
     ],
     "cta": {
-      "heading": "Punya rencana website?",
-      "label": "Ceritain ke aku"
+      "heading": "Punya rencana bikin website?",
+      "label": "Coba ceritain ke aku"
     },
     "seo": {
-      "title": "Jasa Website Bandung",
-      "description": "Jasa website di Bandung untuk company profile, toko online Shopify, dan web app. Desain dan development langsung sama Akbar, cepat dan bukan template."
+      "title": "Jasa Website Bandung, Bukan Template",
+      "description": "Jasa pembuatan website Bandung untuk company profile, landing page, dan toko online. Desain dan development dikerjain langsung sama Akbar, bukan template."
+    }
+  },
+  {
+    "lang": "id",
+    "slug": "jasa-pembuatan-website-company-profile",
+    "draft": false,
+    "eyebrow": "LAYANAN / COMPANY PROFILE",
+    "title": "Jasa pembuatan website company profile yang rapi dan meyakinkan.",
+    "intro": "Sebelum menghubungi kalian, calon klien biasanya ngecek website bisnis kalian dulu. Aku Akbar, developer dan desainer di Bandung, dan aku bikin website company profile yang jelas, cepat, dan kelihatan profesional, dari desain sampai live.",
+    "sections": [
+      {
+        "heading": "Halaman yang biasanya ada",
+        "body": "Home, About, Services atau Products, Portfolio, dan Contact. Itu kerangka dasarnya. Sisanya kita sesuaikan sama bisnis kalian, misalnya halaman tim, blog, atau multi-language."
+      },
+      {
+        "heading": "Cocok buat siapa",
+        "body": "Perusahaan jasa, kontraktor, studio, brand, dan bisnis yang lagi naik kelas dan butuh website yang lebih serius dari akun media sosial. Kalau kalian udah punya company profile tapi lambat atau udah ketinggalan zaman, aku bisa bantu bikin ulang."
+      },
+      {
+        "heading": "Yang bikin company profile meyakinkan",
+        "body": "Pastinya bisnis kalian itu ngapain dulu, ada bukti yang udah dikerjain seperti portofolio atau klien, kontak gampang ditemukan, dan nyaman dibuka di HP. Aku susun semuanya dengan urutan itu, bukan sekadar naruh logo dan paragraf di template aja."
+      },
+      {
+        "heading": "Gimana prosesnya",
+        "body": "Kita mulai dari ngobrol soal bisnis, target pengunjung, dan apa yang mau kalian capai. Lanjut susun struktur halaman dan bahas konten apa yang dibutuhin tiap halaman, lalu desain, review bareng, dan development. Setelah live, aku bantu pastiin semuanya jalan dan gampang kalian urus sendiri."
+      },
+      {
+        "heading": "Kenapa gak pake template aja",
+        "body": "Template company profile itu sering mirip satu sama lain. Website yang dibuat sesuai bisnis kalian bakalan lebih cepat dibuka, lebih jelas ngomongin apa yang kalian tawarin, dan gampang dikembangin pas kebutuhan berubah."
+      },
+      {
+        "heading": "Soal biaya",
+        "body": "Company profile mulai dari Rp6 juta, udah termasuk sampai 5 halaman, desain custom, 2 kali revisi, dan maintenance gratis sebulan setelah live. Angka akhirnya tergantung jumlah halaman, fitur (misalnya form kontak, blog, atau multi-language), dan seberapa banyak desain dan konten yang dibutuhin. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas sebelum kita mulai."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Company profile itu sebenarnya apa?",
+        "answer": "Website yang ngenalin bisnis kalian: siapa kalian, apa yang ditawarin, bukti kerjanya, dan gimana cara menghubungi. Bedanya sama landing page: company profile ngenalin seluruh bisnis lewat beberapa halaman, landing page cuma satu halaman dengan satu tujuan."
+      },
+      {
+        "question": "Berapa halaman yang dibutuhin?",
+        "answer": "Tergantung bisnisnya. Home, About, Services atau Products, dan Contact biasanya udah cukup buat mulai. Portfolio atau blog bisa ditambah kapan aja."
+      },
+      {
+        "question": "Berapa biaya bikin website company profile?",
+        "answer": "Mulai dari Rp6 juta. Angka akhirnya tergantung jumlah halaman, fitur, dan kebutuhan desain. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Apa aja yang termasuk di harganya?",
+        "answer": "Sampai 5 halaman (misalnya Home, About, Services atau Products, Portfolio, dan Contact), desain custom, form kontak, SEO dasar, 2 kali revisi, dan maintenance gratis sebulan setelah live. Isinya bisa kalian ubah sendiri setelah live. Teks dan foto kalian yang siapin. Blog, multi-language, atau halaman tambahan dihitung terpisah, begitu juga domain dan hosting."
+      },
+      {
+        "question": "Pembayarannya gimana?",
+        "answer": "50% DP di awal dan 50% sisanya sebelum website live. Detailnya kita sepakatin di awal bareng estimasi."
+      },
+      {
+        "question": "Berapa lama pembuatannya?",
+        "answer": "Tergantung ukuran dan seberapa siap konten kalian. Kita sepakatin timeline di awal, setelah aku paham kebutuhannya."
+      },
+      {
+        "question": "Perlu domain dan hosting?",
+        "answer": "Iya, website butuh domain dan hosting. Kita bahas pilihannya di awal supaya semuanya jelas."
+      },
+      {
+        "question": "Klien harus dari Bandung?",
+        "answer": "Gak harus. Aku emang di Bandung tapi kalo kerja bareng klien bisa dari seluruh Indonesia secara online kok."
+      }
+    ],
+    "cta": {
+      "heading": "Mau company profile baru?",
+      "label": "Coba ceritain ke aku"
+    },
+    "seo": {
+      "title": "Jasa Pembuatan Website Company Profile",
+      "description": "Jasa pembuatan website company profile dari Bandung. Desain dan development dikerjain langsung sama Akbar: rapi, cepat dibuka di HP, bukan template."
+    }
+  },
+  {
+    "lang": "id",
+    "slug": "jasa-pembuatan-landing-page",
+    "draft": false,
+    "eyebrow": "LAYANAN / LANDING PAGE",
+    "title": "Jasa bikin landing page yang jelas, cepat, dan fokus ke satu tujuan.",
+    "intro": "Butuh jasa pembuatan landing page buat campaign, produk, atau event? Aku Akbar, developer dan desainer di Bandung. Aku bikin landing page yang langsung ke inti, cepat dibuka di HP, dan bikin pengunjung tahu harus ngapain, dari desain sampai live.",
+    "sections": [
+      {
+        "heading": "Landing page cocok buat apa",
+        "body": "Satu halaman, satu tujuan. Misalnya jualan satu produk, ngumpulin pendaftar, promosi campaign, atau ngumumin launch dan event. Kalau tujuan kalian cuma satu, landing page biasanya lebih tepat daripada website beberapa halaman."
+      },
+      {
+        "heading": "Beda landing page sama company profile",
+        "body": "Company profile ngenalin seluruh bisnis kalian lewat beberapa halaman. Landing page cuma satu halaman yang ngajak pengunjung ngelakuin satu hal. Kalau kalian belum yakin mana yang dibutuhin, ceritain aja tujuannya, nanti aku bantu pilih."
+      },
+      {
+        "heading": "Yang bikin landing page oke",
+        "body": "Satu pesan yang jelas di bagian awal, bukti yang bikin orang percaya, dan satu tombol action yang gampang ditemuin. Banyak pengunjung datang dari HP, jadi halamannya harus rapi dan cepat dibuka di layar kecil. Aku susun semuanya dengan alur itu."
+      },
+      {
+        "heading": "Gimana prosesnya",
+        "body": "Kita mulai dari ngobrol soal tujuan dan siapa yang mau kalian ajak. Habis itu aku susun alur halamannya, mulai dari headline sampai tombol action, lalu desain dan review bareng. Setelah development selesai, aku pastiin form atau tombolnya jalan sebelum live."
+      },
+      {
+        "heading": "Kenapa bukan template",
+        "body": "Template landing page emang gampang dibuat tapi sering mirip sama halaman lain dan susah disesuaiin sama pesan kalian. Landing page yang dibuat buat tujuan kalian lebih jelas, lebih ringan, dan gampang diubah pas campaign berikutnya."
+      },
+      {
+        "heading": "Soal biaya",
+        "body": "Landing page mulai dari Rp3 juta, udah termasuk satu halaman dengan desain custom, 2 kali revisi, dan maintenance gratis sebulan setelah live. Angka akhirnya tergantung panjang halaman, fitur seperti form atau tombol WhatsApp, dan seberapa banyak desain yang dibutuhin. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas sebelum kita mulai."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Landing page itu apa?",
+        "answer": "Satu halaman website yang dibuat buat satu tujuan, misalnya jualan produk, ngumpulin pendaftar, atau promosi campaign. Isinya fokus dan gak ngajak pengunjung ke mana-mana selain ke action yang kalian mau."
+      },
+      {
+        "question": "Beda landing page sama website biasa?",
+        "answer": "Website biasa punya beberapa halaman buat ngenalin seluruh bisnis. Landing page cuma satu halaman dengan satu tujuan."
+      },
+      {
+        "question": "Berapa biaya bikin landing page?",
+        "answer": "Mulai dari Rp3 juta. Angka akhirnya tergantung panjang halaman, fitur, dan kebutuhan desain. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Apa aja yang termasuk di harganya?",
+        "answer": "Satu halaman (sampai sekitar 7 bagian) dengan desain custom, satu form kontak atau tombol WhatsApp, SEO dasar, 2 kali revisi, dan maintenance gratis sebulan setelah live. Teksnya bisa kalian ubah sendiri setelah live, dan teks serta foto kalian yang siapin. Multi-language atau integrasi CRM dihitung terpisah, begitu juga domain dan hosting."
+      },
+      {
+        "question": "Pembayarannya gimana?",
+        "answer": "50% DP di awal dan 50% sisanya sebelum halamannya live. Detailnya kita sepakatin di awal bareng estimasi."
+      },
+      {
+        "question": "Berapa lama pembuatannya?",
+        "answer": "Biasanya lebih cepat dari website beberapa halaman karena cakupannya lebih kecil. Pastinya kita sepakatin di awal, setelah aku paham kebutuhannya."
+      },
+      {
+        "question": "Bisa dipake buat iklan?",
+        "answer": "Bisa, landing page memang sering dipake buat itu. Aku pastiin halamannya jelas dan cepat dibuka di HP."
+      },
+      {
+        "question": "Klien harus dari Bandung?",
+        "answer": "Gak harus. Aku emang di Bandung tapi kalo kerja bareng klien bisa dari seluruh Indonesia secara online kok."
+      }
+    ],
+    "cta": {
+      "heading": "Punya campaign yang mau di-launch?",
+      "label": "Coba ceritain ke aku"
+    },
+    "seo": {
+      "title": "Jasa Landing Page: Jelas, Cepat, Fokus",
+      "description": "Jasa pembuatan landing page dari Bandung untuk campaign, produk, atau acara. Dikerjain langsung sama Akbar: satu tujuan, cepat dibuka di HP."
+    }
+  },
+  {
+    "lang": "id",
+    "slug": "jasa-pembuatan-website-toko-online",
+    "draft": false,
+    "eyebrow": "LAYANAN / TOKO ONLINE",
+    "title": "Jasa pembuatan website toko online yang gampang dipake jualan.",
+    "intro": "Butuh jasa pembuatan toko online buat jualan sendiri, bukan cuma lewat marketplace? Aku Akbar, developer dan desainer di Bandung. Aku bikin toko online yang rapi, jelas buat pembeli, dan gampang kalian urus, dari desain sampai live.",
+    "sections": [
+      {
+        "heading": "Toko online yang aku bikin",
+        "body": "Aku bikin toko online di Shopify atau WooCommerce, atau custom kalau kebutuhan kalian di luar yang bisa dikasih platform. Desain dan development aku pegang sendiri, jadi kalian ngobrol langsung sama orang yang ngerjain."
+      },
+      {
+        "heading": "Shopify, WooCommerce, atau custom, pilih mana",
+        "body": "Shopify cocok kalau kalian mau cepat mulai jualan tanpa ngurus server. WooCommerce cocok kalau website kalian udah atau mau pake WordPress dan kalian mau kontrol lebih, dengan catatan kalian perlu hosting sendiri. Custom cocok kalau kalian butuh alur belanja atau fitur khusus yang susah dicapai di platform. Kalian gak perlu milih sendiri, ceritain aja bisnisnya, nanti aku kasih saran."
+      },
+      {
+        "heading": "Toko sendiri atau marketplace",
+        "body": "Di marketplace, kalian ikut aturan dan tampilan mereka. Di toko sendiri, kalian pegang brand, tampilan, dan hubungan sama customer. Banyak bisnis pake dua-duanya, jadi toko sendiri gak harus menggantikan marketplace."
+      },
+      {
+        "heading": "Yang aku siapin",
+        "body": "Katalog produk, halaman produk yang jelas, keranjang dan checkout, integrasi pembayaran, dan tampilan yang rapi di HP. Metode pembayaran dan pengiriman yang kalian butuhin kita bahas di awal."
+      },
+      {
+        "heading": "Gimana prosesnya",
+        "body": "Kita mulai dari ngobrol soal produk, pembeli kalian, dan cara kalian jualan. Lanjut susun struktur toko dan desain, kalian review, lalu development dan tes alur belanja dari awal sampai bayar. Setelah live, aku bantu pastiin semuanya jalan dan gampang kalian urus sendiri."
+      },
+      {
+        "heading": "Soal biaya",
+        "body": "Toko online WooCommerce mulai dari Rp10 juta, Shopify mulai dari Rp15 juta, udah termasuk setup toko, desain custom, 2 kali revisi, dan maintenance gratis sebulan setelah live. Angka akhirnya tergantung jumlah produk, fitur (misalnya pembayaran, pengiriman, atau diskon), dan seberapa banyak desain yang dibutuhin. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas sebelum kita mulai."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Pake Shopify, WooCommerce, atau website custom?",
+        "answer": "Tergantung kebutuhan. Shopify cocok buat mulai jualan dengan cepat, WooCommerce cocok kalau kalian pake WordPress dan mau kontrol lebih, custom cocok buat alur atau fitur khusus. Ceritain bisnis kalian dulu, nanti aku kasih saran."
+      },
+      {
+        "question": "Berapa biaya bikin toko online?",
+        "answer": "WooCommerce mulai dari Rp10 juta, Shopify mulai dari Rp15 juta. Angka akhirnya tergantung jumlah produk, fitur, dan kebutuhan desain. Langganan Shopify atau hosting WooCommerce dibayar terpisah ke penyedianya. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Apa aja yang termasuk di harganya?",
+        "answer": "Setup toko, sampai 20 produk diinput, satu payment gateway, satu integrasi ongkir (RajaOngkir atau Biteship), satu sesi serah terima buat ngajarin cara kelola produk, 2 kali revisi, dan maintenance gratis sebulan setelah live. Shopify dikerjain dengan theme custom. Foto dan data produk kalian yang siapin. Hosting WooCommerce, langganan Shopify, plugin atau aplikasi berbayar, dan pindahin produk dari platform lain dihitung terpisah."
+      },
+      {
+        "question": "Pembayarannya gimana?",
+        "answer": "50% DP di awal dan 50% sisanya sebelum toko live. Detailnya kita sepakatin di awal bareng estimasi."
+      },
+      {
+        "question": "Berapa lama pembuatannya?",
+        "answer": "Tergantung jumlah produk dan fitur yang dibutuhin. Kita sepakatin timeline di awal, setelah aku paham kebutuhannya."
+      },
+      {
+        "question": "Bisa terima pembayaran online?",
+        "answer": "Bisa. Aku bantu integrasi pembayaran. Metode yang tersedia tergantung platform dan penyedia pembayaran yang kalian pilih."
+      },
+      {
+        "question": "Setelah live, bisa nambah produk sendiri?",
+        "answer": "Iya. Toko disiapin biar gampang kalian urus, termasuk nambah dan ubah produk."
+      },
+      {
+        "question": "Klien harus dari Bandung?",
+        "answer": "Gak harus. Aku emang di Bandung tapi kalo kerja bareng klien bisa dari seluruh Indonesia secara online kok."
+      }
+    ],
+    "cta": {
+      "heading": "Mau mulai jualan online?",
+      "label": "Coba ceritain ke aku"
+    },
+    "seo": {
+      "title": "Jasa Pembuatan Website Toko Online",
+      "description": "Jasa pembuatan website toko online dari Bandung, pake Shopify, WooCommerce, atau custom. Desain dan development langsung sama Akbar."
+    }
+  },
+  {
+    "lang": "id",
+    "slug": "jasa-pembuatan-aplikasi-mobile",
+    "draft": false,
+    "eyebrow": "LAYANAN / APLIKASI MOBILE",
+    "title": "Jasa pembuatan aplikasi mobile Android dan iOS, dikerjain langsung sama yang bikin.",
+    "intro": "Butuh jasa pembuatan aplikasi buat bisnis atau produk kalian? Aku Akbar, developer dan desainer di Bandung. Aku bikin aplikasi mobile buat Android dan iOS pake React Native, dari desain sampai rilis di App Store dan Google Play.",
+    "sections": [
+      {
+        "heading": "Aplikasi yang aku bikin",
+        "body": "Aplikasi mobile buat Android dan iOS dari satu codebase, pake React Native. Desain, development, dan backend aku pegang sendiri, jadi kalian ngobrol langsung sama orang yang ngerjain, tanpa perantara."
+      },
+      {
+        "heading": "Kenapa satu codebase",
+        "body": "Dengan satu codebase, aplikasi kalian bisa jalan di Android dan iOS sekaligus. Waktu pembuatan dan biaya perawatannya biasanya lebih hemat dibanding bikin dua aplikasi terpisah, dan tampilannya tetap terasa mulus kayak aplikasi bawaan."
+      },
+      {
+        "heading": "Butuh aplikasi atau cukup website",
+        "body": "Gak semua bisnis butuh aplikasi. Kalau tujuan kalian cuma ngenalin bisnis atau jualan, cuma website juga udah cukup dan lebih cepat dibuat. Kalau kalian butuh fitur seperti notifikasi, akun user, atau mode offline, aplikasi baru masuk akal. Ceritain aja tujuannya, nanti aku kasih saran yang jujur."
+      },
+      {
+        "heading": "Yang bisa dikerjain",
+        "body": "Login dan akun user, push notification, mode offline, koneksi ke API dan backend, sampai proses submit ke App Store dan Google Play. Fitur apa aja yang kalian butuhin kita bahas di awal."
+      },
+      {
+        "heading": "Gimana prosesnya",
+        "body": "Kita mulai dari strategi: tujuan aplikasi, siapa user-nya, dan fitur apa yang paling penting. Lanjut desain yang disesuain sama pola dan gestur di HP, lalu development, dan terakhir rilis ke store. Kalian review di tiap tahap."
+      },
+      {
+        "heading": "Soal biaya",
+        "body": "Aplikasi mobile mulai dari Rp25 juta, udah termasuk sampai sekitar 8 layar, desain, 2 kali revisi, dan maintenance gratis sebulan setelah rilis. Angka akhirnya tergantung jumlah layar dan fitur, perlu backend atau gak, dan apakah kalian mau Android aja atau dua-duanya. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas sebelum kita mulai."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Bisa Android dan iOS sekaligus?",
+        "answer": "Bisa. Aku pake React Native, jadi satu codebase dipake buat dua-duanya. Kalau kalian mau mulai dari Android aja dulu, itu juga bisa."
+      },
+      {
+        "question": "Aku butuh aplikasi atau cukup website aja?",
+        "answer": "Tergantung tujuannya. Buat ngenalin bisnis atau jualan, kadang website aja juga cukup. Aplikasi itu dibuat kalau kalian butuh fitur seperti notifikasi, akun user, atau mode offline. Ceritain dulu kebutuhan kalian."
+      },
+      {
+        "question": "Berapa biaya bikin aplikasi mobile?",
+        "answer": "Mulai dari Rp25 juta. Angka akhirnya tergantung jumlah layar, fitur, backend, dan platform. Akun developer Apple dan Google dibayar terpisah. Ceritain dulu kebutuhan kalian, nanti aku kasih estimasi yang jelas."
+      },
+      {
+        "question": "Apa aja yang termasuk di harganya?",
+        "answer": "Aplikasi Android dan iOS pake React Native, sampai sekitar 8 layar, login, satu koneksi ke API atau backend sederhana, bantuan submit ke App Store dan Google Play, 2 kali revisi, dan maintenance gratis sebulan setelah rilis. Backend yang rumit, pembayaran dalam aplikasi, dan dashboard admin dihitung terpisah."
+      },
+      {
+        "question": "Pembayarannya gimana?",
+        "answer": "50% DP di awal dan 50% sisanya sebelum aplikasi dirilis. Detailnya kita sepakatin di awal bareng estimasi."
+      },
+      {
+        "question": "Berapa lama pembuatannya?",
+        "answer": "Tergantung fitur dan kerumitannya. Kita sepakatin timeline di awal, setelah aku paham kebutuhannya."
+      },
+      {
+        "question": "Dibantuin rilis ke App Store dan Google Play?",
+        "answer": "Iya. Proses submit dan persetujuan di App Store dan Google Play termasuk yang aku bantu kerjain."
+      },
+      {
+        "question": "Klien harus dari Bandung?",
+        "answer": "Gak harus. Aku emang di Bandung tapi kalo kerja bareng klien bisa dari seluruh Indonesia secara online kok."
+      }
+    ],
+    "cta": {
+      "heading": "Punya ide aplikasi?",
+      "label": "Coba ceritain ke aku"
+    },
+    "seo": {
+      "title": "Jasa Pembuatan Aplikasi Mobile",
+      "description": "Jasa pembuatan aplikasi mobile Android dan iOS dari Bandung, pake React Native. Desain dan development langsung sama Akbar."
     }
   }
 ]
