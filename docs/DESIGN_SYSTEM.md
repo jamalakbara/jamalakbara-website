@@ -7,7 +7,9 @@
 - Designer spec + tokens, copied into the repo: `docs/design/working-folder-canvas-spec.md` and `docs/design/design-tokens.json`.
 - Code: `app/[lang]/site.css` holds the tokens and component classes. React building blocks live in `components/site/`.
 
-**Scope.** `site.css` is imported only by `app/[lang]/layout.tsx` and `app/global-not-found.tsx`. The `--f-*` tokens live in `app/folder-tokens.css`, shared by `site.css` and the admin stylesheet `app/admin/admin.css` (§10). Never restyle a shared `globals.css` class for the public site: add an `f-` class in `site.css` instead.
+**Scope.** `site.css` is imported by the public layout, global 404, and the authenticated Interface Text preview iframe. The `--f-*` tokens live in `app/folder-tokens.css`, shared by `site.css` and the admin stylesheet `app/admin/admin.css` (§10). Never restyle a shared `globals.css` class for the public site: add an `f-` class in `site.css` instead.
+
+The Interface Text preview shows the saved and current wording for the selected field. A unique match gets a cobalt outline and an instant jump in the preview frame. Preview sections scroll normally with animations and transitions disabled.
 
 ---
 

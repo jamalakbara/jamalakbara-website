@@ -90,13 +90,13 @@ export function AboutView() {
         <div className="f-story" style={{ paddingBottom: 56 }}>
           <div className="f-story__col">
             <span className="f-tabtext">{t.bringLabel}</span>
-            <h3 className="f-display">
+            <h2 className="f-display">
               {t.doHeading[0]}
               <br />
               {t.doHeading[1]}
               <br className="f-br-m" />
               {t.doHeading[2]}
-            </h3>
+            </h2>
             <ul className="f-caps-list" style={{ listStyle: "none", margin: 0 }}>
               {t.capabilities.map((text, i) => {
                 const c = { ...ICONS[i], ...text };

@@ -4,7 +4,7 @@ import { Stamp } from "@/components/site/stamp";
 import { Sticker, cqw, type StickerSpot } from "@/components/site/sticker";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
-import { getSite, fill } from "@/lib/i18n";
+import { getSite, fill, type Ui } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n/config";
 import { contentHref, localePath } from "@/lib/i18n/routes";
 import { pad2 } from "@/lib/site-format";
@@ -95,6 +95,7 @@ export function ArticleView({
   date,
   lang,
   related,
+  ui = getSite(language).ui,
 }: {
   post: { title: string; content: string; date: string; readingMinutes: number };
   position: number; // 1-based index in the list
@@ -105,8 +106,8 @@ export function ArticleView({
   lang?: { href: string; label: string; hrefLang: "en" | "id" };
   /** "Keep reading" block at the end of the article */
   related?: RelatedItem[];
+  ui?: Ui;
 }) {
-  const { ui } = getSite(language);
   const copy = ui.article;
   const basePath = localePath(language, "/journal");
   const sections = [...post.content.matchAll(/^##\s+(.+?)\s*#*\s*$/gm)].map((m) => {

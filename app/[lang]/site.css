@@ -1,7 +1,7 @@
 /* ==========================================================================
    Working Folder v2 — public site styles.
-   Loaded only by the [lang] layout and app/global-not-found.tsx, so admin keeps the
-   legacy dark tokens/classes in globals.css untouched. Every value here is
+   Loaded by the public layout, global 404, and Interface Text preview frame.
+   Admin pages keep the legacy tokens/classes in globals.css. Every value here is
    taken 1:1 from the Pencil canvas (jamalakbara.pen); see docs/DESIGN_SYSTEM.md.
    Breakpoints: mobile < 768 (390 ref) · tablet 768–1023 (stacked) · desktop ≥ 1024 (1440 ref).
    ========================================================================== */

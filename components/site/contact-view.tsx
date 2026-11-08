@@ -24,13 +24,13 @@ const STICKERS: StickerSpot[] = [
   { name: "pen-tool", x: 850, y: 44, w: 68.697, h: 81, r: -14 },
 ];
 
-export function ContactView() {
+export function ContactView({ preview = false, previewField }: { preview?: boolean; previewField?: string }) {
   const { contact, path, ui } = useSite();
   const copy = ui.contact;
   // wa.me number from the CMS country + local fields; shipped default when unset.
   const whatsappNumber = contact.whatsapp || "6281321766565";
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<Errors>({});
+  const [validationErrors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const fields = {
     name: useRef<HTMLInputElement>(null),
@@ -56,10 +56,14 @@ export function ContactView() {
     if (Object.keys(next).length) {
       setErrors(next);
       const first = (["name", "email", "message"] as const).find((k) => next[k]);
-      if (first) fields[first].current?.focus();
+      if (first) fields[first].current?.focus({ preventScroll: preview });
       return;
     }
     setErrors({});
+    if (preview) {
+      setSent(true);
+      return;
+    }
 
     const text = [
       copy.greeting.replace("{name}", form.name.trim()),
@@ -75,7 +79,13 @@ export function ContactView() {
     setSent(true);
   };
 
+  const errors: Errors = previewField === "errorName" ? { name: copy.errorName }
+    : previewField === "errorEmail" ? { email: copy.errorEmail }
+    : previewField === "errorMessage" ? { message: copy.errorMessage }
+    : previewField === "statusHeading" || previewField === "statusBody" ? { name: copy.errorName }
+    : validationErrors;
   const hasErrors = Boolean(errors.name || errors.email || errors.message);
+  const showSent = sent || previewField === "sentHeading" || previewField === "sentBody";
 
   const field = (
     key: "name" | "email",
@@ -130,7 +140,7 @@ export function ContactView() {
           <span className="f-tab__n f-muted">01</span>
         </div>
         <div className="f-folder__body f-folder__body--flush f-split">
-          {sent ? (
+          {showSent ? (
             <div className="f-form f-sent" role="status">
               <span className="f-sent__icon">
                 <Check size={24} />

@@ -3,12 +3,12 @@
 // Canvas 41 "Translations": how much of the Bahasa site is written, the
 // interface strings and privacy text, and the switch that publishes /id.
 
-import { useMemo, useState, useTransition } from "react";
+import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Check } from "lucide-react";
 import { saveTranslations } from "@/lib/admin/translation-actions";
 import { uiFields, type IdSite, type TranslationReport } from "@/lib/i18n/completeness";
-import { Field, PageHeader, Panel, Toggle, useSaveShortcut } from "@/components/admin/ui";
+import { Chip, Field, PageHeader, Panel, Toggle, useSaveShortcut } from "@/components/admin/ui";
 import { useToast } from "@/components/admin/toast";
 import { GuardedLink, useUnsaved } from "@/components/admin/unsaved";
 
@@ -23,6 +23,13 @@ function setIn<T>(target: T, path: Path, value: string): T {
 }
 
 const sectionTitle = (key: string) => key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, " $1");
+
+const previewContext: Record<string, string> = {
+  "contact.greeting": "Appears in the prefilled WhatsApp message.",
+  "contact.replyTo": "Appears in the prefilled WhatsApp message.",
+  "privacy.description": "Used as the page’s search description.",
+  "common.opensNewTab": "Announced by screen readers on links that open a new tab.",
+};
 
 export function TranslationsEditor({
   initialSite,
@@ -42,14 +49,61 @@ export function TranslationsEditor({
   const [site, setSite] = useState(initialSite);
   const [privacy, setPrivacy] = useState(initialPrivacy);
   const [error, setError] = useState<string | null>(null);
+  const [previewSection, setPreviewSection] = useState<string | null>(null);
+  const [previewFieldId, setPreviewFieldId] = useState<string | null>(null);
+  const [lastEdited, setLastEdited] = useState<Record<string, string>>({});
+  const [previewMatch, setPreviewMatch] = useState<"text" | "control" | "missing" | "multiple" | null>(null);
+  const previewFrame = useRef<HTMLIFrameElement>(null);
 
   const dirty = JSON.stringify({ site, privacy }) !== JSON.stringify(base);
   useUnsaved(dirty);
 
   const fields = useMemo(() => uiFields(ui, site.ui).filter((f) => f.en.trim()), [ui, site.ui]);
+  const savedValues = useMemo(
+    () => new Map(uiFields(ui, base.site.ui).map((f) => [JSON.stringify(f.path), f.id])),
+    [ui, base.site.ui],
+  );
   const sections = useMemo(() => [...new Set(fields.map((f) => String(f.path[0])))], [fields]);
+  const previewField = fields.find((f) => JSON.stringify(f.path) === previewFieldId);
+  const previewValue = previewField && (previewField.id.trim() ? previewField.id : previewField.en);
+  const savedPreviewValue = previewField && (savedValues.get(JSON.stringify(previewField.path))?.trim()
+    ? savedValues.get(JSON.stringify(previewField.path))
+    : previewField.en);
   const required = report.groups.filter((g) => g.required);
   const missing = required.flatMap((g) => g.missing);
+
+  useEffect(() => {
+    if (!previewSection) return;
+    const frame = previewFrame.current;
+    const origin = window.location.origin;
+    const send = () => frame?.contentWindow?.postMessage(
+      {
+        type: "interface-preview",
+        section: previewSection,
+        draft: site.ui,
+        field: previewFieldId,
+        key: previewField?.path[1],
+        value: previewValue,
+      },
+      origin,
+    );
+    const receive = (event: MessageEvent) => {
+      if (event.origin !== origin || event.source !== frame?.contentWindow) return;
+      if (event.data?.type === "interface-preview-ready") send();
+      if (event.data?.type === "interface-preview-match" && event.data.field === previewFieldId && event.data.value === previewValue) {
+        setPreviewMatch(event.data.match);
+      }
+    };
+    window.addEventListener("message", receive);
+    send();
+    return () => window.removeEventListener("message", receive);
+  }, [previewSection, site.ui, previewFieldId, previewField, previewValue]);
+
+  function selectPreview(section: string, field: string | null) {
+    if (section !== previewSection || field !== previewFieldId) setPreviewMatch(null);
+    setPreviewSection(section);
+    setPreviewFieldId(field);
+  }
 
   function save() {
     if (!dirty || pending) return;
@@ -110,33 +164,110 @@ export function TranslationsEditor({
               <h2 className="a-title">Interface text</h2>
             </div>
             <div className="a-panel__body">
-              <p className="a-meta a-muted">English is shown as the placeholder. Keep {"{name}"} and {"{n}"} as they are, and keep line breaks where you want them on the page.</p>
-              {sections.map((section) => {
-                const list = fields.filter((f) => f.path[0] === section);
-                const left = list.filter((f) => !f.id.trim()).length;
-                return (
-                  <details key={section} open={left > 0 && left < list.length}>
-                    <summary className="a-label" style={{ cursor: "pointer", padding: "8px 0" }}>
-                      {sectionTitle(section)} <span className="a-meta a-muted">{left === 0 ? "done" : `${left} left`}</span>
-                    </summary>
-                    <div className="a-stack" style={{ gap: 12, paddingTop: 8 }}>
-                      {list.map((f) => {
-                        const label = f.path.slice(1).join(" / ");
-                        const update = (value: string) => setSite((s) => ({ ...s, ui: setIn(s.ui, f.path, value) }));
-                        return (
-                          <Field key={f.path.join(".")} label={label}>
-                            {f.en.length > 60 || f.en.includes("\n") ? (
-                              <textarea className="a-input" rows={3} placeholder={f.en} value={f.id} onChange={(e) => update(e.target.value)} />
-                            ) : (
-                              <input className="a-input" placeholder={f.en} value={f.id} onChange={(e) => update(e.target.value)} />
-                            )}
-                          </Field>
-                        );
-                      })}
+              <p className="a-meta a-muted">Open a section to compare its Bahasa text with the English original. Keep {"{name}"} and {"{n}"} as they are, and keep line breaks where you want them on the page.</p>
+              <div className="a-interface-layout" data-preview={previewSection !== null}>
+                <div className="a-stack">
+                  {sections.map((section) => {
+                    const list = fields.filter((f) => f.path[0] === section).map((f) => ({
+                      ...f,
+                      different: Boolean(f.id.trim()) && f.id !== f.en,
+                      unsaved: f.id !== savedValues.get(JSON.stringify(f.path)),
+                    }));
+                    const left = list.filter((f) => !f.id.trim()).length;
+                    const different = list.filter((f) => f.different).length;
+                    const unsaved = list.filter((f) => f.unsaved).length;
+                    return (
+                      <details key={section} open={left > 0 && left < list.length}>
+                        <summary className="a-label" style={{ cursor: "pointer", padding: "8px 0" }}>
+                          {sectionTitle(section)}{" "}
+                          <span className="a-meta a-muted">
+                            {different} of {list.length} differ from English
+                            {left > 0 && ` · ${left} left`}
+                          </span>
+                          {unsaved > 0 && <>{" "}<Chip kind="draft">{unsaved} unsaved</Chip></>}
+                        </summary>
+                        <div className="a-stack" style={{ gap: 12, paddingTop: 8 }}>
+                          <div>
+                            <button
+                              type="button"
+                              className="a-btn a-btn--secondary"
+                              aria-pressed={previewSection === section}
+                              onClick={() => selectPreview(section, lastEdited[section] ?? null)}
+                            >
+                              Preview {sectionTitle(section)} on site
+                            </button>
+                          </div>
+                          {list.map((f) => {
+                            const label = f.path.slice(1).join(" / ");
+                            const inputId = `translation-${f.path.join(".")}`;
+                            const fieldId = JSON.stringify(f.path);
+                            const update = (value: string) => {
+                              setSite((s) => ({ ...s, ui: setIn(s.ui, f.path, value) }));
+                              setLastEdited((edited) => ({ ...edited, [section]: fieldId }));
+                              if (previewSection) selectPreview(section, fieldId);
+                            };
+                            return (
+                              <Field
+                                key={inputId}
+                                htmlFor={inputId}
+                                label={
+                                  <>
+                                    {label}{" "}
+                                    {f.different && <Chip kind="bahasa">Differs from English</Chip>}
+                                    {f.unsaved && <>{" "}<Chip kind="draft">Unsaved</Chip></>}
+                                  </>
+                                }
+                                help={<>English original: <span style={{ whiteSpace: "pre-wrap" }}>{f.en}</span></>}
+                              >
+                                {f.en.length > 60 || f.en.includes("\n") ? (
+                                  <textarea id={inputId} className="a-input" rows={3} placeholder={f.en} value={f.id} onChange={(e) => update(e.target.value)} />
+                                ) : (
+                                  <input id={inputId} className="a-input" placeholder={f.en} value={f.id} onChange={(e) => update(e.target.value)} />
+                                )}
+                              </Field>
+                            );
+                          })}
+                        </div>
+                      </details>
+                    );
+                  })}
+                </div>
+                {previewSection && (
+                  <div className="a-stack a-interface-preview">
+                    <div className="a-interface-preview__head">
+                      <div>
+                        <h3 className="a-title">{sectionTitle(previewSection)} preview</h3>
+                        <p className="a-meta a-muted">Updates as you edit · Bahasa draft</p>
+                      </div>
+                      <button type="button" className="a-btn a-btn--ghost" onClick={() => {
+                        setPreviewSection(null);
+                        setPreviewFieldId(null);
+                      }}>
+                        Close
+                      </button>
                     </div>
-                  </details>
-                );
-              })}
+                    {previewField ? (
+                      <div className="a-interface-preview__copy">
+                        <p className="a-label">{previewField.path.slice(1).join(" / ")}</p>
+                        {savedPreviewValue !== previewValue && <p className="a-meta a-muted">Saved · {savedPreviewValue}</p>}
+                        <p className="a-meta">Current · {previewValue}</p>
+                        <p className="a-meta a-muted" role="status">
+                          {previewMatch === "text" && "Highlighted on the page."}
+                          {previewMatch === "control" && "Highlighted the control that uses this text."}
+                          {previewMatch === "multiple" && "This wording appears in several places in this view."}
+                          {previewMatch === "missing" && (previewContext[previewField.path.join(".")] ?? "This text is outside the current view or appears in another page state.")}
+                        </p>
+                      </div>
+                    ) : <p className="a-meta a-muted">Edit a field to find it on the page.</p>}
+                    <iframe
+                      ref={previewFrame}
+                      src={`/admin/interface-preview?section=${encodeURIComponent(previewSection)}`}
+                      title={`${sectionTitle(previewSection)} site preview`}
+                      sandbox="allow-scripts allow-same-origin"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </section>
 

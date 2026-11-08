@@ -86,9 +86,9 @@ export function localizeProject(p: Project, lang: Lang): Project {
 const visibleProjects = (lang: Lang) =>
   projects.filter((p) => !p.draft && (lang === "en" || projectTranslated(p)));
 
-function buildSite(lang: Lang) {
+function buildSite(lang: Lang, previewUi?: unknown) {
   const id = lang === "id";
-  const ui: Ui = id ? overlay(uiEn, idSite.ui) : uiEn;
+  const ui: Ui = id ? overlay(uiEn, previewUi ?? idSite.ui) : uiEn;
   const page = id ? overlay(pages, idSite.pages) : pages;
   const path = (p: string) => localePath(lang, p);
 
@@ -119,7 +119,7 @@ function buildSite(lang: Lang) {
     id && filled(idSite.about.description[i]) ? idSite.about.description[i] : para,
   );
 
-  const services = servicePages.filter((p) => !p.draft && p.lang === lang && (lang === "en" || ID_PUBLISHED));
+  const services = servicePages.filter((p) => !p.draft && p.lang === lang && (lang === "en" || ID_PUBLISHED || previewUi !== undefined));
 
   return {
     lang,
@@ -178,6 +178,8 @@ function buildSite(lang: Lang) {
 }
 
 export type Site = ReturnType<typeof buildSite>;
+
+export const getInterfacePreviewSite = (ui: unknown): Site => buildSite("id", ui);
 
 const cache = new Map<Lang, Site>();
 

@@ -22,8 +22,10 @@ const REVEAL = [
   ".f-stamp:not(.f-stamp--loop)", ".f-sticker", ".f-tile", ".f-note", ".f-portrait", ".f-row__img",
 ].join(", ");
 
-export function PortfolioShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+export function PortfolioShell({ children, previewPath }: { children: React.ReactNode; previewPath?: string }) {
+  const currentPath = usePathname();
+  const pathname = previewPath ?? currentPath;
+  const showLanguage = ID_PUBLISHED || previewPath !== undefined;
   const router = useRouter();
   const vtDone = useRef<(() => void) | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -64,7 +66,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   // while the page content swaps (animations in site.css). Unsupported
   // browsers and reduced motion fall through to Next's normal navigation.
   useEffect(() => {
-    if (!("startViewTransition" in document)) return;
+    if (previewPath !== undefined || !("startViewTransition" in document)) return;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -91,13 +93,14 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [router]);
+  }, [router, previewPath]);
 
   // Stacked sections: every <main> child is position:sticky (site.css), so the
   // next section slides over the previous one. A section taller than the
   // viewport sticks by its bottom edge (negative top) so it can be read fully
   // before the next one covers it.
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const main = root?.querySelector<HTMLElement>("#main");
     if (!root || !main) return;
@@ -157,7 +160,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       root.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   useEffect(() => {
     menuOpenRef.current = menuOpen;
@@ -166,6 +169,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   // Sticky header: hides once scrolled past it going down, returns on any
   // small scroll up, always shown near the top (CSS in site.css).
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const shell = shellRef.current;
     if (!root || !shell) return;
@@ -195,13 +199,14 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       root.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   // Reveals: every target plays its CSS entrance on mount; anything below
   // the fold is re-armed (data-rv="pending" → "in") to replay when scrolled
   // into view. Elements under the fold aren't visible yet, so arming them
   // after paint never blinks. Selectors mirror the Reveals block in site.css.
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const main = root?.querySelector<HTMLElement>("#main");
     if (!root || !main || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -253,7 +258,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       tail.disconnect();
       mo.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   // Modal menu: focus the first item, trap Tab, close on Escape.
   useEffect(() => {
@@ -335,8 +340,12 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     <div className="f-shell" ref={shellRef}>
       <div className="f-scroll" ref={scrollRef} data-scroll-root>
         <div className="f-page">
-          <Aurora />
-          <StickerPeel />
+          {previewPath === undefined && (
+            <>
+              <Aurora />
+              <StickerPeel />
+            </>
+          )}
 
           {/* ---- Desktop / tablet navigation ---- */}
           <nav className="f-nav" aria-label={ui.nav.primary}>
@@ -348,7 +357,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               {(before.length > 0 || !active) && (
                 <div className="f-nav__links">
                   {before.map(navLink)}
-                  {!active && ID_PUBLISHED && languageNavLink}
+                  {!active && showLanguage && languageNavLink}
                 </div>
               )}
             </div>
@@ -358,9 +367,9 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
                   <span className="f-notch__fill" aria-hidden="true" />
                   {navLink(active)}
                 </div>
-                <div className={after.length || ID_PUBLISHED ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
+                <div className={after.length || showLanguage ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
                   {after.map(navLink)}
-                  {ID_PUBLISHED && languageNavLink}
+                  {showLanguage && languageNavLink}
                 </div>
               </>
             )}
@@ -427,7 +436,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               <span className="f-menu__label">{l.label}</span>
             </Link>
           ))}
-          {ID_PUBLISHED && (
+          {showLanguage && (
             <Link
               href={language.href}
               hrefLang={language.lang}

@@ -6,20 +6,20 @@ import Link from 'next/link'
 import { useSite } from '@/lib/i18n/context'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
-export function CookieConsentBanner() {
+export function CookieConsentBanner({ preview = false }: { preview?: boolean }) {
   const { path, ui } = useSite()
   const t = ui.cookie
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(preview)
   const [preferences, setPreferences] = useState<CookieConsentOptions>(
     CookieConsent.getDefaultConsent()
   )
 
   useEffect(() => {
     // Check if user has already consented
-    if (!CookieConsent.hasConsented()) {
+    if (!preview && !CookieConsent.hasConsented()) {
       setIsVisible(true)
     }
-  }, [])
+  }, [preview])
 
   const handleAcceptAll = () => {
     const allAccepted: CookieConsentOptions = {
@@ -29,7 +29,7 @@ export function CookieConsentBanner() {
       preferences: true
     }
 
-    CookieConsent.setConsent(allAccepted)
+    if (!preview) CookieConsent.setConsent(allAccepted)
     setIsVisible(false)
   }
 
@@ -41,12 +41,12 @@ export function CookieConsentBanner() {
       preferences: false
     }
 
-    CookieConsent.setConsent(necessaryOnly)
+    if (!preview) CookieConsent.setConsent(necessaryOnly)
     setIsVisible(false)
   }
 
   const handleSavePreferences = () => {
-    CookieConsent.setConsent(preferences)
+    if (!preview) CookieConsent.setConsent(preferences)
     setIsVisible(false)
   }
 
@@ -65,12 +65,16 @@ export function CookieConsentBanner() {
 
   if (!isVisible) return null
 
+  const Panel = preview ? 'div' : motion.div
+
   return (
     <AnimatePresence mode="popLayout">
-      <motion.div
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 100 }}
+      <Panel
+        {...(!preview && {
+          initial: { opacity: 0, y: 100 },
+          animate: { opacity: 1, y: 0 },
+          exit: { opacity: 0, y: 100 }
+        })}
         className="f-cookie"
       >
         <div>
@@ -112,10 +116,12 @@ export function CookieConsentBanner() {
                   {t.customize}
                 </summary>
 
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
+                <Panel
+                  {...(!preview && {
+                    initial: { opacity: 0, height: 0 },
+                    animate: { opacity: 1, height: 'auto' },
+                    exit: { opacity: 0, height: 0 }
+                  })}
                   className="f-cookie f-cookie__panel"
                 >
                   <h4 className="f-cookie__panel-h">
@@ -194,12 +200,12 @@ export function CookieConsentBanner() {
                   >
                     {t.save}
                   </button>
-                </motion.div>
+                </Panel>
               </details>
             </div>
           </div>
         </div>
-      </motion.div>
+      </Panel>
     </AnimatePresence>
   )
 }

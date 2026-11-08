@@ -3,7 +3,7 @@ import { TitlePanel } from "@/components/site/title-panel";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { EmptyState } from "@/components/site/empty-state";
 import type { StickerSpot } from "@/components/site/sticker";
-import { getSite } from "@/lib/i18n";
+import { getSite, type Site } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
 import { formatDate } from "@/lib/posts";
@@ -27,11 +27,12 @@ const STICKERS: StickerSpot[] = [
 export function JournalIndex({
   posts,
   language,
+  site = getSite(language),
 }: {
   posts: IndexPost[];
   language: Lang;
+  site?: Site;
 }) {
-  const site = getSite(language);
   const copy = site.ui.journal;
   const other: Lang = language === "en" ? "id" : "en";
   const basePath = localePath(language, "/journal");

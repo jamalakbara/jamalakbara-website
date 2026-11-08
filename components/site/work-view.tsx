@@ -25,8 +25,12 @@ const STICKERS: StickerSpot[] = [
 
 const ALL = "all";
 
-export function WorkView() {
-  const { works, work, path, ui } = useSite();
+const NO_WORKS: ReturnType<typeof useSite>["works"] = [];
+
+export function WorkView({ previewEmpty = false }: { previewEmpty?: boolean }) {
+  const site = useSite();
+  const { work, path, ui } = site;
+  const works = previewEmpty ? NO_WORKS : site.works;
   const t = ui.work;
   const count = (n: number) => `${pad2(n)} ${n === 1 ? t.project : t.projects}`;
   const [filter, setFilter] = useState(ALL);
@@ -105,6 +109,7 @@ export function WorkView() {
                   key={row.id}
                   row={row}
                   index={index}
+                  headingLevel={2}
                   variant={rows.slice(0, i).filter((r) => r.row.media.length >= 3).length}
                 />
               ))}
