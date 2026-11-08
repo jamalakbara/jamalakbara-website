@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { ID_PUBLISHED } from "@/lib/i18n/config";
@@ -75,6 +75,7 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
       if (still.matches) return;
       const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+      if (a.hasAttribute("data-language-switch")) return;
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || url.pathname === location.pathname) return;
       if (/^\/(admin|api)(\/|$)/.test(url.pathname)) return;
@@ -309,6 +310,39 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
   const active = activeIndex === -1 ? null : links[activeIndex];
   const after = activeIndex === -1 ? [] : links.slice(activeIndex + 1);
 
+  const switchLanguage = async (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const stamp = event.currentTarget.querySelector<HTMLElement>(".f-language-stamp");
+    if (stamp?.hasAttribute("data-peeling")) {
+      event.preventDefault();
+      return;
+    }
+    GAEvents.trackNavigationClick(language.href, "language_link");
+    if (!stamp?.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMenuOpen(false);
+      return;
+    }
+    event.preventDefault();
+    const start = getComputedStyle(stamp).getPropertyValue("--f-language-peel").trim();
+    stamp.setAttribute("data-peeling", "");
+    const peel = stamp.animate(
+      [{ "--f-language-peel": start }, { "--f-language-peel": "100%" }],
+      { duration: 360, easing: "cubic-bezier(.4, 0, .2, 1)", fill: "forwards" },
+    );
+    await peel.finished.catch(() => {});
+    router.push(language.href);
+  };
+
+  const languageStamp = (
+    <span key={language.lang} className="f-language-stamp" aria-hidden="true">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="f-language-stamp__next" src={`/brand/languages/${site.lang}.svg`} width={48} height={48} alt="" draggable={false} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="f-language-stamp__front" src={`/brand/languages/${language.lang}.svg`} width={48} height={48} alt="" draggable={false} />
+      <span className="f-language-stamp__fold" />
+    </span>
+  );
+
   const languageNavLink = (
     <Link
       key="language"
@@ -316,10 +350,13 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
       hrefLang={language.lang}
       lang={language.lang}
       className="f-navlink f-navlink--lang"
+      aria-label={language.label}
+      title={language.label}
       style={{ viewTransitionName: "f-nav-language" }}
-      onClick={() => GAEvents.trackNavigationClick(language.href, "language_link")}
+      data-language-switch=""
+      onClick={switchLanguage}
     >
-      {language.label}
+      {languageStamp}
     </Link>
   );
 
@@ -443,14 +480,14 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
               href={language.href}
               hrefLang={language.lang}
               lang={language.lang}
-              className="f-menu__item"
+              aria-label={language.label}
+              title={language.label}
+              className="f-menu__item f-menu__item--lang"
               tabIndex={menuOpen ? 0 : -1}
-              onClick={() => {
-                GAEvents.trackNavigationClick(language.href, "language_link");
-                setMenuOpen(false);
-              }}
+              data-language-switch=""
+              onClick={switchLanguage}
             >
-              <span className="f-menu__label">{language.label}</span>
+              {languageStamp}
             </Link>
           )}
           <div className="f-menu__social">

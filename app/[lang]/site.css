@@ -1332,8 +1332,39 @@ textarea.f-input { resize: none; }
   .f-jstrip__title { font-size: 22px; }
 }
 
-/* Language link in the nav (canvas 40) */
-.f-navlink--lang { color: var(--f-muted); }
+/* Destination-language stamp: supplied canvas artwork, surface-token paper. */
+.f-navlink.f-navlink--lang { width: 48px; min-width: 48px; padding: 0; }
+.f-navlink--lang::after { display: none; }
+@property --f-language-peel {
+  syntax: "<percentage>";
+  inherits: true;
+  initial-value: 0%;
+}
+.f-language-stamp {
+  --f-language-peel: 0%;
+  position: relative;
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.f-language-stamp img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.f-language-stamp__front { clip-path: inset(0 0 var(--f-language-peel) 0); }
+.f-language-stamp__next { clip-path: inset(calc(100% - var(--f-language-peel)) 0 0 0); }
+.f-language-stamp__fold {
+  position: absolute;
+  inset-inline: 4px;
+  bottom: var(--f-language-peel);
+  height: clamp(0px, calc(var(--f-language-peel) - 8%), min(10px, 100% - var(--f-language-peel)));
+  background: linear-gradient(to top, #a89d89, var(--f-surface) 32%, #f7f4ed);
+  clip-path: polygon(0 100%, 100% 100%, 92% 0, 8% 0);
+}
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  [data-language-switch] .f-language-stamp:not([data-peeling]) { transition: --f-language-peel 220ms ease-out; }
+  [data-language-switch]:hover .f-language-stamp:not([data-peeling]) { --f-language-peel: 21%; }
+}
+.f-menu__item--lang { padding-block: 4px; }
 @media (max-width: 1023px) {
   .f-nav__start { padding-left: 16px; }
   .f-nav__end { gap: 4px; padding-right: 16px; }
