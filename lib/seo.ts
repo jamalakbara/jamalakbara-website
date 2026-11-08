@@ -5,6 +5,18 @@ import { absoluteUrl, localePath } from "@/lib/i18n/routes";
 
 const SITE_NAME = "Jamal Akbar Alam";
 
+const TITLE_MAX = 60;
+const TITLE_SUFFIX = ` | ${SITE_NAME}`;
+
+/**
+ * Document title for a page under the "%s | Jamal Akbar Alam" template. When
+ * the suffix would push the title past ~60 characters, the brand is dropped
+ * (absolute) instead of letting search engines truncate the headline.
+ */
+export function fitTitle(title: string): string | { absolute: string } {
+  return title.length + TITLE_SUFFIX.length > TITLE_MAX ? { absolute: title } : title;
+}
+
 type PageKey = "work" | "about" | "contact" | "journal";
 
 /**

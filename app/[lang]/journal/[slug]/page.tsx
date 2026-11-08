@@ -7,7 +7,7 @@ import { absoluteUrl, localePath } from "@/lib/i18n/routes";
 import { postLang } from "@/lib/post-lang";
 import { formatDate, getPost, getPosts } from "@/lib/posts";
 import { pickRelated } from "@/lib/related-posts";
-import { alternatesFor } from "@/lib/seo";
+import { alternatesFor, fitTitle } from "@/lib/seo";
 
 type Params = { lang: string; slug: string };
 
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const twin = postLang(language, post.slug, post.alternate);
   const alternates = alternatesFor(language, path, twin?.path ?? null, { force: true });
   return {
-    title: post.title,
+    title: fitTitle(post.title),
     description: post.description,
     alternates,
     openGraph: {
