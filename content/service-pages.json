@@ -382,7 +382,7 @@
   {
     "lang": "en",
     "slug": "nextjs-react-developer",
-    "draft": true,
+    "draft": false,
     "eyebrow": "SERVICES / DEVELOPMENT",
     "title": "Hire a React and Next.js developer you work with directly.",
     "intro": "Looking to hire a React developer? I'm Akbar, a developer and designer in Bandung, Indonesia. I build websites and web apps with React, Next.js and TypeScript, from the first sketch to the live site, and you talk to me, not an account manager.",
@@ -454,7 +454,7 @@
   {
     "lang": "en",
     "slug": "website-redesign",
-    "draft": true,
+    "draft": false,
     "eyebrow": "SERVICES / WEBSITE",
     "title": "Website redesign and migration, without losing what already works.",
     "intro": "Looking for website redesign services? I rebuild websites that have become slow, dated or painful to update, and I move sites off WordPress, Wix and similar platforms when that's the right call. I'm Akbar, and I do the design and the build myself.",
@@ -522,7 +522,7 @@
   {
     "lang": "en",
     "slug": "business-website",
-    "draft": true,
+    "draft": false,
     "eyebrow": "SERVICES / WEBSITE",
     "title": "Small business web design that makes a company look credible.",
     "intro": "Need small business web design that does more than fill a page? I'm Akbar, a developer and designer. I build business websites that explain what you do, show proof, and make it easy for the right people to contact you, designed and built by me from start to finish.",
