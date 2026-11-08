@@ -378,5 +378,217 @@
       "title": "Jasa Pembuatan Aplikasi, Mulai Rp25 Juta",
       "description": "Jasa pembuatan aplikasi mobile Android dan iOS dari Bandung, pake React Native. Desain dan development langsung sama Akbar."
     }
+  },
+  {
+    "lang": "en",
+    "slug": "nextjs-react-developer",
+    "draft": true,
+    "eyebrow": "SERVICES / DEVELOPMENT",
+    "title": "Hire a React and Next.js developer you work with directly.",
+    "intro": "Looking to hire a React developer? I'm Akbar, a developer and designer in Bandung, Indonesia. I build websites and web apps with React, Next.js and TypeScript, from the first sketch to the live site, and you talk to me, not an account manager.",
+    "sections": [
+      {
+        "heading": "What I build",
+        "body": "Marketing sites and company websites, web apps and dashboards, online stores, and the frontend of products that already have a backend. If it runs in a browser and needs to be fast and easy to use, it's my kind of project."
+      },
+      {
+        "heading": "Where I fit",
+        "body": "Founders who need a first version without hiring a team. Agencies that need a frontend developer for a project without adding headcount. Small in-house teams with a backlog and no one free to build it. I can own a whole project or take a clearly defined slice of one."
+      },
+      {
+        "heading": "The stack",
+        "body": "React, Next.js, TypeScript and Tailwind CSS on the frontend. Node.js and Python when the project needs an API or a database behind it. I also design the interface in Figma when you don't have a designer, so you don't have to find and brief a second person."
+      },
+      {
+        "heading": "How we work",
+        "body": "We start with a call about the goal, the users and the deadline. I write down the scope and a price before any work begins. Then you get regular, working updates you can click through, not a big reveal at the end. Bandung is UTC+7, which gives a few hours of live overlap with Europe and Australia, and the rest of the work happens in writing so nobody waits on a meeting."
+      },
+      {
+        "heading": "What you get",
+        "body": "Clean, typed code in your repository, pages that load fast on a phone, accessible markup, and a structure search engines can read. You own the code. Nothing is locked inside a tool only I can use."
+      },
+      {
+        "heading": "Pricing",
+        "body": "I price by project, not by the hour, so you know the number before we start. A focused build such as a marketing site or a first version of a web app starts from $2,500. Larger apps are scoped after a short discovery call. Payment is 50% upfront and 50% before launch."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Can I hire you for a single project or part-time?",
+        "answer": "Yes to both. Most work is a fixed-scope project. If you need ongoing help with a product, we can agree on a set number of days per month instead."
+      },
+      {
+        "question": "Do you only work on new projects?",
+        "answer": "No. I also join existing React and Next.js codebases to fix problems, speed things up or add features. I'll read the code first and tell you what I find before quoting."
+      },
+      {
+        "question": "What time zone do you work in?",
+        "answer": "UTC+7 (Bandung, Indonesia). That overlaps a few hours with Europe and with Australia, and I can stretch to an evening call for the US when it matters. Day-to-day updates are written, so the time difference rarely slows things down."
+      },
+      {
+        "question": "Do you design as well as code?",
+        "answer": "Yes. I design the interface and build it, so there is no handoff between a designer and a developer. If you already have designs in Figma, I'll build from those."
+      },
+      {
+        "question": "Why Next.js and not just React?",
+        "answer": "Next.js adds server rendering, routing and image handling on top of React. That means faster pages and better search visibility for public sites. For a private dashboard, plain React can be enough, and I'll say so."
+      },
+      {
+        "question": "What does it cost?",
+        "answer": "A focused build starts from $2,500, and larger apps are quoted after a discovery call. Payment is 50% upfront and 50% before launch. Hosting and domain are paid separately."
+      },
+      {
+        "question": "Who owns the code?",
+        "answer": "You do. It lives in your repository, and I hand over what you need to run it."
+      }
+    ],
+    "cta": {
+      "heading": "Have a project in mind?",
+      "label": "Tell me about it"
+    },
+    "seo": {
+      "title": "Hire a React & Next.js Developer",
+      "description": "Hire a React and Next.js developer for websites and web apps. Design and code by one person in Bandung (UTC+7), with a clear scope and price upfront."
+    }
+  },
+  {
+    "lang": "en",
+    "slug": "website-redesign",
+    "draft": true,
+    "eyebrow": "SERVICES / WEBSITE",
+    "title": "Website redesign and migration, without losing what already works.",
+    "intro": "Looking for website redesign services? I rebuild websites that have become slow, dated or painful to update, and I move sites off WordPress, Wix and similar platforms when that's the right call. I'm Akbar, and I do the design and the build myself.",
+    "sections": [
+      {
+        "heading": "When a redesign makes sense",
+        "body": "The site loads slowly on phones. It looks like it belongs to a different decade than your business. Simple edits need a developer. Visitors land and leave without getting in touch. Any of these is a reason to redesign. If the site only needs a few fixes, I'll tell you that instead of selling you a rebuild."
+      },
+      {
+        "heading": "What I protect",
+        "body": "A redesign should not throw away the work your old site did. Before I change anything I list your current pages, the ones that bring in visitors, and the content worth keeping. Where URLs change, I set up redirects so links and search results keep working."
+      },
+      {
+        "heading": "Migrating from WordPress, Wix or Squarespace",
+        "body": "I can rebuild your site in Next.js for speed and control, and set up a simple way for your team to edit text and images. It isn't right for everyone. If your WordPress site is healthy and you update it often through plugins, staying put can be the cheaper choice. I'll give you an honest recommendation after looking at the site."
+      },
+      {
+        "heading": "How the project runs",
+        "body": "First an audit of what you have: pages, speed, search traffic, what's broken. Then the new structure and design for your review. Then the build, a test launch, and the switch with redirects in place. After launch I check that nothing important dropped out of search."
+      },
+      {
+        "heading": "What you get",
+        "body": "A site that loads fast on a phone, reads clearly, and is easy for your team to keep current. Accessible markup, sensible page titles and structure for search engines, and a redirect plan so you don't start from zero."
+      },
+      {
+        "heading": "Pricing",
+        "body": "A redesign of a small business site starts from $1,200. The price depends on the number of pages, how much content moves over, and whether you need new design or only a rebuild. You get a fixed quote after the audit. Payment is 50% upfront and 50% before launch."
+      }
+    ],
+    "faq": [
+      {
+        "question": "Will I lose my Google rankings?",
+        "answer": "Nobody can promise that a redesign leaves rankings untouched. What I do to protect them: keep URLs where I can, redirect the ones that change, carry over page titles and content that perform, and check search after launch."
+      },
+      {
+        "question": "How long does a redesign take?",
+        "answer": "Usually a few weeks for a small business site. The exact timeline depends on how many pages you have and how quickly feedback comes back. We agree a schedule before starting."
+      },
+      {
+        "question": "Is moving from WordPress to Next.js worth it?",
+        "answer": "Sometimes. It pays off when speed, design freedom or maintenance cost are real problems. If your WordPress site works and you edit it often with plugins, staying can make more sense. I'll tell you which case you're in."
+      },
+      {
+        "question": "Can my team still edit the content?",
+        "answer": "Yes. I set up an editing workflow that fits your team, so changing text or adding a page doesn't mean calling a developer."
+      },
+      {
+        "question": "What does a redesign cost?",
+        "answer": "A small business site starts from $1,200. You get a fixed quote after I've reviewed your current site. Domain and hosting are paid separately."
+      },
+      {
+        "question": "Do you only redesign, or also rebuild from scratch?",
+        "answer": "Both. Some projects keep the content and change the look and the platform. Others start fresh with new structure and copy guidance. The audit shows which one fits."
+      }
+    ],
+    "cta": {
+      "heading": "Is your site holding you back?",
+      "label": "Send me the link"
+    },
+    "seo": {
+      "title": "Website Redesign Services",
+      "description": "Website redesign and migration for small businesses. Faster pages, a clearer design, and redirects that protect what already works. Built by one developer."
+    }
+  },
+  {
+    "lang": "en",
+    "slug": "business-website",
+    "draft": true,
+    "eyebrow": "SERVICES / WEBSITE",
+    "title": "Small business web design that makes a company look credible.",
+    "intro": "Need small business web design that does more than fill a page? I'm Akbar, a developer and designer. I build business websites that explain what you do, show proof, and make it easy for the right people to contact you, designed and built by me from start to finish.",
+    "sections": [
+      {
+        "heading": "What your site needs to do",
+        "body": "A business website has one job: earn enough trust that a visitor gets in touch. That takes a clear message above the fold, your work or services shown plainly, signs that real people stand behind it, and a contact path that's easy to find."
+      },
+      {
+        "heading": "What I build",
+        "body": "Company websites with a handful of pages, landing pages for a campaign or a single offer, and simple online stores. Services businesses, studios, startups and local companies are the usual fit."
+      },
+      {
+        "heading": "Why not a template or site builder",
+        "body": "Wix and Squarespace are fine for a fast start. They get slow, look like everyone else's, and fight you when the business grows. A site built for your business loads faster, says exactly what you want it to say, and can change as you do."
+      },
+      {
+        "heading": "How the project runs",
+        "body": "We talk about your business, your customers and what you want visitors to do. I propose the pages and the structure, then design them for your review. After approval I build, test on real phones and laptops, and launch. You get a site your team can update without a developer."
+      },
+      {
+        "heading": "What's included",
+        "body": "Custom design, a layout that works on phones and desktops, fast loading, page titles and structure that search engines can read, a contact form, and two rounds of revisions. After launch there is one month of free fixes and support."
+      },
+      {
+        "heading": "Pricing",
+        "body": "A small business website starts from $900. A single landing page costs less, and a site with a store or custom features costs more. You get a fixed quote after we talk. Domain and hosting are paid separately. Payment is 50% upfront and 50% before launch."
+      }
+    ],
+    "faq": [
+      {
+        "question": "How much does a small business website cost?",
+        "answer": "A small business website starts from $900 with custom design and a few pages. The final price depends on the number of pages and any special features such as a store or bookings. You get a fixed quote before we begin."
+      },
+      {
+        "question": "How long does it take?",
+        "answer": "A typical small business site takes a few weeks from first call to launch. Content and feedback speed are the biggest factors. We agree on a timeline at the start."
+      },
+      {
+        "question": "What do I need to provide?",
+        "answer": "Your logo and brand colors if you have them, a rough idea of the pages you want, and any text and photos you already own. If you don't have copy yet, I'll tell you what each page needs and help you shape it."
+      },
+      {
+        "question": "Do you also design the site?",
+        "answer": "Yes. Design and development both come from me, so there's no separate designer to brief and no gap between the two."
+      },
+      {
+        "question": "Can I update the site myself afterwards?",
+        "answer": "Yes. I set it up so you can change text and images without touching code."
+      },
+      {
+        "question": "Can you add an online store?",
+        "answer": "Yes. For selling a handful of products I can build it into your site. For a larger catalogue I usually recommend Shopify and set it up for you."
+      },
+      {
+        "question": "Will the site show up on Google?",
+        "answer": "Nobody can promise a position on Google. What I build is the groundwork: fast pages, clear structure and titles, and a mobile layout that works, so the site has a solid base to be found."
+      }
+    ],
+    "cta": {
+      "heading": "Planning a website for your business?",
+      "label": "Tell me about it"
+    },
+    "seo": {
+      "title": "Small Business Web Design",
+      "description": "Small business web design that builds trust and brings enquiries. Custom design and development by one person, with a clear price before you commit."
+    }
   }
 ]
