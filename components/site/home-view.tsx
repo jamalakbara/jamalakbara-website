@@ -2,6 +2,7 @@
 
 import { Fragment } from "react";
 import Link from "next/link";
+import { ButtonLink } from "@/components/site/button";
 import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { Folder } from "@/components/site/folder";
@@ -135,14 +136,14 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
               <h2 id="selected-work-h" className="f-display">
                 {t.selectedHeading}
               </h2>
-              <Link
+              <ButtonLink
                 href={path("/work")}
-                className="f-btn f-btn--secondary"
+                variant="secondary"
                 onClick={() => GAEvents.trackNavigationClick("/work", "home_cta")}
               >
                 {t.exploreAll}
                 <ArrowUpRight size={16} />
-              </Link>
+              </ButtonLink>
             </div>
           </div>
           {selected.map((row, i) => (

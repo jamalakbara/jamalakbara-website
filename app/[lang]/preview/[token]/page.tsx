@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { ButtonLink } from "@/components/site/button";
 import { ArticleView } from "@/components/site/article-view";
 import { ProjectRow } from "@/components/site/project-row";
 import { EmptyState } from "@/components/site/empty-state";
@@ -57,9 +57,9 @@ export default async function PreviewPage({ params }: { params: Promise<{ token:
               : "The link is incomplete or the draft was replaced. Ask for a fresh one from the editor."
           }
           actions={
-            <Link href="/" className="f-btn f-btn--primary">
+            <ButtonLink href="/">
               Go to the site
-            </Link>
+            </ButtonLink>
           }
         />
       </section>

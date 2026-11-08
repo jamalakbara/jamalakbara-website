@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
+import { ButtonLink } from "@/components/site/button";
 import { useSite } from "@/lib/i18n/context";
 import { pad2, sentenceCase } from "@/lib/site-format";
 import { sentenceLines } from "@/lib/site-format";
@@ -70,10 +70,10 @@ export function WorkView({ previewEmpty = false }: { previewEmpty?: boolean }) {
               heading={t.emptyHeading}
               body={t.emptyBody}
               actions={
-                <Link href={path("/contact")} className="f-btn f-btn--primary">
+                <ButtonLink href={path("/contact")}>
                   <ArrowRight size={16} />
                   {t.emptyAction}
-                </Link>
+                </ButtonLink>
               }
             />
           ) : (

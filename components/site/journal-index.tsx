@@ -16,12 +16,9 @@ import { ArrowRight, ArrowUp } from "@/components/site/icons";
 export type IndexPost = { slug: string; title: string; description: string; date: string };
 
 const STICKERS: StickerSpot[] = [
-  { name: "dev-mode", x: 398, y: 78, w: 96, h: 97.974, r: -9 },
-  { name: "builder-cursor", x: 540, y: 174, w: 76, h: 105.52, r: 10 },
-  { name: "less-noise-more-craft", x: 658, y: 104, w: 160, h: 128.436, r: 7 },
-  { name: "make-it-useful", x: 888, y: 70, w: 104, h: 98.455, r: 12 },
-  { name: "dev-laptop", x: 762, y: 192, w: 116, h: 105.311, r: -7 },
-  { name: "kopi-susu", x: 996, y: 146, w: 56, h: 113.275, r: -5 },
+  { name: "dev-mode", x: 470, y: 60, w: 96, h: 97.974, r: -9 },
+  { name: "less-noise-more-craft", x: 704, y: 58, w: 160, h: 128.436, r: 7 },
+  { name: "kopi-susu", x: 940, y: 82, w: 56, h: 113.275, r: -5 },
 ];
 
 export function JournalIndex({

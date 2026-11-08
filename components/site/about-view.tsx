@@ -15,12 +15,8 @@ import { ArrowRight, MapPin } from "@/components/site/icons";
 
 const STICKERS: StickerSpot[] = [
   { name: "bandung-volcano", x: 716, y: 70, w: 126.827, h: 131, r: -7 },
-  { name: "kopi-susu", x: 884, y: 146, w: 56, h: 113.275, r: -5 },
   { name: "dev-laptop", x: 596, y: 40, w: 83, h: 75.352, r: -7 },
-  { name: "builder-cursor", x: 470, y: 30, w: 76, h: 105.52, r: 10 },
-  { name: "dev-mode", x: 968, y: 34, w: 96, h: 97.974, r: -9 },
   { name: "debug-duck", x: 1112, y: 70, w: 88.695, h: 100, r: -7 },
-  { name: "shopping-bag-cursor", x: 1250, y: 78, w: 99.316, h: 102, r: 10 },
 ];
 
 const ICONS = [

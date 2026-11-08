@@ -7,6 +7,7 @@ import { ID_PUBLISHED } from "@/lib/i18n/config";
 import { useLanguageTargets, useSite } from "@/lib/i18n/context";
 import { basePath, languageHref } from "@/lib/i18n/routes";
 import { GAEvents } from "@/lib/analytics/events";
+import { IconButton } from "@/components/site/button";
 import { Aurora } from "@/components/site/aurora";
 import { StickerPeel } from "@/components/site/sticker-peel";
 import { ArrowUpRight, Close, Menu } from "@/components/site/icons";
@@ -34,6 +35,7 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
   const scrollRef = useRef<HTMLDivElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const menuOpenRef = useRef(false);
+  const restoreMenuFocusRef = useRef(false);
 
   const site = useSite();
   const { contact, ui, path } = site;
@@ -48,8 +50,8 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
   };
 
   const close = useCallback((restoreFocus = true) => {
+    restoreMenuFocusRef.current = restoreFocus;
     setMenuOpen(false);
-    if (restoreFocus) toggleRef.current?.focus();
   }, []);
 
   // Close the mobile menu whenever the route changes; start each page at the top.
@@ -164,6 +166,10 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
 
   useEffect(() => {
     menuOpenRef.current = menuOpen;
+    if (!menuOpen && restoreMenuFocusRef.current) {
+      restoreMenuFocusRef.current = false;
+      toggleRef.current?.focus();
+    }
   }, [menuOpen]);
 
   // Sticky header: hides once scrolled past it going down, returns on any
@@ -338,7 +344,7 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
 
   return (
     <div className="f-shell" ref={shellRef}>
-      <div className="f-scroll" ref={scrollRef} data-scroll-root>
+      <div className="f-scroll" ref={scrollRef} data-scroll-root inert={menuOpen}>
         <div className="f-page">
           {previewPath === undefined && (
             <>
@@ -378,17 +384,15 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
           {/* ---- Mobile navigation bar ---- */}
           <div className="f-mnav">
             {wordmark()}
-            <button
+            <IconButton
               ref={toggleRef}
-              type="button"
-              className="f-iconbtn"
               aria-label={ui.nav.openMenu}
               aria-expanded={menuOpen}
               aria-controls="f-mobile-menu"
               onClick={() => setMenuOpen(true)}
             >
               <Menu size={24} />
-            </button>
+            </IconButton>
           </div>
 
           <main id="main" className="f-main" tabIndex={-1}>
@@ -407,19 +411,17 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
         aria-label={ui.nav.menu}
         aria-hidden={!menuOpen}
       >
-        <div className="f-menu__scrim" onClick={() => close(false)} />
+        <div className="f-menu__scrim" onClick={() => close()} />
         <div className="f-menu__stack" ref={stackRef}>
           <div className="f-mnav" style={{ display: "flex" }}>
             {wordmark(() => setMenuOpen(false))}
-            <button
-              type="button"
-              className="f-iconbtn"
+            <IconButton
               aria-label={ui.nav.closeMenu}
               tabIndex={menuOpen ? 0 : -1}
               onClick={() => close()}
             >
               <Close size={24} />
-            </button>
+            </IconButton>
           </div>
           {links.map((l) => (
             <Link

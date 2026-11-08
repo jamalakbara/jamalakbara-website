@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
+import { IconButton } from "@/components/site/button";
 import { Stamp } from "@/components/site/stamp";
 import { ArrowUpRight } from "@/components/site/icons";
 
@@ -48,16 +49,15 @@ export function ContactNote({
     <div className="f-note">
       <div className="f-note__head">
         <span className="f-meta">{text.label}</span>
-        <button
-          type="button"
-          className="f-iconbtn f-copy"
+        <IconButton
+          className="f-copy"
           onClick={copy}
           aria-label={`${text.copyLabel} ${contact.email}`}
           data-state={state}
           data-msg={msg}
         >
           <Stamp size={44} />
-        </button>
+        </IconButton>
       </div>
       <p className="f-note__email">{contact.email}</p>
       <span className="f-sr" role="status" aria-live="polite">

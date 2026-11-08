@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { ButtonLink } from "@/components/site/button";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { Folder } from "@/components/site/folder";
 import { ArrowDown, ArrowRight, MapPin } from "@/components/site/icons";
@@ -38,10 +38,10 @@ export function ServiceView({ site, page, preview = false }: { site: Site; page:
           <h1 className="f-display f-display--caps f-svc-title">{sentenceLines(page.title)}</h1>
           <div className="f-svc-intro">
             <p className="f-body">{page.intro}</p>
-            <Link href={site.path("/contact")} className="f-btn f-btn--primary">
+            <ButtonLink href={site.path("/contact")}>
               <ArrowRight size={16} />
               {page.cta.label}
-            </Link>
+            </ButtonLink>
           </div>
         </div>
       </header>

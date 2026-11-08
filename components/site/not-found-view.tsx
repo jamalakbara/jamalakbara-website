@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ButtonLink } from "@/components/site/button";
 import { EmptyState } from "@/components/site/empty-state";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { ArrowLeft, ArrowUpRight } from "@/components/site/icons";
@@ -22,10 +23,10 @@ export function NotFoundView() {
           body={t.body}
           actions={
             <>
-              <Link href={path("/")} className="f-btn f-btn--primary">
+              <ButtonLink href={path("/")}>
                 <ArrowLeft size={16} />
                 {ui.common.backHome}
-              </Link>
+              </ButtonLink>
               <Link href={path("/work")} className="f-act f-caps" style={{ gap: 12 }}>
                 {t.exploreWork}
                 <ArrowUpRight size={16} />

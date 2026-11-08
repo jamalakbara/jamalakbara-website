@@ -11,8 +11,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
-- memory: 29 (active 29)
-- handoff: 30 (final 30)
+- memory: 30 (active 30)
+- handoff: 37 (final 37)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
-- hnd-ngsgzp8j 2026-11-08 (human:akbar) — Done: Prepared the pending bilingual Services overview and folder tab, including Pencil frames, for a single commit. Production build passed. · Next: Review the committed Services overview.
-- hnd-p522hc8g 2026-11-08 (human:akbar) — Done: Added a flush-left 01 Folder tab to the shared Services index, and updated the two existing Pencil overview frames first. TypeScript and diff check passed. · Next: Review both Services locales.
-- hnd-ce6t1a2c 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Added English /services overview. Page now serves both languages; hardcoded Bahasa strings moved to ui.services (EN + id overlay) and per-page summary in service-pages.json (schema, type, admin…
-- hnd-gdtnkjcy 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Published three EN service pages (draft:false), committed locally, verified on running dev server: 200, unique title, self canonical, no spurious hreflang, JSON-LD LocalBusiness, in sitemap, li…
-- hnd-dv1qckpg 2026-11-08 (human:akbar) — Done: Reviewed the Services overview, shared navigation, Pencil frames, and associated project memory for the requested commit on feat/bilingual. · Next: Review the committed Services changes.
+- hnd-sr6bxw6c 2026-11-08 (human:akbar) — Done: Synced refined canvas controls and Journal/About headers into website. Added components/site/button.tsx with Button, ButtonLink and labelled IconButton; migrated public CTAs, contact submit/cop…
+- hnd-5gbaq70h 2026-11-08 (human:akbar) — Done: Refined canvas components on board 03D VWFMc: 55 reusable masters/variants within library, connected page-title compositions, project/journal/service entries (115 placements), folder shells (57…
+- hnd-7761ez6y 2026-11-08 (human:akbar) — Done: Synced shared footer to code: ContactStrip now composes reusable FooterAction with stamp only; Contact retains Work link; Services overview reuses ContactStrip. Shared CSS matches canvas Tanker…
+- hnd-q4rsmjfg 2026-11-08 (human:akbar) — Done: Read-only canvas inspection; proposed component consolidation and missing shared patterns for consistency. · Next: Confirm component scope, then reuse existing masters and extract repeated stru…
+- hnd-z0zjs2qy 2026-11-08 (human:akbar) — Done: Standardized all 48 non-home canvas footers as connected instances. Created 03C board ydXi9 with Footer Action EXZpj, Desktop VeUhP, Mobile M2bfj (inherits Desktop). Home untouched. Contact ret…

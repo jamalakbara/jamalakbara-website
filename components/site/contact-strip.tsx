@@ -2,22 +2,34 @@
 
 import Link from "next/link";
 import { Stamp } from "@/components/site/stamp";
-import { ArrowRight } from "@/components/site/icons";
 import { useSite } from "@/lib/i18n/context";
 
-// Page-closing strip (canvas "* / Contact footer"). Default: "Have something
-// in mind?" → contact with the stamp; the contact page uses the work variant.
+interface FooterActionProps {
+  href: string;
+  label: string;
+  onClick?: () => void;
+}
+
+// Canvas Footer / Action: the stamp is shared by every destination.
+export function FooterAction({ href, label, onClick }: FooterActionProps) {
+  return (
+    <Link href={href} className="f-strip__link" onClick={onClick}>
+      <span>{label}</span>
+      <Stamp size={44} />
+    </Link>
+  );
+}
+
+// Canvas Footer / Strip: responsive desktop and mobile variants of one system.
 export function ContactStrip({
   heading,
   label,
   href,
-  variant = "stamp",
   onClick,
 }: {
   heading?: string;
   label?: string;
   href?: string;
-  variant?: "stamp" | "arrow";
   onClick?: () => void;
 }) {
   const site = useSite();
@@ -25,16 +37,11 @@ export function ContactStrip({
   return (
     <section className="f-strip" aria-label={title}>
       <p className="f-strip__h">{title}</p>
-      <Link href={href ?? site.path("/contact")} className="f-strip__link" onClick={onClick}>
-        {label ?? site.ui.strip.label}
-        {variant === "stamp" ? (
-          <Stamp size={44} />
-        ) : (
-          <span className="f-strip__badge">
-            <ArrowRight size={16} />
-          </span>
-        )}
-      </Link>
+      <FooterAction
+        href={href ?? site.path("/contact")}
+        label={label ?? site.ui.strip.label}
+        onClick={onClick}
+      />
     </section>
   );
 }

@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
+import { Button } from '@/components/site/button'
 import { useSite } from '@/lib/i18n/context'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
@@ -96,18 +97,12 @@ export function CookieConsentBanner({ preview = false }: { preview?: boolean }) 
             {/* Action Buttons */}
             <div className="f-cookie__actions">
               <div className="f-cookie__actions">
-                <button
-                  onClick={handleAcceptAll}
-                  className="f-btn f-btn--primary"
-                >
+                <Button onClick={handleAcceptAll}>
                   {t.acceptAll}
-                </button>
-                <button
-                  onClick={handleAcceptNecessary}
-                  className="f-btn f-btn--secondary"
-                >
+                </Button>
+                <Button variant="secondary" onClick={handleAcceptNecessary}>
                   {t.necessaryOnly}
-                </button>
+                </Button>
               </div>
 
               {/* Custom Preferences Toggle */}
@@ -194,12 +189,12 @@ export function CookieConsentBanner({ preview = false }: { preview?: boolean }) 
                     </p>
                   </div>
 
-                  <button
+                  <Button
                     onClick={handleSavePreferences}
-                    className="f-btn f-btn--primary f-cookie__save"
+                    className="f-cookie__save"
                   >
                     {t.save}
-                  </button>
+                  </Button>
                 </Panel>
               </details>
             </div>

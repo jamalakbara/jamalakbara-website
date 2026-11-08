@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Folder } from "@/components/site/folder";
+import { ContactStrip } from "@/components/site/contact-strip";
 import { ArrowRight } from "@/components/site/icons";
 import { Stickers } from "@/components/site/sticker";
 import { getSite } from "@/lib/i18n";
@@ -88,13 +89,7 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
           })}
         </ol>
       </Folder>
-      <section className="f-panel f-services-contact">
-        <h2 className="f-display f-display--caps">{t.contactHeading}</h2>
-        <Link href={site.path("/contact")} className="f-btn f-btn--primary">
-          {t.contactCta}
-          <ArrowRight size={16} />
-        </Link>
-      </section>
+      <ContactStrip heading={t.contactHeading} label={t.contactCta} />
     </div>
   );
 }

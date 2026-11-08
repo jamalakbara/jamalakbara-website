@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { TitlePanel } from "@/components/site/title-panel";
+import { Button } from "@/components/site/button";
 import { ContactNote } from "@/components/site/contact-note";
 import { ContactStrip } from "@/components/site/contact-strip";
 import type { StickerSpot } from "@/components/site/sticker";
@@ -182,10 +183,10 @@ export function ContactView({ preview = false, previewField }: { preview?: boole
                 />
               </div>
               <div className="f-form__actions">
-                <button type="submit" className="f-btn f-btn--primary">
+                <Button type="submit">
                   <Send size={16} />
                   {copy.submit}
-                </button>
+                </Button>
                 <span className="f-meta f-muted">
                   {copy.privacyNote} <Link href={path("/privacy")} style={{ textDecoration: "underline" }}>{copy.privacyLink}</Link>
                 </span>
@@ -196,7 +197,7 @@ export function ContactView({ preview = false, previewField }: { preview?: boole
         </div>
       </section>
 
-      <ContactStrip heading={copy.stripHeading} label={copy.stripLabel} href={path("/work")} variant="arrow" />
+      <ContactStrip heading={copy.stripHeading} label={copy.stripLabel} href={path("/work")} />
     </>
   );
 }
