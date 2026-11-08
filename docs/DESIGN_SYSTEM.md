@@ -76,6 +76,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 
 - Spacing scale: 4, 8, 12, 16, 24, 32, 40, 48, 64, 96.
 - **Desktop (≥1024, ref 1440):** shell inset 12 (`--f-shell`), panels 1416, panel inset 40 (`--f-inset`), content 1336, nav 76, hero 700.
+- **Wide desktop (>1440):** the nav and folder panels share a centered 1416 px maximum width. The aurora fills the viewport.
 - **Tablet (768–1023):** stacked compositions, inset 24.
 - **Mobile (<768, ref 390):** shell inset 6, panel inset 16, nav 72, hero 620.
 - Panels have a 12 px radius at every size. Controls have 4 px. Note and receipt are square. Project images are square-edged.
