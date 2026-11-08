@@ -1,20 +1,20 @@
 {
   "withavelle": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify buat label fashion yang elegan. Cepat, dan dibikin supaya orang mau beli.",
+    "description": "Toko online fashion yang elegan di Shopify, dengan tema custom, tampilan produk yang rapi, dan checkout yang lancar. Tampilannya mewakili brand-nya, tapi tetap cepat dan fokus ke penjualan.",
+    "challenge": "Withavelle butuh toko online yang sesuai sama identitas brand-nya yang halus, tapi belanjanya tetap gampang. Tema Shopify siap pakai gak bisa ngasih tampilan dan kendali layout sampai segitu tanpa bikin situsnya lambat.",
+    "solution": "Aku bikin tema Shopify custom dengan layout ala majalah yang menaruh foto produk di depan. Gambarnya dioptimalkan biar cepat dimuat, jelajah koleksinya dibuat gampang, dan pengalaman di HP dirapikan dari cari produk sampai checkout.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Tema Shopify custom",
+      "Tampilan produk ala majalah",
+      "Gambar yang dioptimalkan",
+      "Checkout yang ringkas",
+      "Desain responsif mobile-first"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Waktu muat halaman",
+      "Trafik dari HP"
     ],
     "seo": {
       "title": "",
@@ -22,20 +22,20 @@
     }
   },
   "adana": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Web",
+    "summary": "Aplikasi web Next.js yang cepat, dengan arsitektur rapi dan siap berkembang.",
+    "description": "Aplikasi web modern di Next.js yang fokus ke pengalaman pengguna, skalabilitas, dan arsitektur yang bersih.",
+    "challenge": "Proyek ini butuh arsitektur yang bisa berkembang dan tampilan yang responsif buat kebutuhan web modern, tanpa bikin waktu muatnya lambat.",
+    "solution": "Aku bikin frontend-nya pakai Next.js dengan server-side rendering dan pengiriman gambar yang optimal, supaya performanya tetap di level atas.",
     "features": [
-      "",
-      "",
-      "",
-      ""
+      "Server-side rendering (SSR)",
+      "Static site generation (SSG)",
+      "Desain modern yang responsif",
+      "Core Web Vitals yang optimal"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Skor Lighthouse",
+      "Waktu muat halaman"
     ],
     "seo": {
       "title": "",
@@ -43,21 +43,21 @@
     }
   },
   "duma": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify fashion-forward dengan manajemen stok yang jalan di semua perangkat.",
+    "description": "Toko online Duma di Shopify dengan tema modern, tampilan produk yang fashion-forward, dan manajemen stok yang lengkap. Dibangun supaya bisa berkembang ngikutin operasional ritel fashion, dengan pengalaman belanja yang mulus di semua perangkat.",
+    "challenge": "Duma lagi cepat ekspansi ke luar negeri, jadi butuh toko online yang bisa berkembang bareng. Platformnya harus mendukung banyak bahasa, mata uang, dan stok per wilayah tanpa jadi lambat.",
+    "solution": "Aku pakai Shopify headless dengan Hydrogen dan React supaya toko global-nya ngebut. Sistem PIM disambungkan biar produk di semua wilayah bisa diurus dari satu tempat.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Arsitektur headless",
+      "Dukungan multi-region",
+      "Integrasi PIM",
+      "Pencarian Algolia",
+      "Portal retur otomatis"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Jangkauan global",
+      "Waktu muat"
     ],
     "seo": {
       "title": "",
@@ -65,21 +65,21 @@
     }
   },
   "rawtype-riot": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify yang berani, dengan energi mentah ala streetwear.",
+    "description": "Toko online streetwear di Shopify dengan tema custom, etalase produk yang dinamis, dan checkout yang mulus. Dibuat buat nangkep energi budaya jalanan, dengan performa dan skalabilitas yang kuat.",
+    "challenge": "Rawtype Riot butuh toko online yang ngewakilin semangat budaya street, sambil ngurus rilis edisi terbatas dan trafik tinggi saat drop. Platformnya harus tahan flash sale dan tetap kencang di puncak permintaan, tanpa ngilangin gaya nyentrik dan artistik khas brand-nya.",
+    "solution": "Aku bikin tema Shopify custom dengan tipografi tebal dan elemen desain bernuansa jalanan. Ada sistem antrean buat drop produk, gambar yang dioptimalkan buat foto berkualitas tinggi, dan tampilan HP yang pas buat audiens urban mereka.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Tema streetwear custom",
+      "Manajemen drop edisi terbatas",
+      "Sistem antrean buat rilis trafik tinggi",
+      "Desain responsif mobile-first",
+      "Integrasi media sosial"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Waktu habis terjual saat drop",
+      "Trafik dari HP"
     ],
     "seo": {
       "title": "",
@@ -87,21 +87,21 @@
     }
   },
   "sonderlab": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Tema Shopify custom dengan filter produk lanjutan dan checkout yang lancar.",
+    "description": "Toko online modern di Shopify dengan tema custom, filter produk lanjutan, dan checkout yang mulus. Dibuat supaya gampang berkembang dan tetap cepat.",
+    "challenge": "Sonderlab butuh tampilan digital yang khas, sesuai sama estetika fashion kurasi mereka, sambil ngurus stok yang rumit dan trafik besar saat drop. Tema Shopify standar terlalu mengekang buat identitas brand-nya.",
+    "solution": "Aku bikin toko Shopify yang sepenuhnya custom pakai Liquid dan React, dengan design system khusus yang mencerminkan brand-nya. Backend-nya dioptimalkan buat flash sale supaya gak down saat trafik melonjak, dan frontend-nya terasa lancar kayak aplikasi.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Tema Shopify custom",
+      "Sistem filter produk lanjutan",
+      "Manajemen stok real-time",
+      "Integrasi checkout yang mulus",
+      "Desain responsif mobile-first"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Kenaikan trafik",
+      "Tingkat konversi"
     ],
     "seo": {
       "title": "",
@@ -109,22 +109,22 @@
     }
   },
   "herotales": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Web",
+    "summary": "Dongeng pengantar tidur berilustrasi buatan AI, disesuaikan buat tiap anak.",
+    "description": "Aplikasi web interaktif buat bikin dan baca dongeng pengantar tidur yang disesuaikan buat anak. Dibangun dengan Next.js, ada pembuat cerita berbasis AI, ilustrasi yang cantik, dan pengalaman baca yang menyenangkan.",
+    "challenge": "Orang tua butuh cara praktis buat dapetin dongeng yang menarik dan cocok sama usia anak, yang bisa disesuaikan. Tantangannya: memadukan bercerita dengan teknologi, tanpa ngilangin hangatnya dibacakan dongeng sebelum tidur.",
+    "solution": "Aku bikin aplikasi Next.js dengan pembuat cerita berbasis AI. Orang tua bisa ngatur unsur ceritanya, ada kumpulan template cerita yang didesain dengan cantik, dan tampilan bacanya dioptimalkan buat desktop dan HP, termasuk buat baca di ruangan redup.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Pembuat cerita berbasis AI",
+      "Opsi personalisasi",
+      "Ilustrasi cerita yang cantik",
+      "Dark mode buat jam tidur",
+      "Perpustakaan cerita & favorit",
+      "Tampilan baca yang responsif"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Cerita yang dibuat",
+      "Kepuasan pengguna"
     ],
     "seo": {
       "title": "",
@@ -132,22 +132,22 @@
     }
   },
   "speakez": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Web",
+    "summary": "Latihan bahasa Inggris dengan ngobrol langsung bareng AI. Dibangun pakai Next.js dan Go.",
+    "description": "Platform latihan bahasa Inggris berbasis AI yang bikin belajar bahasa jadi lewat ngobrol langsung. Frontend-nya Next.js, backend-nya Go, dengan AI yang bisa diajak ngobrol suara secara natural dan belajar yang disesuaikan.",
+    "challenge": "Orang Indonesia yang belajar bahasa Inggris butuh tempat latihan ngomong yang gampang diakses dan bebas dihakimi. Cara belajar biasa kurang punya umpan balik langsung dan latihan ngobrol yang disesuaikan, jadi susah naikin kefasihan dan rasa percaya diri.",
+    "solution": "Aku bikin platform percakapan berbasis AI: Next.js buat frontend yang responsif, Go buat backend yang cepat. Model AI-nya dipakai buat memproses bahasa dan ngobrol suara langsung, jadi belajarnya menyesuaikan level tiap pengguna.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Ngobrol suara dengan AI",
+      "Pengenalan suara real-time",
+      "Jalur belajar yang disesuaikan",
+      "Dasbor kemajuan",
+      "Sesi latihan per topik",
+      "Umpan balik pelafalan"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Pengguna aktif",
+      "Sesi latihan"
     ],
     "seo": {
       "title": "",
@@ -155,21 +155,21 @@
     }
   },
   "nawaclo": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Tema Shopify custom dan katalog buat penjualan bervolume tinggi.",
+    "description": "Toko online modern di Shopify dengan tema custom, manajemen katalog lanjutan, dan pengalaman belanja yang dioptimalkan. Dibangun supaya bisa nampung transaksi bervolume tinggi dan tetap lancar di semua perangkat.",
+    "challenge": "Nawaclo mau pindah dari template standar ke tampilan brand yang sepenuhnya custom, yang bisa nampung stok yang terus nambah dan variasi produk yang rumit. Sistemnya harus tetap kencang walau menampilkan foto produk beresolusi tinggi.",
+    "solution": "Aku bikin tema Shopify khusus yang fokus ke cerita visual dan performa. Gambar dimuat bertahap (lazy loading), ada mega-menu custom biar navigasi enak, dan checkout dibuat ringkas buat ngurangin keranjang yang ditinggal.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Navigasi mega-menu custom",
+      "Filter produk lanjutan",
+      "Integrasi feed Instagram",
+      "Rekomendasi ukuran",
+      "Email marketing otomatis"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Kecepatan muat halaman",
+      "Pertumbuhan penjualan"
     ],
     "seo": {
       "title": "",
@@ -177,22 +177,22 @@
     }
   },
   "lakon-indonesia": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify yang bercerita, buat brand fashion Indonesia dengan akar warisan tekstil.",
+    "description": "Toko online Lakon Indonesia, brand fashion kontemporer yang merayakan budaya dan keahlian lokal. Pakai tema Shopify custom dengan koleksi pilihan, unsur bercerita, dan pengalaman belanja yang mulus buat memperlihatkan kekayaan tekstil Indonesia.",
+    "challenge": "Lakon Indonesia butuh toko online yang bisa menceritakan kisah di balik tiap koleksi, sambil menampilkan produk made-to-order dan upcycled mereka. Komitmen ke keberlanjutan dan kerajinan Indonesia harus tersampaikan, jadi fungsi jualan dan cerita harus seimbang.",
+    "solution": "Aku bikin tema Shopify custom dengan halaman cerita buat tiap koleksi, sistem made-to-order dengan alur kerja khusus, dan linimasa visual koleksi dari tahun ke tahun. Ada juga filter produk buat bahan berkelanjutan dan sistem koleksi hari raya buat drop musiman.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Halaman cerita koleksi",
+      "Sistem made-to-order",
+      "Etalase produk upcycled",
+      "Linimasa koleksi",
+      "Manajemen koleksi hari raya",
+      "Rekomendasi hadiah"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Keterlibatan brand",
+      "Pelanggan yang balik lagi"
     ],
     "seo": {
       "title": "",
@@ -200,21 +200,21 @@
     }
   },
   "combo": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Backend",
+    "summary": "Backend Python dalam container dengan autentikasi aman dan pengelolaan data yang efisien.",
+    "description": "Proyek backend pakai teknologi Python modern buat bikin aplikasi sisi server yang bisa berkembang, dengan pengelolaan data yang efisien, autentikasi yang aman, dan deployment berbasis container.",
+    "challenge": "Klien butuh infrastruktur backend yang bisa berkembang buat mendukung aplikasi multi-platform yang datanya harus tersinkron real-time. Sistemnya harus nangani banyak koneksi sekaligus dengan efisien, tanpa ngorbanin integritas data.",
+    "solution": "Aku bikin backend yang siap dipecah jadi microservices pakai Python dan FastAPI. Docker dipakai biar deployment-nya konsisten di semua lingkungan, dan Redis buat caching supaya beban database berkurang.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Arsitektur API berperforma tinggi",
+      "Autentikasi & otorisasi JWT",
+      "Containerisasi Docker",
+      "Lapisan cache Redis",
+      "Pipeline CI/CD otomatis"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Latensi API",
+      "Uptime"
     ],
     "seo": {
       "title": "",
@@ -222,21 +222,21 @@
     }
   },
   "base-data-dashboard": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Backend",
+    "summary": "Backend di balik dasbor data: pemrosesan, autentikasi, dan laporan real-time.",
+    "description": "Sistem backend buat manajemen data dan dasbor analitik, dengan autentikasi yang kuat, pemrosesan data yang efisien, dan arsitektur yang bisa berkembang buat operasi data yang rumit dan laporan real-time.",
+    "challenge": "Klien perlu melihat dataset besar dari banyak sumber secara real-time. Solusi yang lama lambat dan susah dinavigasi, jadi para pengambil keputusan sulit bergerak cepat berdasarkan data.",
+    "solution": "Aku bikin dasbor yang cepat pakai Python/FastAPI buat backend dan React buat frontend. MongoDB buat penyimpanan data yang fleksibel, Redis buat nyimpen data yang sering dibuka, sehingga responsnya di bawah satu detik.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Visualisasi data real-time",
+      "Pembuat laporan custom",
+      "Kontrol akses berbasis peran",
+      "Ekspor data",
+      "Grafik interaktif"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Pemrosesan data",
+      "Waktu kueri"
     ],
     "seo": {
       "title": "",
@@ -244,22 +244,22 @@
     }
   },
   "hmns": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify yang halus dengan alat cari parfum, buat rumah parfum premium Indonesia.",
+    "description": "Toko online HMNS, brand parfum premium Indonesia. Tema Shopify yang elegan dengan tampilan produk yang rapi, alat cari parfum, dan pengalaman belanja yang mulus, mencerminkan cara brand-nya memandang aroma sebagai seni.",
+    "challenge": "HMNS butuh tampilan digital yang bisa menyampaikan seni dan pengalaman indrawi parfum lewat layar. Tantangannya bikin toko online yang imersif, yang mengajarkan pelanggan soal not aroma, tapi tetap bersih dan mewah sesuai brand parfum premium.",
+    "solution": "Aku bikin tema Shopify custom yang menekankan cerita visual dan bahasa yang membangkitkan indra. Ada alat pencari parfum buat nemuin aroma sesuai selera, bagian konten buat belajar soal parfum, dan jelajah yang mulus kayak aplikasi dengan animasi halus yang mendukung kesan premium.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Alat pencari parfum custom",
+      "Konten edukasi yang kaya",
+      "Visualisasi profil aroma",
+      "Wishlist & favorit",
+      "Integrasi pencari toko",
+      "Pusat konten edukasi"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Tingkat keterlibatan",
+      "Tingkat konversi"
     ],
     "seo": {
       "title": "",
@@ -267,22 +267,22 @@
     }
   },
   "bions-bni": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Backend",
+    "summary": "Backend kelas enterprise yang aman buat operasional bisnis dan perbankan BNI.",
+    "description": "Backend untuk BIONS, sistem bisnis dan operasional terintegrasi milik BNI. Infrastruktur sisi server yang tangguh buat operasional perbankan skala enterprise, pemrosesan transaksi, dan manajemen data, dengan standar keamanan dan performa yang tinggi.",
+    "challenge": "BNI butuh backend yang bisa berkembang dan sanggup nangani transaksi perbankan bervolume tinggi, dengan protokol keamanan yang ketat dan kepatuhan ke regulasi perbankan. Sistemnya harus mendukung banyak peran pengguna, pemrosesan data real-time, dan tersambung mulus ke infrastruktur perbankan yang sudah ada.",
+    "solution": "Aku bikin backend yang tangguh pakai CodeIgniter 4, dengan arsitektur database dan caching yang dioptimalkan. Keamanannya berlapis: autentikasi JWT, kontrol akses berbasis peran, dan data terenkripsi. Redis dipakai buat sesi dan caching cepat supaya respons di bawah satu detik.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Sistem autentikasi enterprise",
+      "Pemrosesan transaksi real-time",
+      "Kontrol akses berbasis peran",
+      "Arsitektur RESTful API",
+      "Caching lanjutan dengan Redis",
+      "Enkripsi data"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Waktu respons",
+      "Pengguna bersamaan"
     ],
     "seo": {
       "title": "",
@@ -290,21 +290,21 @@
     }
   },
   "green-rebel-foods": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify dengan langganan dan manajemen varian produk.",
+    "description": "Toko online Green Rebel Foods di Shopify, dengan tema custom, manajemen varian produk, sistem langganan, dan alat pemasaran yang terintegrasi.",
+    "challenge": "Green Rebel Foods butuh toko online yang mengutamakan langganan, supaya produk makanan nabati mereka menghasilkan pendapatan berulang. Mereka juga perlu mengajari pelanggan soal manfaat produknya lewat konten.",
+    "solution": "Aku bikin toko Shopify dengan integrasi Recharge yang dalam buat langganan yang mulus. Blog dan bagian resep custom dibuat nyambung langsung ke produk, jadi kontennya ikut mendorong penjualan.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Manajemen langganan",
+      "Resep langsung ke keranjang",
+      "Pembuat paket custom",
+      "Integrasi program loyalitas",
+      "Pencari toko"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Pelanggan berlangganan",
+      "Tingkat retensi"
     ],
     "seo": {
       "title": "",
@@ -312,21 +312,21 @@
     }
   },
   "aza-wear": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Toko Shopify fashion dengan manajemen ukuran dan varian buat lini produk yang terus tumbuh.",
+    "description": "Toko online Aza Wear di Shopify dengan tema modern, tampilan produk bernuansa fashion, serta manajemen ukuran dan varian. Dibangun supaya bisa berkembang ngikutin stok fashion, dengan pengalaman belanja yang elegan di semua perangkat.",
+    "challenge": "Aza Wear butuh toko flagship digital kelas atas yang mencerminkan posisi mewah mereka. Belanjanya harus terasa kayak mampir ke butik, dengan visual berkualitas tinggi dan interaksi yang halus.",
+    "solution": "Aku desain dan bikin tema Shopify premium yang fokus ke minimalis dan tipografi. Ada latar video beresolusi tinggi, transisi halaman yang halus, dan fitur 'shop the look' buat naikin nilai pesanan rata-rata.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Desain berbasis video",
+      "Fitur shop the look",
+      "Panduan ukuran lengkap",
+      "Integrasi wishlist",
+      "Dukungan banyak mata uang"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Rata-rata durasi sesi",
+      "Penjualan dari HP"
     ],
     "seo": {
       "title": "",
@@ -334,21 +334,21 @@
     }
   },
   "split-bill-app": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Mobile",
+    "summary": "Aplikasi mobile yang bagi tagihan ke teman dalam hitungan detik.",
+    "description": "Aplikasi mobile yang gampang dipake buat patungan bayar tagihan bareng teman atau grup. Antarmukanya sederhana, hitungannya real-time, dan bisa dibagiin lewat media sosial.",
+    "challenge": "Orang butuh cara yang simpel buat bagi tagihan yang ribet ke teman-teman, tanpa repot bikin akun atau ngitung manual. Aplikasi yang ada sering berantakan atau maksa daftar dulu.",
+    "solution": "Aku bikin aplikasi web mobile yang ringan dan offline-first pakai React. Tampilannya minimal biar tagihan bisa dibagi dalam hitungan detik. Datanya disimpen di perangkat, jadi gak butuh akun di backend.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Scan struk dengan OCR",
+      "Hitungan real-time",
+      "Link tagihan yang bisa dibagi",
+      "Bisa dipake offline",
+      "Dukungan dark mode"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Pengguna aktif",
+      "Tagihan yang dibagi"
     ],
     "seo": {
       "title": "",
@@ -356,21 +356,21 @@
     }
   },
   "state-medical-equipment": {
-    "category": "",
-    "summary": "",
-    "description": "",
-    "challenge": "",
-    "solution": "",
+    "category": "Toko Online",
+    "summary": "Katalog Shopify B2B buat alat kesehatan, lengkap dengan spesifikasi produk.",
+    "description": "Toko online State Medical Equipment di Shopify, dengan tema custom, manajemen katalog, spesifikasi alat kesehatan, dan solusi B2B yang disesuaikan buat industri kesehatan.",
+    "challenge": "State Medical Equipment butuh toko online berfokus B2B yang bisa nangani spesifikasi medis yang rumit, pemesanan dalam jumlah besar, dan syarat kepatuhan yang ketat, tapi tetap gampang dipake tim pengadaan rumah sakit.",
+    "solution": "Aku bikin toko Shopify Plus khusus dengan logika B2B custom: sistem permintaan penawaran, harga bertingkat berdasarkan grup pelanggan, dan lembar spesifikasi produk yang detail.",
     "features": [
-      "",
-      "",
-      "",
-      "",
-      ""
+      "Portal pelanggan B2B",
+      "Sistem permintaan penawaran",
+      "Harga bertingkat",
+      "Alat pesan massal",
+      "Manajemen dokumen kepatuhan"
     ],
     "metricLabels": [
-      "",
-      ""
+      "Pesanan B2B",
+      "Konversi penawaran"
     ],
     "seo": {
       "title": "",
