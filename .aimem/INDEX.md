@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 31 (active 31)
-- handoff: 39 (final 39)
+- handoff: 40 (final 40)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-wbd6287j 2026-11-08 (human:akbar) — Done: Committed the Bahasa navigation animation fix, design note and related project records in 8db5518. The staged whitespace check passed. · Next: None
 - hnd-b17t82vs 2026-11-08 (human:akbar) — Done: Normalized desktop navbar transition names with basePath and documented the behavior. Production build generated 48 pages on retry. Headless Chrome verified notch and active link animations on…
 - hnd-9exb7xtr 2026-11-08 (human:akbar) — Done: Committed public site controls, shared footers, Pencil updates and related project records in d22ddfa. Production build generated 48 pages and the staged whitespace check passed. · Next: None.
 - hnd-sr6bxw6c 2026-11-08 (human:akbar) — Done: Synced refined canvas controls and Journal/About headers into website. Added components/site/button.tsx with Button, ButtonLink and labelled IconButton; migrated public CTAs, contact submit/cop…
 - hnd-5gbaq70h 2026-11-08 (human:akbar) — Done: Refined canvas components on board 03D VWFMc: 55 reusable masters/variants within library, connected page-title compositions, project/journal/service entries (115 placements), folder shells (57…
-- hnd-7761ez6y 2026-11-08 (human:akbar) — Done: Synced shared footer to code: ContactStrip now composes reusable FooterAction with stamp only; Contact retains Work link; Services overview reuses ContactStrip. Shared CSS matches canvas Tanker…
