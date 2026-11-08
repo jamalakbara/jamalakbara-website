@@ -128,6 +128,8 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 
 ## 6. Motion
 
+- **Navigation:** the desktop notch and links glide between routes during a View Transition. Link transition names use the locale-independent route so shared links keep the same animation in English and Bahasa. Reduced motion uses standard navigation.
+
 - **Aurora** (`components/site/aurora.tsx`): WebGL port of `shaders/folder-aurora.glsl` with `u_motion` 0.6. It renders at 1/8 resolution and 15 fps, pauses when the tab is hidden, and is static under `prefers-reduced-motion`. Without WebGL it falls back to a CSS gradient.
 - **Hero stamp:** a 3 s press-and-settle loop (`@keyframes f-stamp-settle`), static under reduced motion.
 - **Splash intro** (`components/site/splash.tsx`, once per session): paper overlay; JAMAL AKBAR ALAM types letter by letter (~65 ms + jitter, blinking caret) — each word stays one text run, like the hero, so Comico shapes it the same way (kerning + contextual alternates); letters are revealed by clipping, never split into spans, the stamp slams onto the middle of the name at 2.2× size, above the letters (f-thunk shape, scale 1.7 → 0.94 → 1, letters jolt), then shrinks and glides into its slot between JAMAL and AKBAR (700 ms layout move). On home the lockup then FLIPs onto the real hero name (stamp-ratio scale, 750 ms) while the paper fades; other routes lift + fade. Always plays through (no skip). Gated before paint by an inline script in `app/[lang]/layout.tsx` (`html[data-splash]` = run/off/done); off under reduced motion, never shown without JS. Page entrances stay paused under it.

@@ -328,7 +328,7 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
       key={l.href}
       href={l.href}
       className="f-navlink"
-      style={{ viewTransitionName: `f-nav-${l.href.slice(1) || "home"}` }}
+      style={{ viewTransitionName: `f-nav-${basePath(l.href).slice(1) || "home"}` }}
       aria-current={isActive(l.href) ? "page" : undefined}
       onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
     >
