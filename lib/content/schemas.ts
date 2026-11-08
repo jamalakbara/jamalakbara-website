@@ -74,6 +74,7 @@ export const servicePageSchema = z.object({
   sections: z.array(z.object({ heading: z.string().min(1), body: z.string().min(1) })),
   faq: z.array(z.object({ question: z.string().min(1), answer: z.string().min(1) })),
   cta: z.object({ heading: z.string().min(1), label: z.string().min(1) }),
+  summary: z.object({ label: z.string(), description: z.string(), price: z.string() }).optional(),
   seo: z.object({ title: z.string(), description: z.string() }),
 });
 

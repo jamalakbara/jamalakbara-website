@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 29 (active 29)
-- handoff: 28 (final 28)
+- handoff: 30 (final 30)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-ngsgzp8j 2026-11-08 (human:akbar) — Done: Prepared the pending bilingual Services overview and folder tab, including Pencil frames, for a single commit. Production build passed. · Next: Review the committed Services overview.
+- hnd-p522hc8g 2026-11-08 (human:akbar) — Done: Added a flush-left 01 Folder tab to the shared Services index, and updated the two existing Pencil overview frames first. TypeScript and diff check passed. · Next: Review both Services locales.
 - hnd-ce6t1a2c 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Added English /services overview. Page now serves both languages; hardcoded Bahasa strings moved to ui.services (EN + id overlay) and per-page summary in service-pages.json (schema, type, admin…
 - hnd-gdtnkjcy 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Published three EN service pages (draft:false), committed locally, verified on running dev server: 200, unique title, self canonical, no spurious hreflang, JSON-LD LocalBusiness, in sitemap, li…
 - hnd-dv1qckpg 2026-11-08 (human:akbar) — Done: Reviewed the Services overview, shared navigation, Pencil frames, and associated project memory for the requested commit on feat/bilingual. · Next: Review the committed Services changes.
-- hnd-b297nkgj 2026-11-08 (human:akbar) — Done: Added existing Dev Laptop and Build With Care artwork to the Services header in Pencil first, then code. Tablet and phone use Dev Laptop alone. Verified Pencil screenshots, local desktop render…
-- hnd-rsrqk7ky 2026-11-08 (human:akbar) — Done: Refined Services title panel in Pencil frames 42/42M first, then matched the code to public paper and ink tokens and detail-page heading sizes. Reviewed both Pencil frames and local desktop ren…

@@ -1246,8 +1246,7 @@ textarea.f-input { resize: none; }
 .f-services-stickers { inset-inline: calc(50% - 92px) auto; width: 177px; }
 .f-services-stickers--compact { display: none; }
 .f-services-index { padding: 24px var(--services-inset) 12px; }
-.f-services-index__head { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; }
-.f-services-index__head h2 { font-size: 13px; }
+.f-services-index__head { display: flex; justify-content: flex-end; padding-bottom: 14px; }
 .f-services-list { padding: 0; margin: 0; list-style: none; }
 .f-services-list > li { border-top: 1px solid var(--f-line); }
 .f-services-row {

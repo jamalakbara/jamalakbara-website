@@ -67,6 +67,8 @@ export interface ServicePage {
   sections: { heading: string; body: string }[];
   faq: { question: string; answer: string }[];
   cta: { heading: string; label: string };
+  /** row on the /services overview; blank falls back to title and intro */
+  summary?: { label: string; description: string; price: string };
   seo: { title: string; description: string };
 }
 

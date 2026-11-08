@@ -304,7 +304,17 @@
       "tab": "SERVICES",
       "toc": "DI HALAMAN INI",
       "faq": "Pertanyaan umum",
-      "more": "Services"
+      "more": "Services",
+      "eyebrow": "Design & Development / Bandung",
+      "overviewTitle": "Services",
+      "overviewDescription": "Aku bantu kalian bikin website, toko online, dan aplikasi mobile, dari desain sampai live.",
+      "seoTitle": "Services",
+      "seoDescription": "Aku bantu kalian bikin website, toko online, dan aplikasi mobile, dari desain sampai live.",
+      "listHeading": "Daftar Layanan",
+      "countLabel": "Layanan",
+      "detail": "Lihat detail",
+      "contactHeading": "Udah ada ide project?",
+      "contactCta": "Ceritain project kalian"
     },
     "privacy": {
       "label": "LEGAL / PRIVASI",

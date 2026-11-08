@@ -1,65 +1,52 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { Folder } from "@/components/site/folder";
 import { ArrowRight } from "@/components/site/icons";
 import { Stickers } from "@/components/site/sticker";
 import { getSite } from "@/lib/i18n";
+import { isLang, type Lang } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
 
-const title = "Services";
-const description = "Aku bantu kalian bikin website, toko online, dan aplikasi mobile, dari desain sampai live.";
-
-const summaries: Record<string, { label: string; description: string; price: string }> = {
-  "jasa-website-bandung": {
-    label: "Website Custom",
-    description: "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
-    price: "Mulai dari Rp3 juta",
-  },
-  "jasa-pembuatan-website-company-profile": {
-    label: "Company Profile",
-    description: "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
-    price: "Mulai dari Rp6 juta",
-  },
-  "jasa-pembuatan-landing-page": {
-    label: "Landing Page",
-    description: "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
-    price: "Mulai dari Rp3 juta",
-  },
-  "jasa-pembuatan-website-toko-online": {
-    label: "Toko Online",
-    description: "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
-    price: "Mulai dari Rp10 juta",
-  },
-  "jasa-pembuatan-aplikasi-mobile": {
-    label: "Aplikasi Mobile",
-    description: "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
-    price: "Mulai dari Rp25 juta",
-  },
-};
+// Services overview. Row copy comes from each page's `summary` in
+// content/service-pages.json (/admin/service-pages); the rest from ui.services.
 
 export async function generateMetadata({ params }: PageProps<"/[lang]/services">): Promise<Metadata> {
-  if ((await params).lang !== "id" || !getSite("id").services.length) return {};
-  const alternates = alternatesFor("id", "/services", null);
+  const { lang } = await params;
+  if (!isLang(lang)) return {};
+  const site = getSite(lang);
+  if (!site.services.length) return {};
+  const t = site.ui.services;
+  const other: Lang = lang === "en" ? "id" : "en";
+  const alternates = alternatesFor(lang, "/services", getSite(other).services.length ? "/services" : null);
   return {
-    title,
-    description,
+    title: t.seoTitle,
+    description: t.seoDescription,
     alternates,
-    openGraph: { title, description, url: alternates.canonical, locale: "id_ID" },
-    twitter: { title, description },
+    openGraph: {
+      title: t.seoTitle,
+      description: t.seoDescription,
+      url: alternates.canonical,
+      ...(lang === "id" ? { locale: "id_ID" } : {}),
+    },
+    twitter: { title: t.seoTitle, description: t.seoDescription },
   };
 }
 
 export default async function ServicesPage({ params }: PageProps<"/[lang]/services">) {
-  const site = getSite("id");
-  if ((await params).lang !== "id" || !site.services.length) notFound();
+  const { lang } = await params;
+  if (!isLang(lang)) notFound();
+  const site = getSite(lang);
+  if (!site.services.length) notFound();
+  const t = site.ui.services;
 
   return (
     <div className="f-services">
       <header className="f-panel f-services-hero">
-        <p className="f-meta f-muted">Design &amp; Development / Bandung</p>
+        <p className="f-meta f-muted">{t.eyebrow}</p>
         <div className="f-services-intro">
-          <h1 className="f-display f-display--caps">{title}</h1>
-          <p className="f-body">{description}</p>
+          <h1 className="f-display f-display--caps">{t.overviewTitle}</h1>
+          <p className="f-body">{t.overviewDescription}</p>
         </div>
         <Stickers
           className="f-stickers f-services-stickers"
@@ -73,14 +60,16 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
           spots={[{ name: "dev-laptop", x: 0, y: 25, w: 72, h: 65.4, r: -10 }]}
         />
       </header>
-      <section className="f-panel f-services-index" aria-labelledby="service-index-heading">
+      <Folder tab={t.listHeading} n="01" bodyClassName="f-services-index" labelledBy="service-index-heading">
+        <h2 id="service-index-heading" className="sr-only">{t.listHeading}</h2>
         <div className="f-services-index__head">
-          <h2 id="service-index-heading" className="f-tabtext">Daftar Layanan</h2>
-          <span className="f-meta f-muted">{String(site.services.length).padStart(2, "0")} Layanan</span>
+          <span className="f-meta f-muted">
+            {String(site.services.length).padStart(2, "0")} {t.countLabel}
+          </span>
         </div>
         <ol className="f-services-list" role="list">
           {site.services.map((page, index) => {
-            const summary = summaries[page.slug];
+            const summary = page.summary;
             return (
               <li key={page.slug}>
                 <Link href={site.path(`/services/${page.slug}`)} className="f-services-row">
@@ -88,9 +77,9 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <div className="f-services-row__info">
-                    <h3 className="f-title">{summary?.label ?? page.title}</h3>
-                    <p className="f-body">{summary?.description ?? page.intro}</p>
-                    <span className="f-action">{summary?.price ?? "Lihat detail"}</span>
+                    <h3 className="f-title">{summary?.label.trim() || page.title}</h3>
+                    <p className="f-body">{summary?.description.trim() || page.intro}</p>
+                    <span className="f-action">{summary?.price.trim() || t.detail}</span>
                   </div>
                   <ArrowRight size={20} />
                 </Link>
@@ -98,11 +87,11 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
             );
           })}
         </ol>
-      </section>
+      </Folder>
       <section className="f-panel f-services-contact">
-        <h2 className="f-display f-display--caps">Udah ada ide project?</h2>
+        <h2 className="f-display f-display--caps">{t.contactHeading}</h2>
         <Link href={site.path("/contact")} className="f-btn f-btn--primary">
-          Ceritain project kalian
+          {t.contactCta}
           <ArrowRight size={16} />
         </Link>
       </section>

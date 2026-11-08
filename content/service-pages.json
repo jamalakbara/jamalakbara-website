@@ -70,6 +70,11 @@
       "heading": "Punya rencana bikin website?",
       "label": "Coba ceritain ke aku"
     },
+    "summary": {
+      "label": "Website Custom",
+      "description": "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
+      "price": "Mulai dari Rp3 juta"
+    },
     "seo": {
       "title": "Jasa Website Bandung, Mulai Rp3 Juta",
       "description": "Jasa pembuatan website Bandung untuk company profile, landing page, dan toko online. Desain dan development dikerjain langsung sama Akbar, bukan template."
@@ -145,6 +150,11 @@
     "cta": {
       "heading": "Mau company profile baru?",
       "label": "Coba ceritain ke aku"
+    },
+    "summary": {
+      "label": "Company Profile",
+      "description": "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
+      "price": "Mulai dari Rp6 juta"
     },
     "seo": {
       "title": "Jasa Pembuatan Website Company Profile",
@@ -222,6 +232,11 @@
       "heading": "Punya campaign yang mau di-launch?",
       "label": "Coba ceritain ke aku"
     },
+    "summary": {
+      "label": "Landing Page",
+      "description": "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
+      "price": "Mulai dari Rp3 juta"
+    },
     "seo": {
       "title": "Jasa Landing Page, Mulai Rp3 Juta",
       "description": "Jasa pembuatan landing page dari Bandung untuk campaign, produk, atau acara. Dikerjain langsung sama Akbar: satu tujuan, cepat dibuka di HP."
@@ -297,6 +312,11 @@
     "cta": {
       "heading": "Mau mulai jualan online?",
       "label": "Coba ceritain ke aku"
+    },
+    "summary": {
+      "label": "Toko Online",
+      "description": "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
+      "price": "Mulai dari Rp10 juta"
     },
     "seo": {
       "title": "Jasa Pembuatan Website Toko Online",
@@ -374,6 +394,11 @@
       "heading": "Punya ide aplikasi?",
       "label": "Coba ceritain ke aku"
     },
+    "summary": {
+      "label": "Aplikasi Mobile",
+      "description": "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
+      "price": "Mulai dari Rp25 juta"
+    },
     "seo": {
       "title": "Jasa Pembuatan Aplikasi, Mulai Rp25 Juta",
       "description": "Jasa pembuatan aplikasi mobile Android dan iOS dari Bandung, pake React Native. Desain dan development langsung sama Akbar."
@@ -446,6 +471,11 @@
       "heading": "Have a project in mind?",
       "label": "Tell me about it"
     },
+    "summary": {
+      "label": "React & Next.js Developer",
+      "description": "For founders, agencies and teams that need a frontend or a first version built by one person.",
+      "price": "From $2,500"
+    },
     "seo": {
       "title": "Hire a React & Next.js Developer",
       "description": "Hire a React and Next.js developer for websites and web apps. Design and code by one person in Bandung (UTC+7), with a clear scope and price upfront."
@@ -513,6 +543,11 @@
     "cta": {
       "heading": "Is your site holding you back?",
       "label": "Send me the link"
+    },
+    "summary": {
+      "label": "Website Redesign",
+      "description": "A faster, clearer rebuild of a dated site, with redirects that protect what already works.",
+      "price": "From $1,200"
     },
     "seo": {
       "title": "Website Redesign Services",
@@ -585,6 +620,11 @@
     "cta": {
       "heading": "Planning a website for your business?",
       "label": "Tell me about it"
+    },
+    "summary": {
+      "label": "Business Website",
+      "description": "A credible company site that explains what you do and makes it easy to get in touch.",
+      "price": "From $900"
     },
     "seo": {
       "title": "Small Business Web Design",

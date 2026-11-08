@@ -190995,48 +190995,53 @@
         },
         {
           "type": "frame",
-          "id": "bAUyo",
-          "name": "Service index",
+          "id": "TNSmg",
+          "name": "All services folder",
           "width": "fill_container",
-          "fill": "$folder-paper",
-          "cornerRadius": 12,
           "layout": "vertical",
           "padding": [
-            24,
-            40,
             12,
-            40
+            0,
+            0,
+            0
           ],
           "children": [
             {
               "type": "frame",
-              "id": "q1hVZ",
-              "name": "Index labels",
-              "width": "fill_container",
-              "padding": [
+              "id": "idGRo",
+              "name": "Folder tab",
+              "width": 220,
+              "height": 36,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
                 0,
-                0,
-                14,
                 0
               ],
+              "padding": [
+                0,
+                16
+              ],
               "justifyContent": "space_between",
+              "alignItems": "center",
               "children": [
                 {
                   "type": "text",
-                  "id": "bKY4s",
-                  "name": "Index title",
+                  "id": "Ed66P",
+                  "name": "Folder title",
                   "fill": "$folder-ink",
                   "content": "DAFTAR LAYANAN",
                   "fontFamily": "Anton",
-                  "fontSize": 13,
+                  "fontSize": 12,
                   "fontWeight": "normal"
                 },
                 {
                   "type": "text",
-                  "id": "BNrxV",
-                  "name": "Index count",
-                  "fill": "#6E695F",
-                  "content": "05 LAYANAN",
+                  "id": "oGcpe",
+                  "name": "Folder number",
+                  "fill": "$folder-ink",
+                  "content": "01",
                   "fontFamily": "Newsreader",
                   "fontSize": 12,
                   "fontWeight": "normal"
@@ -191044,472 +191049,519 @@
               ]
             },
             {
-              "type": "rectangle",
-              "id": "g4PqRM",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
               "type": "frame",
-              "id": "r44PVl",
-              "name": "Website Custom",
+              "id": "bAUyo",
+              "name": "Service index",
               "width": "fill_container",
-              "height": 90,
-              "gap": 24,
-              "padding": [
-                20,
-                0
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
               ],
-              "alignItems": "center",
+              "layout": "vertical",
+              "padding": [
+                24,
+                40,
+                12,
+                40
+              ],
               "children": [
                 {
-                  "type": "text",
-                  "id": "dDcRh",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 48,
-                  "content": "01",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
-                },
-                {
                   "type": "frame",
-                  "id": "K8tUqk",
-                  "name": "Service information",
+                  "id": "q1hVZ",
+                  "name": "Index labels",
                   "width": "fill_container",
-                  "gap": 24,
-                  "alignItems": "center",
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ],
+                  "justifyContent": "end",
                   "children": [
                     {
                       "type": "text",
-                      "id": "MOzHT",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": 264,
-                      "content": "WEBSITE CUSTOM",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 30,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "q7clup",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
-                      "lineHeight": 1.48,
+                      "id": "BNrxV",
+                      "name": "Index count",
+                      "fill": "#6E695F",
+                      "content": "05 LAYANAN",
                       "fontFamily": "Newsreader",
-                      "fontSize": 18,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "xQINs",
-                      "name": "Starting price",
-                      "fill": "#2445DB",
-                      "textGrowth": "fixed-width",
-                      "width": 168,
-                      "content": "Mulai dari Rp3 juta",
-                      "lineHeight": 1.4,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 12,
                       "fontWeight": "normal"
                     }
                   ]
                 },
                 {
-                  "id": "TsaUn",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "bLJUt",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "wzjmE",
-              "name": "Company Profile",
-              "width": "fill_container",
-              "height": 90,
-              "gap": 24,
-              "padding": [
-                20,
-                0
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "gbv14",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 48,
-                  "content": "02",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "g4PqRM",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "c8dm4",
-                  "name": "Service information",
+                  "id": "r44PVl",
+                  "name": "Website Custom",
                   "width": "fill_container",
+                  "height": 90,
                   "gap": 24,
+                  "padding": [
+                    20,
+                    0
+                  ],
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
-                      "id": "A82qM",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": 264,
-                      "content": "COMPANY PROFILE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 30,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "vCkl2",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 18,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "l4WwrB",
-                      "name": "Starting price",
+                      "id": "dDcRh",
+                      "name": "Entry number",
                       "fill": "#2445DB",
                       "textGrowth": "fixed-width",
-                      "width": 168,
-                      "content": "Mulai dari Rp6 juta",
+                      "width": 48,
+                      "content": "01",
                       "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "K8tUqk",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "MOzHT",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": 264,
+                          "content": "WEBSITE CUSTOM",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 30,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "q7clup",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "xQINs",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "textGrowth": "fixed-width",
+                          "width": 168,
+                          "content": "Mulai dari Rp3 juta",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "TsaUn",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "h43q8v",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "xUPNk",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "gHEJX",
-              "name": "Landing Page",
-              "width": "fill_container",
-              "height": 90,
-              "gap": 24,
-              "padding": [
-                20,
-                0
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "DK5oc",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 48,
-                  "content": "03",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "bLJUt",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "L2N98E",
-                  "name": "Service information",
+                  "id": "wzjmE",
+                  "name": "Company Profile",
                   "width": "fill_container",
+                  "height": 90,
                   "gap": 24,
+                  "padding": [
+                    20,
+                    0
+                  ],
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
-                      "id": "qCCUU",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": 264,
-                      "content": "LANDING PAGE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 30,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "B8X4Ka",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 18,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "FVu4F",
-                      "name": "Starting price",
+                      "id": "gbv14",
+                      "name": "Entry number",
                       "fill": "#2445DB",
                       "textGrowth": "fixed-width",
-                      "width": 168,
-                      "content": "Mulai dari Rp3 juta",
+                      "width": 48,
+                      "content": "02",
                       "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "c8dm4",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "A82qM",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": 264,
+                          "content": "COMPANY PROFILE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 30,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "vCkl2",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "l4WwrB",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "textGrowth": "fixed-width",
+                          "width": 168,
+                          "content": "Mulai dari Rp6 juta",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "h43q8v",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "WjpKz",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "x4Ehq",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "WAjsH",
-              "name": "Toko Online",
-              "width": "fill_container",
-              "height": 90,
-              "gap": 24,
-              "padding": [
-                20,
-                0
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "eWQck",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 48,
-                  "content": "04",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "xUPNk",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "aGGc5",
-                  "name": "Service information",
+                  "id": "gHEJX",
+                  "name": "Landing Page",
                   "width": "fill_container",
+                  "height": 90,
                   "gap": 24,
+                  "padding": [
+                    20,
+                    0
+                  ],
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
-                      "id": "SnIik",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": 264,
-                      "content": "TOKO ONLINE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 30,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "FIhjg",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 18,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "WDQ7t",
-                      "name": "Starting price",
+                      "id": "DK5oc",
+                      "name": "Entry number",
                       "fill": "#2445DB",
                       "textGrowth": "fixed-width",
-                      "width": 168,
-                      "content": "Mulai dari Rp10 juta",
+                      "width": 48,
+                      "content": "03",
                       "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "L2N98E",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "qCCUU",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": 264,
+                          "content": "LANDING PAGE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 30,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "B8X4Ka",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "FVu4F",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "textGrowth": "fixed-width",
+                          "width": 168,
+                          "content": "Mulai dari Rp3 juta",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "WjpKz",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "d4waU",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "qYBL1",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "ATQRD",
-              "name": "Aplikasi Mobile",
-              "width": "fill_container",
-              "height": 90,
-              "gap": 24,
-              "padding": [
-                20,
-                0
-              ],
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "BjXOS",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 48,
-                  "content": "05",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "x4Ehq",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "luTfj",
-                  "name": "Service information",
+                  "id": "WAjsH",
+                  "name": "Toko Online",
                   "width": "fill_container",
+                  "height": 90,
                   "gap": 24,
+                  "padding": [
+                    20,
+                    0
+                  ],
                   "alignItems": "center",
                   "children": [
                     {
                       "type": "text",
-                      "id": "T7EX5S",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": 264,
-                      "content": "APLIKASI MOBILE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 30,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "gCrSv",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 18,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "P4Tq4",
-                      "name": "Starting price",
+                      "id": "eWQck",
+                      "name": "Entry number",
                       "fill": "#2445DB",
                       "textGrowth": "fixed-width",
-                      "width": 168,
-                      "content": "Mulai dari Rp25 juta",
+                      "width": 48,
+                      "content": "04",
                       "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "aGGc5",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SnIik",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": 264,
+                          "content": "TOKO ONLINE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 30,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "FIhjg",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "WDQ7t",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "textGrowth": "fixed-width",
+                          "width": 168,
+                          "content": "Mulai dari Rp10 juta",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "d4waU",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "r4b4NQ",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
+                  "type": "rectangle",
+                  "id": "qYBL1",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "ATQRD",
+                  "name": "Aplikasi Mobile",
+                  "width": "fill_container",
+                  "height": 90,
+                  "gap": 24,
+                  "padding": [
+                    20,
+                    0
+                  ],
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "BjXOS",
+                      "name": "Entry number",
+                      "fill": "#2445DB",
+                      "textGrowth": "fixed-width",
+                      "width": 48,
+                      "content": "05",
+                      "lineHeight": 1.4,
+                      "fontFamily": "Newsreader",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "luTfj",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "gap": 24,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "T7EX5S",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": 264,
+                          "content": "APLIKASI MOBILE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 30,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "gCrSv",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 18,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "P4Tq4",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "textGrowth": "fixed-width",
+                          "width": 168,
+                          "content": "Mulai dari Rp25 juta",
+                          "lineHeight": 1.4,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "r4b4NQ",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
+                    }
+                  ]
                 }
               ]
             }
@@ -191985,48 +192037,53 @@
         },
         {
           "type": "frame",
-          "id": "EMs5P",
-          "name": "Service index",
+          "id": "w2yy15",
+          "name": "All services folder",
           "width": "fill_container",
-          "fill": "$folder-paper",
-          "cornerRadius": 12,
           "layout": "vertical",
           "padding": [
-            20,
-            16,
-            8,
-            16
+            12,
+            0,
+            0,
+            0
           ],
           "children": [
             {
               "type": "frame",
-              "id": "FStJf",
-              "name": "Index labels",
-              "width": "fill_container",
-              "padding": [
+              "id": "Mc5MD",
+              "name": "Folder tab",
+              "width": 150,
+              "height": 36,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                10,
+                10,
                 0,
-                0,
-                14,
                 0
               ],
+              "padding": [
+                0,
+                16
+              ],
               "justifyContent": "space_between",
+              "alignItems": "center",
               "children": [
                 {
                   "type": "text",
-                  "id": "reWzJ",
-                  "name": "Index title",
+                  "id": "erjl9",
+                  "name": "Folder title",
                   "fill": "$folder-ink",
                   "content": "DAFTAR LAYANAN",
                   "fontFamily": "Anton",
-                  "fontSize": 13,
+                  "fontSize": 12,
                   "fontWeight": "normal"
                 },
                 {
                   "type": "text",
-                  "id": "sgyHv",
-                  "name": "Index count",
-                  "fill": "#6E695F",
-                  "content": "05 LAYANAN",
+                  "id": "SHUXn",
+                  "name": "Folder number",
+                  "fill": "$folder-ink",
+                  "content": "01",
                   "fontFamily": "Newsreader",
                   "fontSize": 12,
                   "fontWeight": "normal"
@@ -192034,447 +192091,494 @@
               ]
             },
             {
-              "type": "rectangle",
-              "id": "RxZTG",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
               "type": "frame",
-              "id": "mjMSP",
-              "name": "Website Custom",
+              "id": "EMs5P",
+              "name": "Service index",
               "width": "fill_container",
-              "gap": 12,
+              "fill": "$folder-paper",
+              "cornerRadius": [
+                0,
+                12,
+                12,
+                12
+              ],
+              "layout": "vertical",
               "padding": [
+                20,
                 16,
-                0
+                8,
+                16
               ],
               "children": [
                 {
-                  "type": "text",
-                  "id": "WYR0D",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 24,
-                  "content": "01",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
-                },
-                {
                   "type": "frame",
-                  "id": "VGoNZ",
-                  "name": "Service information",
+                  "id": "FStJf",
+                  "name": "Index labels",
                   "width": "fill_container",
-                  "layout": "vertical",
-                  "gap": 6,
+                  "padding": [
+                    0,
+                    0,
+                    14,
+                    0
+                  ],
+                  "justifyContent": "end",
                   "children": [
                     {
                       "type": "text",
-                      "id": "O5M2US",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "WEBSITE CUSTOM",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 22,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "d5co1X",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
-                      "lineHeight": 1.48,
+                      "id": "sgyHv",
+                      "name": "Index count",
+                      "fill": "#6E695F",
+                      "content": "05 LAYANAN",
                       "fontFamily": "Newsreader",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "nlKtX",
-                      "name": "Starting price",
-                      "fill": "#2445DB",
-                      "content": "Mulai dari Rp3 juta",
-                      "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 12,
                       "fontWeight": "normal"
                     }
                   ]
                 },
                 {
-                  "id": "FJuxZ",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "Df07e",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "kGX8n",
-              "name": "Company Profile",
-              "width": "fill_container",
-              "gap": 12,
-              "padding": [
-                16,
-                0
-              ],
-              "children": [
-                {
-                  "type": "text",
-                  "id": "ebn62",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 24,
-                  "content": "02",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "RxZTG",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "ytUQC",
-                  "name": "Service information",
+                  "id": "mjMSP",
+                  "name": "Website Custom",
                   "width": "fill_container",
-                  "layout": "vertical",
-                  "gap": 6,
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    0
+                  ],
                   "children": [
                     {
                       "type": "text",
-                      "id": "PYphw",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "COMPANY PROFILE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 22,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "E9dOb",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "hzDNs",
-                      "name": "Starting price",
+                      "id": "WYR0D",
+                      "name": "Entry number",
                       "fill": "#2445DB",
-                      "content": "Mulai dari Rp6 juta",
+                      "textGrowth": "fixed-width",
+                      "width": 24,
+                      "content": "01",
+                      "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VGoNZ",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "O5M2US",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "WEBSITE CUSTOM",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 22,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "d5co1X",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat kalian yang butuh website dan pengen ngobrol dulu soal fitur dan bentuknya.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "nlKtX",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "content": "Mulai dari Rp3 juta",
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "FJuxZ",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "E7CLab",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "ZzMcK",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "k88RM",
-              "name": "Landing Page",
-              "width": "fill_container",
-              "gap": 12,
-              "padding": [
-                16,
-                0
-              ],
-              "children": [
-                {
-                  "type": "text",
-                  "id": "u1laLQ",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 24,
-                  "content": "03",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "Df07e",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "WrYhO",
-                  "name": "Service information",
+                  "id": "kGX8n",
+                  "name": "Company Profile",
                   "width": "fill_container",
-                  "layout": "vertical",
-                  "gap": 6,
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    0
+                  ],
                   "children": [
                     {
                       "type": "text",
-                      "id": "r28D4",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "LANDING PAGE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 22,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "zZJDN",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "D18Mwe",
-                      "name": "Starting price",
+                      "id": "ebn62",
+                      "name": "Entry number",
                       "fill": "#2445DB",
-                      "content": "Mulai dari Rp3 juta",
+                      "textGrowth": "fixed-width",
+                      "width": 24,
+                      "content": "02",
+                      "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "ytUQC",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PYphw",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "COMPANY PROFILE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 22,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "E9dOb",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat bisnis yang mau ngenalin tim, layanan, dan cara calon klien bisa menghubungi kalian.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "hzDNs",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "content": "Mulai dari Rp6 juta",
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "E7CLab",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "KRnAY",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "lFgDM",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "p1VdJ",
-              "name": "Toko Online",
-              "width": "fill_container",
-              "gap": 12,
-              "padding": [
-                16,
-                0
-              ],
-              "children": [
-                {
-                  "type": "text",
-                  "id": "V08cL",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 24,
-                  "content": "04",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "ZzMcK",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "z3N7px",
-                  "name": "Service information",
+                  "id": "k88RM",
+                  "name": "Landing Page",
                   "width": "fill_container",
-                  "layout": "vertical",
-                  "gap": 6,
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    0
+                  ],
                   "children": [
                     {
                       "type": "text",
-                      "id": "xyCLU",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "TOKO ONLINE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 22,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "D4sgpP",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "iQ2Iu",
-                      "name": "Starting price",
+                      "id": "u1laLQ",
+                      "name": "Entry number",
                       "fill": "#2445DB",
-                      "content": "Mulai dari Rp10 juta",
+                      "textGrowth": "fixed-width",
+                      "width": 24,
+                      "content": "03",
+                      "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "WrYhO",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "r28D4",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "LANDING PAGE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 22,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "zZJDN",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Satu halaman buat promosi produk, campaign, atau pendaftaran event.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "D18Mwe",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "content": "Mulai dari Rp3 juta",
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "KRnAY",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "e4oBQ",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
-                }
-              ]
-            },
-            {
-              "type": "rectangle",
-              "id": "v4ZkI",
-              "name": "Divider",
-              "fill": "#D8D2C8",
-              "width": "fill_container",
-              "height": 1
-            },
-            {
-              "type": "frame",
-              "id": "SnLSd",
-              "name": "Aplikasi Mobile",
-              "width": "fill_container",
-              "gap": 12,
-              "padding": [
-                16,
-                0
-              ],
-              "children": [
-                {
-                  "type": "text",
-                  "id": "Ovewh",
-                  "name": "Entry number",
-                  "fill": "#2445DB",
-                  "textGrowth": "fixed-width",
-                  "width": 24,
-                  "content": "05",
-                  "lineHeight": 1.4,
-                  "fontFamily": "Newsreader",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "rectangle",
+                  "id": "lFgDM",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
                 },
                 {
                   "type": "frame",
-                  "id": "Om9FZ",
-                  "name": "Service information",
+                  "id": "p1VdJ",
+                  "name": "Toko Online",
                   "width": "fill_container",
-                  "layout": "vertical",
-                  "gap": 6,
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    0
+                  ],
                   "children": [
                     {
                       "type": "text",
-                      "id": "PzEH5",
-                      "name": "Service name",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "APLIKASI MOBILE",
-                      "lineHeight": 1.14,
-                      "fontFamily": "Anton",
-                      "fontSize": 22,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "vahsL",
-                      "name": "Who it is for",
-                      "fill": "$folder-ink",
-                      "textGrowth": "fixed-width",
-                      "width": "fill_container",
-                      "content": "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
-                      "lineHeight": 1.48,
-                      "fontFamily": "Newsreader",
-                      "fontSize": 16,
-                      "fontWeight": "normal"
-                    },
-                    {
-                      "type": "text",
-                      "id": "yL1Cv",
-                      "name": "Starting price",
+                      "id": "V08cL",
+                      "name": "Entry number",
                       "fill": "#2445DB",
-                      "content": "Mulai dari Rp25 juta",
+                      "textGrowth": "fixed-width",
+                      "width": 24,
+                      "content": "04",
+                      "lineHeight": 1.4,
                       "fontFamily": "Newsreader",
-                      "fontSize": 15,
+                      "fontSize": 14,
                       "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "z3N7px",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "xyCLU",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "TOKO ONLINE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 22,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "D4sgpP",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Buat kalian yang mau jualan lewat toko sendiri, pakai WooCommerce atau Shopify.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "iQ2Iu",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "content": "Mulai dari Rp10 juta",
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "e4oBQ",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
                     }
                   ]
                 },
                 {
-                  "id": "X3Rhtl",
-                  "type": "ref",
-                  "ref": "lq085",
-                  "name": "Open service",
-                  "width": 20,
-                  "height": 20,
-                  "fill": "#2445DB"
+                  "type": "rectangle",
+                  "id": "v4ZkI",
+                  "name": "Divider",
+                  "fill": "#D8D2C8",
+                  "width": "fill_container",
+                  "height": 1
+                },
+                {
+                  "type": "frame",
+                  "id": "SnLSd",
+                  "name": "Aplikasi Mobile",
+                  "width": "fill_container",
+                  "gap": 12,
+                  "padding": [
+                    16,
+                    0
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Ovewh",
+                      "name": "Entry number",
+                      "fill": "#2445DB",
+                      "textGrowth": "fixed-width",
+                      "width": 24,
+                      "content": "05",
+                      "lineHeight": 1.4,
+                      "fontFamily": "Newsreader",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Om9FZ",
+                      "name": "Service information",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 6,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "PzEH5",
+                          "name": "Service name",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "APLIKASI MOBILE",
+                          "lineHeight": 1.14,
+                          "fontFamily": "Anton",
+                          "fontSize": 22,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "vahsL",
+                          "name": "Who it is for",
+                          "fill": "$folder-ink",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Aplikasi Android dan iOS buat bisnis atau produk yang kalian kembangin.",
+                          "lineHeight": 1.48,
+                          "fontFamily": "Newsreader",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "yL1Cv",
+                          "name": "Starting price",
+                          "fill": "#2445DB",
+                          "content": "Mulai dari Rp25 juta",
+                          "fontFamily": "Newsreader",
+                          "fontSize": 15,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    },
+                    {
+                      "id": "X3Rhtl",
+                      "type": "ref",
+                      "ref": "lq085",
+                      "name": "Open service",
+                      "width": 20,
+                      "height": 20,
+                      "fill": "#2445DB"
+                    }
+                  ]
                 }
               ]
             }

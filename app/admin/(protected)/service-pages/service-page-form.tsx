@@ -47,6 +47,8 @@ export function ServicePageForm({ initial, pages }: { initial?: ServicePage; pag
   const set = <K extends keyof ServicePage>(key: K, value: ServicePage[K]) => setForm((f) => ({ ...f, [key]: value }));
   const setAt = <K extends "sections" | "faq">(key: K, i: number, patch: Partial<ServicePage[K][number]>) =>
     setForm((f) => ({ ...f, [key]: f[key].map((item, j) => (j === i ? { ...item, ...patch } : item)) }));
+  const setSummary = (patch: Partial<NonNullable<ServicePage["summary"]>>) =>
+    setForm((f) => ({ ...f, summary: { label: "", description: "", price: "", ...f.summary, ...patch } }));
   const removeAt = (key: "sections" | "faq", i: number) => setForm((f) => ({ ...f, [key]: f[key].filter((_, j) => j !== i) }));
 
   const seo = useMemo(() => servicePageSeo(form), [form]);
@@ -203,6 +205,30 @@ export function ServicePageForm({ initial, pages }: { initial?: ServicePage; pag
                 <input className="a-input" required value={form.cta.label} onChange={(e) => set("cta", { ...form.cta, label: e.target.value })} />
               </Field>
             </div>
+            <div className="a-row2">
+              <Field label="Overview label" help="Row title on the Services page. Blank uses the page title.">
+                <input
+                  className="a-input"
+                  value={form.summary?.label ?? ""}
+                  onChange={(e) => setSummary({ label: e.target.value })}
+                />
+              </Field>
+              <Field label="Overview price" help="Short line such as “From $900”. Blank shows a details link.">
+                <input
+                  className="a-input"
+                  value={form.summary?.price ?? ""}
+                  onChange={(e) => setSummary({ price: e.target.value })}
+                />
+              </Field>
+            </div>
+            <Field label="Overview description" count={form.summary?.description.length ?? 0} help="One sentence on the Services page. Blank uses the intro.">
+              <textarea
+                className="a-input"
+                rows={2}
+                value={form.summary?.description ?? ""}
+                onChange={(e) => setSummary({ description: e.target.value })}
+              />
+            </Field>
             <Field label="SEO title" count={form.seo.title.length} max={40} help="Shows as “… | Jamal Akbar Alam”. Blank uses the page title.">
               <input className="a-input" value={form.seo.title} onChange={(e) => set("seo", { ...form.seo, title: e.target.value })} />
             </Field>

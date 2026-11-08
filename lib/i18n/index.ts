@@ -126,7 +126,7 @@ function buildSite(lang: Lang, previewUi?: unknown) {
     ui,
     path,
     nav: navigation
-      .filter((item) => item.href !== "/services" || (id && ID_PUBLISHED && services.length > 0))
+      .filter((item) => item.href !== "/services" || services.length > 0)
       .map((item) => ({ label: item.label, href: path(item.href) })),
     page,
     home: {

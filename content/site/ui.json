@@ -173,7 +173,17 @@
     "tab": "SERVICES",
     "toc": "ON THIS PAGE",
     "faq": "Questions",
-    "more": "Services"
+    "more": "Services",
+    "eyebrow": "Design & Development / Bandung",
+    "overviewTitle": "Services",
+    "overviewDescription": "I design and build websites, web apps and online stores, from the first sketch to launch.",
+    "seoTitle": "Web Development & Design Services",
+    "seoDescription": "Web development and design services: hire a React and Next.js developer, redesign a website, or get a small business site. Built by one person in Bandung.",
+    "listHeading": "All services",
+    "countLabel": "Services",
+    "detail": "See details",
+    "contactHeading": "Have a project in mind?",
+    "contactCta": "Tell me about it"
   },
   "privacy": {
     "label": "LEGAL / PRIVACY",

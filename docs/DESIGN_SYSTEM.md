@@ -13,7 +13,7 @@ The Interface Text preview shows the saved and current wording for the selected 
 
 ---
 
-The Bahasa Services overview is in Pencil frames 42 and 42M. The title panel uses the public paper and ink palette, with the same heading sizes as the service detail pages. Dev Laptop and Build With Care sit between the title and introduction on desktop. Tablet and mobile use a single Dev Laptop sticker in the upper-right corner. Below the title panel, a paper index aligns titles, descriptions and prices on desktop and stacks them on tablet and mobile. Cobalt accents the index and the project enquiry link.
+The Bahasa Services overview is in Pencil frames 42 and 42M. The title panel uses the public paper and ink palette, with the same heading sizes as the service detail pages. Dev Laptop and Build With Care sit between the title and introduction on desktop. Tablet and mobile use a single Dev Laptop sticker in the upper-right corner. Below the title panel, a flush-left folder tab labels the paper index, which aligns titles, descriptions and prices on desktop and stacks them on tablet and mobile. Cobalt accents the index and the project enquiry link.
 
 ## 1. Color tokens (`--f-*`, on `:root` in `app/folder-tokens.css`)
 
