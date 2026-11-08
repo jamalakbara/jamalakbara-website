@@ -10,9 +10,9 @@ Project: `jamalakbara` · mode: solo · sync: none
 3. END: run `aimem handoff` (Done / Not done / Next / Blocked). Supersede records, never delete them.
 
 ## Counts
-- decision: 11 (proposed 5, accepted 6)
-- memory: 28 (active 28)
-- handoff: 18 (final 18)
+- decision: 12 (proposed 5, accepted 7)
+- memory: 29 (active 29)
+- handoff: 21 (final 21)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-tzp46y58 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Ran English keyword, intent and competitor research with OpenSEO (US market, loc 2840). Wrote docs/SEO_KEYWORD_RESEARCH_EN.md, saved 28 keywords, logged research and 6 competitors in OpenSEO pr…
+- hnd-k04ccdbw 2026-11-08 (human:akbar) — Done: Added Bahasa Services overview, navbar and footer links, shared English page labels, and fixed static generation of service details. Build and standalone Bahasa route checks passed. · Next: Non…
+- hnd-ey0cz5k3 2026-11-08 (human:akbar) — Done: Traced public Services visibility on feat/bilingual: shared navigation has no Services item, home renders language-filtered service links, and all five pages are Indonesian. · Next: None.
 - hnd-p4hwv34j 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Rewrote Bahasa overlay in aku/kalian casual voice, wrote Bahasa privacy policy, translated 17 project overlays, set published true, committed everything on feat/bilingual in five commits. Build…
 - hnd-kqwyayev 2026-11-08 (human:akbar) — Done: Removed focus-triggered preview jumps and limited edit-triggered scrolling to the inner preview. Form validation prevents scroll on focus in preview. Production build and diff check passed. · N…
-- hnd-w7eqz0yd 2026-11-08 (human:akbar) — Done: Disabled smooth scrolling, stacked scroll effects, CSS animations and transitions, animated decorations, and cookie motion only in the Interface Text preview. Kept instant field jumps. Producti…
-- hnd-gcn8zf48 2026-11-08 (human:akbar) — Done: Interface Text preview follows the focused or edited field, shows saved/current copy, highlights unique visible matches or controls, and scrolls to them. Preview chooses appropriate views for s…
-- hnd-3gfyb4vq 2026-11-08 (human:akbar) — Done: Added an inline live site preview for every Interface Text group using the actual public site components. Production build and diff check passed. Chrome verified About, unsaved Privacy edits, u…
