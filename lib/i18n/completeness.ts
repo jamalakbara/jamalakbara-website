@@ -70,13 +70,12 @@ export function translationReport(input: {
   ui: typeof uiEn;
   pages: typeof pagesEn;
   aboutParagraphs: string[];
-  navigation: { label: string; href: string }[];
   projects: Project[];
   overlays: IdProjects;
   privacy: string;
   servicePages: ServicePage[];
 }): TranslationReport {
-  const { site, ui, pages, aboutParagraphs, navigation, projects, overlays, privacy, servicePages } = input;
+  const { site, ui, pages, aboutParagraphs, projects, overlays, privacy, servicePages } = input;
 
   const pageFields: { label: string; href: string; value: unknown }[] = [];
   const add = (label: string, href: string, value: unknown) => pageFields.push({ label, href, value });
@@ -95,9 +94,6 @@ export function translationReport(input: {
   });
   add("home: role line", siteTab("home"), site.tagline);
   add("home: location", siteTab("home"), site.location);
-  for (const item of navigation) {
-    add(`nav: ${item.label}`, siteTab("navigation"), site.navigation.find((n) => n.href === item.href)?.label);
-  }
   add("SEO: website description", "/admin/seo", site.seo.website.description);
   add("SEO: person description", "/admin/seo", site.seo.identity.description);
   add("SEO: business description", "/admin/seo", site.seo.business.description);

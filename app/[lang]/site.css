@@ -284,6 +284,8 @@
   top: 6px;
   left: 6px;
   right: 6px;
+  max-height: calc(100dvh - 12px);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -291,6 +293,7 @@
   transform: translateY(-8px);
   transition: opacity 240ms ease-out, transform 240ms ease-out;
 }
+.f-menu__stack > * { flex-shrink: 0; }
 .f-menu[data-open="true"] .f-menu__scrim,
 .f-menu[data-open="true"] .f-menu__stack { opacity: 1; transform: none; }
 .f-menu__item {
@@ -1223,6 +1226,81 @@ textarea.f-input { resize: none; }
 .f-svc-faq > div { display: flex; flex-direction: column; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--f-line); }
 .f-svc-faq h3 { font-weight: 400; }
 .f-svc-faq p { margin: 0; }
+
+.f-services {
+  --services-inset: var(--f-inset);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.f-services-hero {
+  position: relative;
+  display: grid;
+  gap: 20px;
+  padding: 24px var(--services-inset) 48px;
+}
+.f-services-hero .f-meta, .f-services-index__head, .f-services-row .f-title { text-transform: uppercase; }
+.f-services-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
+.f-services-intro h1 { font-size: 64px; line-height: 1.1; }
+.f-services-intro .f-body { max-width: 360px; }
+.f-services-stickers { inset-inline: calc(50% - 92px) auto; width: 177px; }
+.f-services-stickers--compact { display: none; }
+.f-services-index { padding: 24px var(--services-inset) 12px; }
+.f-services-index__head { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; }
+.f-services-index__head h2 { font-size: 13px; }
+.f-services-list { padding: 0; margin: 0; list-style: none; }
+.f-services-list > li { border-top: 1px solid var(--f-line); }
+.f-services-row {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 24px;
+  min-height: 90px;
+  padding-block: 20px;
+  color: var(--f-ink);
+  text-decoration: none;
+}
+.f-services-row__info {
+  display: grid;
+  grid-template-columns: minmax(0, 264px) minmax(0, 1fr) 168px;
+  align-items: center;
+  gap: 24px;
+}
+.f-services-row .f-title { font-size: 30px; line-height: 1.14; }
+.f-services-row :is(.f-title, .f-body) { overflow-wrap: anywhere; }
+.f-services-row :is(.f-action, .f-services-row__number, svg) { color: var(--f-accent); }
+.f-services-row__number { font-size: 14px; }
+.f-services-row:focus-visible { outline-offset: -2px; }
+@media (hover: hover) {
+  .f-services-row:hover { background: var(--f-note); }
+  .f-services-row:hover .f-title { color: var(--f-accent); }
+}
+.f-services-contact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 24px var(--services-inset);
+}
+.f-services-contact .f-display { font-size: 32px; }
+.f-services-contact .f-btn { gap: 12px; border-radius: 6px; text-transform: none; }
+@media (max-width: 1023px) {
+  .f-services-intro { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .f-services-hero .f-meta { padding-inline-end: 90px; }
+  .f-services-stickers { display: none; }
+  .f-services-stickers--compact { display: block; inset-inline: auto 30px; width: 72px; }
+  .f-services-row { grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 12px; align-items: start; padding-block: 16px; }
+  .f-services-row__info { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .f-services-row .f-title { font-size: 22px; }
+}
+@media (max-width: 767px) {
+  .f-services-hero { padding-block: 16px 32px; gap: 16px; }
+  .f-services-contact { flex-direction: column; align-items: flex-start; }
+  .f-services-intro h1 { font-size: 40px; }
+  .f-services-index { padding-block: 20px 8px; }
+  .f-services-contact { padding-block: 20px; }
+  .f-services-contact .f-display { font-size: 24px; }
+}
 .f-related { display: flex; flex-direction: column; padding-top: 32px; border-top: 1px solid var(--f-ink); }
 .f-related .f-case-h { padding-bottom: 8px; }
 .f-related__row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--f-line); transition: color 160ms ease-out; }

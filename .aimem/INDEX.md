@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 29 (active 29)
-- handoff: 23 (final 23)
+- handoff: 26 (final 26)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-dv1qckpg 2026-11-08 (human:akbar) — Done: Reviewed the Services overview, shared navigation, Pencil frames, and associated project memory for the requested commit on feat/bilingual. · Next: Review the committed Services changes.
+- hnd-b297nkgj 2026-11-08 (human:akbar) — Done: Added existing Dev Laptop and Build With Care artwork to the Services header in Pencil first, then code. Tablet and phone use Dev Laptop alone. Verified Pencil screenshots, local desktop render…
+- hnd-rsrqk7ky 2026-11-08 (human:akbar) — Done: Refined Services title panel in Pencil frames 42/42M first, then matched the code to public paper and ink tokens and detail-page heading sizes. Reviewed both Pencil frames and local desktop ren…
 - hnd-5hbzs17z 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Drafted three English service pages in content/service-pages.json (nextjs-react-developer, website-redesign, business-website), all draft:true. Schema and tsc pass. · Next: Owner confirms price…
 - hnd-a183hktv 2026-11-08 (human:akbar) — Done: Designed and saved Pencil frames 42/42M before implementing /id/services. Replaced card grid with cobalt hero, numbered service index, and Contact CTA. Production build and diff check passed; C…
-- hnd-tzp46y58 2026-11-08 (agent:claude-code:sonnet-5.5) — Done: Ran English keyword, intent and competitor research with OpenSEO (US market, loc 2840). Wrote docs/SEO_KEYWORD_RESEARCH_EN.md, saved 28 keywords, logged research and 6 competitors in OpenSEO pr…
-- hnd-k04ccdbw 2026-11-08 (human:akbar) — Done: Added Bahasa Services overview, navbar and footer links, shared English page labels, and fixed static generation of service details. Build and standalone Bahasa route checks passed. · Next: Non…
-- hnd-ey0cz5k3 2026-11-08 (human:akbar) — Done: Traced public Services visibility on feat/bilingual: shared navigation has no Services item, home renders language-filtered service links, and all five pages are Indonesian. · Next: None.

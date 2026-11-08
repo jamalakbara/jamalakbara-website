@@ -1,7 +1,7 @@
 import matter from "gray-matter";
 import { readJsonFile, readProjects, readTextFile } from "@/lib/admin/content-store";
 import { ui } from "@/lib/content";
-import type { NavLink, PagesContent } from "@/lib/content/schemas";
+import type { PagesContent } from "@/lib/content/schemas";
 import type { AboutContent, ServicePage } from "@/lib/content-types";
 import { translationReport, type IdProjects, type IdSite } from "@/lib/i18n/completeness";
 
@@ -17,13 +17,12 @@ export async function readIdPrivacy() {
 }
 
 export async function loadTranslationReport(overrides?: { site?: IdSite; privacy?: string }) {
-  const [site, overlays, privacy, pages, about, navigation, projects, servicePages] = await Promise.all([
+  const [site, overlays, privacy, pages, about, projects, servicePages] = await Promise.all([
     overrides?.site ?? readIdSite(),
     readIdProjects(),
     overrides?.privacy ?? readIdPrivacy().then((p) => p.body),
     readJsonFile<PagesContent>("content/site/pages.json"),
     readJsonFile<AboutContent>("content/site/about.json"),
-    readJsonFile<NavLink[]>("content/site/navigation.json"),
     readProjects(),
     readJsonFile<ServicePage[]>("content/service-pages.json"),
   ]);
@@ -32,7 +31,6 @@ export async function loadTranslationReport(overrides?: { site?: IdSite; privacy
     ui,
     pages,
     aboutParagraphs: about.description,
-    navigation,
     projects,
     overlays,
     privacy,

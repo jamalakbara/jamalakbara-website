@@ -296,25 +296,8 @@ export function SiteEditor(props: Props) {
               )}
 
               {bahasa && tab === "navigation" && (
-                <Group title="Navigation" note="Bahasa labels. Links and order follow the English list.">
-                  {navigation.map((item) => (
-                    <Field key={item.href} label={item.href}>
-                      <input
-                        className="a-input"
-                        placeholder={item.label}
-                        value={idSite.navigation.find((n) => n.href === item.href)?.label ?? ""}
-                        onChange={(e) =>
-                          setIdSite((d) => ({
-                            ...d,
-                            navigation: navigation.map((n) => ({
-                              href: n.href,
-                              label: n.href === item.href ? e.target.value : (d.navigation.find((x) => x.href === n.href)?.label ?? ""),
-                            })),
-                          }))
-                        }
-                      />
-                    </Field>
-                  ))}
+                <Group title="Navigation">
+                  <p className="a-meta a-muted">Edit the shared English labels and link order in the English tab.</p>
                 </Group>
               )}
 
@@ -437,7 +420,7 @@ export function SiteEditor(props: Props) {
               )}
 
               {!bahasa && tab === "navigation" && (
-                <Group title="Navigation" note="The folder nav on every public page, in this order.">
+                <Group title="Navigation" note="English labels and link order are shared across both languages. Services appears on the Bahasa site when service pages are live.">
                   <ListEditor
                     items={navigation}
                     onChange={setNavigation}

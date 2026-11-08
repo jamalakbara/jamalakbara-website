@@ -125,10 +125,9 @@ function buildSite(lang: Lang, previewUi?: unknown) {
     lang,
     ui,
     path,
-    nav: navigation.map((item) => ({
-      label: (id && idSite.navigation.find((n) => n.href === item.href)?.label.trim()) || item.label,
-      href: path(item.href),
-    })),
+    nav: navigation
+      .filter((item) => item.href !== "/services" || (id && ID_PUBLISHED && services.length > 0))
+      .map((item) => ({ label: item.label, href: path(item.href) })),
     page,
     home: {
       role: (id && idSite.tagline.trim()) || siteConfig.brand.tagline,

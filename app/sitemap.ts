@@ -73,5 +73,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ),
   )
 
-  return [...staticEntries, ...jurnalIndex, ...serviceEntries, ...caseEntries, ...postEntries]
+  const servicesOverview = getSite('id').services.length
+    ? [entry('id', '/services', { changeFrequency: 'monthly', priority: 0.9 }, null)]
+    : []
+
+  return [...staticEntries, ...jurnalIndex, ...servicesOverview, ...serviceEntries, ...caseEntries, ...postEntries]
 }

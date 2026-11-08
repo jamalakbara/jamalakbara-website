@@ -3,7 +3,7 @@
 **Last updated:** 2026-10-17. This replaces the dark cinematic system (2026-06) on the public site.
 
 **Sources of truth**
-- Canvas: Pencil `docs/design/jamalakbara.pen` (Working Folder v2). New frames (Nov 2026) use Anton and Newsreader as stand-ins for Tanker and Erode, so match them on layout, not glyphs: 33 case study, 34 service page, 35 Keep reading + home journal strip, 36 admin SEO, 37/38 admin service pages, 39 editor additions, 41 Translations, plus 36M–38M and 41M. Frame 40 is superseded: Bahasa uses the translated main nav, and `/id` frames get imported from the running site once the Bahasa copy is written. Reference frames: Home `QiOko` / `lYF3g`, Work `Pb8Dp` / `vs4kI`, About `BWDyJ` / `U7cNrD`, Contact `qlvWa` / `IWLZT`, Journal `NDBsB` / `b7j55z`, Article `m54Zq` / `c73NeH`, 404 `Y57IP` / `huATr`.
+- Canvas: Pencil `docs/design/jamalakbara.pen` (Working Folder v2). New frames (Nov 2026) use Anton and Newsreader as stand-ins for Tanker and Erode, so match them on layout, not glyphs: 33 case study, 34 service page, 35 Keep reading + home journal strip, 36 admin SEO, 37/38 admin service pages, 39 editor additions, 41 Translations, plus 36M–38M and 41M. Frame 40 is superseded: both languages share English main navigation labels, and `/id` frames get imported from the running site once the Bahasa copy is written. Reference frames: Home `QiOko` / `lYF3g`, Work `Pb8Dp` / `vs4kI`, About `BWDyJ` / `U7cNrD`, Contact `qlvWa` / `IWLZT`, Journal `NDBsB` / `b7j55z`, Article `m54Zq` / `c73NeH`, 404 `Y57IP` / `huATr`.
 - Designer spec + tokens, copied into the repo: `docs/design/working-folder-canvas-spec.md` and `docs/design/design-tokens.json`.
 - Code: `app/[lang]/site.css` holds the tokens and component classes. React building blocks live in `components/site/`.
 
@@ -12,6 +12,8 @@
 The Interface Text preview shows the saved and current wording for the selected field. A unique match gets a cobalt outline and an instant jump in the preview frame. Preview sections scroll normally with animations and transitions disabled.
 
 ---
+
+The Bahasa Services overview is in Pencil frames 42 and 42M. The title panel uses the public paper and ink palette, with the same heading sizes as the service detail pages. Dev Laptop and Build With Care sit between the title and introduction on desktop. Tablet and mobile use a single Dev Laptop sticker in the upper-right corner. Below the title panel, a paper index aligns titles, descriptions and prices on desktop and stacks them on tablet and mobile. Cobalt accents the index and the project enquiry link.
 
 ## 1. Color tokens (`--f-*`, on `:root` in `app/folder-tokens.css`)
 

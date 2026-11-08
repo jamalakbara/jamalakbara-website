@@ -59,7 +59,8 @@ function Lines({ text }: { text: string }) {
 }
 
 export function HomeView({ latest }: { latest: LatestPost[] }) {
-  const { home, works, path, serviceLinks, ui } = useSite();
+  const { home, works, path, nav, ui } = useSite();
+  const servicesLink = nav.find((link) => link.href === path("/services"));
   const t = ui.home;
   // Selected work: projects starred "Featured on home" in the admin first, then
   // those with a full three-image strip (the curated canvas selection), topped
@@ -221,11 +222,7 @@ export function HomeView({ latest }: { latest: LatestPost[] }) {
           <Stickers spots={COLLAGE_M} className="f-collage f-collage--m" base={346} />
           <div className="f-copyright f-meta">
             <span>© {new Date().getFullYear()} Jamal Akbar Alam</span>
-            {serviceLinks.map((l) => (
-              <Link key={l.href} href={l.href}>
-                {l.label}
-              </Link>
-            ))}
+            {servicesLink && <Link href={servicesLink.href}>{servicesLink.label}</Link>}
             <span>{ui.common.locationCaps}</span>
           </div>
         </div>

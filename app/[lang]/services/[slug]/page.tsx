@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSite } from "@/lib/i18n";
-import type { Lang } from "@/lib/i18n/config";
+import { LANGS, type Lang } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
 import { ServiceView } from "@/components/site/service-view";
 
@@ -10,9 +10,8 @@ import { ServiceView } from "@/components/site/service-view";
 
 type Params = { lang: string; slug: string };
 
-
-export function generateStaticParams({ params }: { params: { lang: string } }) {
-  return getSite(params.lang as Lang).services.map((p) => ({ slug: p.slug }));
+export function generateStaticParams() {
+  return LANGS.flatMap((lang) => getSite(lang).services.map((page) => ({ lang, slug: page.slug })));
 }
 
 export const dynamicParams = false;

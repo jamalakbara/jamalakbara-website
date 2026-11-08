@@ -55,8 +55,8 @@ export function languageHref(pathname: string, targets: LanguageTargets): string
     const other = swap(targets.posts, slug);
     return localePath(to, other ? `/journal/${other}` : "/journal");
   }
-  if (section === "services" && slug) {
-    const other = swap(targets.services, slug);
+  if (section === "services") {
+    const other = slug ? swap(targets.services, slug) : undefined;
     return localePath(to, other ? `/services/${other}` : "/");
   }
   if (section === "work" && slug) {
