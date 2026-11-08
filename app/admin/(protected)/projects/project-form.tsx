@@ -19,13 +19,17 @@ import {
   PreviewButton,
   PreviewPanel,
   Section,
+  LanguageBar,
   SeoPanel,
+  type EditLanguage,
   TagInput,
   Toggle,
   usePreview,
   useSaveShortcut,
 } from "@/components/admin/ui";
 import { projectSeo } from "@/lib/admin/seo-checklist";
+import { saveProjectTranslation } from "@/lib/admin/translation-actions";
+import { blankProject, type IdProject } from "@/lib/i18n/completeness";
 import { mediaKey } from "@/lib/media-meta";
 import { timeAgo } from "@/lib/admin/format";
 import type { LastEdit } from "@/lib/admin/project-meta";
@@ -106,12 +110,14 @@ export function ProjectForm({
   categories,
   alt,
   lastEdit,
+  bahasa,
 }: {
   initial?: Project;
   index: number;
   categories: string[];
   alt: Record<string, string>;
   lastEdit: LastEdit | null;
+  bahasa?: IdProject;
 }) {
   const router = useRouter();
   const toast = useToast();
@@ -122,19 +128,51 @@ export function ProjectForm({
   const [slugTouched, setSlugTouched] = useState(Boolean(initial));
   const [error, setError] = useState<string | null>(null);
 
-  const dirty = JSON.stringify(form) !== JSON.stringify(saved);
+  const [language, setLanguage] = useState<EditLanguage>("en");
+  const [savedId, setSavedId] = useState<IdProject | null>(() => (initial ? (bahasa ?? blankProject(initial)) : null));
+  const [idForm, setIdForm] = useState(savedId);
+  const setId = (patch: Partial<IdProject>) => setIdForm((f) => (f ? { ...f, ...patch } : f));
+  const idDirty = JSON.stringify(idForm) !== JSON.stringify(savedId);
+  const formDirty = JSON.stringify(form) !== JSON.stringify(saved);
+  const dirty = formDirty || idDirty;
   useUnsaved(dirty);
 
   const set = <K extends keyof Form>(key: K, value: Form[K]) => setForm((f) => ({ ...f, [key]: value }));
   const project = useMemo(() => buildProject(form), [form]);
-  const seo = useMemo(() => projectSeo(project, (u) => alt[mediaKey(u)]), [project, alt]);
-  const preview = usePreview(() => previewProject(project));
+  // What this project reads like in the language being edited.
+  const shown = useMemo<Project>(() => {
+    if (language === "en" || !idForm) return project;
+    const pick = (id: string, en?: string) => id.trim() || en;
+    return {
+      ...project,
+      category: pick(idForm.category, project.category) as string,
+      summary: pick(idForm.summary, project.summary),
+      description: pick(idForm.description, project.description) as string,
+      seo: idForm.seo,
+    };
+  }, [language, idForm, project]);
+  const seo = useMemo(() => projectSeo(shown, (u) => alt[mediaKey(u)], language), [shown, alt, language]);
+  const preview = usePreview(() => previewProject(shown));
   const summaryOver = form.summary.length > 110;
 
   function save() {
     if (pending) return;
     setError(null);
     startTransition(async () => {
+      if (idDirty && idForm && initial) {
+        const translated = await saveProjectTranslation(initial.id, idForm);
+        if (!translated.ok) {
+          setError(translated.error);
+          toast.error(translated.error);
+          return;
+        }
+        setSavedId(idForm);
+        if (!formDirty) {
+          toast.saved(translated, `“${project.title}” in Bahasa`);
+          router.refresh();
+          return;
+        }
+      }
       const result = await upsertProject(project, initial?.id);
       if (!result.ok) {
         setError(result.error);
@@ -193,8 +231,58 @@ export function ProjectForm({
 
       {error && <p className="a-banner">Save failed — {error}</p>}
 
+      {initial && <LanguageBar value={language} onChange={setLanguage} note="Copy and SEO change per language. Media and tech are shared." />}
+
       <div className="a-grid a-grid--rail">
         <div className="a-stack">
+          {language === "id" && idForm && initial && (
+            <Section n="ID" title="Bahasa copy">
+              <p className="a-meta a-muted">Needs category, row summary and description to show on /id/work. A case study needs the story too.</p>
+              <Field label="Category">
+                <input className="a-input" placeholder={initial.category} value={idForm.category} onChange={(e) => setId({ category: e.target.value })} />
+              </Field>
+              <Field label="Row summary" count={idForm.summary.length} max={110}>
+                <textarea className="a-input" rows={2} placeholder={initial.summary} value={idForm.summary} onChange={(e) => setId({ summary: e.target.value })} />
+              </Field>
+              <Field label="Description" count={idForm.description.length}>
+                <textarea className="a-input" rows={4} placeholder={initial.description} value={idForm.description} onChange={(e) => setId({ description: e.target.value })} />
+              </Field>
+              <Field label="Challenge" count={idForm.challenge.length}>
+                <textarea className="a-input" rows={4} placeholder={initial.challenge} value={idForm.challenge} onChange={(e) => setId({ challenge: e.target.value })} />
+              </Field>
+              <Field label="Solution" count={idForm.solution.length}>
+                <textarea className="a-input" rows={4} placeholder={initial.solution} value={idForm.solution} onChange={(e) => setId({ solution: e.target.value })} />
+              </Field>
+              {(initial.features ?? []).map((feature, i) => (
+                <Field key={i} label={`Feature ${i + 1}`}>
+                  <input
+                    className="a-input"
+                    placeholder={feature}
+                    value={idForm.features[i] ?? ""}
+                    onChange={(e) => setId({ features: (initial.features ?? []).map((_, j) => (j === i ? e.target.value : (idForm.features[j] ?? ""))) })}
+                  />
+                </Field>
+              ))}
+              {(initial.metrics ?? []).map((metric, i) => (
+                <Field key={i} label={`Metric label ${i + 1}`} help={`Value stays ${metric.value}`}>
+                  <input
+                    className="a-input"
+                    placeholder={metric.label}
+                    value={idForm.metricLabels[i] ?? ""}
+                    onChange={(e) => setId({ metricLabels: (initial.metrics ?? []).map((_, j) => (j === i ? e.target.value : (idForm.metricLabels[j] ?? ""))) })}
+                  />
+                </Field>
+              ))}
+              <Field label="SEO title" count={idForm.seo.title.length} max={40}>
+                <input className="a-input" value={idForm.seo.title} onChange={(e) => setId({ seo: { ...idForm.seo, title: e.target.value } })} />
+              </Field>
+              <Field label="SEO description" count={idForm.seo.description.length} max={160} min={120}>
+                <textarea className="a-input" rows={3} value={idForm.seo.description} onChange={(e) => setId({ seo: { ...idForm.seo, description: e.target.value } })} />
+              </Field>
+            </Section>
+          )}
+          {language === "en" && (
+            <>
           <Section n="01" title="Basics">
             <div className="a-row2">
               <Field label="Title" count={form.title.length} max={60}>
@@ -341,6 +429,8 @@ export function ProjectForm({
               <textarea className="a-input" rows={3} value={form.seoDescription} onChange={(e) => set("seoDescription", e.target.value)} />
             </Field>
           </Section>
+            </>
+          )}
         </div>
 
         <aside className="a-stack a-sticky">

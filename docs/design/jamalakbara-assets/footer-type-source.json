@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "footer-id-service",
+    "content": "PUNYA RENCANA WEBSITE?",
+    "fontFamily": "Tanker",
+    "fontSize": 24,
+    "width": 224,
+    "height": 50,
+    "scale": 3
+  },
+  {
+    "slug": "footer-id-overview",
+    "content": "UDAH ADA IDE PROJECT?",
+    "fontFamily": "Tanker",
+    "fontSize": 24,
+    "width": 198,
+    "height": 50,
+    "scale": 3
+  },
+  {
+    "slug": "footer-id-journal",
+    "content": "MAU BACA TULISAN AKU DULU?",
+    "fontFamily": "Tanker",
+    "fontSize": 24,
+    "width": 254,
+    "height": 50,
+    "scale": 3
+  },
+  {
+    "slug": "footer-id-talk",
+    "content": "Ngobrol yuk",
+    "fontFamily": "Erode",
+    "fontSize": 16,
+    "width": 82,
+    "height": 26,
+    "scale": 3
+  },
+  {
+    "slug": "footer-id-read",
+    "content": "Baca Journal",
+    "fontFamily": "Erode",
+    "fontSize": 16,
+    "width": 86,
+    "height": 26,
+    "scale": 3
+  }
+]

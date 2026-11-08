@@ -1,8 +1,6 @@
-import { PostPage } from "@/components/admin/post-page";
+import { redirect } from "next/navigation";
 
-export const metadata = { title: "Edit post" };
-
-export default async function EditJurnalPostPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function JurnalPostRedirect({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  return <PostPage section="jurnal" slug={slug} />;
+  redirect(`/admin/journal/${slug}?lang=id`);
 }

@@ -1,10 +1,11 @@
-import { seoSettings, siteConfig } from '@/lib/content'
+import { getSite } from '@/lib/i18n'
+import { SITE_URL, type Lang } from '@/lib/i18n/config'
+import { absoluteUrl, localePath } from '@/lib/i18n/routes'
 
-// JSON-LD for the public site. Values come from content/site/seo.json
-// (/admin/seo). Each type renders only on the pages it describes; see
-// .claude/rules/seo.md. FAQ markup must match an FAQ visible on the page.
-
-const SITE_URL = 'https://jamalakbara.com'
+// JSON-LD for the public site. Values come from content/site/seo.json and its
+// Bahasa overlay (/admin/seo). Each type renders only on the pages it
+// describes; see .claude/rules/seo.md. FAQ markup must match an FAQ visible on
+// the page.
 
 export interface ProjectData {
   id: string
@@ -21,16 +22,17 @@ export interface FaqItem {
   answer: string
 }
 
-type StructuredDataProps =
+type StructuredDataProps = { lang: Lang } & (
   | { type: 'WebSite' | 'Person' | 'LocalBusiness' }
   | { type: 'Project'; data: ProjectData }
   | { type: 'FAQ'; data: FaqItem[] }
   | { type: 'Breadcrumb'; data: { name: string; path: string }[] }
+)
 
 const nonEmpty = (list: string[]) => list.map((v) => v.trim()).filter(Boolean)
 
-function postalAddress() {
-  const { city, region, country } = seoSettings.business
+function postalAddress(lang: Lang) {
+  const { city, region, country } = getSite(lang).seo.business
   return {
     '@type': 'PostalAddress',
     addressLocality: city,
@@ -39,21 +41,22 @@ function postalAddress() {
   }
 }
 
-function website() {
-  const { name, alternateName, description } = seoSettings.website
+function website(lang: Lang) {
+  const { name, alternateName, description } = getSite(lang).seo.website
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name,
     ...(alternateName ? { alternateName } : {}),
-    url: SITE_URL,
+    url: absoluteUrl(localePath(lang, '/')),
     description,
-    inLanguage: 'en',
+    inLanguage: lang,
   }
 }
 
-function person() {
-  const { identity, business } = seoSettings
+function person(lang: Lang) {
+  const { seo, contact } = getSite(lang)
+  const { identity, business } = seo
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
@@ -64,9 +67,9 @@ function person() {
     sameAs: nonEmpty(identity.sameAs),
     jobTitle: nonEmpty(identity.jobTitles),
     description: identity.description,
-    email: siteConfig.contact.email,
+    email: contact.email,
     ...(business.phone ? { telephone: business.phone } : {}),
-    address: postalAddress(),
+    address: postalAddress(lang),
     knowsAbout: nonEmpty(identity.knowsAbout),
     award: nonEmpty(identity.awards),
     ...(identity.alumniOf
@@ -76,8 +79,9 @@ function person() {
   }
 }
 
-function localBusiness() {
-  const { business } = seoSettings
+function localBusiness(lang: Lang) {
+  const { seo, contact } = getSite(lang)
+  const { business } = seo
   if (!business.enabled) return null
   return {
     '@context': 'https://schema.org',
@@ -86,9 +90,9 @@ function localBusiness() {
     ...(business.alternateName ? { alternateName: business.alternateName } : {}),
     description: business.description,
     url: SITE_URL,
-    email: siteConfig.contact.email,
+    email: contact.email,
     ...(business.phone ? { telephone: business.phone } : {}),
-    address: postalAddress(),
+    address: postalAddress(lang),
     areaServed: nonEmpty(business.areaServed).map((name) => ({ '@type': 'Place', name })),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
@@ -101,19 +105,19 @@ function localBusiness() {
   }
 }
 
-function project(p: ProjectData) {
+function project(lang: Lang, p: ProjectData) {
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
     name: p.title,
     description: p.description,
-    url: `${SITE_URL}/work/${p.id}`,
+    url: absoluteUrl(localePath(lang, `/work/${p.id}`)),
     image: p.image,
     dateCreated: p.year,
-    creator: { '@type': 'Person', name: seoSettings.identity.name, url: SITE_URL },
+    creator: { '@type': 'Person', name: getSite(lang).seo.identity.name, url: SITE_URL },
     genre: p.category,
     keywords: p.tech.join(', '),
-    inLanguage: 'en',
+    inLanguage: lang,
   }
 }
 
@@ -130,7 +134,7 @@ function faq(items: FaqItem[]) {
   }
 }
 
-function breadcrumb(items: { name: string; path: string }[]) {
+function breadcrumb(lang: Lang, items: { name: string; path: string }[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -138,7 +142,7 @@ function breadcrumb(items: { name: string; path: string }[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item: `${SITE_URL}${item.path}`,
+      item: absoluteUrl(localePath(lang, item.path)),
     })),
   }
 }
@@ -146,17 +150,17 @@ function breadcrumb(items: { name: string; path: string }[]) {
 function build(props: StructuredDataProps) {
   switch (props.type) {
     case 'WebSite':
-      return website()
+      return website(props.lang)
     case 'Person':
-      return person()
+      return person(props.lang)
     case 'LocalBusiness':
-      return localBusiness()
+      return localBusiness(props.lang)
     case 'Project':
-      return project(props.data)
+      return project(props.lang, props.data)
     case 'FAQ':
       return faq(props.data)
     case 'Breadcrumb':
-      return breadcrumb(props.data)
+      return breadcrumb(props.lang, props.data)
   }
 }
 

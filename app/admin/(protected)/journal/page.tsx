@@ -5,8 +5,8 @@ export const metadata = { title: "Journal" };
 export default async function AdminJournalPage({
   searchParams,
 }: {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string; lang?: string }>;
 }) {
-  const { status } = await searchParams;
-  return <PostsIndex section="journal" status={status} />;
+  const { status, lang } = await searchParams;
+  return <PostsIndex status={status} lang={lang === "en" || lang === "id" ? lang : undefined} />;
 }

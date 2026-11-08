@@ -1,0 +1,353 @@
+{
+  "published": true,
+  "navigation": [
+    {
+      "href": "/",
+      "label": "Home"
+    },
+    {
+      "href": "/work",
+      "label": "Work"
+    },
+    {
+      "href": "/journal",
+      "label": "Jurnal"
+    },
+    {
+      "href": "/about",
+      "label": "About"
+    },
+    {
+      "href": "/contact",
+      "label": "Kontak"
+    }
+  ],
+  "tagline": "Creative Developer & Desainer",
+  "location": "Di Bandung, Indonesia",
+  "pages": {
+    "home": {
+      "availability": "Lagi terima project baru",
+      "headline": "Aku bikin website yang cepat dan berguna.",
+      "intro": "Aku Akbar, developer dan desainer. Aku bikin website dan aplikasi yang cepat dibuka dan gampang dipake.",
+      "seo": {
+        "title": "Jamal Akbar Alam — Developer & Desainer di Bandung",
+        "description": "Jamal Akbar Alam, developer dan desainer di Bandung. Bikin website, aplikasi web, dan toko online yang cepat dan gampang dipake, dari desain sampai kode."
+      }
+    },
+    "work": {
+      "eyebrow": "PROJECT PILIHAN",
+      "heading": "Yang udah aku bikin.",
+      "seo": {
+        "title": "Portofolio Website dan Aplikasi",
+        "description": "Portofolio Jamal Akbar Alam: website, aplikasi web, dan aplikasi mobile, dikerjain dari desain sampai kode. Lihat project yang udah dirilis."
+      }
+    },
+    "about": {
+      "eyebrow": "ABOUT",
+      "heading": "Developer dan desainer yang suka bikin sesuatu.",
+      "footnote": "Lulusan Teknik Informatika, Telkom University. Sekarang kerja mandiri dan terbuka buat kolaborasi baru.",
+      "seo": {
+        "title": "About Akbar, Developer dan Desainer",
+        "description": "Kenalan sama Jamal Akbar Alam, developer dan desainer di Bandung yang bikin website dan produk digital yang rapi, cepat, dan gampang dipake."
+      }
+    },
+    "contact": {
+      "eyebrow": "KONTAK / SAPA AKU",
+      "heading": "Punya ide? Yuk ngobrol.",
+      "seo": {
+        "title": "Kontak",
+        "description": "Punya ide website atau aplikasi? Hubungi Akbar, developer dan desainer di Bandung, buat ngobrol soal project kalian lewat WhatsApp atau email."
+      }
+    },
+    "journal": {
+      "eyebrow": "JURNAL",
+      "heading": "Catatan dari meja kerja.",
+      "seo": {
+        "title": "Jurnal",
+        "description": "Catatan dan tulisan dari Akbar, developer dan desainer dari Bandung. Tentang web development, Shopify, desain, dan proses di balik setiap build."
+      }
+    }
+  },
+  "about": {
+    "description": [
+      "Halo, aku Akbar. Aku developer sekaligus desainer, dan sebagian besar waktuku kupakai buat bikin sesuatu di web. Yang aku pedulikan: tampilannya, rasanya waktu dipakai, dan apakah semuanya beneran jalan sesuai harapan orang.",
+      "Yang bikin aku betah itu campuran desain dan kode: ngubah satu ide jadi sesuatu yang rapi, cepat, dan gampang dipake. Aku suka ngurusin masalah ribet di antaranya, dan selalu nyari kerjaan yang layak dibikin."
+    ]
+  },
+  "seo": {
+    "website": {
+      "description": "Portofolio Jamal Akbar Alam, developer dan desainer di Bandung, Indonesia, yang bikin website, aplikasi web, dan toko online."
+    },
+    "identity": {
+      "description": "Jamal Akbar Alam adalah full-stack developer dan UI/UX designer di Bandung, Indonesia, yang membangun produk web dan mobile untuk klien di Indonesia dan Asia Tenggara.",
+      "jobTitles": []
+    },
+    "business": {
+      "description": "Pembuatan website, aplikasi mobile, toko online Shopify dan WooCommerce, dan desain UI/UX dari Bandung, Indonesia.",
+      "services": []
+    }
+  },
+  "ui": {
+    "common": {
+      "location": "Bandung, Indonesia",
+      "locationCaps": "BANDUNG, INDONESIA",
+      "opensNewTab": "(buka di tab baru)",
+      "backToTop": "Kembali ke atas",
+      "backHome": "Kembali ke Home",
+      "seeTheWork": "Lihat project"
+    },
+    "nav": {
+      "primary": "Navigasi utama",
+      "homeLabel": "jamalakbara. — Home",
+      "openMenu": "Buka menu",
+      "closeMenu": "Tutup menu",
+      "menu": "Menu",
+      "language": "English"
+    },
+    "strip": {
+      "heading": "Lagi mau bikin sesuatu?",
+      "label": "Yuk ngobrol"
+    },
+    "home": {
+      "introLabel": "Perkenalan",
+      "noteLabel": "CATATAN PRIBADI",
+      "note": "Kebanyakan ngoding. Sisanya\ngeser-geser dikit sampai kelihatan pas.",
+      "intro": "Halo, aku Akbar, developer dan\ndesainer dari Bandung. Ini beberapa\nhasil kerjaku.",
+      "exploreWork": "Lihat project",
+      "selectedTab": "PROJECT PILIHAN",
+      "selectedHeading": "Project pilihan.",
+      "exploreAll": "Lihat semua",
+      "journalTab": "DARI JURNAL",
+      "journalHeading": "Dari jurnal",
+      "journalAll": "Semua tulisan",
+      "aboutTab": "ABOUT",
+      "aboutLabel": "ABOUT / SKILLS & SERVICES",
+      "aboutHeading": "Dari ide awal\nsampai jadi.",
+      "bringLabel": "YANG KALIAN DAPET",
+      "skills": [
+        {
+          "name": "Desain",
+          "desc": "Tampilan yang rapi dan jelas, gampang dipake siapa aja."
+        },
+        {
+          "name": "Development",
+          "desc": "Website responsif yang cepat dimuat dan enak dipake."
+        },
+        {
+          "name": "Rilis",
+          "desc": "Website dan aplikasi yang udah dites dan siap dipake."
+        }
+      ],
+      "aboutClosing": "Desain dan development, dikerjain dalam satu obrolan. Aku peduli sama tampilan website, dan sama cara kerjanya juga.",
+      "contactTab": "KONTAK",
+      "contactLabel": "YUK KERJA BARENG",
+      "contactHeading": "Lagi mau\nbikin sesuatu?",
+      "contactBody": "Ceritain apa yang lagi kalian bangun. Aku bisa bantu desain, development, atau dua-duanya."
+    },
+    "work": {
+      "label": "WORK / INDEKS PROJECT",
+      "intro": "Website dan toko online. Ini beberapa yang udah aku desain dan bikin.",
+      "tab": "SEMUA PROJECT",
+      "project": "project",
+      "projects": "project",
+      "shown": "ditampilkan",
+      "filterLabel": "Filter project berdasarkan kategori",
+      "allWork": "Semua",
+      "end": "Segitu dulu koleksinya. Project lain nyusul.",
+      "emptyLabel": "BELUM ADA PROJECT",
+      "emptyHeading": "MASIH DIRACIK.",
+      "emptyBody": "Belum ada project yang bisa ditampilin. Yang baru lagi dikerjain. Mampir lagi nanti, atau mulai satu project bareng aku.",
+      "emptyAction": "Mulai project",
+      "imageAlt": "gambar project"
+    },
+    "caseStudy": {
+      "back": "Semua project",
+      "label": "STUDI KASUS",
+      "tab": "CATATAN PROJECT",
+      "notesLabel": "Catatan project",
+      "notes": "CATATAN PROJECT",
+      "category": "Kategori",
+      "year": "Tahun",
+      "stack": "Stack",
+      "visit": "Buka website",
+      "challenge": "Tantangannya",
+      "solution": "Solusinya",
+      "built": "Yang aku bikin"
+    },
+    "about": {
+      "label": "ABOUT / PROFIL",
+      "intro": "Halo, aku Akbar, developer dan desainer di Bandung, Indonesia.",
+      "storyTab": "CERITAKU",
+      "shortLabel": "VERSI SINGKAT",
+      "portraitAlt": "Foto Akbar",
+      "portraitCaption": "Jamal Akbar Alam, Bandung",
+      "quote": [
+        "“SELALU NGEJAR ",
+        "KERJAAN ",
+        "YANG TERASA ",
+        "LAYAK DIBIKIN.”"
+      ],
+      "doTab": "YANG AKU KERJAIN",
+      "bringLabel": "YANG KALIAN DAPET",
+      "doHeading": [
+        "DESAIN DAN KODE, ",
+        "DALAM SATU ",
+        "OBROLAN."
+      ],
+      "capabilities": [
+        {
+          "name": "WEB APP",
+          "desc": "Aplikasi web dan website yang cepat dibuka, gampang ditemukan di Google, dan gampang dirawat."
+        },
+        {
+          "name": "APLIKASI MOBILE",
+          "desc": "Aplikasi iOS dan Android dari satu codebase React Native, kalau memang butuh aplikasi dan biayanya masuk akal."
+        },
+        {
+          "name": "APLIKASI DESKTOP",
+          "desc": "Aplikasi desktop yang enak dipake di komputer dan tetap cepat."
+        },
+        {
+          "name": "DESAIN UI/UX",
+          "desc": "Tampilan dan alur yang jelas, jalan sesuai harapan orang."
+        }
+      ]
+    },
+    "receipt": {
+      "sub": "MENU LAYANAN\nDESAIN · DEVELOPMENT · RILIS",
+      "whatICanDo": "YANG BISA AKU KERJAIN",
+      "forYou": "BUAT KALIAN",
+      "entries": [
+        {
+          "name": "01  WEB APP",
+          "desc": "Aplikasi browser yang cepat dan berguna."
+        },
+        {
+          "name": "02  APLIKASI MOBILE",
+          "desc": "iOS & Android, dari satu codebase."
+        },
+        {
+          "name": "03  APLIKASI DESKTOP",
+          "desc": "Aplikasi yang jalan di komputer."
+        },
+        {
+          "name": "04  DESAIN UI/UX",
+          "desc": "Tampilan & alur yang gampang dipake."
+        }
+      ],
+      "letsBuild": "AYO BIKIN",
+      "together": "BARENG",
+      "scope": "LINGKUP",
+      "tailored": "DISESUAIKAN BUAT KALIAN",
+      "madeWith": "DIBIKIN",
+      "care": "SEPENUH HATI",
+      "foot": "PUNYA PROJECT?\nYUK BIKIN YANG BERGUNA."
+    },
+    "journal": {
+      "label": "JURNAL",
+      "intro": "Catatan soal desain, development,\ndan kerjaan.",
+      "otherLanguage": "English",
+      "tab": "SEMUA TULISAN",
+      "entry": "tulisan",
+      "entries": "tulisan",
+      "newest": "Terbaru dulu",
+      "latest": "PALING BARU",
+      "end": "Segitu dulu untuk sekarang.",
+      "emptyLabel": "BELUM ADA TULISAN",
+      "emptyHeading": "MASIH DITULIS.",
+      "emptyBody": "Belum ada tulisan — segera hadir."
+    },
+    "article": {
+      "back": "Semua tulisan jurnal",
+      "backEnd": "Kembali ke jurnal",
+      "writtenBy": "DITULIS OLEH",
+      "minRead": "{n} menit baca",
+      "tab": "CATATAN BACA",
+      "toc": "DI TULISAN INI",
+      "keepReading": "Baca juga",
+      "otherLanguage": "Read in English →"
+    },
+    "contact": {
+      "label": "KONTAK / SAPA AKU",
+      "intro": "Ceritain apa yang lagi kalian bangun. Aku bisa bantu desain, development, atau dua-duanya.",
+      "tab": "KIRIM PESAN",
+      "formLabel": "BRIEF PROJECT",
+      "name": "Nama",
+      "namePlaceholder": "Nama kalian",
+      "email": "Email",
+      "emailPlaceholder": "kamu@contoh.com",
+      "project": "Project",
+      "projectPlaceholder": "Project-nya soal apa?",
+      "submit": "Kirim pesan",
+      "privacyNote": "Email kalian aman, nggak dibagikan.",
+      "privacyLink": "Kebijakan privasi",
+      "errorName": "Nama kalian siapa?",
+      "errorEmail": "Email-nya kayaknya belum bener.",
+      "errorMessage": "Ceritain sedikit soal project-nya.",
+      "statusHeading": "Ada yang belum diisi.",
+      "statusBody": "Cek kolom yang ditandai, terus kirim lagi.",
+      "sentHeading": "Lagi buka WhatsApp…",
+      "sentBody": "Tinggal tekan kirim di chat, nanti aku balas dalam sehari atau dua hari.",
+      "greeting": "Halo Akbar, aku {name}.",
+      "replyTo": "Balas ke:",
+      "stripHeading": "Penasaran sama yang udah aku bikin?",
+      "stripLabel": "Lihat project"
+    },
+    "note": {
+      "label": "CATATAN BUAT AKBAR",
+      "mail": "Kirim email",
+      "copied": "Tersalin",
+      "failed": "Gagal menyalin, pilih alamatnya manual",
+      "copyLabel": "Salin alamat email"
+    },
+    "services": {
+      "tab": "SERVICES",
+      "toc": "DI HALAMAN INI",
+      "faq": "Pertanyaan umum",
+      "more": "Services",
+      "eyebrow": "Design & Development / Bandung",
+      "overviewTitle": "Services",
+      "overviewDescription": "Aku bantu kalian bikin website, toko online, dan aplikasi mobile, dari desain sampai live.",
+      "seoTitle": "Services",
+      "seoDescription": "Aku bantu kalian bikin website, toko online, dan aplikasi mobile, dari desain sampai live.",
+      "listHeading": "Daftar Layanan",
+      "countLabel": "Layanan",
+      "detail": "Lihat detail",
+      "contactHeading": "Udah ada ide project?",
+      "contactCta": "Ceritain project kalian"
+    },
+    "privacy": {
+      "label": "LEGAL / PRIVASI",
+      "title": "Kebijakan Privasi",
+      "updated": "Terakhir diperbarui",
+      "tab": "CATATAN KECIL",
+      "toc": "DI HALAMAN INI",
+      "description": "Kebijakan privasi jamalakbara.com: data apa yang dikumpulkan situs ini, bagaimana cookie Google Analytics dipakai dengan persetujuan kalian, dan cara menghubungi aku soal itu."
+    },
+    "notFound": {
+      "ariaLabel": "Halaman tidak ditemukan",
+      "label": "404 / HALAMAN TIDAK KETEMU",
+      "heading": "Halaman ini\nnyasar.",
+      "body": "Link-nya mungkin udah berubah, atau halamannya udah gak ada. Yuk balik ke halaman lain.",
+      "exploreWork": "Lihat project"
+    },
+    "cookie": {
+      "title": "Pemberitahuan Cookie",
+      "body": "Website ini pakai cookie supaya browsing lebih nyaman, untuk melihat trafik, dan menyesuaikan konten. Dengan lanjut pakai website ini, kalian setuju sama penggunaan cookie. Baca selengkapnya di",
+      "privacy": "Kebijakan Privasi",
+      "acceptAll": "Terima Semua",
+      "necessaryOnly": "Yang Wajib Saja",
+      "customize": "Atur",
+      "preferences": "Preferensi Cookie",
+      "essential": "Cookie Wajib",
+      "essentialHint": "Dibutuhkan supaya website bisa jalan dengan baik.",
+      "analytics": "Cookie Analitik",
+      "analyticsHint": "Bantu aku paham gimana pengunjung pakai website ini.",
+      "marketing": "Cookie Pemasaran",
+      "marketingHint": "Dipakai buat menampilkan iklan yang relevan.",
+      "preferenceCookies": "Cookie Preferensi",
+      "preferenceHint": "Mengaktifkan fitur tambahan dan pengaturan sesuai preferensi kalian.",
+      "save": "Simpan Preferensi"
+    }
+  }
+}

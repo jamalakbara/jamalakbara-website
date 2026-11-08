@@ -3,62 +3,24 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { isBahasaPath } from '@/lib/site-data'
+import { Button } from '@/components/site/button'
+import { useSite } from '@/lib/i18n/context'
 import { CookieConsent, type CookieConsentOptions } from '@/lib/analytics/consent'
 
-const COPY = {
-  en: {
-    title: 'Cookie Notice',
-    body: 'We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. By continuing to use this site, you agree to our use of cookies. Learn more in our',
-    privacy: 'Privacy Policy',
-    acceptAll: 'Accept All',
-    necessaryOnly: 'Necessary Only',
-    customize: 'Customize',
-    preferences: 'Cookie Preferences',
-    essential: 'Essential Cookies',
-    essentialHint: 'Required for the site to function properly.',
-    analytics: 'Analytics Cookies',
-    analyticsHint: 'Help us understand how visitors interact with our website.',
-    marketing: 'Marketing Cookies',
-    marketingHint: 'Used to deliver personalized advertisements.',
-    preferenceCookies: 'Preference Cookies',
-    preferenceHint: 'Allow enhanced functionality and personalization.',
-    save: 'Save Preferences',
-  },
-  id: {
-    title: 'Pemberitahuan Cookie',
-    body: 'Website ini pakai cookie buat bikin pengalaman browsing lebih enak, menganalisis trafik, dan menyesuaikan konten. Dengan lanjut pakai website ini, kalian setuju sama penggunaan cookie. Baca selengkapnya di',
-    privacy: 'Kebijakan Privasi',
-    acceptAll: 'Terima Semua',
-    necessaryOnly: 'Yang Perlu Saja',
-    customize: 'Atur',
-    preferences: 'Preferensi Cookie',
-    essential: 'Cookie Wajib',
-    essentialHint: 'Dibutuhkan biar website berjalan dengan baik.',
-    analytics: 'Cookie Analitik',
-    analyticsHint: 'Bantu aku paham gimana pengunjung pakai website ini.',
-    marketing: 'Cookie Pemasaran',
-    marketingHint: 'Dipakai buat menampilkan iklan yang relevan.',
-    preferenceCookies: 'Cookie Preferensi',
-    preferenceHint: 'Mengaktifkan fitur tambahan dan personalisasi.',
-    save: 'Simpan Preferensi',
-  },
-}
-
-export function CookieConsentBanner() {
-  const pathname = usePathname()
-  const [isVisible, setIsVisible] = useState(false)
+export function CookieConsentBanner({ preview = false }: { preview?: boolean }) {
+  const { path, ui } = useSite()
+  const t = ui.cookie
+  const [isVisible, setIsVisible] = useState(preview)
   const [preferences, setPreferences] = useState<CookieConsentOptions>(
     CookieConsent.getDefaultConsent()
   )
 
   useEffect(() => {
     // Check if user has already consented
-    if (!CookieConsent.hasConsented()) {
+    if (!preview && !CookieConsent.hasConsented()) {
       setIsVisible(true)
     }
-  }, [])
+  }, [preview])
 
   const handleAcceptAll = () => {
     const allAccepted: CookieConsentOptions = {
@@ -68,7 +30,7 @@ export function CookieConsentBanner() {
       preferences: true
     }
 
-    CookieConsent.setConsent(allAccepted)
+    if (!preview) CookieConsent.setConsent(allAccepted)
     setIsVisible(false)
   }
 
@@ -80,12 +42,12 @@ export function CookieConsentBanner() {
       preferences: false
     }
 
-    CookieConsent.setConsent(necessaryOnly)
+    if (!preview) CookieConsent.setConsent(necessaryOnly)
     setIsVisible(false)
   }
 
   const handleSavePreferences = () => {
-    CookieConsent.setConsent(preferences)
+    if (!preview) CookieConsent.setConsent(preferences)
     setIsVisible(false)
   }
 
@@ -102,16 +64,18 @@ export function CookieConsentBanner() {
     }))
   }
 
-  const t = isBahasaPath(pathname) ? COPY.id : COPY.en
-
   if (!isVisible) return null
+
+  const Panel = preview ? 'div' : motion.div
 
   return (
     <AnimatePresence mode="popLayout">
-      <motion.div
-        initial={{ opacity: 0, y: 100 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 100 }}
+      <Panel
+        {...(!preview && {
+          initial: { opacity: 0, y: 100 },
+          animate: { opacity: 1, y: 0 },
+          exit: { opacity: 0, y: 100 }
+        })}
         className="f-cookie"
       >
         <div>
@@ -123,7 +87,7 @@ export function CookieConsentBanner() {
               </h3>
               <p>
                 {t.body}{' '}
-                <Link href="/privacy">
+                <Link href={path("/privacy")}>
                   {t.privacy}
                 </Link>
                 .
@@ -133,18 +97,12 @@ export function CookieConsentBanner() {
             {/* Action Buttons */}
             <div className="f-cookie__actions">
               <div className="f-cookie__actions">
-                <button
-                  onClick={handleAcceptAll}
-                  className="f-btn f-btn--primary"
-                >
+                <Button onClick={handleAcceptAll}>
                   {t.acceptAll}
-                </button>
-                <button
-                  onClick={handleAcceptNecessary}
-                  className="f-btn f-btn--secondary"
-                >
+                </Button>
+                <Button variant="secondary" onClick={handleAcceptNecessary}>
                   {t.necessaryOnly}
-                </button>
+                </Button>
               </div>
 
               {/* Custom Preferences Toggle */}
@@ -153,10 +111,12 @@ export function CookieConsentBanner() {
                   {t.customize}
                 </summary>
 
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
+                <Panel
+                  {...(!preview && {
+                    initial: { opacity: 0, height: 0 },
+                    animate: { opacity: 1, height: 'auto' },
+                    exit: { opacity: 0, height: 0 }
+                  })}
                   className="f-cookie f-cookie__panel"
                 >
                   <h4 className="f-cookie__panel-h">
@@ -229,18 +189,18 @@ export function CookieConsentBanner() {
                     </p>
                   </div>
 
-                  <button
+                  <Button
                     onClick={handleSavePreferences}
-                    className="f-btn f-btn--primary f-cookie__save"
+                    className="f-cookie__save"
                   >
                     {t.save}
-                  </button>
-                </motion.div>
+                  </Button>
+                </Panel>
               </details>
             </div>
           </div>
         </div>
-      </motion.div>
+      </Panel>
     </AnimatePresence>
   )
 }

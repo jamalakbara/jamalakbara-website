@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import type { WorkRow } from "@/lib/site-data";
+import type { WorkRow } from "@/lib/i18n";
+import { useSite } from "@/lib/i18n/context";
 import { sentenceCase } from "@/lib/site-format";
 import { NumberTile } from "@/components/site/number-tile";
 import { mediaAlt } from "@/lib/media-meta";
@@ -23,18 +26,19 @@ const DESKTOP: Record<"A" | "B" | "C", Box[]> = {
 const PATTERNS = ["A", "B", "C"] as const;
 
 function Img({ src, alt, box, sizes }: { src: string; alt: string; box: Box; sizes: string }) {
+  const { lang } = useSite();
   return (
     <span
       className={box.grow ? "f-row__img f-row__img--grow" : "f-row__img"}
       style={{ width: box.grow ? undefined : box.w, height: box.h, background: box.bg }}
     >
       {/* alt text set in /admin/media wins over the generated fallback */}
-      <Image src={src} alt={mediaAlt(src) ?? alt} fill sizes={sizes} />
+      <Image src={src} alt={mediaAlt(src, lang) ?? alt} fill sizes={sizes} />
     </span>
   );
 }
 
-function DesktopStrip({ media, pattern, title }: { media: string[]; pattern: "A" | "B" | "C"; title: string }) {
+function DesktopStrip({ media, pattern, title, altSuffix }: { media: string[]; pattern: "A" | "B" | "C"; title: string; altSuffix: string }) {
   let boxes: Box[];
   if (media.length >= 3) boxes = DESKTOP[pattern];
   else if (media.length === 2) boxes = [{ grow: true, h: 360 }, { w: 220, h: 294 }];
@@ -42,15 +46,15 @@ function DesktopStrip({ media, pattern, title }: { media: string[]; pattern: "A"
   return (
     <span className="f-row__strip f-strip-d">
       {boxes.map((b, i) => (
-        <Img key={i} src={media[i]} alt={i === 0 ? `${title} — project image` : ""} box={b} sizes="(min-width: 1024px) 40vw, 1px" />
+        <Img key={i} src={media[i]} alt={i === 0 ? `${title} — ${altSuffix}` : ""} box={b} sizes="(min-width: 1024px) 40vw, 1px" />
       ))}
     </span>
   );
 }
 
-function MobileStrip({ media, pattern, title }: { media: string[]; pattern: "A" | "B" | "C"; title: string }) {
+function MobileStrip({ media, pattern, title, altSuffix }: { media: string[]; pattern: "A" | "B" | "C"; title: string; altSuffix: string }) {
   const sizes = "(max-width: 1023px) 100vw, 1px";
-  const alt = (i: number) => (i === 0 ? `${title} — project image` : "");
+  const alt = (i: number) => (i === 0 ? `${title} — ${altSuffix}` : "");
   if (media.length === 1) {
     return (
       <span className="f-row__strip f-strip-m">
@@ -95,6 +99,7 @@ export function ProjectRow({
   variant?: number;
   headingLevel?: 2 | 3;
 }) {
+  const { ui } = useSite();
   const pattern = PATTERNS[variant % 3];
   const external = !row.caseHref && row.href && row.href !== "#";
   const H = headingLevel === 2 ? "h2" : "h3";
@@ -112,9 +117,9 @@ export function ProjectRow({
         </span>
         <span className="f-body f-row__desc">{row.description}</span>
       </span>
-      <DesktopStrip media={row.media} pattern={pattern} title={row.title} />
-      <MobileStrip media={row.media} pattern={pattern} title={row.title} />
-      {external && <span className="f-sr">(opens in a new tab)</span>}
+      <DesktopStrip media={row.media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} />
+      <MobileStrip media={row.media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} />
+      {external && <span className="f-sr">{ui.common.opensNewTab}</span>}
     </>
   );
   if (row.caseHref) {

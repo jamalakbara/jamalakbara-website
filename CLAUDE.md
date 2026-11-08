@@ -8,7 +8,7 @@ Jamalakbara is a multi-page portfolio website for **Jamal Akbar Alam** ("jamalak
 
 **Key Technologies:**
 - **Next.js 16** (App Router) + React 19 + TypeScript (strict)
-- **Tailwind CSS v4** (PostCSS plugin, no config file). `--f-*` tokens live in `app/folder-tokens.css`; public-site classes in `app/(site)/site.css` (`.f-*`), admin classes in `app/admin/admin.css` (`.a-*`). `app/globals.css` only holds unused legacy dark classes.
+- **Tailwind CSS v4** (PostCSS plugin, no config file). `--f-*` tokens live in `app/folder-tokens.css`; public-site classes in `app/[lang]/site.css` (`.f-*`), admin classes in `app/admin/admin.css` (`.a-*`). `app/globals.css` only holds unused legacy dark classes.
 - **Motion**: Framer Motion (`framer-motion`) is the primary in-use animation library. **GSAP** (`gsap` + `@gsap/react`), **Lenis** (smooth scroll), and **React Three Fiber** (`three` + `@react-three/fiber` + `@react-three/drei`) are installed for roadmap features but not yet wired into shipped pages.
 - **State**: Zustand installed; React hooks are the primary mechanism in shipped code.
 - **Content**: git-backed content files (`content/*.json` + `content/journal/*.mdx`) edited via the custom `/admin` CMS or directly — see Architecture.
@@ -37,25 +37,28 @@ Content lives as **files in the repo** (git is the database) and is editable thr
 
 - **`content/projects.json`** — ONE ordered array of all projects (array index = display order).
 - **`content/site/*.json`** — singletons: `site-config`, `navigation`, `hero`, `services`, `about`, `comprehensive-about`, `cta`, `pages` (per-page copy), `seo` (JSON-LD values, /admin/seo).
-- **`content/service-pages.json`** — Bahasa landing pages at `/layanan/<slug>` (/admin/service-pages).
+- **`content/service-pages.json`** — landing pages at `/services/<slug>` and `/id/services/<slug>`, one record per language (/admin/service-pages).
+- **`content/site/ui.json`** — all English interface strings.
+- **`content/i18n/id/site.json`** + **`projects.json`** — Bahasa overlays and the `published` flag (/admin/translations). English files stay the source for shared values.
+- **`content/privacy/<lang>.mdx`** — privacy policy text.
 - **`content/journal/*.mdx`** / **`content/jurnal/*.mdx`** — posts (frontmatter: `title`, `description`, `date`, `tags`, `draft`, optional `alternate` = slug of the linked post in the other language).
 - **`content/media.json`** — `{ alt: { <mediaKey>: text } }`, alt text set in /admin/media (`lib/media-meta.ts`; Work rows use it).
 - **`lib/content-types.ts`** — canonical TS interfaces; **`lib/content/schemas.ts`** — matching zod schemas (admin write-path validation only).
 - **`lib/content/index.ts`** — typed static JSON imports for the site (inlined at build; works in client components).
-- **`lib/site-data.ts`** — derived view-model constants consumed by pages: `NAV_LINKS`, `BRAND`, `home`, `works` (maps projects → `WorkRow`), `caseStudies`, `work`, `about`, `jurnal`, `publishedServicePages`, `serviceLinks`, `contact`.
+- **`lib/i18n/`** — `getSite(lang)` shapes all page data for a language (`useSite()` in client components); `routes.ts` has `localePath()`, `languageHref()`; `completeness.ts` tracks what is translated; `targets.ts` has `requireLive()`.
 
 **Site read path** (build-time, static):
 ```typescript
-import { projects, hero } from '@/lib/content'
+import { getSite } from '@/lib/i18n'
 ```
-Pages typically consume the pre-shaped constants from `@/lib/site-data` instead.
+Pages take `lang` from params and call `getSite(lang)`; client components call `useSite()`.
 
 **Admin write path**: `lib/admin/content-store.ts` is the only module admin code uses to read/write content. Backend switches automatically: local dev = fs writes to the working tree (you review + commit); on Vercel = git commits to `GITHUB_CONTENT_BRANCH` via `lib/admin/github.ts` (GitHub Contents/Git Data API), which triggers a production rebuild (~1–2 min publish). Never fs-read content in prod admin code — go through content-store.
 
 ### Admin CMS (`/admin`)
 - **Auth**: GitHub OAuth via next-auth v5 (`lib/auth.ts`), single allowed login (`ADMIN_GITHUB_LOGIN`), JWT session, no DB. `proxy.ts` gates `/admin/*` + `/api/admin/*`; every server action/route handler also calls `requireAdmin()` (defense in depth).
 - **Design**: canvas frames 23–32 / 24M–31M in `jamalakbara.pen`; spec in `docs/DESIGN_SYSTEM.md` §10. Shell = `components/admin/shell.tsx` (sidebar + mobile menu), kit = `components/admin/ui.tsx`, toasts `toast.tsx`, unsaved-changes guard `unsaved.tsx` (wrap in-admin links in `GuardedLink`, editors call `useUnsaved(dirty)`).
-- **Routes**: `app/admin/login` (public) + `app/admin/(protected)/…` — dashboard, `projects` (CRUD/reorder/featured/draft), `journal` + `jurnal` (shared `components/admin/posts-index|post-page|post-editor`, actions in `lib/admin/post-actions.ts`), `site` (folder tabs, one commit per save), `media` (Cloudinary library, usage, alt text), `branding` (slots in `lib/admin/branding.ts`, icon-set regenerate from `public/icon.svg` via sharp, manifest colours), `service-pages` (CRUD, actions in `lib/admin/service-page-actions.ts`), `seo` (JSON-LD values, saved through `saveSiteCopy`).
+- **Routes**: `app/admin/login` (public) + `app/admin/(protected)/…` — dashboard, `projects` (CRUD/reorder/featured/draft), `journal` (one list for both languages; the post editor has a Language field, and changing it on a saved post moves the file between `content/journal` and `content/jurnal` in one commit; Bahasa posts use `?lang=id`, old `/admin/jurnal/*` URLs redirect; `components/admin/posts-index|post-page|post-editor`, actions in `lib/admin/post-actions.ts`), `site` (folder tabs, one commit per save), `media` (Cloudinary library, usage, alt text), `branding` (slots in `lib/admin/branding.ts`, icon-set regenerate from `public/icon.svg` via sharp, manifest colours), `service-pages` (CRUD, actions in `lib/admin/service-page-actions.ts`), `seo` (JSON-LD values, saved through `saveSiteCopy`), `translations` (Bahasa progress, interface strings, privacy text, publish switch; actions in `lib/admin/translation-actions.ts`). Editors with public text have an EN / ID `LanguageBar`.
 - **Server actions return `ActionResult`** (`lib/admin/action-result.ts`) with the commit `sha` (null on fs) — the client toast watches that commit's Vercel build (committed → building → live/failed).
 - **Features with their backends**:
   - Publish status / deploy log — `lib/admin/activity.ts` (commits from GitHub, or local `git log` on fs) + `lib/admin/vercel.ts` (Vercel REST deployments; needs `VERCEL_TOKEN` + `VERCEL_PROJECT_ID`, optional `VERCEL_TEAM_ID`; without them commits show with no build state). Polling: `GET /api/admin/deploys[?sha=]`.
@@ -73,26 +76,25 @@ Multi-page App Router. Public page components are client components; admin pages
 
 ```
 app/
-├── layout.tsx        # RootLayout: html/body, fonts, global metadata only
 ├── globals.css       # Tailwind import + legacy dark tokens/classes (used by /admin)
-├── fonts/            # Tanker / Erode / Comico woff2 subsets (next/font/local)
-├── not-found.tsx     # 404 in the folder shell (imports (site)/site.css)
-├── (site)/           # public site, wrapped by PortfolioShell (+ StructuredData, GA, CookieConsent)
+├── fonts/            # Tanker / Erode / Comico woff2 subsets (loaded in lib/fonts.ts)
+├── global-not-found.tsx # 404 for anything outside [lang]
+├── [lang]/           # public site, en at the root URL via proxy.ts, id under /id
 │   ├── site.css      # Working Folder v2 tokens + classes (public site only)
-│   ├── layout.tsx
-│   ├── page.tsx      # Home (/): server wrapper around components/site/home-view.tsx
+│   ├── layout.tsx    # root layout: <html lang>, fonts, metadata, PortfolioShell, GA, CookieConsent
+│   ├── page.tsx      # Home: server wrapper around components/site/home-view.tsx
+│   ├── not-found.tsx  [...missing]/  # 404 per language
 │   ├── work/[id]/    # Case study, only for projects with caseStudy on
-│   ├── layanan/[slug]/ # Service landing pages (Bahasa)
-│   ├── kontak/       # Bahasa contact, shares components/site/contact-view.tsx
-│   ├── work/  about/  contact/  journal/  jurnal/  privacy/
-├── admin/            # CMS — Working Folder tool-tuned (admin.css), force-dynamic, noindex
+│   ├── services/[slug]/ # Service landing pages
+│   ├── work/  about/  contact/  journal/  privacy/  preview/
+├── admin/            # CMS — own root layout, Working Folder tool-tuned (admin.css), force-dynamic, noindex
 │   ├── layout.tsx  login/
 │   └── (protected)/  # auth-checked layout: dashboard, projects, journal, site, media, branding
 ├── api/              # auth/[...nextauth], admin/media(+sign, usage), admin/deploys, admin/preview/mdx
 ├── sitemap.ts        # Dynamic XML sitemap (admin never enters)
 ├── robots.ts         # robots.txt (disallows /admin, /api)
 └── favicon.ico
-proxy.ts              # (repo root) auth gate for /admin/* and /api/admin/*
+proxy.ts              # (repo root) auth gate for /admin/*, language routing for public paths
 ```
 
 ### Components (`components/`)
@@ -136,7 +138,7 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 
 ### Design system — read `docs/DESIGN_SYSTEM.md` first
 - Canvas source: Pencil `docs/design/jamalakbara.pen` (Working Folder v2); designer spec + tokens in `docs/design/`.
-- Tokens (`app/(site)/site.css`): `--f-paper #F8F6F0`, `--f-note #FFFEFA`, `--f-ink #201E19`, `--f-muted #6E695F`, `--f-surface #E8E3D9`, `--f-line #D8D2C8`, `--f-accent #2445DB`, `--f-hover #1D36AF`, `--f-error #A62929`, `--f-success #456D5B`.
+- Tokens (`app/[lang]/site.css`): `--f-paper #F8F6F0`, `--f-note #FFFEFA`, `--f-ink #201E19`, `--f-muted #6E695F`, `--f-surface #E8E3D9`, `--f-line #D8D2C8`, `--f-accent #2445DB`, `--f-hover #1D36AF`, `--f-error #A62929`, `--f-success #456D5B`.
 - Type: **Tanker** (display/titles/tabs/wordmark), **Erode** (body/actions/meta), **Comico** (hero name + number digits only; subset — re-subset if used for other text). All weight 400. CSS line-heights = canvas ratio + 0.09 (canvas adds the faces' line gap); role classes carry `padding-block: 1px`.
 - Classes: `.f-panel`, `.f-folder`/`.f-tab`, `.f-display`/`.f-title`/`.f-body`/`.f-action`/`.f-meta`, `.f-btn--primary|secondary`, `.f-link`/`.f-uline`/`.f-act`, `.f-filter`, `.f-input`, `.f-row`, `.f-receipt`, `.f-note`, `.f-prose`.
 - Headings: `sentenceLines()` (`lib/site-format.ts`) breaks like the canvas without changing text content.
@@ -178,17 +180,18 @@ See `.env.example`.
 - If a content **shape** changes: update the interface in `lib/content-types.ts`, the zod schema in `lib/content/schemas.ts`, the admin form, and `lib/site-data.ts` if pages read it via a shaped constant.
 
 ### Adding a route
-1. Create `app/(site)/<route>/page.tsx` (client component).
-2. Add it to `NAV_LINKS` in `lib/site-data.ts` and to `app/sitemap.ts`.
+1. Create `app/[lang]/<route>/page.tsx` (server wrapper with `requireLive(lang)`) and a view in `components/site/`.
+2. Add its text to `content/site/ui.json`, and add it to `content/site/navigation.json` and `app/sitemap.ts`.
 3. Build it from `components/site/*` (title panel, folder, contact strip) — no background video step any more.
 
 ### Styling new components
-1. Reuse `--f-*` tokens and `f-` classes in `app/(site)/site.css` — see `docs/DESIGN_SYSTEM.md`. Never restyle a shared `globals.css` class for the public site (admin depends on them).
+1. Reuse `--f-*` tokens and `f-` classes in `app/[lang]/site.css` — see `docs/DESIGN_SYSTEM.md`. Never restyle a shared `globals.css` class for the public site (admin depends on them).
 2. Match the canvas 1:1: take values from Pencil (export the frame as `html-css`), verify with the pixel-diff recipe in `docs/DESIGN_SYSTEM.md` §8, and respect `prefers-reduced-motion`.
 
 ## Known Gaps
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
 - `next build` runs Turbopack on Next 16 and can fail once fetching Google fonts; a rerun passes.
+- 404s render through Next's error shell, so their HTML fills in on the client. Status and noindex are correct.
 
 ## Icons
 The favicon is **`app/favicon.ico`** — the stamp portrait (cobalt postage stamp, Oct 2026 refresh). Keep it as the only `icons.icon` entry; do not list `icon.svg` in metadata icons. The app-icon set uses the same stamp artwork (`public/icon.svg` source, `public/apple-icon.png` 180×180, `public/icon-192.png` / `public/icon-512.png`) for iOS home-screen and manifest icons; regenerate all four together if the brand changes. `public/logo.svg` is the full wordmark (not used as an icon).

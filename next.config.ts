@@ -8,8 +8,6 @@ const nextConfig: NextConfig = {
       { source: '/blog/:slug', destination: '/journal/:slug', permanent: true },
       { source: '/project/:slug*', destination: '/work', permanent: true },
       { source: '/service/:slug*', destination: '/work', permanent: true },
-      // Temporary until the bilingual site ships: Jurnal posts link here.
-      { source: '/kontak', destination: '/contact', permanent: false },
     ]
   },
   typescript: {
@@ -65,6 +63,7 @@ const nextConfig: NextConfig = {
   },
   // Experimental optimizations
   experimental: {
+    globalNotFound: true,
     optimizePackageImports: ['framer-motion', 'lucide-react'],
   },
 };

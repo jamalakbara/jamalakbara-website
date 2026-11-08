@@ -1,7 +1,8 @@
 "use client";
 
 // Canvas 28 "Post editor": MDX editor + live preview, Post details, Bahasa
-// version link, SEO checklist and draft preview. Serves /journal + /jurnal.
+// version link, SEO checklist and draft preview. The post's language is a
+// field: changing it on a saved post moves the file in the same commit.
 
 import { useEffect, useMemo, useRef, useState, useTransition } from "react";
 import Link from "next/link";
@@ -39,7 +40,7 @@ import {
   useSaveShortcut,
 } from "@/components/admin/ui";
 import type { PostInput } from "@/lib/admin/post-schema";
-import { SECTIONS, type Section } from "@/lib/admin/sections";
+import { SECTIONS, postHref, type Section } from "@/lib/admin/sections";
 import { deletePost, previewPost, savePost } from "@/lib/admin/post-actions";
 import { postSeo } from "@/lib/admin/seo-checklist";
 import { timeAgo } from "@/lib/admin/format";
@@ -66,22 +67,23 @@ function formatDate(iso: string) {
 }
 
 export function PostEditor({
-  section,
+  section: initialSection,
   initial,
-  count,
-  others,
-  siblings,
+  posts,
   lastEdit,
 }: {
   section: Section;
   initial?: PostInput;
-  count: number;
-  others: OtherPost[];
-  /** posts in this section, for the Keep reading picker */
-  siblings: { slug: string; title: string; draft: boolean }[];
+  /** every post in both languages, for linking and Keep reading */
+  posts: Record<Section, OtherPost[]>;
   lastEdit: LastEdit | null;
 }) {
+  const [section, setSection] = useState<Section>(initialSection);
   const meta = SECTIONS[section];
+  const moving = Boolean(initial) && section !== initialSection;
+  const others = posts[meta.other].filter((o) => !moving);
+  const siblings = posts[section];
+  const count = posts[section].length + (initial && !moving ? 0 : 1);
   const other = SECTIONS[meta.other];
   const router = useRouter();
   const toast = useToast();
@@ -182,7 +184,7 @@ export function PostEditor({
     if (pending) return;
     setError(null);
     startTransition(async () => {
-      const result = await savePost(section, form, initial?.slug);
+      const result = await savePost(section, form, initial?.slug, initial ? initialSection : undefined);
       if (!result.ok) {
         setError(result.error);
         toast.error(result.error);
@@ -190,7 +192,7 @@ export function PostEditor({
       }
       setSaved(form);
       toast.saved(result, `“${form.title}”`);
-      if (!initial || initial.slug !== result.slug) router.replace(`/admin/${section}/${result.slug}`);
+      if (!initial || initial.slug !== result.slug || moving) router.replace(postHref(section, result.slug));
       else router.refresh();
     });
   }
@@ -200,11 +202,11 @@ export function PostEditor({
     if (!initial) return;
     if (!(await confirm({ title: `Delete “${initial.title}”?`, message: "The post file is removed in one commit. A linked post in the other language is unlinked.", confirmLabel: "Delete post" }))) return;
     startTransition(async () => {
-      const result = await deletePost(section, initial.slug);
+      const result = await deletePost(initialSection, initial.slug);
       if (!result.ok) return toast.error(result.error);
       setSaved(form);
       toast.saved(result, `Removed “${initial.title}”`);
-      router.push(`/admin/${section}`);
+      router.push("/admin/journal");
     });
   }
 
@@ -236,11 +238,11 @@ export function PostEditor({
       }}
     >
       <PageHeader
-        eyebrow={`${meta.label} / ${meta.code}`}
+        eyebrow={`Journal / ${meta.code}`}
         index={String(count).padStart(2, "0")}
         title={form.title || "Untitled post"}
         subtitle={subtitle}
-        back={{ href: `/admin/${section}`, label: `All ${meta.label.toLowerCase()} posts` }}
+        back={{ href: "/admin/journal", label: "All journal posts" }}
         actions={
           <>
             <PreviewButton preview={preview} />
@@ -293,6 +295,24 @@ export function PostEditor({
 
         <aside className="a-stack">
           <Panel title="Post details" aside={<Chip kind={form.draft ? "draft" : "published"} />}>
+            <Field
+              label="Language"
+              help={moving ? `Saving moves this post to ${meta.name}. A linked post in the other language gets unlinked.` : "Bahasa posts are written natively, not translated."}
+            >
+              <select
+                className="a-input"
+                value={section}
+                onChange={(e) => {
+                  const next = e.target.value as Section;
+                  setSection(next);
+                  // links and Keep reading picks belong to one language
+                  setForm((f) => ({ ...f, alternate: next === initialSection ? saved.alternate : undefined, related: next === initialSection ? saved.related : undefined }));
+                }}
+              >
+                <option value="journal">English</option>
+                <option value="jurnal">Bahasa Indonesia</option>
+              </select>
+            </Field>
             <Field label="Slug" help={`jamalakbara.com${meta.base}/${form.slug || "…"}`}>
               <input
                 className="a-input"
@@ -352,7 +372,7 @@ export function PostEditor({
                 </select>
               </Field>
               {linked && (
-                <Link href={`/admin/${meta.other}/${linked.slug}`} className="a-media">
+                <Link href={postHref(meta.other, linked.slug)} className="a-media">
                   <Link2 size={16} color="var(--f-muted)" />
                   <span className="a-media__text">
                     <span className="a-label a-truncate">{linked.title}</span>

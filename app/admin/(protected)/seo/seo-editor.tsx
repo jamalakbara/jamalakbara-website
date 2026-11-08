@@ -7,7 +7,8 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Check } from "lucide-react";
 import type { SeoSettings } from "@/lib/content/schemas";
-import { Field, PageHeader, TagInput, Toggle, useSaveShortcut } from "@/components/admin/ui";
+import { Field, LanguageBar, PageHeader, TagInput, Toggle, useSaveShortcut, type EditLanguage } from "@/components/admin/ui";
+import type { IdSite } from "@/lib/i18n/completeness";
 import { useToast } from "@/components/admin/toast";
 import { useUnsaved } from "@/components/admin/unsaved";
 import { saveSiteCopy } from "../site/actions";
@@ -28,16 +29,20 @@ const WHERE = [
   ["Case studies", "Project"],
 ] as const;
 
-export function SeoEditor({ initial }: { initial: SeoSettings }) {
+export function SeoEditor({ initial, initialId }: { initial: SeoSettings; initialId: IdSite }) {
   const router = useRouter();
   const toast = useToast();
   const [pending, startTransition] = useTransition();
-  const [base, setBase] = useState(initial);
+  const [base, setBase] = useState({ form: initial, id: initialId });
   const [form, setForm] = useState(initial);
+  const [idSite, setIdSite] = useState(initialId);
+  const [language, setLanguage] = useState<EditLanguage>("en");
   const [tab, setTab] = useState<Tab>("person");
   const [error, setError] = useState<string | null>(null);
 
-  const dirty = JSON.stringify(form) !== JSON.stringify(base);
+  const formDirty = JSON.stringify(form) !== JSON.stringify(base.form);
+  const idDirty = JSON.stringify(idSite) !== JSON.stringify(base.id);
+  const dirty = formDirty || idDirty;
   useUnsaved(dirty);
 
   const setIdentity = (patch: Partial<SeoSettings["identity"]>) => setForm((f) => ({ ...f, identity: { ...f.identity, ...patch } }));
@@ -48,13 +53,16 @@ export function SeoEditor({ initial }: { initial: SeoSettings }) {
     if (!dirty || pending) return;
     setError(null);
     startTransition(async () => {
-      const result = await saveSiteCopy([["seo", form]], "seo");
+      const entries: Parameters<typeof saveSiteCopy>[0] = [];
+      if (formDirty) entries.push(["seo", form]);
+      if (idDirty) entries.push(["i18n-site", idSite]);
+      const result = await saveSiteCopy(entries, "seo");
       if (!result.ok) {
         setError(result.error);
         toast.error(result.error);
         return;
       }
-      setBase(form);
+      setBase({ form, id: idSite });
       toast.saved(result, "Search data");
       router.refresh();
     });
@@ -79,6 +87,8 @@ export function SeoEditor({ initial }: { initial: SeoSettings }) {
       />
       {error && <p className="a-banner">Save failed — {error}</p>}
 
+      <LanguageBar value={language} onChange={setLanguage} note="Descriptions change per language. Names and links are shared." />
+
       <div>
         <div className="a-tabs" role="tablist" aria-label="Search data">
           {TABS.map((t, i) => (
@@ -91,7 +101,27 @@ export function SeoEditor({ initial }: { initial: SeoSettings }) {
         <div className="a-tabpanel" role="tabpanel">
           <div className="a-grid a-grid--rail" style={{ padding: 24, gap: 24 }}>
             <div className="a-stack" style={{ gap: 32 }}>
-              {tab === "person" && (
+              {language === "id" && (
+                <Group title="Bahasa" note="Text Google reads on /id pages. English shows as the placeholder.">
+                  <Field label="Website description" count={idSite.seo.website.description.length}>
+                    <textarea className="a-input" rows={3} placeholder={website.description} value={idSite.seo.website.description} onChange={(e) => setIdSite((d) => ({ ...d, seo: { ...d.seo, website: { description: e.target.value } } }))} />
+                  </Field>
+                  <Field label="Person description" count={idSite.seo.identity.description.length}>
+                    <textarea className="a-input" rows={4} placeholder={identity.description} value={idSite.seo.identity.description} onChange={(e) => setIdSite((d) => ({ ...d, seo: { ...d.seo, identity: { ...d.seo.identity, description: e.target.value } } }))} />
+                  </Field>
+                  <Field label="Job titles" help="Blank uses the English titles.">
+                    <TagInput value={idSite.seo.identity.jobTitles} onChange={(v) => setIdSite((d) => ({ ...d, seo: { ...d.seo, identity: { ...d.seo.identity, jobTitles: v } } }))} />
+                  </Field>
+                  <Field label="Business description" count={idSite.seo.business.description.length}>
+                    <textarea className="a-input" rows={3} placeholder={business.description} value={idSite.seo.business.description} onChange={(e) => setIdSite((d) => ({ ...d, seo: { ...d.seo, business: { ...d.seo.business, description: e.target.value } } }))} />
+                  </Field>
+                  <Field label="Services" help="Blank uses the English list.">
+                    <TagInput value={idSite.seo.business.services} onChange={(v) => setIdSite((d) => ({ ...d, seo: { ...d.seo, business: { ...d.seo.business, services: v } } }))} />
+                  </Field>
+                </Group>
+              )}
+
+              {language === "en" && tab === "person" && (
                 <Group title="Person" note="Who the site is about. Shown on home and /about.">
                   <div className="a-row2">
                     <Field label="Name">
@@ -125,7 +155,7 @@ export function SeoEditor({ initial }: { initial: SeoSettings }) {
                 </Group>
               )}
 
-              {tab === "business" && (
+              {language === "en" && tab === "business" && (
                 <Group title="Business" note="Shown on /contact and service pages. Only publish what you are happy to have public.">
                   <Toggle checked={business.enabled} onChange={(v) => setBusiness({ enabled: v })}>
                     Publish business data
@@ -164,7 +194,7 @@ export function SeoEditor({ initial }: { initial: SeoSettings }) {
                 </Group>
               )}
 
-              {tab === "website" && (
+              {language === "en" && tab === "website" && (
                 <Group title="Website" note="How the site names itself. Shown on home.">
                   <div className="a-row2">
                     <Field label="Site name">

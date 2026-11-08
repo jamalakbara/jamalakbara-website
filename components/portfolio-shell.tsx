@@ -1,10 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { BAHASA_NAV, BAHASA_SECTION_LIVE, NAV_LINKS, contact, isBahasaPath, languageLink } from "@/lib/site-data";
+import { ID_PUBLISHED } from "@/lib/i18n/config";
+import { useLanguageTargets, useSite } from "@/lib/i18n/context";
+import { basePath, languageHref } from "@/lib/i18n/routes";
 import { GAEvents } from "@/lib/analytics/events";
+import { IconButton } from "@/components/site/button";
 import { Aurora } from "@/components/site/aurora";
 import { StickerPeel } from "@/components/site/sticker-peel";
 import { ArrowUpRight, Close, Menu } from "@/components/site/icons";
@@ -20,8 +23,10 @@ const REVEAL = [
   ".f-stamp:not(.f-stamp--loop)", ".f-sticker", ".f-tile", ".f-note", ".f-portrait", ".f-row__img",
 ].join(", ");
 
-export function PortfolioShell({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
+export function PortfolioShell({ children, previewPath }: { children: React.ReactNode; previewPath?: string }) {
+  const currentPath = usePathname();
+  const pathname = previewPath ?? currentPath;
+  const showLanguage = ID_PUBLISHED || previewPath !== undefined;
   const router = useRouter();
   const vtDone = useRef<(() => void) | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -30,22 +35,23 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const shellRef = useRef<HTMLDivElement>(null);
   const menuOpenRef = useRef(false);
+  const restoreMenuFocusRef = useRef(false);
 
-  // /layanan, /jurnal and /kontak are the Bahasa section: own nav, own home link.
-  const bahasa = isBahasaPath(pathname);
-  const links = bahasa ? BAHASA_NAV : NAV_LINKS;
-  const homeHref = bahasa ? BAHASA_NAV[0].href : "/";
-  const language = languageLink(pathname);
-  // Until the section is live, /jurnal sits under the English nav and lights Journal.
-  const navPath = bahasa ? pathname : pathname.replace(/^\/jurnal(?=\/|$)/, "/journal");
+  const site = useSite();
+  const { contact, ui, path } = site;
+  const links = site.nav;
+  const homeHref = path("/");
+  const targets = useLanguageTargets();
+  const language = { href: languageHref(pathname, targets), label: ui.nav.language, lang: site.lang === "en" ? "id" : "en" };
+  const navPath = basePath(pathname);
   const isActive = (href: string) => {
-    if (href === "/") return navPath === "/";
-    return href.startsWith("/layanan") ? navPath.startsWith("/layanan") : navPath.startsWith(href);
+    const target = basePath(href);
+    return target === "/" ? navPath === "/" : navPath.startsWith(target);
   };
 
   const close = useCallback((restoreFocus = true) => {
+    restoreMenuFocusRef.current = restoreFocus;
     setMenuOpen(false);
-    if (restoreFocus) toggleRef.current?.focus();
   }, []);
 
   // Close the mobile menu whenever the route changes; start each page at the top.
@@ -62,13 +68,14 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   // while the page content swaps (animations in site.css). Unsupported
   // browsers and reduced motion fall through to Next's normal navigation.
   useEffect(() => {
-    if (!("startViewTransition" in document)) return;
+    if (previewPath !== undefined || !("startViewTransition" in document)) return;
     const still = window.matchMedia("(prefers-reduced-motion: reduce)");
     const onClick = (e: MouseEvent) => {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
       if (still.matches) return;
       const a = (e.target as Element | null)?.closest?.("a[href]") as HTMLAnchorElement | null;
       if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
+      if (a.hasAttribute("data-language-switch")) return;
       const url = new URL(a.href, location.href);
       if (url.origin !== location.origin || url.pathname === location.pathname) return;
       if (/^\/(admin|api)(\/|$)/.test(url.pathname)) return;
@@ -89,13 +96,14 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
     };
     document.addEventListener("click", onClick, true);
     return () => document.removeEventListener("click", onClick, true);
-  }, [router]);
+  }, [router, previewPath]);
 
   // Stacked sections: every <main> child is position:sticky (site.css), so the
   // next section slides over the previous one. A section taller than the
   // viewport sticks by its bottom edge (negative top) so it can be read fully
   // before the next one covers it.
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const main = root?.querySelector<HTMLElement>("#main");
     if (!root || !main) return;
@@ -155,15 +163,20 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       root.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   useEffect(() => {
     menuOpenRef.current = menuOpen;
+    if (!menuOpen && restoreMenuFocusRef.current) {
+      restoreMenuFocusRef.current = false;
+      toggleRef.current?.focus();
+    }
   }, [menuOpen]);
 
   // Sticky header: hides once scrolled past it going down, returns on any
   // small scroll up, always shown near the top (CSS in site.css).
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const shell = shellRef.current;
     if (!root || !shell) return;
@@ -193,13 +206,14 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       root.removeEventListener("scroll", onScroll);
       cancelAnimationFrame(frame);
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   // Reveals: every target plays its CSS entrance on mount; anything below
   // the fold is re-armed (data-rv="pending" → "in") to replay when scrolled
   // into view. Elements under the fold aren't visible yet, so arming them
   // after paint never blinks. Selectors mirror the Reveals block in site.css.
   useEffect(() => {
+    if (previewPath !== undefined) return;
     const root = scrollRef.current;
     const main = root?.querySelector<HTMLElement>("#main");
     if (!root || !main || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -251,7 +265,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       tail.disconnect();
       mo.disconnect();
     };
-  }, [pathname]);
+  }, [pathname, previewPath]);
 
   // Modal menu: focus the first item, trap Tab, close on Escape.
   useEffect(() => {
@@ -296,6 +310,39 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   const active = activeIndex === -1 ? null : links[activeIndex];
   const after = activeIndex === -1 ? [] : links.slice(activeIndex + 1);
 
+  const switchLanguage = async (event: ReactMouseEvent<HTMLAnchorElement>) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const stamp = event.currentTarget.querySelector<HTMLElement>(".f-language-stamp");
+    if (stamp?.hasAttribute("data-peeling")) {
+      event.preventDefault();
+      return;
+    }
+    GAEvents.trackNavigationClick(language.href, "language_link");
+    if (!stamp?.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setMenuOpen(false);
+      return;
+    }
+    event.preventDefault();
+    const start = getComputedStyle(stamp).getPropertyValue("--f-language-peel").trim();
+    stamp.setAttribute("data-peeling", "");
+    const peel = stamp.animate(
+      [{ "--f-language-peel": start }, { "--f-language-peel": "100%" }],
+      { duration: 360, easing: "cubic-bezier(.4, 0, .2, 1)", fill: "forwards" },
+    );
+    await peel.finished.catch(() => {});
+    router.push(language.href);
+  };
+
+  const languageStamp = (
+    <span key={language.lang} className="f-language-stamp" aria-hidden="true">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="f-language-stamp__next" src={`/brand/languages/${site.lang}.svg`} width={48} height={48} alt="" draggable={false} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className="f-language-stamp__front" src={`/brand/languages/${language.lang}.svg`} width={48} height={48} alt="" draggable={false} />
+      <span className="f-language-stamp__fold" />
+    </span>
+  );
+
   const languageNavLink = (
     <Link
       key="language"
@@ -303,10 +350,13 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       hrefLang={language.lang}
       lang={language.lang}
       className="f-navlink f-navlink--lang"
+      aria-label={language.label}
+      title={language.label}
       style={{ viewTransitionName: "f-nav-language" }}
-      onClick={() => GAEvents.trackNavigationClick(language.href, "language_link")}
+      data-language-switch=""
+      onClick={switchLanguage}
     >
-      {language.label}
+      {languageStamp}
     </Link>
   );
 
@@ -315,7 +365,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
       key={l.href}
       href={l.href}
       className="f-navlink"
-      style={{ viewTransitionName: `f-nav-${l.href.slice(1) || "home"}` }}
+      style={{ viewTransitionName: `f-nav-${basePath(l.href).slice(1) || "home"}` }}
       aria-current={isActive(l.href) ? "page" : undefined}
       onClick={() => GAEvents.trackNavigationClick(l.href, "navbar")}
     >
@@ -324,20 +374,24 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
   );
 
   const wordmark = (onClick?: () => void) => (
-    <Link href={homeHref} className="f-wordmark" aria-label={bahasa ? "jamalakbara. — Beranda" : "jamalakbara. — Home"} onClick={onClick}>
+    <Link href={homeHref} className="f-wordmark" aria-label={ui.nav.homeLabel} onClick={onClick}>
       <span className="f-wordmark__roll" aria-hidden="true">JAMALAKBARA.</span>
     </Link>
   );
 
   return (
     <div className="f-shell" ref={shellRef}>
-      <div className="f-scroll" ref={scrollRef} data-scroll-root>
+      <div className="f-scroll" ref={scrollRef} data-scroll-root inert={menuOpen}>
         <div className="f-page">
-          <Aurora />
-          <StickerPeel />
+          {previewPath === undefined && (
+            <>
+              <Aurora />
+              <StickerPeel />
+            </>
+          )}
 
           {/* ---- Desktop / tablet navigation ---- */}
-          <nav lang={bahasa ? "id" : undefined} className="f-nav" aria-label={bahasa ? "Utama" : "Primary"}>
+          <nav className="f-nav" aria-label={ui.nav.primary}>
             <div
               className="f-nav__start"
               style={active ? undefined : { borderRadius: 12, paddingRight: 40 }}
@@ -346,7 +400,7 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               {(before.length > 0 || !active) && (
                 <div className="f-nav__links">
                   {before.map(navLink)}
-                  {!active && BAHASA_SECTION_LIVE && languageNavLink}
+                  {!active && showLanguage && languageNavLink}
                 </div>
               )}
             </div>
@@ -356,9 +410,9 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
                   <span className="f-notch__fill" aria-hidden="true" />
                   {navLink(active)}
                 </div>
-                <div className={after.length || BAHASA_SECTION_LIVE ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
+                <div className={after.length || showLanguage ? "f-nav__end" : "f-nav__end f-nav__end--empty"}>
                   {after.map(navLink)}
-                  {BAHASA_SECTION_LIVE && languageNavLink}
+                  {showLanguage && languageNavLink}
                 </div>
               </>
             )}
@@ -367,17 +421,15 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
           {/* ---- Mobile navigation bar ---- */}
           <div className="f-mnav">
             {wordmark()}
-            <button
+            <IconButton
               ref={toggleRef}
-              type="button"
-              className="f-iconbtn"
-              aria-label={bahasa ? "Buka menu" : "Open menu"}
+              aria-label={ui.nav.openMenu}
               aria-expanded={menuOpen}
               aria-controls="f-mobile-menu"
               onClick={() => setMenuOpen(true)}
             >
               <Menu size={24} />
-            </button>
+            </IconButton>
           </div>
 
           <main id="main" className="f-main" tabIndex={-1}>
@@ -393,22 +445,20 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
         data-open={menuOpen}
         role="dialog"
         aria-modal="true"
-        aria-label="Menu"
+        aria-label={ui.nav.menu}
         aria-hidden={!menuOpen}
       >
-        <div className="f-menu__scrim" onClick={() => close(false)} />
+        <div className="f-menu__scrim" onClick={() => close()} />
         <div className="f-menu__stack" ref={stackRef}>
           <div className="f-mnav" style={{ display: "flex" }}>
             {wordmark(() => setMenuOpen(false))}
-            <button
-              type="button"
-              className="f-iconbtn"
-              aria-label={bahasa ? "Tutup menu" : "Close menu"}
+            <IconButton
+              aria-label={ui.nav.closeMenu}
               tabIndex={menuOpen ? 0 : -1}
               onClick={() => close()}
             >
               <Close size={24} />
-            </button>
+            </IconButton>
           </div>
           {links.map((l) => (
             <Link
@@ -425,19 +475,19 @@ export function PortfolioShell({ children }: { children: React.ReactNode }) {
               <span className="f-menu__label">{l.label}</span>
             </Link>
           ))}
-          {BAHASA_SECTION_LIVE && (
+          {showLanguage && (
             <Link
               href={language.href}
               hrefLang={language.lang}
               lang={language.lang}
-              className="f-menu__item"
+              aria-label={language.label}
+              title={language.label}
+              className="f-menu__item f-menu__item--lang"
               tabIndex={menuOpen ? 0 : -1}
-              onClick={() => {
-                GAEvents.trackNavigationClick(language.href, "language_link");
-                setMenuOpen(false);
-              }}
+              data-language-switch=""
+              onClick={switchLanguage}
             >
-              <span className="f-menu__label">{language.label}</span>
+              {languageStamp}
             </Link>
           )}
           <div className="f-menu__social">

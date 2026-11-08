@@ -2,10 +2,11 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { contact } from "@/lib/site-data";
+import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { TitlePanel } from "@/components/site/title-panel";
-import { ContactNote, type NoteCopy } from "@/components/site/contact-note";
+import { Button } from "@/components/site/button";
+import { ContactNote } from "@/components/site/contact-note";
 import { ContactStrip } from "@/components/site/contact-strip";
 import type { StickerSpot } from "@/components/site/sticker";
 import { Check, MapPin, Send } from "@/components/site/icons";
@@ -17,40 +18,6 @@ import { sentenceLines } from "@/lib/site-format";
 
 type Errors = { name?: string; email?: string; message?: string };
 
-export type ContactCopy = {
-  /** BCP-47 language of the page when it differs from <html lang> */
-  contentLang?: string;
-  label: string;
-  heading: string;
-  intro: string;
-  tab: string;
-  formLabel: string;
-  name: string;
-  namePlaceholder: string;
-  email: string;
-  emailPlaceholder: string;
-  project: string;
-  projectPlaceholder: string;
-  submit: string;
-  privacyNote: string;
-  privacyLink: string;
-  errorName: string;
-  errorEmail: string;
-  errorMessage: string;
-  statusHeading: string;
-  statusBody: string;
-  sentHeading: string;
-  sentBody: string;
-  /** first line of the WhatsApp message; {name} is replaced */
-  greeting: string;
-  replyTo: string;
-  note?: NoteCopy;
-  strip: { heading: string; label: string; href: string };
-};
-
-// wa.me number, composed in site-data from the CMS country + local fields
-// (already digits only). Falls back to the shipped default when unset.
-const WHATSAPP_NUMBER = contact.whatsapp || "6281321766565";
 
 const STICKERS: StickerSpot[] = [
   { name: "make-it-useful", x: 470, y: 74, w: 126, h: 119.283, r: 6 },
@@ -58,9 +25,13 @@ const STICKERS: StickerSpot[] = [
   { name: "pen-tool", x: 850, y: 44, w: 68.697, h: 81, r: -14 },
 ];
 
-export function ContactView({ copy }: { copy: ContactCopy }) {
+export function ContactView({ preview = false, previewField }: { preview?: boolean; previewField?: string }) {
+  const { contact, path, ui } = useSite();
+  const copy = ui.contact;
+  // wa.me number from the CMS country + local fields; shipped default when unset.
+  const whatsappNumber = contact.whatsapp || "6281321766565";
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [errors, setErrors] = useState<Errors>({});
+  const [validationErrors, setErrors] = useState<Errors>({});
   const [sent, setSent] = useState(false);
   const fields = {
     name: useRef<HTMLInputElement>(null),
@@ -86,10 +57,14 @@ export function ContactView({ copy }: { copy: ContactCopy }) {
     if (Object.keys(next).length) {
       setErrors(next);
       const first = (["name", "email", "message"] as const).find((k) => next[k]);
-      if (first) fields[first].current?.focus();
+      if (first) fields[first].current?.focus({ preventScroll: preview });
       return;
     }
     setErrors({});
+    if (preview) {
+      setSent(true);
+      return;
+    }
 
     const text = [
       copy.greeting.replace("{name}", form.name.trim()),
@@ -98,14 +73,20 @@ export function ContactView({ copy }: { copy: ContactCopy }) {
       "",
       `${copy.replyTo} ${form.email.trim()}`,
     ].join("\n");
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(text)}`;
     window.open(url, "_blank", "noopener,noreferrer");
 
     GAEvents.trackContactMessage("whatsapp_form");
     setSent(true);
   };
 
+  const errors: Errors = previewField === "errorName" ? { name: copy.errorName }
+    : previewField === "errorEmail" ? { email: copy.errorEmail }
+    : previewField === "errorMessage" ? { message: copy.errorMessage }
+    : previewField === "statusHeading" || previewField === "statusBody" ? { name: copy.errorName }
+    : validationErrors;
   const hasErrors = Boolean(errors.name || errors.email || errors.message);
+  const showSent = sent || previewField === "sentHeading" || previewField === "sentBody";
 
   const field = (
     key: "name" | "email",
@@ -142,26 +123,25 @@ export function ContactView({ copy }: { copy: ContactCopy }) {
     <>
       <TitlePanel
         label={copy.label}
-        contentLang={copy.contentLang}
         aside={
           <span className="f-loc f-meta f-muted">
             <MapPin size={14} />
-            Bandung, Indonesia
+            {ui.common.location}
           </span>
         }
-        heading={<h1 className="f-display f-display--caps">{sentenceLines(copy.heading)}</h1>}
+        heading={<h1 className="f-display f-display--caps">{sentenceLines(contact.heading)}</h1>}
         intro={<p className="f-body">{copy.intro}</p>}
         stickers={STICKERS}
         mobileStickers={[{ name: "debug-duck", x: 270, y: 74, w: 59.603, h: 67.2, r: -10 }]}
       />
 
-      <section lang={copy.contentLang} className="f-folder" aria-label={copy.tab}>
+      <section className="f-folder" aria-label={copy.tab}>
         <div className="f-tab">
           <span className="f-tabtext">{copy.tab}</span>
           <span className="f-tab__n f-muted">01</span>
         </div>
         <div className="f-folder__body f-folder__body--flush f-split">
-          {sent ? (
+          {showSent ? (
             <div className="f-form f-sent" role="status">
               <span className="f-sent__icon">
                 <Check size={24} />
@@ -203,21 +183,21 @@ export function ContactView({ copy }: { copy: ContactCopy }) {
                 />
               </div>
               <div className="f-form__actions">
-                <button type="submit" className="f-btn f-btn--primary">
+                <Button type="submit">
                   <Send size={16} />
                   {copy.submit}
-                </button>
+                </Button>
                 <span className="f-meta f-muted">
-                  {copy.privacyNote} <Link href="/privacy" style={{ textDecoration: "underline" }}>{copy.privacyLink}</Link>
+                  {copy.privacyNote} <Link href={path("/privacy")} style={{ textDecoration: "underline" }}>{copy.privacyLink}</Link>
                 </span>
               </div>
             </form>
           )}
-          <ContactNote trackEmail copy={copy.note} />
+          <ContactNote trackEmail />
         </div>
       </section>
 
-      <ContactStrip {...copy.strip} variant="arrow" contentLang={copy.contentLang} />
+      <ContactStrip heading={copy.stripHeading} label={copy.stripLabel} href={path("/work")} />
     </>
   );
 }

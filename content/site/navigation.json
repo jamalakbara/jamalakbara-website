@@ -12,6 +12,10 @@
     "href": "/journal"
   },
   {
+    "label": "Services",
+    "href": "/services"
+  },
+  {
     "label": "About",
     "href": "/about"
   },
