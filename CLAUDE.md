@@ -142,7 +142,7 @@ There is no `components/ui/` shadcn directory in active use; Radix primitives ar
 - Type: **Tanker** (display/titles/tabs/wordmark), **Erode** (body/actions/meta), **Comico** (hero name + number digits only; subset — re-subset if used for other text). All weight 400. CSS line-heights = canvas ratio + 0.09 (canvas adds the faces' line gap); role classes carry `padding-block: 1px`.
 - Classes: `.f-panel`, `.f-folder`/`.f-tab`, `.f-display`/`.f-title`/`.f-body`/`.f-action`/`.f-meta`, `.f-btn--primary|secondary`, `.f-link`/`.f-uline`/`.f-act`, `.f-filter`, `.f-input`, `.f-row`, `.f-receipt`, `.f-note`, `.f-prose`.
 - Headings: `sentenceLines()` (`lib/site-format.ts`) breaks like the canvas without changing text content.
-- Space Grotesk / Fraunces are still loaded by the root layout but no longer used (legacy).
+- No Google fonts are loaded (Space Grotesk / Fraunces removed Nov 2026: unused, and their build-time fetch failed Vercel builds). All type is self-hosted via `next/font/local`.
 
 ### Motion
 - First-load splash (`components/site/splash.tsx`, once per session: typed name → stamp slam → settle → morph into hero), aurora shell shader (static under reduced motion, paused when hidden), hero stamp 3 s settle loop, 160 ms hovers, 240 ms menu. `prefers-reduced-motion` is honored in `site.css`.
@@ -190,7 +190,7 @@ See `.env.example`.
 
 ## Known Gaps
 - `npm run lint` crashes (ESLint 9 + legacy `eslintrc` config, circular-structure error) — pre-existing; type-checking via `npm run build` is the working quality gate.
-- `next build` runs Turbopack on Next 16 and can fail once fetching Google fonts; a rerun passes.
+- `next build` runs Turbopack on Next 16. It used to fail fetching Google fonts; none are loaded now, so keep it that way.
 - 404s render through Next's error shell, so their HTML fills in on the client. Status and noindex are correct.
 
 ## Icons
