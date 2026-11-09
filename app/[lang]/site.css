@@ -1333,39 +1333,51 @@ textarea.f-input { resize: none; }
   .f-jstrip__title { font-size: 22px; }
 }
 
-/* Destination-language stamp: supplied canvas artwork, surface-token paper. */
+/* Destination-language flag: waves once on hover, flips to the current language on click
+   (portfolio-shell.tsx animates the flip, then navigates). Back face = the flag the next page shows. */
 .f-navlink.f-navlink--lang { width: 48px; min-width: 48px; padding: 0; }
 .f-navlink--lang::after { display: none; }
-@property --f-language-peel {
-  syntax: "<percentage>";
-  inherits: true;
-  initial-value: 0%;
-}
-.f-language-stamp {
-  --f-language-peel: 0%;
+.f-language-flag {
   position: relative;
   display: block;
-  width: 48px;
-  height: 48px;
+  width: 28px;
+  aspect-ratio: 1145 / 753;
   flex-shrink: 0;
   pointer-events: none;
+  perspective: 120px;
 }
-.f-language-stamp img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
-.f-language-stamp__front { clip-path: inset(0 0 var(--f-language-peel) 0); }
-.f-language-stamp__next { clip-path: inset(calc(100% - var(--f-language-peel)) 0 0 0); }
-.f-language-stamp__fold {
+.f-language-flag__card { position: absolute; inset: 0; transform-style: preserve-3d; transform-origin: 0 50%; }
+.f-language-flag__face { position: absolute; inset: 0; overflow: hidden; border-radius: 1px; backface-visibility: hidden; }
+.f-language-flag__face img { display: block; width: 100%; height: 100%; }
+.f-language-flag__face--back { transform: rotateY(180deg); }
+.f-language-flag__face--front::after {
+  content: "";
   position: absolute;
-  inset-inline: 4px;
-  bottom: var(--f-language-peel);
-  height: clamp(0px, calc(var(--f-language-peel) - 8%), min(10px, 100% - var(--f-language-peel)));
-  background: linear-gradient(to top, #a89d89, var(--f-surface) 32%, #f7f4ed);
-  clip-path: polygon(0 100%, 100% 100%, 92% 0, 8% 0);
+  inset: 0;
+  background: linear-gradient(100deg, transparent 18%, rgb(255 255 255 / .4) 30%, transparent 42%, rgb(32 30 25 / .14) 54%, transparent 66%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  opacity: 0;
 }
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  [data-language-switch] .f-language-stamp:not([data-peeling]) { transition: --f-language-peel 220ms ease-out; }
-  [data-language-switch]:hover .f-language-stamp:not([data-peeling]) { --f-language-peel: 21%; }
+@keyframes f-flag-wave {
+  0%, 100% { transform: none; }
+  25% { transform: rotateY(-14deg) skewY(-3deg); }
+  50% { transform: rotateY(9deg) skewY(2deg); }
+  75% { transform: rotateY(-4deg) skewY(-1deg); }
 }
-.f-menu__item--lang { padding-block: 4px; }
+@keyframes f-flag-sheen {
+  0% { opacity: 0; background-position: 100% 0; }
+  20%, 80% { opacity: 1; }
+  100% { opacity: 0; background-position: 0 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  :is([data-language-switch]:hover, [data-language-switch]:focus-visible) .f-language-flag:not([data-flipping]) .f-language-flag__card {
+    animation: f-flag-wave 600ms ease-in-out;
+  }
+  :is([data-language-switch]:hover, [data-language-switch]:focus-visible) .f-language-flag:not([data-flipping]) .f-language-flag__face--front::after {
+    animation: f-flag-sheen 600ms ease-in-out;
+  }
+}.f-menu__item--lang { padding-block: 4px; }
 @media (max-width: 1023px) {
   .f-nav__start { padding-left: 16px; }
   .f-nav__end { gap: 4px; padding-right: 16px; }
