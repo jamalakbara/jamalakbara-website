@@ -312,34 +312,42 @@ export function PortfolioShell({ children, previewPath }: { children: React.Reac
 
   const switchLanguage = async (event: ReactMouseEvent<HTMLAnchorElement>) => {
     if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-    const stamp = event.currentTarget.querySelector<HTMLElement>(".f-language-stamp");
-    if (stamp?.hasAttribute("data-peeling")) {
+    const flag = event.currentTarget.querySelector<HTMLElement>(".f-language-flag");
+    if (flag?.hasAttribute("data-flipping")) {
       event.preventDefault();
       return;
     }
     GAEvents.trackNavigationClick(language.href, "language_link");
-    if (!stamp?.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const card = flag?.querySelector<HTMLElement>(".f-language-flag__card");
+    if (!flag || !card?.animate || matchMedia("(prefers-reduced-motion: reduce)").matches) {
       setMenuOpen(false);
       return;
     }
     event.preventDefault();
-    const start = getComputedStyle(stamp).getPropertyValue("--f-language-peel").trim();
-    stamp.setAttribute("data-peeling", "");
-    const peel = stamp.animate(
-      [{ "--f-language-peel": start }, { "--f-language-peel": "100%" }],
-      { duration: 360, easing: "cubic-bezier(.4, 0, .2, 1)", fill: "forwards" },
+    flag.setAttribute("data-flipping", "");
+    const flip = card.animate(
+      [
+        { transform: "rotateY(0deg)", transformOrigin: "50% 50%" },
+        { transform: "rotateY(180deg)", transformOrigin: "50% 50%" },
+      ],
+      { duration: 280, easing: "cubic-bezier(.4, 0, .2, 1)", fill: "forwards" },
     );
-    await peel.finished.catch(() => {});
+    await flip.finished.catch(() => {});
     router.push(language.href);
   };
 
   const languageStamp = (
-    <span key={language.lang} className="f-language-stamp" aria-hidden="true">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="f-language-stamp__next" src={`/brand/languages/${site.lang}.svg`} width={48} height={48} alt="" draggable={false} />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img className="f-language-stamp__front" src={`/brand/languages/${language.lang}.svg`} width={48} height={48} alt="" draggable={false} />
-      <span className="f-language-stamp__fold" />
+    <span key={language.lang} className="f-language-flag" aria-hidden="true">
+      <span className="f-language-flag__card">
+        <span className="f-language-flag__face f-language-flag__face--front">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/brand/languages/${language.lang}.svg`} width={28} height={18} alt="" draggable={false} />
+        </span>
+        <span className="f-language-flag__face f-language-flag__face--back">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={`/brand/languages/${site.lang}.svg`} width={28} height={18} alt="" draggable={false} />
+        </span>
+      </span>
     </span>
   );
 

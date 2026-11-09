@@ -18,6 +18,7 @@ precision mediump float;
 uniform vec2 u_resolution;
 uniform sampler2D u_content;
 uniform float u_hover;
+uniform float u_amount;
 vec4 artwork(vec2 uv) {
   return texture2D(u_content,uv)*step(0.0,uv.x)*step(uv.x,1.0)*step(0.0,uv.y)*step(uv.y,1.0);
 }
@@ -26,8 +27,8 @@ void main(){
   float hover=u_hover;
   float curl=smoothstep(0.2,1.0,uv.x)*smoothstep(0.1,1.0,uv.y);
   vec2 q=uv;
-  q.x+=hover*curl*0.035;
-  q.y-=hover*curl*0.065;
+  q.x+=hover*curl*0.035*u_amount;
+  q.y-=hover*curl*0.065*u_amount;
   vec4 ink=artwork(q);
   float shade=0.0;
   for(int i=0;i<5;i++){
@@ -35,12 +36,16 @@ void main(){
     shade+=artwork(uv+vec2(o*0.008,0.025+o*0.006)).a;
   }
   shade=max(shade*0.2*0.20*hover,0.0);
-  ink.rgb*=1.0-0.07*hover*curl;
+  ink.rgb*=1.0-0.07*u_amount*hover*curl;
   gl_FragColor=ink+vec4(vec3(0.10,0.085,0.06)*shade,shade)*(1.0-ink.a);
 }`;
 
 const VERT = `attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}`;
 const TARGET = ".f-sticker, .f-tile, .f-cap__icon";
+// Links whose sticker icon (.f-sicon) peels at full strength while the whole
+// link is hovered (contact note), not just the icon.
+const LINK = "[data-peel-link]";
+const LINK_ICON = ".f-sicon";
 const ENTER_MS = 220;
 const STIFFNESS = 260;
 const DAMPING = 20;
@@ -83,6 +88,8 @@ export function StickerPeel() {
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
     const uRes = gl.getUniformLocation(prog, "u_resolution");
     const uHover = gl.getUniformLocation(prog, "u_hover");
+    const uAmount = gl.getUniformLocation(prog, "u_amount");
+    gl.uniform1f(uAmount, 1);
 
     const tex = gl.createTexture();
     gl.bindTexture(gl.TEXTURE_2D, tex);
@@ -99,6 +106,7 @@ export function StickerPeel() {
     const ctx2d = raster.getContext("2d")!;
 
     let host: HTMLElement | null = null;
+    let trigger: HTMLElement | null = null; // the hovered link when it differs from host
     let hidden: HTMLElement[] = [];
     let boxX = 0;
     let boxY = 0;
@@ -123,6 +131,7 @@ export function StickerPeel() {
       for (const el of hidden) el.style.visibility = "";
       canvas.remove();
       host = null;
+      trigger = null;
       hidden = [];
     };
 
@@ -224,21 +233,26 @@ export function StickerPeel() {
 
     const onOver = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
-      const el = (e.target as Element).closest?.(TARGET) as HTMLElement | null;
+      const target = e.target as Element;
+      const link = target.closest?.(LINK) as HTMLElement | null;
+      const el = (link?.querySelector(LINK_ICON) ?? target.closest?.(TARGET)) as HTMLElement | null;
       if (!el || el === host && inside) return;
       if (!attach(el)) return;
+      trigger = link;
+      // a 28px link icon needs a deeper curl than a collage sticker to read
+      gl.uniform1f(uAmount, link ? 3 : 1);
       inside = true;
       enterAt = performance.now() - easeOutInverse(Math.min(Math.max(hover, 0), 1)) * ENTER_MS;
-      edge = edgeOf(el, e);
+      edge = link ? 1 : edgeOf(el, e);
       start();
     };
     const onMove = (e: PointerEvent) => {
-      if (!host || !inside) return;
+      if (!host || !inside || trigger) return;
       edge = edgeOf(host, e);
     };
     const onOut = (e: PointerEvent) => {
       if (!host || !inside) return;
-      if (e.relatedTarget instanceof Node && host.contains(e.relatedTarget)) return;
+      if (e.relatedTarget instanceof Node && (trigger ?? host).contains(e.relatedTarget)) return;
       inside = false;
       start();
     };

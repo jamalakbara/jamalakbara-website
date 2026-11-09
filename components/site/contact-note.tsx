@@ -4,10 +4,30 @@ import { useEffect, useRef, useState } from "react";
 import { useSite } from "@/lib/i18n/context";
 import { GAEvents } from "@/lib/analytics/events";
 import { IconButton } from "@/components/site/button";
-import { Stamp } from "@/components/site/stamp";
-import { ArrowUpRight } from "@/components/site/icons";
 
-// "A note to Akbar" (canvas Contact / Straight-edge paper note). The stamp is
+// Hand-made sticker icons (canvas "social icons" frame) shown before each
+// label. They peel on hover like the collage stickers (sticker-peel.tsx).
+const SOCIAL_ICONS: Record<string, { src: string; w: number; h: number }> = {
+  mail: { src: "/brand/social/mail.svg", w: 685, h: 708 },
+  github: { src: "/brand/social/github.svg", w: 741, h: 823 },
+  linkedin: { src: "/brand/social/linkedin.svg", w: 701, h: 722 },
+  twitter: { src: "/brand/social/twitter.svg", w: 921, h: 717 },
+  x: { src: "/brand/social/twitter.svg", w: 921, h: 717 },
+  copy: { src: "/brand/social/copy.svg", w: 1263, h: 1483 },
+};
+
+function SocialIcon({ name, index }: { name: string; index: number }) {
+  const icon = SOCIAL_ICONS[name.toLowerCase()];
+  if (!icon) return null;
+  return (
+    <span className="f-sicon" style={{ "--si": index } as React.CSSProperties}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={icon.src} alt="" aria-hidden="true" width={icon.w} height={icon.h} draggable={false} />
+    </span>
+  );
+}
+
+// "A note to Akbar" (canvas Contact / Straight-edge paper note). The copy sticker is
 // the copy-email control: success announces "Copied" without moving layout;
 // if the clipboard is unavailable/denied the address stays selectable and the
 // mail link remains, with a polite announcement.
@@ -51,12 +71,13 @@ export function ContactNote({
         <span className="f-meta">{text.label}</span>
         <IconButton
           className="f-copy"
+          data-peel-link=""
           onClick={copy}
           aria-label={`${text.copyLabel} ${contact.email}`}
           data-state={state}
           data-msg={msg}
         >
-          <Stamp size={44} />
+          <SocialIcon name="copy" index={0} />
         </IconButton>
       </div>
       <p className="f-note__email">{contact.email}</p>
@@ -66,21 +87,19 @@ export function ContactNote({
       <div>
         <a
           href={`mailto:${contact.email}`}
-          className="f-uline"
+          className="f-slink"
+          data-peel-link=""
           onClick={trackEmail ? () => GAEvents.trackContactMessage("email_link") : undefined}
         >
+          <SocialIcon name="mail" index={0} />
           {text.mail}
-          <ArrowUpRight size={16} />
         </a>
       </div>
       <div className="f-note__links">
-        {socials.map((s) => (
-          <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="f-link">
-            <span className="f-link__row">
-              {s.label}
-              <ArrowUpRight size={16} />
-            </span>
-            <span className="f-link__line" />
+        {socials.map((s, i) => (
+          <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer" className="f-slink" data-peel-link="">
+            <SocialIcon name={s.label} index={i + 1} />
+            {s.label}
           </a>
         ))}
       </div>

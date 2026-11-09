@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 31 (active 31)
-- handoff: 53 (final 53)
+- handoff: 54 (final 54)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-fftx1pkf 2026-11-08 (human:akbar) — Done: Opened PR #38 from development into main for the centered wide layout. · Next: Review PR #38.
 - hnd-rg9kxkh5 2026-11-08 (human:akbar) — Done: Verified development matches origin and reviewed the centered layout diff and prior browser checks. · Next: Commit the layout and related handoffs and push development.
 - hnd-jdjeyg43 2026-11-08 (human:akbar) — Done: Found the existing Chrome localhost tab on a connection-refused page. Reloaded and visually verified centered 1416px panels and wide aurora gutters. · Next: Review the refreshed localhost tab.
 - hnd-tc8bx01h 2026-11-08 (human:akbar) — Done: Centered the shared public folder panels at a 1416px maximum while retaining the full-width aurora. Updated the design system. Chromium confirmed nav, hero and project folder widths and alignme…
 - hnd-6tq13czz 2026-11-08 (human:akbar) — Done: Reviewed the wide homepage screenshot, CSS and design system. Recommended a shared centered 1416px folder cap over the full-bleed aurora. · Next: If implementing, compare the 1440px design refe…
-- hnd-fav6eb72 2026-11-08 (human:akbar) — Done: Committed the language-switch flag artwork and peel animation, refreshed site icons, Pencil design updates, documentation and related project records in abf3776. Staged diff check passed. · Nex…
