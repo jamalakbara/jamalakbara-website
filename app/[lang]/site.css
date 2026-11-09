@@ -652,7 +652,44 @@
 }
 .f-note__links { display: flex; flex-wrap: wrap; gap: 24px; padding-top: 20px; border-top: 1px solid var(--f-line); }
 .f-note__status { min-height: 0; font: 12px/1.49 var(--f-erode); }
+/* Sticker icon link in the contact note (public/brand/social, canvas "social icons").
+   No underline: the icon carries the link. Hovering lifts the sticker and peels it
+   (sticker-peel.tsx, data-peel-link); it thunks in after the note settles (--si). */
+.f-slink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 48px;
+  color: var(--f-ink);
+  font: 16px/1.49 var(--f-erode);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 160ms ease-out;
+}
+.f-sicon {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  height: 28px;
+  transform: rotate(-4deg);
+  transition: transform 220ms cubic-bezier(0.3, 1.4, 0.5, 1), filter 160ms ease-out;
+}
+.f-sicon img { display: block; width: auto; height: 100%; }
+@media (hover: hover) {
+  .f-slink:hover { color: var(--f-accent); }
+  .f-slink:hover .f-sicon { transform: translateY(-2px) rotate(3deg) scale(1.12); }
+}
+.f-main .f-note:not([data-rv="pending"]) .f-sicon {
+  animation: f-thunk 520ms cubic-bezier(0.3, 1.4, 0.5, 1) backwards;
+  animation-delay: calc(var(--rv-d, 0ms) + 420ms + var(--si, 0) * 80ms);
+}
+@media (hover: hover) {
+  :root:not([data-peel]) [data-peel-link]:hover .f-sicon { filter: drop-shadow(0 3px 2px rgba(26, 22, 15, 0.2)); }
+}
 .f-copy { position: relative; }
+/* copy-email sticker (canvas "copy"); same lift + peel as the link icons */
+.f-copy .f-sicon { height: 36px; }
+@media (hover: hover) { .f-copy.f-iconbtn:not(:disabled):hover { background: transparent; } .f-copy:hover .f-sicon { transform: translateY(-2px) rotate(3deg) scale(1.12); } }
 .f-copy[data-state="copied"]::after,
 .f-copy[data-state="failed"]::after {
   content: attr(data-msg);

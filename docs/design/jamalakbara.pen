@@ -8916,7 +8916,23 @@
                               "height": 44,
                               "layoutPosition": "absolute",
                               "x": 2,
-                              "y": 2
+                              "y": 2,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Rnabd",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -8949,12 +8965,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "enbox",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "THGE0",
@@ -8982,7 +9010,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -9007,7 +9036,6 @@
                           "type": "frame",
                           "id": "bLPzB",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -9017,9 +9045,24 @@
                               "type": "frame",
                               "id": "jMLed",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "pSz4H",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "G0u3L",
@@ -9047,16 +9090,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "d5WQq8",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -9065,7 +9112,6 @@
                           "type": "frame",
                           "id": "APOr3",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -9075,9 +9121,24 @@
                               "type": "frame",
                               "id": "l9HXZ5",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "a70uxE",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "FBfsh",
@@ -9105,16 +9166,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "dYi6A",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -10997,12 +11062,24 @@
                           "name": "Contact / Send an email link",
                           "height": 48,
                           "stroke": "$folder-ink",
-                          "strokeWidth": {
-                            "bottom": 1
-                          },
                           "gap": 8,
                           "alignItems": "center",
                           "children": [
+                            {
+                              "type": "rectangle",
+                              "id": "S9cnX",
+                              "name": "Sticker icon / mail",
+                              "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-mail.png",
+                                "mode": "contain"
+                              },
+                              "width": 27,
+                              "height": 28
+                            },
                             {
                               "type": "rectangle",
                               "id": "Ck3aB",
@@ -11030,7 +11107,8 @@
                               "name": "Contact / Email arrow",
                               "width": 16,
                               "height": 16,
-                              "fill": "$folder-ink"
+                              "fill": "$folder-ink",
+                              "enabled": false
                             }
                           ]
                         },
@@ -11055,7 +11133,6 @@
                               "type": "frame",
                               "id": "s6gqLu",
                               "name": "Contact / GitHub / 48px link target",
-                              "width": 68,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11065,9 +11142,24 @@
                                   "type": "frame",
                                   "id": "M1JGG",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "S57iC",
+                                      "name": "Sticker icon / github",
+                                      "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-github.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 25.1,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "u0ZOc",
@@ -11095,16 +11187,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "g2U0Zt",
+                                  "x": 0,
+                                  "y": 39.34134044912631,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -11113,7 +11209,6 @@
                               "type": "frame",
                               "id": "ZbSIZ",
                               "name": "Contact / LinkedIn / 48px link target",
-                              "width": 80,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11123,9 +11218,24 @@
                                   "type": "frame",
                                   "id": "O04dZ9",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "PuDAC",
+                                      "name": "Sticker icon / linkedin",
+                                      "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-linkedin.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 27.2,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "Uq2mN",
@@ -11153,16 +11263,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "MugjX",
+                                  "x": 0,
+                                  "y": 39.414584746557644,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -11171,7 +11285,6 @@
                               "type": "frame",
                               "id": "Obj85",
                               "name": "Contact / Twitter / 48px link target",
-                              "width": 69,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11181,9 +11294,24 @@
                                   "type": "frame",
                                   "id": "E7xG2V",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "h767ql",
+                                      "name": "Sticker icon / twitter",
+                                      "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-twitter.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 36,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "TQ1aT",
@@ -11211,16 +11339,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "oWwUc",
+                                  "x": 0,
+                                  "y": 39.72151323103179,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -11374,12 +11506,24 @@
                           "name": "Contact / Send an email link",
                           "height": 48,
                           "stroke": "$folder-ink",
-                          "strokeWidth": {
-                            "bottom": 1
-                          },
                           "gap": 8,
                           "alignItems": "center",
                           "children": [
+                            {
+                              "type": "rectangle",
+                              "id": "oYR18",
+                              "name": "Sticker icon / mail",
+                              "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-mail.png",
+                                "mode": "contain"
+                              },
+                              "width": 27,
+                              "height": 28
+                            },
                             {
                               "type": "rectangle",
                               "id": "BlTRw",
@@ -11407,7 +11551,8 @@
                               "name": "Contact / Email arrow",
                               "width": 16,
                               "height": 16,
-                              "fill": "$folder-ink"
+                              "fill": "$folder-ink",
+                              "enabled": false
                             }
                           ]
                         },
@@ -11432,7 +11577,6 @@
                               "type": "frame",
                               "id": "Jl310",
                               "name": "Contact / GitHub / 48px link target",
-                              "width": 68,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11442,9 +11586,24 @@
                                   "type": "frame",
                                   "id": "NXaTv",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "TItyU",
+                                      "name": "Sticker icon / github",
+                                      "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-github.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 25.1,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "gYBKN",
@@ -11472,16 +11631,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "n7zRGI",
+                                  "x": 0,
+                                  "y": 39.34134044912631,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -11490,7 +11653,6 @@
                               "type": "frame",
                               "id": "m1LaH",
                               "name": "Contact / LinkedIn / 48px link target",
-                              "width": 80,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11500,9 +11662,24 @@
                                   "type": "frame",
                                   "id": "cExWu",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "U96GB3",
+                                      "name": "Sticker icon / linkedin",
+                                      "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-linkedin.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 27.2,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "QnCHE",
@@ -11530,16 +11707,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "USXNz",
+                                  "x": 0,
+                                  "y": 39.414584746557644,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -11548,7 +11729,6 @@
                               "type": "frame",
                               "id": "pj0K7",
                               "name": "Contact / Twitter / 48px link target",
-                              "width": 69,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -11558,9 +11738,24 @@
                                   "type": "frame",
                                   "id": "ogVDH",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "FxaBp",
+                                      "name": "Sticker icon / twitter",
+                                      "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-twitter.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 36,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "s5Dshx",
@@ -11588,16 +11783,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "k40Imp",
+                                  "x": 0,
+                                  "y": 39.72151323103179,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -31173,7 +31372,23 @@
                                   "ref": "EaXCh",
                                   "name": "Contact / Static logo stamp",
                                   "width": 44,
-                                  "height": 44
+                                  "height": 44,
+                                  "enabled": false
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "id": "p6xJKK",
+                                  "name": "Sticker icon / copy",
+                                  "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-copy.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 30.8,
+                                  "height": 36
                                 }
                               ]
                             }
@@ -31206,12 +31421,24 @@
                           "name": "Contact / Send an email link",
                           "height": 48,
                           "stroke": "$folder-ink",
-                          "strokeWidth": {
-                            "bottom": 1
-                          },
                           "gap": 8,
                           "alignItems": "center",
                           "children": [
+                            {
+                              "type": "rectangle",
+                              "id": "i2blr",
+                              "name": "Sticker icon / mail",
+                              "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-mail.png",
+                                "mode": "contain"
+                              },
+                              "width": 27,
+                              "height": 28
+                            },
                             {
                               "type": "rectangle",
                               "id": "MKCxl",
@@ -31239,7 +31466,8 @@
                               "name": "Contact / Email arrow",
                               "width": 16,
                               "height": 16,
-                              "fill": "$folder-ink"
+                              "fill": "$folder-ink",
+                              "enabled": false
                             }
                           ]
                         },
@@ -31264,7 +31492,6 @@
                               "type": "frame",
                               "id": "sC0wu",
                               "name": "Contact / GitHub / 48px link target",
-                              "width": 68,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -31274,9 +31501,24 @@
                                   "type": "frame",
                                   "id": "lCgF2",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "myOas",
+                                      "name": "Sticker icon / github",
+                                      "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-github.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 25.1,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "Q6RD1",
@@ -31304,16 +31546,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "i3gaS",
+                                  "x": 0,
+                                  "y": 39.34134044912631,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -31322,7 +31568,6 @@
                               "type": "frame",
                               "id": "sYFBS",
                               "name": "Contact / LinkedIn / 48px link target",
-                              "width": 80,
                               "height": 48,
                               "layout": "vertical",
                               "gap": 2,
@@ -31332,9 +31577,24 @@
                                   "type": "frame",
                                   "id": "JlNbu",
                                   "name": "Label row",
-                                  "gap": 6,
+                                  "gap": 8,
                                   "alignItems": "center",
                                   "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "UeQKI",
+                                      "name": "Sticker icon / linkedin",
+                                      "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                      "rotation": -4,
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/sticker-linkedin.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 27.2,
+                                      "height": 28
+                                    },
                                     {
                                       "type": "rectangle",
                                       "id": "MyzJg",
@@ -31362,16 +31622,20 @@
                                       "name": "Link arrow",
                                       "width": 16,
                                       "height": 16,
-                                      "fill": "$folder-ink"
+                                      "fill": "$folder-ink",
+                                      "enabled": false
                                     }
                                   ]
                                 },
                                 {
                                   "type": "rectangle",
                                   "id": "Wo1Ly",
+                                  "x": 0,
+                                  "y": 39.414584746557644,
                                   "name": "Link underline",
+                                  "enabled": false,
                                   "fill": "$folder-ink",
-                                  "width": "fill_container",
+                                  "width": 1,
                                   "height": 1
                                 }
                               ]
@@ -72133,7 +72397,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Q0NIc",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -72166,12 +72446,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "bOvN1",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "X03p8",
@@ -72199,7 +72491,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -72224,7 +72517,6 @@
                           "type": "frame",
                           "id": "wvE5p",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -72234,9 +72526,24 @@
                               "type": "frame",
                               "id": "dffek",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "O1Kxl",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "egA7o",
@@ -72264,16 +72571,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "GSZZd",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -72282,7 +72593,6 @@
                           "type": "frame",
                           "id": "hfOJo",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -72292,9 +72602,24 @@
                               "type": "frame",
                               "id": "F6ubdF",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "Zyzgl",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "ZpkPo",
@@ -72322,16 +72647,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "JQCI8",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -72340,7 +72669,6 @@
                           "type": "frame",
                           "id": "VuWqr",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -72350,9 +72678,24 @@
                               "type": "frame",
                               "id": "aYpju",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "P21XA",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "ZhCaJ",
@@ -72380,16 +72723,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "o2Ku8K",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -73417,7 +73764,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "RizeH",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -73450,12 +73813,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "Mh8op",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "aIj38",
@@ -73483,7 +73858,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -73508,7 +73884,6 @@
                           "type": "frame",
                           "id": "BU8Zt",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -73518,9 +73893,24 @@
                               "type": "frame",
                               "id": "L9j4O8",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "V4pCu",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "wzRln",
@@ -73548,16 +73938,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "uXsgT",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -73566,7 +73960,6 @@
                           "type": "frame",
                           "id": "LyziZ",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -73576,9 +73969,24 @@
                               "type": "frame",
                               "id": "G0Bag",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "cvdKp",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "eQLBl",
@@ -73606,16 +74014,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "Gju72",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -73624,7 +74036,6 @@
                           "type": "frame",
                           "id": "QdlIH",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -73634,9 +74045,24 @@
                               "type": "frame",
                               "id": "hfx6V",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "V1tjjj",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "ZK5ho",
@@ -73664,16 +74090,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "gpV8t",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -74779,7 +75209,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hZJg0",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -74812,12 +75258,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "ElMdM",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "gbdUq",
@@ -74845,7 +75303,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -74870,7 +75329,6 @@
                           "type": "frame",
                           "id": "jeqUU",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -74880,9 +75338,24 @@
                               "type": "frame",
                               "id": "AmWFX",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "seT6V",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "MoD7c",
@@ -74910,16 +75383,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "O7gkmx",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -74928,7 +75405,6 @@
                           "type": "frame",
                           "id": "k44zwf",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -74938,9 +75414,24 @@
                               "type": "frame",
                               "id": "coFfe",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "ejvAk",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "y4S6d",
@@ -74968,16 +75459,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "JEcmk",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -74986,7 +75481,6 @@
                           "type": "frame",
                           "id": "O2eAGo",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -74996,9 +75490,24 @@
                               "type": "frame",
                               "id": "fSeLo",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "W98el0",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "S0qa7T",
@@ -75026,16 +75535,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "vTeW1",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -75920,7 +76433,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "xwb6n",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -75953,12 +76482,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "MjHur",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "kiYOk",
@@ -75986,7 +76527,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -76011,7 +76553,6 @@
                           "type": "frame",
                           "id": "Ojpmm",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -76021,9 +76562,24 @@
                               "type": "frame",
                               "id": "D7L4fc",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "b8ZbI",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "Omm35",
@@ -76051,16 +76607,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "l7IdK",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -76069,7 +76629,6 @@
                           "type": "frame",
                           "id": "Pr2kT",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -76079,9 +76638,24 @@
                               "type": "frame",
                               "id": "te9FI",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "K8A9gc",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "uaqaR",
@@ -76109,16 +76683,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "iXyTa",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -76127,7 +76705,6 @@
                           "type": "frame",
                           "id": "DLDEL",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -76137,9 +76714,24 @@
                               "type": "frame",
                               "id": "TbK3q",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "l7lmWQ",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "XWfuZ",
@@ -76167,16 +76759,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "GRQQl",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -77103,7 +77699,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Mol02",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -77136,12 +77748,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "jqwWv",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "zBi8z",
@@ -77169,7 +77793,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -77194,7 +77819,6 @@
                           "type": "frame",
                           "id": "s4hZB",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -77204,9 +77828,24 @@
                               "type": "frame",
                               "id": "GmmaG",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "vkOTq",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "O7ElTI",
@@ -77234,16 +77873,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "JrjP2",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -77252,7 +77895,6 @@
                           "type": "frame",
                           "id": "H6jDUi",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -77262,9 +77904,24 @@
                               "type": "frame",
                               "id": "E0XvaC",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "gqmhF",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "TNcNn",
@@ -77292,16 +77949,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "ZwKOV",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -77310,7 +77971,6 @@
                           "type": "frame",
                           "id": "mz9vx",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -77320,9 +77980,24 @@
                               "type": "frame",
                               "id": "iJkFk",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "KS2Yh",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "vrqfT",
@@ -77350,16 +78025,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "IhtYM",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -78416,7 +79095,23 @@
                               "ref": "EaXCh",
                               "name": "Contact / Static logo stamp",
                               "width": 44,
-                              "height": 44
+                              "height": 44,
+                              "enabled": false
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "hiHw9",
+                              "name": "Sticker icon / copy",
+                              "context": "Sticker icon public/brand/social/copy.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                              "rotation": -4,
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/sticker-copy.png",
+                                "mode": "contain"
+                              },
+                              "width": 30.8,
+                              "height": 36
                             }
                           ]
                         }
@@ -78449,12 +79144,24 @@
                       "name": "Contact / Send an email link",
                       "height": 48,
                       "stroke": "$folder-ink",
-                      "strokeWidth": {
-                        "bottom": 1
-                      },
                       "gap": 8,
                       "alignItems": "center",
                       "children": [
+                        {
+                          "type": "rectangle",
+                          "id": "CLlTW",
+                          "name": "Sticker icon / mail",
+                          "context": "Sticker icon public/brand/social/mail.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                          "rotation": -4,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/sticker-mail.png",
+                            "mode": "contain"
+                          },
+                          "width": 27,
+                          "height": 28
+                        },
                         {
                           "type": "rectangle",
                           "id": "ojJB7",
@@ -78482,7 +79189,8 @@
                           "name": "Contact / Email arrow",
                           "width": 16,
                           "height": 16,
-                          "fill": "$folder-ink"
+                          "fill": "$folder-ink",
+                          "enabled": false
                         }
                       ]
                     },
@@ -78507,7 +79215,6 @@
                           "type": "frame",
                           "id": "PyyL9",
                           "name": "Contact / GitHub / 48px link target",
-                          "width": 68,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -78517,9 +79224,24 @@
                               "type": "frame",
                               "id": "G8InW",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "vvlDL",
+                                  "name": "Sticker icon / github",
+                                  "context": "Sticker icon public/brand/social/github.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-github.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 25.1,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "vdN0X",
@@ -78547,16 +79269,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "K8BWii",
+                              "x": 0,
+                              "y": 39.34134044912631,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -78565,7 +79291,6 @@
                           "type": "frame",
                           "id": "aIWjO",
                           "name": "Contact / LinkedIn / 48px link target",
-                          "width": 80,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -78575,9 +79300,24 @@
                               "type": "frame",
                               "id": "N6UNj",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "W5MXF",
+                                  "name": "Sticker icon / linkedin",
+                                  "context": "Sticker icon public/brand/social/linkedin.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-linkedin.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 27.2,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "TYMAf",
@@ -78605,16 +79345,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "R5dywA",
+                              "x": 0,
+                              "y": 39.414584746557644,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -78623,7 +79367,6 @@
                           "type": "frame",
                           "id": "iLCXK",
                           "name": "Contact / Twitter / 48px link target",
-                          "width": 69,
                           "height": 48,
                           "layout": "vertical",
                           "gap": 2,
@@ -78633,9 +79376,24 @@
                               "type": "frame",
                               "id": "N22ks",
                               "name": "Label row",
-                              "gap": 6,
+                              "gap": 8,
                               "alignItems": "center",
                               "children": [
+                                {
+                                  "type": "rectangle",
+                                  "id": "A74kv",
+                                  "name": "Sticker icon / twitter",
+                                  "context": "Sticker icon public/brand/social/twitter.svg. Hover: lift + rotate 3deg + scale 1.12 and WebGL peel (sticker-peel.tsx).",
+                                  "rotation": -4,
+                                  "fill": {
+                                    "type": "image",
+                                    "enabled": true,
+                                    "url": "jamalakbara-assets/sticker-twitter.png",
+                                    "mode": "contain"
+                                  },
+                                  "width": 36,
+                                  "height": 28
+                                },
                                 {
                                   "type": "rectangle",
                                   "id": "N1KlT",
@@ -78663,16 +79421,20 @@
                                   "name": "Link arrow",
                                   "width": 16,
                                   "height": 16,
-                                  "fill": "$folder-ink"
+                                  "fill": "$folder-ink",
+                                  "enabled": false
                                 }
                               ]
                             },
                             {
                               "type": "rectangle",
                               "id": "GZwoC",
+                              "x": 0,
+                              "y": 39.72151323103179,
                               "name": "Link underline",
+                              "enabled": false,
                               "fill": "$folder-ink",
-                              "width": "fill_container",
+                              "width": 1,
                               "height": 1
                             }
                           ]
@@ -164052,7 +164814,7 @@
       "type": "frame",
       "id": "yxFaT",
       "x": -2378,
-      "y": 4777,
+      "y": 4776,
       "name": "en",
       "clip": true,
       "width": 1972,
@@ -166890,6 +167652,1219 @@
           "fill": "#f7f2e5ff",
           "width": 49.159664154052734,
           "height": 48.611305236816406
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "C3Tjoi",
+      "x": -4426,
+      "y": 1977,
+      "name": "social icons",
+      "clip": true,
+      "width": 2048,
+      "height": 2048,
+      "fill": {
+        "type": "color",
+        "color": "#ffffffff",
+        "enabled": false
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "path",
+          "id": "HJlCr",
+          "x": 257.2000427246094,
+          "y": 206.6690216064453,
+          "name": "Vector",
+          "geometry": "M426.29099 0.55798c53.04599-6.231 67.94796 40.89598 76.24298 82.85298 26.31002-24.31 66.561-24.28197 93.49502-1.00897 9.08399 7.849 13.33899 14.99098 18.94898 25.44497 24.42999-24.544 60.99304-32.14798 90.61602-11.88998 15.63202 10.564 26.36103 26.969 29.77301 45.525 5.85498 32.701-10.98101 64.50099-41.96099 76.66299-8.00501 3.14301-14.44001 4.286-22.95002 5.797-5.64502 5.33299-10.84002 11.62801-15.93402 17.535 27.70703 37.39501 28.84101 81.52001-8.229 114.65502-5.90302 5.27798-13.89398 8.81299-20.44501 14.49298 0.02802 56.354-11.84497 128.18506-18.52496 184.79105-2.90998 24.65698-9.28296 72.20196-15.49298 93.91095-4.30298 15.46502-11.39704 30.013-20.93201 42.927-7.237 9.80102-15.95203 18.41906-25.83405 25.54504-26.01202 18.758-60.009 34.66901-88.95401 48.99201-38.18499 18.89697-84.22103 45.26001-126.34802 51.21002-54.591 7.15002-113.66496-28.89502-161.53996-52.25403-27.17-13.25598-68.60101-32.69104-91.49301-51.38702-14.602-11.80298-26.33599-26.76502-34.31699-43.76001-14.286-30.59498-19.88301-91.27997-24.74301-126.42597-5.355-38.203-9.866-76.52106-13.53-114.92306-3.831-41.78699-12.287-94.57398 17-128.68998 12.251-14.272 27.92301-21.55899 44.57001-29.16 0.725-23.20399-2.06101-39.70799 4.23599-63.989 3.192-12.311 8.14502-24.02499 11.23602-35.56 1.383-5.15899-1.504-26.29-1.92801-33.509-1.132-26.434 0.48399-68.30499 16.615-90.79599 36.246-50.536 97.531-12.91199 133.45401 11.65201 15.363-1.841 31.43998-7.67301 49.98298-9.47602 25.35501-2.465 41.81003 0.14199 66.05902-0.18701 29.13901-22.308 40.45999-40.49498 80.92701-48.97798z",
+          "fill": "#f5f0e6ff",
+          "width": 736.5191040039062,
+          "height": 818.9232177734375
+        },
+        {
+          "type": "path",
+          "id": "L9bZM",
+          "x": 295.75592041015625,
+          "y": 243.97315979003906,
+          "name": "Vector",
+          "geometry": "M391.27008 0.15684c41.32001-4.385 40.10898 84.419 38.54297 111.00799 33.69598 44.901 41.40503 95.96101 18.77502 147.497 17.02201 0.39402 34.36399 4.405 50.85999 8.44599-0.87799-3.25299-2.13101-7.58899-2.53101-10.88199-1.08801-9.621 1.608-19.28899 7.51801-26.95799 7.38699-9.452 16.77801-13.71302 28.26599-15.35501 0.836-6.135 2.49603-17.36399 1.95105-23.08899-1.78699-18.75901-14.724-44.19499-22.78601-61.344-11.92899-2.508-23.02005-5.16902-28.55304-17.51001-7.46399-16.644-2.98196-36.16198 14.61603-43.92798 8.68301-3.835 18.56897-3.88802 27.29199-0.14502 19.17297 8.185 22.34302 26.674 14.67902 44.40201 7.80499 13.777 15.294 27.72899 22.46301 41.84699 11.72803-10.681 22.22998-21.48299 34.49798-32.34098l-0.09198-1.69303c-1.75799-34.465 35.82099-46.99498 55.36396-25.47097 5.987 6.54799 9.07104 15.238 8.55102 24.095-1.44 25.31299-21.30499 30.89698-42.685 29.05198-13.97998 14.8-35.38903 34.32002-42.26202 52.93902-1.30701 3.54-2.53198 13.402-3.07996 17.50699 2.05603 0.909 4.086 1.875 6.08899 2.896 9.021 4.679 15.711 13.75399 18.59601 23.39599 3.41803 11.25901 2.10193 23.42397-3.64404 33.69197-7.47302 13.15299-17.70795 18.16803-31.38196 22.08704-1.46698 4.20801-12.17902 28.67096-12.091 27.48297-0.69501 9.38001-0.79499 28.12903-1.67401 38.90003-3.63398 44.53201-8.66797 87.78598-14.97998 132.04998-5.30201 37.176-7.48804 78.52903-20.13404 114.16501-4.99798 14.08502-13.64901 25.27204-24.82202 34.91205-18.24301 14.51801-59.57895 34.79895-81.98895 45.41296-38.22699 18.107-103.17502 58.91706-145.91303 50.66303-37.919-7.32398-81.414-33.23401-116.514-49.888-24.058-11.41498-49.14199-24.53803-72.06598-38.12103-25.753-15.08698-37.79801-38.12098-42.83701-67.34699-10.219-59.26099-19.014-120.22699-24.504-180.181-2.667-32.71701-6.75099-65.90005-3.71899-98.74304 3.15-34.12601 44.582-43.49298 71.664-48.61697-1.088-2.71799-2.044-5.48501-2.866-8.295-11.15-38.752-6.58901-80.33701 12.698-115.75101-2.471-10.121-4.07201-20.43401-4.785-30.82801-1.455-19.39-1.08602-62.395 12.67798-76.991 21.889-23.214 76.67799 20.769 92.237 35.87601 48.73599-21.686 89.97299-19.27001 140.514-11.63101 14.521-22.385 41.805-46.75798 68.05701-53.21698z",
+          "fill": "#010101ff",
+          "width": 660.7406005859375,
+          "height": 744.9794921875
+        },
+        {
+          "type": "path",
+          "id": "L7TC7",
+          "x": 305.61199951171875,
+          "y": 578.8690185546875,
+          "name": "Vector",
+          "geometry": "M0 0c27.517 10.265 73.41999 7.21096 103.76599 7.07996-16.207 31.743-12.52 57.79404 0.452 89.95404 4.85299 12.029 8.905 24.41501 8.362 37.60901-0.351 14.96499-16.28499 27.61996-16.54999 42.22796-0.259 14.272 14.3 16.78502 25.224 16.20502 30.968-6.232 49.614-35.93503 55.63-64.83704 4.41201-21.193 2.00101-37.07297 0.03202-58.38897 9.041-10.863 5.66299-18.269 7.71798-31.237 0.277-1.745 3.60601-8.96903 4.487-10.88703 4.151 4.99 8.39699 10.54601 12.46399 15.66101l35.31101 44.177c-6.359 20.28901-1.00902 35.68905 17.70898 46.40204-0.274 38.30301 0.05804 76.60797 0.99805 114.89997-32.413 18.97-25.05202 60.57101 8.02398 66.83801 9.457 1.86301 19.26297-0.27496 27.08698-5.90497 24.574-17.366 18.09598-44.29605-3.93701-60.73804-0.65302-34.794-0.27396-69.216-1.24896-103.97399 9.07 11.382 18.069 23.06301 27.997 33.68701-10.932 35.24099 19.28602 58.20797 47.34101 45.40997 35.46798-16.17999 23.21695-72.647-23.58905-64.84601-3.76001-4.46699-10.84595-12.43597-13.92896-16.93597-3.772-3.013-17.41601-20.147-21.04303-24.81-1.306-1.681 1.09101-7.07401 1.90601-9.35901 9.35699 12.876 10.14999 19.56802 23.544 31.86603 18.607 13.519 53.55802 32.15001 73.94703 12.59601 11.54699-1.978 35.23697-12.74202 34.35595-27.20203-1.177-19.326-36.26696-15.631-46.03198-27.83099-9.33099-11.659-8.54697-30.16198-7.68597-44.46698 0.38101-7.865 1.05197-17.01102 0.86096-24.77503 11.68201 7.11 20.97 12.299 34.38 15.487 41.87201 9.954 83.215-4.57099 111.25299-36.67499-7.031 80.853-17.96096 163.93998-30.04596 244.31397-2.72601 18.13-14.55801 40.52502-28.87402 52.29004-24.19198 18.349-54.86001 30.63-81.677 44.656-30.71399 15.327-61.04602 32.20099-93.33801 43.86298-25.17002 9.091-45.19602 5.34802-69.65302-3.18097-9.407-5.06201-25.44397-11.51501-36.00796-16.58002-27.045-13.17898-53.98302-26.57998-80.80802-40.20098-11.055-5.62702-39.97599-20.98005-49.246-28.75605-10.551-8.97699-18.47098-20.64499-22.91897-33.76397-7.977-22.973-11.327-63.275-15.09101-88.22699-9.043-59.95301-16.05701-121.198-21.17401-181.646z",
+          "fill": "#537bd8ff",
+          "width": 528.833984375,
+          "height": 397.6199035644531
+        },
+        {
+          "type": "path",
+          "id": "n1Y5X",
+          "x": 530.8579711914062,
+          "y": 586.1010131835938,
+          "name": "Vector",
+          "geometry": "M157.95502 21.18799c11.682 7.11 20.97 12.299 34.38 15.487 41.87201 9.954 83.215-4.57099 111.25299-36.67499-7.031 80.853-17.96097 163.93997-30.04596 244.31396-2.72601 18.13001-14.55801 40.52503-28.87402 52.29004-24.192 18.349-54.86 30.63001-81.677 44.65601-30.71401 15.327-61.04602 32.20099-93.33801 43.86298-25.17 9.091-45.19601 5.34802-69.65302-3.18097 28.958 1.414 72.16404-25.02405 98.63904-38.04706 47.97799-23.60101 105.51501-48.18396 138.54101-92.15296 5.782-7.699 11.19199-28.83001 13.49298-38.59802 2.722-20.27 19.65601-151.90697 16.46802-165.88898-5.65201-4.471-18.101 4.37701-25.17199 7.12201-21.68 8.418-45.97706 8.73799-67.76606 0.503-6.701-2.532-10.58995-6.64599-17.10894-8.917 0.38099-7.865 1.05195-17.01102 0.86096-24.77502z",
+          "fill": "#4261aaff",
+          "width": 303.5880126953125,
+          "height": 390.3879089355469
+        },
+        {
+          "type": "path",
+          "id": "yLT5x",
+          "x": 426.8659973144531,
+          "y": 606.594970703125,
+          "name": "Vector",
+          "geometry": "M67.867 0c4.151 4.99 8.39699 10.54601 12.46399 15.66101-7.842 18.237-5.08199 47.85404-6.72699 68.15204-2.445 30.178-15.51301 64.118-43.91101 78.849-10.698 5.30499-18.61699 4.38299-29.69299 2.68799 30.968-6.232 49.61401-35.93503 55.63-64.83704 4.412-21.193 2.00102-37.07298 0.03202-58.38898 9.041-10.863 5.66299-18.269 7.71798-31.237 0.277-1.745 3.606-8.96902 4.487-10.88702z",
+          "fill": "#4261aaff",
+          "width": 80.33099365234375,
+          "height": 166.67428588867188
+        },
+        {
+          "type": "path",
+          "id": "H3hkhC",
+          "x": 371.304443359375,
+          "y": 255.4612579345703,
+          "name": "Vector",
+          "geometry": "M252.37958 54.14573c4.64801-4.695 9.362-12.463 13.599-17.452 11.462-13.496 56.02694-58.56 67.41095-23.80599 5.42401 16.557 14.85205 62.91901 7.85705 78.036-2.931 1.83-1.24002 1.23599-5.64703 0.572 0.703 3.394 1.27301 4.05 2.99499 6.975l0.55902 0.93698c24.219 26.85301 36.67301 62.28903 34.581 98.39002-1.92301 31.407-16.19 60.778-39.68799 81.704-5.461 4.79199-18.237 13.59198-19.284 19.45398l1.11097 2.62103c-2.784 3.375-8.64798 5.12195-12.69898 6.51996-7.37201-6.797-22.79401-19.798-32.71802-12.74499 12.401 7.61999 17.05704 10.17199 26.39704 22.18701 27.16601 34.949-12.232 89.23797 28.07299 117.61297 9.103 6.409 28.44797 7.08701 33.05396 14.547-0.38501 19.729-36.46597 7.409-46.30096 3.474-7.055-0.453-6.37903-3.53394-13.69404-4.46594 11.176 10.475 22.05603 13.05597 36.40302 16.54297-10.216 0.00601-16.95697-0.55002-26.90198-2.88703-11.811-0.155-11.90002-12.85794-16.20703-15.14795-19.11099-10.15899-15.36999-1.60101-27.19501-21.38202 7.345-19.79901-0.11395-17.643-8.52295-29.13202-5.66699-9.574 2.12198-30.54098-1.16803-37.29998-5.37399-11.038-19.40296-29.085-28.22497-36.91199 5.75999 2.10998 9.44701 3.77698 14.94501 6.39099l4.56695-2.13c-19.054-14.01301-34.42201-8.55402-55.39801-7.18403-8.45199 0.55201-29.30694 1.22104-36.60895-1.41296-4.89599 1.15399-9.80403 2.25601-14.72403 3.30402-2.03799 4.742-9.04501 5.83596-15.484 11.39196-4.004 0.13199-5.58899 1.71698-9.11799 3.99299l-4.70101-2.659c-25.90101 20.48901-31.77698 42.95004-28.40598 75.41003 0.476 4.581 2.67799 13.96997 2.20099 17.82996 2.632 16.04599-0.958 37.76102-9.629 51.59302-6.487 10.35-13.19498 27.276-27.60199 25.599-3.674-2.336-2.41201-0.805-4.122-4.58899 0.696-6.443 5.55599-14.797 8.87399-20.206 16.618-26.94699 1.37501-54.302-7.75299-82.29699-13.48-41.33701 8.19198-84.00098 50.57498-95.61799 3.066-0.83999 4.673-1.20904 6.225-3.94403-5.758-7.224-27.56801 1.21802-34.57001 4.93103-3.009-1.05499-5.969-2.24603-8.87099-3.56903-22.929-10.35501-40.98198-34.73898-48.91599-57.94499-14.857-43.461-6.55699-77.11 11.82901-116.534-5.213-22.193-12.70602-79.77799 4.37598-100.14099 9.906-11.81 50.242 16.16799 58.669 22.36898 3.508 2.582 16.15599 16.26402 21.31799 18.64902 13.57601-3.444 28.54203-9.73101 42.51502-12.97201 39.85699-9.246 67.71402-3.379 106.02002 1.397z",
+          "fill": "#f5f0e6ff",
+          "width": 373.9612731933594,
+          "height": 504.73052978515625
+        },
+        {
+          "type": "path",
+          "id": "MpU9Z",
+          "x": 639.4639892578125,
+          "y": 354.8689880371094,
+          "name": "Vector",
+          "geometry": "M70.99402 0c24.219 26.853 36.673 62.28901 34.58099 98.39002-1.92299 31.40699-16.18999 60.77801-39.68799 81.704-5.461 4.792-18.237 13.59198-19.28399 19.45398l1.11096 2.62104c-2.784 3.375-8.64798 5.12196-12.69898 6.51996-7.372-6.797-22.79402-19.79799-32.71801-12.745-1.605-0.25301-0.796 0.06804-2.297-1.24097 4.544-3.891 16.64102-7.826 22.55402-11.044 21.104-11.485 36.055-31.23101 47.94799-51.25901 2.982 0.624 2.82098 0.738 5.74799 0.05399l1.01202-1.71399c-1.492-3.282-1.269-2.37701-4.77099-4.73801 3.474-4.091 8.25201-21.48701 9.08301-27.04901 1.409-2.912 1.35895-2.685 1.23895-5.918 10.139-20.662-6.58796-71.25199-11.60596-92.11898l-0.21301-0.91602z",
+          "fill": "#c3c2bdff",
+          "width": 105.80171203613281,
+          "height": 208.68899536132812
+        },
+        {
+          "type": "path",
+          "id": "LnCpk",
+          "x": 597.4730224609375,
+          "y": 577.9500122070312,
+          "name": "Vector",
+          "geometry": "M0 0c5.76 2.11 9.44701 3.77699 14.94501 6.39099 12.002 9.037 16.27896 15.26401 20.38196 29.80701 8.771 31.087 9.11499 68.03102 36.48999 90.02002 11.176 10.475 22.05602 13.05597 36.40301 16.54297-10.216 0.00599-16.95698-0.55002-26.90198-2.88703-11.811-0.155-11.90003-12.85795-16.20703-15.14795-19.111-10.15899-15.37001-1.60102-27.19501-21.38202 7.345-19.79899-0.11395-17.64302-8.52295-29.13202-5.667-9.574 2.12197-30.54099-1.16802-37.29998-5.374-11.038-19.40298-29.08499-28.22498-36.91199z",
+          "fill": "#c3c2bdff",
+          "width": 108.219970703125,
+          "height": 142.7610321044922
+        },
+        {
+          "type": "path",
+          "id": "xEvTb",
+          "x": 447.9751892089844,
+          "y": 570.4983520507812,
+          "name": "Vector",
+          "geometry": "M6.7708 112.38564l-1.23001-0.31897c-8.137-18.904-6.59099-49.98401-0.02499-69.27801 5.495-16.672 17.53102-30.39299 33.34302-38.01599 12.243-5.836 25.46501-6.23698 38.14401-1.65699-4.896 1.154-9.80403 2.25602-14.72403 3.30402-2.038 4.742-9.04501 5.83597-15.48401 11.39197-4.004 0.132-5.58898 1.71698-9.11798 3.99298l-4.70102-2.659c-25.901 20.489-31.77698 42.95004-28.40597 75.41004 0.476 4.581 2.67799 13.96995 2.20098 17.82995z",
+          "fill": "#c3c2bdff",
+          "width": 77.0028305053711,
+          "height": 112.3856430053711
+        },
+        {
+          "type": "path",
+          "id": "Nbhne",
+          "x": 480.95098876953125,
+          "y": 576.9180297851562,
+          "name": "Vector",
+          "geometry": "M0 12.72595c8.519-6.04 18.96901-10.93095 29.30301-12.72595-2.038 4.742-9.04501 5.83597-15.48401 11.39197-4.004 0.132-5.58898 1.71698-9.11798 3.99298l-4.70102-2.659z",
+          "fill": "#292825ff",
+          "width": 29.303009033203125,
+          "height": 15.38494873046875
+        },
+        {
+          "type": "path",
+          "id": "aOYDH",
+          "x": 612.4180297851562,
+          "y": 582.2109985351562,
+          "name": "Vector",
+          "geometry": "M4.56696 0c38.936 27.371 9.11902 87.93597 65.99902 126.42297-7.055-0.453-6.37903-3.53394-13.69403-4.46594-27.375-21.989-27.71899-58.93302-36.48999-90.02002-4.103-14.543-8.37996-20.77001-20.38196-29.80701l4.56696-2.13z",
+          "fill": "#292825ff",
+          "width": 70.56597900390625,
+          "height": 126.4229736328125
+        },
+        {
+          "type": "path",
+          "id": "anDY7",
+          "x": 686.8560180664062,
+          "y": 447.90399169921875,
+          "name": "Vector",
+          "geometry": "M35.42096 0c0.12 3.233 0.17005 3.006-1.23895 5.918-3.052 1.082-6.11503 2.13101-9.18903 3.14801-6.341 2.123-18.77897 6.95901-24.79297 3.96301l-0.20001-1.724c6.777-8.148 25.17996-10.77202 35.42096-11.30502z",
+          "fill": "#010101ff",
+          "width": 35.47614288330078,
+          "height": 13.981953620910645
+        },
+        {
+          "type": "path",
+          "id": "JNk9R",
+          "x": 685.6820068359375,
+          "y": 476.09332275390625,
+          "name": "Vector",
+          "geometry": "M24.284 11.17568c-9.989-2.955-14.8-1.73401-24.284-8.497l0.55701 0.20898 0.21197-2.51898c9.091-1.37 17.18103 1.296 25.50403 4.40899 3.502 2.361 3.279 1.45601 4.771 4.73801l-1.01203 1.71399c-2.927 0.684-2.76599 0.57001-5.74798-0.05399z",
+          "fill": "#010101ff",
+          "width": 31.04400634765625,
+          "height": 11.6951904296875
+        },
+        {
+          "type": "path",
+          "id": "cjD4h",
+          "x": 401.0763244628906,
+          "y": 302.4912414550781,
+          "name": "Vector",
+          "geometry": "M6.51467 0.24076c7.967-1.314 15.14799 2.97301 20.60998 7.458 22.97 18.859 26.31601 24.34398-2.34399 38.16999-4.183 2.018-6.837 8.14303-13.439 7.64203-13.798 0.847-11.527-31.57803-10.63-40.97803 0.495-5.195 2.33401-8.50399 5.80301-12.29199z",
+          "fill": "#c3c2bdff",
+          "width": 45.31572723388672,
+          "height": 53.539794921875
+        },
+        {
+          "type": "path",
+          "id": "G8IvQL",
+          "x": 407.59100341796875,
+          "y": 302.4912414550781,
+          "name": "Vector",
+          "geometry": "M0 0.24076c7.967-1.314 15.14799 2.97301 20.60999 7.458 22.97 18.859 26.31601 24.34398-2.344 38.16999-4.183 2.018-6.83699 8.14303-13.43899 7.64203 3.862-12.106 15.89201-18.17002 26.49301-23.52503-3.597-4.811-6.184-7.574-10.276-11.81-5.947-6.158-17.84601-11.304-21.04401-17.93499z",
+          "fill": "#010101ff",
+          "width": 38.80105972290039,
+          "height": 53.539794921875
+        },
+        {
+          "type": "path",
+          "id": "a3PmzI",
+          "x": 653.6655883789062,
+          "y": 279.1573181152344,
+          "name": "Vector",
+          "geometry": "M38.25439 54.55171c-8.138 1.058-13.75096-7.39603-22.54596-9.87903-4.159-1.174-11.53304-4.514-15.00104-7.168-5.295-11.474 20.44902-39.62998 33.49902-37.37698 8.183 11.15 14.93597 43.63701 4.04798 54.42401z",
+          "fill": "#c3c2bdff",
+          "width": 43.91623306274414,
+          "height": 54.64282989501953
+        },
+        {
+          "type": "path",
+          "id": "RqtCM",
+          "x": 653.6655883789062,
+          "y": 279.1573181152344,
+          "name": "Vector",
+          "geometry": "M38.25439 54.55171c-8.138 1.058-13.75096-7.39603-22.54596-9.87903-4.159-1.174-11.53304-4.514-15.00104-7.168-5.295-11.474 20.44902-39.62998 33.49902-37.37698-4.012 5.979-9.61504 10.689-14.61303 16.03-5.263 5.625-8.37799 10.20701-12.68799 16.613 10.467 4.446 26.63 10.56401 31.349 21.78101z",
+          "fill": "#010101ff",
+          "width": 38.25438690185547,
+          "height": 54.64282989501953
+        },
+        {
+          "type": "path",
+          "id": "U63H4",
+          "x": 529.9302978515625,
+          "y": 452.4313659667969,
+          "name": "Vector",
+          "geometry": "M34.84165 0.77165c7.916-0.722 16.92304-2.91802 19.90204 5.98898-0.89 7.274-4.82403 10.24902-9.80603 15.67502 0.361 1.274 0.76002 2.53699 1.19702 3.78699 8.478 24.518 23.55501 2.03401 31.43201-1.49899l1.01099 1.20401c0.824 22.311-23.31502 26.46898-37.95002 11.28998l-0.79401-0.17899c-17.048 25.162-43.32397 9.70299-39.44897-2.83801 8.24-1.08 25.32301 22.66 32.73401-9.982-16.452-10.591-21.15004-18.09099 1.72296-23.44699z",
+          "fill": "#010101ff",
+          "width": 78.59822845458984,
+          "height": 50.52582931518555
+        },
+        {
+          "type": "path",
+          "id": "LAhaq",
+          "x": 466.3268127441406,
+          "y": 430.8949890136719,
+          "name": "Vector",
+          "geometry": "M10.8752 0c20.157 1.118 22.65901 30.82001 6.682 40.84601-20.184-0.528-23.71101-30.53001-6.682-40.84601z",
+          "fill": "#010101ff",
+          "width": 27.985074996948242,
+          "height": 40.84600830078125
+        },
+        {
+          "type": "path",
+          "id": "QTdIN",
+          "x": 635.15087890625,
+          "y": 416.8336486816406,
+          "name": "Vector",
+          "geometry": "M9.49411 0.00336c21.346-0.372 23.08996 30.24499 8.45996 40.54199-20.924 0.611-23.30996-28.26799-8.45996-40.54199z",
+          "fill": "#010101ff",
+          "width": 27.48758316040039,
+          "height": 40.55489730834961
+        },
+        {
+          "type": "path",
+          "id": "s9F8u",
+          "x": 402.6940002441406,
+          "y": 474.87939453125,
+          "name": "Vector",
+          "geometry": "M2.42499 0.51161c7.003-0.621 33.6-1.98399 36.116 5.55801l-2.159 2.95499c-6.114 0.041-31.83398-0.59699-36.22098-4.20999l-0.16101-2.064 2.42499-2.23901z",
+          "fill": "#010101ff",
+          "width": 38.540985107421875,
+          "height": 9.026406288146973
+        },
+        {
+          "type": "path",
+          "id": "PbI8S",
+          "x": 414.197998046875,
+          "y": 496.0329895019531,
+          "name": "Vector",
+          "geometry": "M26.12799 0l2.93402 0.81802 0.845 1.70798c-2.446 5.287-19.92501 12.136-25.78201 14.866-3.443-0.686-2.218 0.18703-4.125-2.17298l0.63901-2.20501c5.88-6.341 17.16998-10.78901 25.48898-13.01401z",
+          "fill": "#010101ff",
+          "width": 29.907012939453125,
+          "height": 17.391998291015625
+        },
+        {
+          "type": "path",
+          "id": "nmy3q",
+          "x": 500.3590087890625,
+          "y": 589.72998046875,
+          "name": "Vector",
+          "geometry": "M9.53 0c3.958 2.929 18.13101 21.94605 21.93301 26.62305 10.8 13.284 21.31296 27.09494 32.64197 39.99194 28.916-4.989 44.888 13.88502 32.203 40.93903 13.723 17.00399 28.55403 33.37799 42.56903 50.83099 40.38601-12.24899 49.66697 32.59903 24.46796 46.57703-5.951 3.315-13.03999 3.91096-19.461 1.63696-20.089-6.92101-21.55297-21.84-15.43097-39.375-6.97799-8.577-35.762-47.66499-43.974-47.10199-2.934 4.719-1.92102 25.28902-1.86902 31.89801-0.102 30.75 2.91004 63.79997 1.70704 93.32397 45.764 26.818-8.66004 74.44703-31.48005 38.14301-3.608-5.70599-4.64196-12.668-2.84796-19.177 2.994-10.937 10.72-15.299 19.57801-20.448 1.134-13.46201 0.05794-35.63199-0.27906-49.56299-0.626-25.903-1.08299-51.80997-1.36999-77.71997-21.676-8.71-22.31195-22.05201-15.38996-42.09601-17.985-20.786-35.68002-43.81599-52.52801-65.62298l9.53-8.86005z",
+          "fill": "#fdd774ff",
+          "width": 177.3263702392578,
+          "height": 296.6243896484375
+        },
+        {
+          "type": "path",
+          "id": "R4iB0v",
+          "x": 674.47900390625,
+          "y": 525.2659912109375,
+          "name": "Vector",
+          "geometry": "M130.92603 0c4.852 4.989 8.41296 8.11003 14.69696 11.08203 1.53999 0.634 3.60601 1.386 5.00201 2.19 6.935 2.986 13.28302 4.226 20.61401 5.948-1.49699 3.437-2.73701 7.42797-5.60101 9.59497-12.877 1.77-22.56103 3.895-19.29803 20.20301 0.48399 2.42 1.60902 4.36999 2.85302 6.45098-3.21699 3.51-11.70401 13.769-16.49701 12.013-15.01899-5.503-23.92601 2.99101-27.05401 17.12702-0.423 1.913-17.98197 4.37703-20.99597 4.78003-4.592-5.759-9.12598-9.47205-17.03498-11.20105-6.075-1.328-13.33003 6.61805-15.62103 7.36005-9.222 2.987-30.99898-11.661-37.95398-16.362-1.491-5.34-2.86901-11.01105-5.018-16.08405l-0.31202-0.80395c0.132-0.975 0.264-1.94901 0.396-2.92402-2.212-4.137-2.67199-4.706-5.76099-8.302l-3.341-2.78003c4.051-1.398 9.91497-3.14496 12.69898-6.51996 11.604-7.442 19.66901-12.00802 29.33801-21.99401 17.915 22.958 52.66203 30.32999 75.29303 9.38299 6.804-6.298 9.37001-11.22301 13.59601-19.16101z",
+          "fill": "#f5f0e6ff",
+          "width": 171.239013671875,
+          "height": 89.3890380859375
+        },
+        {
+          "type": "path",
+          "id": "X8Ea4",
+          "x": 683.4970092773438,
+          "y": 538.5380249023438,
+          "name": "Vector",
+          "geometry": "M141.60699 0c6.935 2.986 13.28302 4.226 20.61402 5.948-1.497 3.437-2.73702 7.42797-5.60101 9.59497-12.877 1.77-22.56104 3.895-19.29804 20.203 0.48399 2.42 1.60902 4.36999 2.85303 6.45099-3.217 3.51-11.70401 13.769-16.49701 12.013-15.019-5.503-23.92602 2.99101-27.05402 17.12701-0.423 1.913-17.98197 4.37703-20.99597 4.78003-4.592-5.759-9.12598-9.47205-17.03497-11.20105-6.075-1.328-13.33003 6.61805-15.62103 7.36005-9.222 2.987-30.99898-11.661-37.95398-16.362-1.491-5.34-2.86901-11.01105-5.01801-16.08404 1.294 0.314 1.539 0.23804 2.474 0.90203 26.743 18.947 60.07001 25.52397 90.96301 12.84498 24.784-10.173 38.47598-29.56796 48.16998-53.57697z",
+          "fill": "#c3c2bdff",
+          "width": 162.22100830078125,
+          "height": 76.11700439453125
+        },
+        {
+          "type": "path",
+          "id": "ODO2t",
+          "x": 677.8200073242188,
+          "y": 536.3480224609375,
+          "name": "Vector",
+          "geometry": "M142.28198 0c1.54 0.634 3.60602 1.386 5.00202 2.19-9.694 24.009-23.38599 43.40396-48.16999 53.57697-30.893 12.679-64.22001 6.10203-90.96301-12.84497-0.935-0.664-1.18-0.58804-2.474-0.90204l-0.31201-0.80396c0.132-0.975 0.264-1.94901 0.396-2.92401-2.212-4.137-2.67199-4.706-5.76099-8.302 10.161 6.005 18.60602 13.493 29.73102 18.164 32.098 13.477 67.39096 11.01801 92.52496-14.76098 10.713-10.987 14.12601-19.21801 20.026-33.39301z",
+          "fill": "#292825ff",
+          "width": 147.28399658203125,
+          "height": 62.298667907714844
+        },
+        {
+          "type": "path",
+          "id": "JFAv3",
+          "x": 786.3992309570312,
+          "y": 319.0947265625,
+          "name": "Vector",
+          "geometry": "M16.93178 0.02427c25.25-0.777 29.12803 17.217 20.60803 37.293 8.062 16.166 17.65696 33.24299 26.13697 49.336 1.468 2.786 4.38 4.21702 7.461 4.61502 8.124-1.957 15.02102-11.486 21.08502-17.358 8.277-7.91 16.686-15.68101 25.224-23.30801-0.308-2.437-0.51503-4.88701-0.62103-7.34101-0.46-13.77 7.97501-23.64198 22.12401-23.29498 5.368 0.15 10.44803 2.46098 14.09003 6.40698 4.142 4.508 6.28297 10.5 5.93597 16.612-0.945 19.759-17.81001 20.55502-32.791 18.64102-3.49501 2.699-7.59698 6.71499-10.91498 9.77899-28.152 26.417-42.621 41.51901-45.81 79.904-0.421 5.075-2.42301 15.78001-5.02301 19.86301-5.026 2.016-10.86002-0.469-15.98102-2.086 11.982-55.8 6.82304-74.929-21.35297-125.03-16.154-1.738-31.18403-8.76299-26.09503-29.723 1.702-7.01 9.51901-11.60502 15.92401-14.30902z",
+          "fill": "#fdd774ff",
+          "width": 159.0122528076172,
+          "height": 171.9266815185547
+        },
+        {
+          "type": "path",
+          "id": "PeFTi",
+          "x": 518.7570190429688,
+          "y": 585.0732421875,
+          "name": "Vector",
+          "geometry": "M51.59399 0.5328c7.478-0.579 12.391-0.60901 19.91401-0.45002 8.738 7.494 10.84901 9.85802 15.92401 20.35602-2.772 21.107 3.682 14.49299 5.64599 27.60699 5.161 34.468 11.33996 65.201 43.01996 85.349 16.789 10.457 33.45505 13.99501 52.45905 13.09601-20.38901 19.554-55.34003 0.92299-73.94702-12.59601-13.394-12.298-14.18701-18.99002-23.54401-31.86602 0.915-15.365-1.57902-24.935-13.96802-35.38-11.274-6.543-15.84201-6.33296-28.406-5.55897-17.069-19.65-31.88795-40.41903-48.69196-59.85803 17.243-0.321 34.294 0.06403 51.59399-0.69897z",
+          "fill": "#4261aaff",
+          "width": 188.5570068359375,
+          "height": 154.9571990966797
+        },
+        {
+          "type": "path",
+          "id": "SIfzX",
+          "x": 518.7570190429688,
+          "y": 585.6060180664062,
+          "name": "Vector",
+          "geometry": "M0 0.69897c17.243-0.321 34.294 0.06403 51.59399-0.69897 15.399 3.05 29.06897 55.60197 25.50397 66.11597-11.274-6.543-15.84201-6.33296-28.406-5.55896-17.069-19.65-31.88795-40.41903-48.69196-59.85804z",
+          "fill": "#537bd8ff",
+          "width": 77.66949462890625,
+          "height": 66.115966796875
+        },
+        {
+          "type": "path",
+          "id": "SjRCl",
+          "x": 804.4918212890625,
+          "y": 469.1340026855469,
+          "name": "Vector",
+          "geometry": "M1.35515 17.508c5.534-10.872 10.25904-13.607 21.79504-17.508-0.407 3.708-0.75205 10.68899-2.20105 13.67999l-3.91901-0.67599c-6.816 14.96 36.69104 28.42802 42.19605 11.82101 1.22-3.683 1.19699-15.04601 2.54998-21.251 9.261 6.406 11.92997 8.992 16.27998 19.979 11.551 61.084-90.90899 46.60098-76.70099-6.04501z",
+          "fill": "#f5f0e6ff",
+          "width": 78.9664077758789,
+          "height": 63.523258209228516
+        },
+        {
+          "type": "path",
+          "id": "Hzent",
+          "x": 804.4918212890625,
+          "y": 486.6419982910156,
+          "name": "Vector",
+          "geometry": "M78.05614 6.04501c11.551 61.084-90.90899 46.60099-76.70099-6.04501 1.377 11.213 2.27304 16.43501 12.10504 24.27701 9.335 7.389 21.22599 10.75999 33.04998 9.36999 14.846-1.725 30.73296-11.30599 31.54597-27.60199z",
+          "fill": "#c3c2bdff",
+          "width": 78.9664077758789,
+          "height": 46.015262603759766
+        },
+        {
+          "type": "path",
+          "id": "WgKOO",
+          "x": 436.2099914550781,
+          "y": 588.3099975585938,
+          "name": "Vector",
+          "geometry": "M49.44202 3.99298c3.529-2.276 5.11398-3.86098 9.11798-3.99298-8.634 9.515-12.856 17.30999-17.306 29.51099-14.935 9.883-10.592 19.73201-5.241 33.71301 0.471 1.231 0.55101 7.84099 0.58402 9.49798-12.162 7.919-7.11402 19.06703 0.80297 27.92304-0.536 5.095-0.98098 10.57601-1.88098 15.58801-9.006 9.079-15.38501 15.94998-12.21301 29.79499-7.663 10.878-11.029 14.79396-23.306 21.49896 8.531-11.648 17.299-24.35399 20.875-38.555 10.578-42.01499-20.59798-94.652 28.56702-124.979z",
+          "fill": "#c3c2bdff",
+          "width": 58.55999755859375,
+          "height": 167.5269775390625
+        },
+        {
+          "type": "path",
+          "id": "pB0Rl",
+          "x": 352.21099853515625,
+          "y": 539.8590087890625,
+          "name": "Vector",
+          "geometry": "M39.241 0c1.53 0.581 12.254 10.13798 14.625 12.02698 7.272 5.794 12.314 8.78002 20.65899 12.93402-3.682 3.468-6.539 6.96997-9.819 10.79797l-25.85998-0.07196-38.84601 0.31397 0.52899-1.12598c8.871-18.533 19.52401-28.047 38.71201-34.875z",
+          "fill": "#f5f0e6ff",
+          "width": 74.52499389648438,
+          "height": 36.0009765625
+        },
+        {
+          "type": "path",
+          "id": "yohu8",
+          "x": 826.2088012695312,
+          "y": 558.60302734375,
+          "name": "Vector",
+          "geometry": "M9.43621 0c1.472 0.968 0.78896 0.287 1.76996 2.289-1.959 5.455-5.59599 9.69699-9.06299 14.42499-0.761-0.739-1.39797-1.923-2.00897-2.875-0.975-7.404 3.488-10.49999 9.302-13.83899z",
+          "fill": "#c3c2bdff",
+          "width": 11.206172943115234,
+          "height": 16.7139892578125
+        },
+        {
+          "type": "path",
+          "id": "E2ABCx",
+          "x": 787.1749877929688,
+          "y": 596.8834838867188,
+          "name": "Vector",
+          "geometry": "M9.89203 0.12852c3.082-0.159 3.15199-0.32105 6.06299 0.50995l0.32696 1.50104c-3.542 3.265-7.66596 4.68496-12.11096 6.68896l-3.125 1.401-1.04602-1.08996c1.913-4.907 5.43903-6.80399 9.89203-9.01099z",
+          "fill": "#c3c2bdff",
+          "width": 16.281982421875,
+          "height": 10.229474067687988
+        },
+        {
+          "type": "path",
+          "id": "q7lbn",
+          "x": 733.906982421875,
+          "y": 610.218994140625,
+          "name": "Vector",
+          "geometry": "M8.06 0c3.315 0.556 5.96103 1.241 8.25903 3.742l-1.01801 1.245-4.90002-0.01001c-3.257-0.265-8.146-0.273-10.401-2.396 2.035-2.116 4.968-2.08399 8.06-2.58099z",
+          "fill": "#c3c2bdff",
+          "width": 16.31903076171875,
+          "height": 4.98699951171875
+        },
+        {
+          "type": "path",
+          "id": "XpTUs",
+          "x": 471.6589660644531,
+          "y": 667.5800170898438,
+          "name": "Vector",
+          "geometry": "M0.24405 0l1.27197 1.03497c1.238 3.301 0.81002 7.10803 0.71902 10.71503l-1.34002-1.18701c-1.334-3.531-0.83197-6.76199-0.65097-10.56299z",
+          "fill": "#6b6b67ff",
+          "width": 2.3802597522735596,
+          "height": 11.75
+        },
+        {
+          "type": "path",
+          "id": "yg5dS",
+          "x": 480.1466064453125,
+          "y": 622.6389770507812,
+          "name": "Vector",
+          "geometry": "M2.08639 0c1.575 4.175-0.03901 8.69005-1.557 12.71405-1.391-4.443 0.25301-8.17905 1.557-12.71405z",
+          "fill": "#292825ff",
+          "width": 2.73217511177063,
+          "height": 12.71405029296875
+        },
+        {
+          "type": "path",
+          "id": "vbG0u",
+          "x": 1169.0028076171875,
+          "y": 198.29708862304688,
+          "name": "Vector",
+          "geometry": "M518.96716 0.04591c26.01001-0.768 36.79004 8.027 45.76001 31.80001 23.89002-35.765 74.27997-23.686 77.35999 16.57499 3.07001 40.261 27.99011 15.37599 40.71008 48.28499 11.46997 29.672-5.11011 49.11402-31.6001 59.25202 11.84003 9.90899 13.98999 14.35099 19.89002 28.311 8.97998 5.329 15.39001 9.377 21.02002 18.957 5.33001 9.241 6.77002 20.226 3.98999 30.52899-3.94 14.74401-13.54993 21.42-25.79993 28.289-10.45001 25.88199-27.45007 39.02399-55.55005 28.08899 4.85999 45.58802 4.47992 113.029 4.31995 159.573-2.21997 55.318 0.70001 115.49594-15.48999 168.83396-28.84003 95.01098-127.52997 92.71203-208.25998 96.11505-57.13001 2.40802-110.83994 3.901-167.56995 2.80499-14.36999-0.43903-28.72998-0.95404-43.09997-1.54303-49.64-2.19202-104.73004-7.98602-140.41004-47.40302-10.84-11.75701-18.99994-25.71801-23.93994-40.927-9.95-30.50598-12.31001-67.43493-14.76001-99.34094-6.43-78.52301-7.25999-157.40601-2.48999-236.048 3.07-54.773 5.27991-117.00899 49.52991-156.13999 42.24-37.35299 100.85005-37.39702 153.91003-40.67901 86.5-5.387 173.25-5.45799 259.76001-0.20999-3.51999-6.369-5.13998-9.83601-6.61999-16.79102-5.64002-22.431 13.34994-31.13898 23.06994-44.94798 13.13001-18.664 8.91001-27.576 36.26999-33.38401z",
+          "fill": "#f5f0e6ff",
+          "width": 697.4827270507812,
+          "height": 717.82568359375
+        },
+        {
+          "type": "path",
+          "id": "tPc7C",
+          "x": 1206.0206298828125,
+          "y": 326.5623779296875,
+          "name": "Vector",
+          "geometry": "M250.51945 0.8846c0.80001-0.037 1.60993-0.06898 2.41993-0.09698 37.21998-1.319 74.93-0.79601 112.16002 0.21398 34.41 0.933 70.37005 0.51001 103.80004 9.76902 13.28 3.679 25.92002 9.45699 36 19.02398 11.31003 10.732 19.21 24.98099 23.96 39.728 12.05999 37.421 14.14996 126.04201 15.47998 167.897 1.85998 58.93901 3.09002 184.50704-11.97998 237.10805-4.08002 14.26401-10.75006 28.03195-21.06009 38.85095-10.35999 10.87598-23.44001 18.30402-37.63001 23.03302-31.32998 10.44598-65.34991 10.49701-98.02991 12.04401-26.85 1.406-53.71008 2.45398-80.59008 3.14398-39.69001 1.32202-79.41999 1.35498-119.11998 0.099-43.69001-1.26001-101.83995-0.581-135.93994-31.57898-8.91-8.10797-15.77996-18.19202-20.07996-29.44-11.87-30.67002-16.89007-118.875-18.32007-153.66999-2.7-61.108-1.96003-122.31903 2.21997-183.34404 1.73-24.6 2.74-47.041 9-71.12899 19.58-75.349 92.9001-75.09399 156.6001-78.327 27.02-1.428 54.05998-2.53701 81.10998-3.32501z",
+          "fill": "#010101ff",
+          "width": 545.4209594726562,
+          "height": 552.616455078125
+        },
+        {
+          "type": "path",
+          "id": "ZhjtB",
+          "x": 1218.066650390625,
+          "y": 338.5536193847656,
+          "name": "Vector",
+          "geometry": "M16.59339 467.12338c-7.29-17.569-9.96001-65.53399-11.39002-85.552-5.96-74.043-6.80002-148.41-2.52002-222.569 2.14-37.823 2.23002-94.253 29.02002-122.66 30.91-32.772 96.66992-30.935 139.16992-33.03 60.79001-3.315 121.69006-4.14201 182.55005-2.48001 36.04001 0.995 91.73001 0.35201 122.65002 18.74701 40.03003 26.686 39.09003 98.40099 41.5 142.48199 3.64002 62.606 4.44001 125.345 2.38001 188.02301-1.27002 40.22901-1.02997 100.63498-22.35999 134.66199-25.45001 40.59897-101.40008 37.97604-143.95007 40.22403-60.41 3.71997-120.94995 4.77301-181.44995 3.156-51.85-1.367-139.17997 2.55896-155.59997-61.00302z",
+          "fill": "#537bd8ff",
+          "width": 521.067138671875,
+          "height": 528.8609008789062
+        },
+        {
+          "type": "path",
+          "id": "i8t6O",
+          "x": 1234.6600341796875,
+          "y": 358.13299560546875,
+          "name": "Vector",
+          "geometry": "M459.47998 0c40.03 26.686 39.09 98.40099 41.5 142.48199 3.64002 62.60601 4.44 125.34501 2.38001 188.02301-1.26999 40.22901-1.03 100.63498-22.35999 134.66199-25.45001 40.599-101.40009 37.97602-143.95007 40.224-60.41001 3.72-120.94995 4.77301-181.44995 3.15601-51.85-1.36701-139.17998 2.55902-155.59998-61.00299 13.08 11.23498 22.37991 18.51196 39.40991 22.41497 89.79001 20.57901 186.87006 16.25403 278.06006 8.67304 33.17999-2.759 77.37994-3.12799 107.94995-15.98499 36.66998-15.427 46.28003-69.10205 51.67005-103.69903 9.97-109.274 3.31997-222.55301-8.01001-331.57401-0.85999-8.239-6.21997-20.23499-9.59998-27.37399z",
+          "fill": "#4261aaff",
+          "width": 504.4737548828125,
+          "height": 509.28155517578125
+        },
+        {
+          "type": "path",
+          "id": "l8H8i",
+          "x": 1427.399169921875,
+          "y": 533.944580078125,
+          "name": "Vector",
+          "geometry": "M122.14088 0.43642c93.28-7.491 91.63997 83.042 89.33997 149.42199-0.33 9.79601 2.37996 62.18305-3.29004 67.09204-11.66 4.46601-49.62001 1.13498-63.51001 1.24799-8.94-1.853-5.21992-25.29401-5.67993-32.143-2.25-33.70101 7.14001-79.896-7.85999-110.344-7.87-15.994-32.65998-13.79801-45.73999-3.97601l-1.03002 0.78399c-23.25 27.518-3.76997 129.41701-13.59998 144.01001-6.98 3.362-47.23006 0.80098-57.43006 2.02198-4.54 0.543-8.46-0.34299-11.75-3.719-3.53-11.08099 0.03001-90.603-0.73999-107.419-0.72-15.44001-0.92998-91.17 2.15003-99.539 2.91-1.335 5.55999-1.612 8.73999-1.836 8.55-0.602 53.79995-1.40895 57.81995 2.65405 2.96 2.988 1.59001 10.56897 1.39001 14.45197 18.37-15.087 27.31007-20.25701 51.19006-22.70801z",
+          "fill": "#010101ff",
+          "width": 212.1531982421875,
+          "height": 219.28668212890625
+        },
+        {
+          "type": "path",
+          "id": "PwvA2",
+          "x": 1435.7872314453125,
+          "y": 542.0430908203125,
+          "name": "Vector",
+          "geometry": "M113.44281 0.31295c1.78-0.131 3.55997-0.221 5.33997-0.271 81.33-2.098 76.41001 74.92996 76.27002 132.87396l-0.21998 70.03601-56.17004-0.05597c-0.88-34.75301 1.13007-69.39004-0.17993-104.29205-0.89-23.512-7.61002-49.08999-36.02002-50.66699-13.39-0.743-22.48994 2.30999-32.43994 11.292-17.06 20.575-13.73001 53.40402-13.63001 78.81401 0.19 21.38001 0.17998 42.76099-0.02002 64.14099l-55.96008 0.016c-1.15-64.70202 0.53007-130.94299-0.04993-196.05499l53.76001-0.05499c-0.16 6.433-1.06998 20.72101 1.14002 26.393 4.14 0.647 7.88999-5.819 11.23999-9.388 14.49-15.402 26.48994-20.28698 46.93994-22.78198z",
+          "fill": "#f5f0e6ff",
+          "width": 195.15245056152344,
+          "height": 202.95191955566406
+        },
+        {
+          "type": "path",
+          "id": "O2WrJS",
+          "x": 1324.31298828125,
+          "y": 539.9585571289062,
+          "name": "Vector",
+          "geometry": "M5.75691 0.46342c12.7-0.009 55.98008-2.10602 65.08007 2.69599 1.36 3.288 1.67993 9.59901 1.67993 13.23901 0.02 63.526 0.38009 127.08299-0.15991 190.599-0.02 2.64-2.85009 3.93103-4.72009 5.17304l-47.19995 0.45697c-4.71 0.001-14.13001 0.373-17.39002-2.888-1.59-4.02201-2.87-9.732-2.88-15.46399-0.03-62.84999-0.48999-126.00303 0.26001-188.80903 0.03-2.416 3.44996-3.93399 5.32996-5.00299z",
+          "fill": "#010101ff",
+          "width": 72.65296936035156,
+          "height": 212.64071655273438
+        },
+        {
+          "type": "path",
+          "id": "YMrZf",
+          "x": 1332.2191162109375,
+          "y": 548.572998046875,
+          "name": "Vector",
+          "geometry": "M0.06094 0.26001c18.77 0.109 37.74992-0.14901 56.53991-0.26001l0.03003 132.51202c0 16.538 1.26005 48.61199-0.19995 63.64899l-55.84997 0.05701c-1.01-22.83301-0.43002-50.60401-0.27002-73.59101 0.61-40.78799 0.52-81.583-0.25-122.367z",
+          "fill": "#f5f0e6ff",
+          "width": 57.13604736328125,
+          "height": 196.218017578125
+        },
+        {
+          "type": "path",
+          "id": "Hp7WQ",
+          "x": 1319.2296142578125,
+          "y": 439.048828125,
+          "name": "Vector",
+          "geometry": "M31.78043 1.12418c22.3-5.288 44.64004 8.589 49.79004 30.922 5.14 22.333-8.88 44.58301-31.25 49.57901-22.16 4.95-44.16001-8.91601-49.26002-31.04401-5.09-22.127 8.62997-44.217 30.71998-49.457z",
+          "fill": "#010101ff",
+          "width": 82.63232421875,
+          "height": 82.62730407714844
+        },
+        {
+          "type": "path",
+          "id": "ONgT9",
+          "x": 1327.388427734375,
+          "y": 447.11767578125,
+          "name": "Vector",
+          "geometry": "M24.8916 1.05331c17.77-4.572 35.86999 6.166 40.36999 23.952 4.51 17.786-6.29998 35.84702-24.09998 40.28601-17.71 4.416-35.65001-6.32101-40.14001-24.013-4.48-17.693 6.19-35.67801 23.87-40.22501z",
+          "fill": "#f5f0e6ff",
+          "width": 66.28565216064453,
+          "height": 66.28351593017578
+        },
+        {
+          "type": "path",
+          "id": "PuVuV",
+          "x": 1632.2099609375,
+          "y": 376.4930114746094,
+          "name": "Vector",
+          "geometry": "M30.21008 0c10.29 0.736 7.00999 19.97899 12.62 28.26199 5.54 8.193 21.72 9.89998 24.5 16.13098-2.14 3.133-14.13001 6.92101-18.14002 10.01502-8.38 6.461-10.70998 23.26701-12.84997 33.06601-10.17 0.722-7.68003-19.70402-12.78003-26.64002-6.01-8.182-16.31006-9.376-23.56006-15.88l0.03003-1.56998c1.78-2.553 3.99998-2.47403 7.09997-3.64602 24.89-9.426 17.15008-25.03698 23.08008-39.73798z",
+          "fill": "#010101ff",
+          "width": 67.330078125,
+          "height": 87.49266052246094
+        },
+        {
+          "type": "path",
+          "id": "W93hZ",
+          "x": 1646.75,
+          "y": 397.82000732421875,
+          "name": "Vector",
+          "geometry": "M18.61999 0c0.47 1.335 0.95997 2.66299 1.46998 3.98199 4.43 11.395 8.01003 14.20001 18.53003 18.92402-12.72 6.743-14.70005 11.36298-19.18006 24.29498-1.1-1.115-1.84999-3.63399-2.60998-5.20999-5.23-10.853-6.98996-12.95099-16.82996-18.874 12.15-5.675 14.45999-11.049 18.61999-23.117z",
+          "fill": "#fdd774ff",
+          "width": 38.6199951171875,
+          "height": 47.20098876953125
+        },
+        {
+          "type": "path",
+          "id": "kBjFw",
+          "x": 1722.739990234375,
+          "y": 247.10499572753906,
+          "name": "Vector",
+          "geometry": "M45.15002 0c0.69 0.195 3.69995 1.26001 3.82996 1.60701 4.53 11.443 5.24001 29.37399 11.26001 40.66598 5.79 10.845 27.75008 16.428 33.83008 22.74601-2.05 1.802-13.68008 7.50802-16.95007 8.86902-21.7 9.036-21.05994 34.70299-27.80994 54.87399l-3.37-1.13699c-3.4-5.04001-7.12003-35.58803-15.28003-44.66202-7.39-8.225-27.77003-11.374-30.66003-17.991 2.2-2.119 17.32999-8.71999 21.60999-11.12399 19.59-11 18.49004-34.73101 23.54003-53.84801z",
+          "fill": "#010101ff",
+          "width": 94.070068359375,
+          "height": 128.7620086669922
+        },
+        {
+          "type": "path",
+          "id": "ThmYG",
+          "x": 1737.530029296875,
+          "y": 270.6130065917969,
+          "name": "Vector",
+          "geometry": "M32.69995 0c9.85 24.221 6.22003 31.017 35.41003 42.155-23.34 9.98-26.99999 16.71198-34.48998 40.54498l-0.35999 0.24701c-2.24-2.111-4.97002-13.99199-7.02002-17.99899-6.85-13.349-13.30999-17.52401-26.23999-22.64801 2.45-1.086 4.84997-2.25699 7.21997-3.51099 16.16-8.61 20.49998-22.748 25.47998-38.789z",
+          "fill": "#fdd774ff",
+          "width": 68.1099853515625,
+          "height": 82.94699096679688
+        },
+        {
+          "type": "path",
+          "id": "X81Vee",
+          "x": 1768.9000244140625,
+          "y": 386.27899169921875,
+          "name": "Vector",
+          "geometry": "M29.85999 0c7.1 4.457 3.24004 17.91702 9.17004 24.89902 3.88 4.571 15.15996 5.81199 18.70996 10.17999-23.83 10.158-19.44007 9.324-26.07007 33.72-6.12-1.359-3.08993-13.213-7.17993-19.462-6.89-10.511-13.15999-11.252-24.48999-14.288 5.63-2.122 11.65-3.29099 17-6.33899 11.13-6.356 9.51998-17.63301 12.59998-27.863l0.26001-0.84702z",
+          "fill": "#010101ff",
+          "width": 57.739990234375,
+          "height": 68.79901123046875
+        },
+        {
+          "type": "path",
+          "id": "OOmpO",
+          "x": 1783.1700439453125,
+          "y": 401.7130126953125,
+          "name": "Vector",
+          "geometry": "M16.55994 0c7.05 7.529-2.33995 7.79799 16.30005 18.94199-10.48 7.798-11.69008 9.56201-15.83008 22.337-0.98-1.099-0.53991-0.432-1.15991-2.155-4.55-12.728-5.02999-13.66501-15.87-19.64001 10.82-6.371 12.46994-7.91298 16.55994-19.48398z",
+          "fill": "#fdd774ff",
+          "width": 32.8599853515625,
+          "height": 41.27899169921875
+        },
+        {
+          "type": "path",
+          "id": "LROKq",
+          "x": 1668.2900390625,
+          "y": 236.43600463867188,
+          "name": "Vector",
+          "geometry": "M24.76001 0c7.28 3.807 4.59996 17.27401 9.82996 23.65601 3.68 4.499 13.88996 5.471 17.70996 9.91-3.14 4.155-16.30999 3.46397-19.48999 13.40997-2.06 6.43-3.72001 13.69302-5.51001 20.02902-5.93-3.098-4.04997-16.456-8.58997-23.02999-3.58-5.184-16.25996-6.872-18.70996-10.797 3.19-2.84 10.32998-4.221 13.72998-6.358 7.58-4.777 8.34003-18.26201 11.03003-26.82001z",
+          "fill": "#010101ff",
+          "width": 52.2999267578125,
+          "height": 67.0050048828125
+        },
+        {
+          "type": "path",
+          "id": "Geih4",
+          "x": 1680.77001953125,
+          "y": 248.76199340820312,
+          "name": "Vector",
+          "geometry": "M13.43994 0c4.5 12.779 5.14003 15.119 16.91004 21.478-10.76 5.314-12.02998 7.89401-16.22998 18.751-3.29-2.285-1.66004-10.87301-8.92005-14.19101-1.29-0.585-4.00995-3.09297-5.19995-4.37997l0.41003-1.64801c9.65-5.668 9.91991-9.39301 13.02991-20.01001z",
+          "fill": "#fdd774ff",
+          "width": 30.3499755859375,
+          "height": 40.22900390625
+        },
+        {
+          "type": "path",
+          "id": "uHhN7",
+          "x": 1174.7236328125,
+          "y": 1137.928955078125,
+          "name": "Vector",
+          "geometry": "M566.00635 0.18098c26.06-1.78 40.56006 9.55 47.81006 34.88001 1.53997 5.38 3.25 10.58001 5.64001 15.64001 3.09998 0.51 6.16998 1.16996 9.20996 1.95996 12.14002 3.1 23.03998 10.50007 29.20996 21.57007 5.46997 10.03 6.56 21.87999 3.01001 32.73999-5.23999 16.08001-15.8399 22.2-29.54992 29.5-8.41999 25.94001 2.56988 39.11992-25.62012 57.41993 20.58002 54.83 31.49005 116.2501 45.65002 173.36009 10.09998 48.54001 25.57001 97.10989 29.73999 146.63989 4.79999 57.04999-44.55999 65.21008-85.51001 77.49011-32.02002 9.60999-64.17993 18.75995-96.45996 27.43994-85.60998 24.14002-171.82992 46.08008-258.55992 65.80005-25.78 5.71002-51.73004 11.89997-77.79004 16.07996-26.39999 4.22998-47.02001 6.57995-68.26001-12.69006-12.9-14.09998-17.27004-29.27991-22.42004-47.3899-14.72-51.80999-27.57996-103.97003-40.57996-156.29004-11-44.54998-22.06004-88.89007-30.17004-134.07006-7.25-40.35999 16.09008-60.17994 33.83008-92.68995-5.87-27.74-22.21008-64.04002-9.20008-91.42002 9.47-19.92 33.81003-27.34 53.28003-33 21.66001-6.31 44.22999-11.29992 65.85999-18.03992 26.72999-33.87 58.31-94.12 100.75-107.37 35.92-11.21 69.78001 6.27992 100.92003 22.28992 15.69 8.07 31.30999 16.44008 46.86999 24.70007 45.70999-3.05 95.66004-43.09008 125.77002 12.90991 9.35999-5.77 10.79993-9.27999 11.56995-20.48999 1.76001-25.79 9.01001-39.74997 35-46.96997z",
+          "fill": "#f5f0e6ff",
+          "width": 681.4310302734375,
+          "height": 703.6257934570312
+        },
+        {
+          "type": "path",
+          "id": "BBX9p",
+          "x": 1213.0220947265625,
+          "y": 1179.988525390625,
+          "name": "Vector",
+          "geometry": "M222.34793 0.30147c28.28-2.75 52.92001 13.90996 77.5 25.70996 16.95999 8.14 33.57004 17.70995 49.66004 27.44995 15.64001-3.78 83.16992-22.77995 93.41992-18.31994 8.41 9.6 21.83001 69.59995 25.51001 85.06995 16.32 9.04999 32.90994 22.15 49.10995 31.76 3.17999 2.25999 11.22003 8.09009 12.68006 11.34009 22.73999 50.27 32.10003 114.44002 45.67004 167.50001 12.11999 47.42002 21.60998 88.09 28.76001 135.51001 1.76001 11.69001 2.09997 26.71994-10.41004 31.06995-26.23999 10-53.72998 17.59-80.70996 25.43002-60.72 17.78998-121.75003 34.47992-183.07003 50.05994l-43.78003 11.25c-38.08001 9.41998-76.27996 18.38-114.57996 26.86999-22.54001 4.93-46.19998 11.22004-69.22998 12.76001-5.71 0.38001-12.67002 0.70996-17.65002-2.52002-2.96-1.92999-5.04004-4.78991-6.54004-7.93994-8.1-16.96002-12.16002-37.28003-17.27002-55.41003-14.78-52.48001-27.28992-105.83002-40.28992-158.81003-5.47-22.28-25.76003-98.02994-20.16004-115.16992 6.91-21.16001 25.17999-43.83 36.85999-63.11-4.98-17.68001-21.64001-66.48999-15.38001-80.85999 10.81-10.75 87.62008-28.4501 107.59009-34.3601 16.84-26.83 63.78994-96.75991 92.30994-105.27991z",
+          "fill": "#010101ff",
+          "width": 605.55224609375,
+          "height": 623.9959106445312
+        },
+        {
+          "type": "path",
+          "id": "GDk7x",
+          "x": 1242.219970703125,
+          "y": 1224.2900390625,
+          "name": "Vector",
+          "geometry": "M407.58008 0c2.1 4.02 8.98996 32.5399 10.56994 38.3999 12.45002 46.12 21.64002 92.9601 35.02002 138.8501-5.10998 8.44-12.78006 18.14996-18.44006 26.58997-23.57999 35.17999-51.61993 67.04-76.56995 101-85.70001-48.59-104.00996-38.92005-159.20996 38.44995-28.66-10.64002-59.94004-24.66996-87.92004-37.07996-21.07-9-42.67998-19.48996-63.84998-28.83996-4.85-23.23-11.94004-47.80004-18.17004-70.78003l-29.01001-106.21997c27.17-9.56 63.32005-17.76 91.80005-24.87 54.70999-13.7 109.57997-26.76006 164.58996-39.19006 32.73002-7.34 65.38999-14.97993 97.97999-22.92993 16.86999-4.16 36.58007-10.18001 53.21008-13.38001z",
+          "fill": "#feba97ff",
+          "width": 453.1700439453125,
+          "height": 343.2899169921875
+        },
+        {
+          "type": "path",
+          "id": "mYcsd",
+          "x": 1324.1099853515625,
+          "y": 1334.812255859375,
+          "name": "Vector",
+          "geometry": "M291.42004 0.4678c3.79001-0.51 4.03992-0.72002 7.91993-0.02002 2.92999 2.21 2.20999 0.82999 2.73999 3.98999-2.23001 3.27-6.86997 5.33995-10.57996 6.31994-92.92999 24.57-187.59996 46.21005-281.20996 67.43006-4.91 1.02-6.77004 2.13005-10.29004-1.81995l0.65002-1.70007c5.62-3.67 77.74004-21.18004 87.29004-23.04004 67.38001-13.18 136.60999-39.13991 203.47998-51.15991z",
+          "fill": "#010101ff",
+          "width": 302.0799560546875,
+          "height": 79.15129852294922
+        },
+        {
+          "type": "path",
+          "id": "da3fA",
+          "x": 1337.18994140625,
+          "y": 1379.1925048828125,
+          "name": "Vector",
+          "geometry": "M295.24011 0.08751c3.54999-0.25 4.44992-0.14 6.17993 2.75l-0.78003 2.72999c-0.82998 0.91-2.60992 2.83996-3.80993 3.20996-94.55 28.69-193.64004 49.59-289.79004 70.86999-3.53 0.53-5.03004 0.92009-7.04004-1.90991l1.07007-1.88c9.86-6.76 142.89-35.90002 165.5-41.77003 26.75999-7.17 53.47003-14.49007 80.15002-21.95007 14.70999-4.06 33.77002-9.78993 48.52002-12.04993z",
+          "fill": "#010101ff",
+          "width": 301.4200439453125,
+          "height": 80.02228546142578
+        },
+        {
+          "type": "path",
+          "id": "vN95n",
+          "x": 1350.989990234375,
+          "y": 1457.72705078125,
+          "name": "Vector",
+          "geometry": "M153.40002 0.47287c3.71001-0.82 5.05002-0.74999 7.77002 1.64001-0.07 6.7-8.37997 8.72004-13.97998 10.04004-46.27 10.9-93.38004 23.50999-139.92004 32.87-4.13 0.64-4.88002 0.93001-7.27002-2.23999l0.67004-1.84998c7.95-6.18 135.62998-36.75008 152.72998-40.46008z",
+          "fill": "#010101ff",
+          "width": 161.1700439453125,
+          "height": 45.43305206298828
+        },
+        {
+          "type": "path",
+          "id": "vHydb",
+          "x": 1311.260009765625,
+          "y": 1325.6678466796875,
+          "name": "Vector",
+          "geometry": "M145.09998 0.55211c3.24-0.56 3.77995-0.98003 6.82995 0.21997 2.01 3.14 1.76007 1.53007 1.07007 4.95008-5.42 5.91-20.07002 8.43001-28.03003 10.14001-38.81 8.32-77.24998 18.26991-115.97998 26.90991-4.43 0.81-5.48996 1.39005-8.95996-1.19995l-0.03003-1.78003c8.08-9.05 125.52998-34.95999 145.09998-39.23999z",
+          "fill": "#010101ff",
+          "width": 153.50167846679688,
+          "height": 43.45800018310547
+        },
+        {
+          "type": "path",
+          "id": "TJAYI",
+          "x": 1312.9100341796875,
+          "y": 1511.744140625,
+          "name": "Vector",
+          "geometry": "M18.34998 251.13582c16.26-27.88001 32.95997-55.49997 50.08996-82.84998 31.53-50.11999 65.28003-105.04003 104.78003-149.54003 16.5-18.6 37.40999-23.28002 60.48999-14.39001 20.55 7.91 39.82996 18.85008 59.32996 29.71008 47.58001 27.08 94.26999 55.6899 140 85.77991 18.22 11.46 35.98001 24.25998 53.63 36.61998-66.61999 21.65-142.78998 42.15007-210.47998 59.94007-88.70999 23.31-186.05994 48.79002-276.18994 65.00001 4.77-7.98001 13.29997-23.22003 18.34998-30.27003z",
+          "fill": "#f5f0e6ff",
+          "width": 486.669921875,
+          "height": 281.4058532714844
+        },
+        {
+          "type": "path",
+          "id": "lYeeg",
+          "x": 1312.9100341796875,
+          "y": 1631.5899658203125,
+          "name": "Vector",
+          "geometry": "M433.03992 0c18.22 11.46 35.98001 24.25999 53.63 36.62-66.61999 21.65-142.78998 42.15006-210.47998 59.94006-88.70999 23.31-186.05994 48.79001-276.18994 65 4.77-7.98 13.29997-23.22002 18.34998-30.27002 4.87 1.39 48.84997-9.37006 57.08996-10.94006 69.06-12.89 137.56998-28.60999 205.35999-47.10999 48.26999-13.52 121.14999-32.46999 152.23999-73.23999z",
+          "fill": "#c3c2bdff",
+          "width": 486.669921875,
+          "height": 161.56005859375
+        },
+        {
+          "type": "path",
+          "id": "qDG8K",
+          "x": 1486.033935546875,
+          "y": 1557.0137939453125,
+          "name": "Vector",
+          "geometry": "M67.21605 0.00617c38.36999-0.79 12.68001 74.46992-4.87 84.79993-4.32 2.54-33.32995-13.75996-37.81994-16.70996-11.34-8.06-23.32009-17.77996-24.4701-32.83996-0.78-10.18 6.66999-18.90001 17.10999-18.51002 10.87 0.42 19.84003 6.43001 27.16004 14.01001 1.15-3.56 2.41003-7.08006 3.78002-10.56006 4.29-10.88 8.66999-15.66994 19.10999-20.18994z",
+          "fill": "#010101ff",
+          "width": 87.1690673828125,
+          "height": 85.07376098632812
+        },
+        {
+          "type": "path",
+          "id": "XKU7w",
+          "x": 1222.4599609375,
+          "y": 1481.8299560546875,
+          "name": "Vector",
+          "geometry": "M0 0c64.21 34.59 143.99002 67.41002 210.64001 96.39002-12.63 20.79-28.98992 43.66-42.42993 64.51-25.42999 39.86001-49.72999 80.42003-72.85998 121.65003-4.71 8.35998-9.6201 16.60998-14.7201 24.72998-2.65-6.69-4.79996-12.10999-6.82995-19-4.23-12.39999-8.47-29.82996-11.88001-42.57996-6.78-24.95999-13.30004-49.99997-19.54003-75.09997l-42.38001-170.6001z",
+          "fill": "#f5f0e6ff",
+          "width": 210.6400146484375,
+          "height": 307.280029296875
+        },
+        {
+          "type": "path",
+          "id": "Y4PgH1",
+          "x": 1296.260009765625,
+          "y": 1764.3800048828125,
+          "name": "Vector",
+          "geometry": "M0 5.72998c6.34 0.33 15.53005-3.39998 21.55005-5.72998-4.71 8.36-9.62009 16.60998-14.72009 24.72998-2.65-6.69-4.79996-12.11-6.82996-19z",
+          "fill": "#c3c2bdff",
+          "width": 21.550048828125,
+          "height": 24.72998046875
+        },
+        {
+          "type": "path",
+          "id": "LypWj",
+          "x": 1609.6400146484375,
+          "y": 1357.6300048828125,
+          "name": "Vector",
+          "geometry": "M128.79993 0c15.1 51.14 26.9701 107.99994 39.3601 160.18994 9.91001 41.70999 26.19991 100.29001 28.77991 141.89002-16.89999-13.03-37.60998-26.90995-55.48999-38.93995-40.95-26.57-98.92995-63.45001-141.44995-86.39001 11.65-12.75999 24.06996-29.13997 34.82996-42.84998 28.24-35.50999 54.70004-72.40002 79.29004-110.53002l14.67993-23.37z",
+          "fill": "#f5f0e6ff",
+          "width": 196.93994140625,
+          "height": 302.0799560546875
+        },
+        {
+          "type": "path",
+          "id": "tBXSg",
+          "x": 1723.760009765625,
+          "y": 1357.6300048828125,
+          "name": "Vector",
+          "geometry": "M14.67993 0c15.1 51.14 26.97011 107.99994 39.36011 160.18994 9.91 41.70999 26.1999 100.29001 28.77991 141.89002-16.9-13.03-37.60999-26.90995-55.48999-38.93995 4.45-6.17001 7.36004-15.33006 9.29004-22.69006 2.51-9.6 4.13002-19.98991 3.14001-29.90991-1.11-11.01-36.55001-181.66004-39.76001-187.17005l14.67993-23.36999z",
+          "fill": "#c3c2bdff",
+          "width": 82.8199462890625,
+          "height": 302.0799560546875
+        },
+        {
+          "type": "path",
+          "id": "P97z5",
+          "x": 1361.4599609375,
+          "y": 1192.1419677734375,
+          "name": "Vector",
+          "geometry": "M76.96008 0.07804c26.73-1.91 83.35997 31.75007 107.71997 45.07007-28.94 7.74-66.13997 15.21993-95.71997 21.91992-29.63 7.26-59.34008 13.89999-88.96008 21.35999 19.23-25.94 39.95001-61.34996 64.51001-82.70997 3.04-2.63 8.55007-4.40001 12.45007-5.64001z",
+          "fill": "#b1e2cbff",
+          "width": 184.6800537109375,
+          "height": 88.42801666259766
+        },
+        {
+          "type": "path",
+          "id": "m3fK9",
+          "x": 1223.25,
+          "y": 1417.75,
+          "name": "Vector",
+          "geometry": "M31.20996 0c2.67 2.87 19.12007 67.70004 22.07007 77.67004l-19.96008-9.42004c-11.19-5.29-22.29995-10.72996-33.31995-16.33997 6.77-15.89 21.42996-36.84003 31.20996-51.91003z",
+          "fill": "#b1e2cbff",
+          "width": 53.280029296875,
+          "height": 77.6700439453125
+        },
+        {
+          "type": "path",
+          "id": "EVeGF",
+          "x": 1686.1400146484375,
+          "y": 1316.6400146484375,
+          "name": "Vector",
+          "geometry": "M0 0c15.01 10.45 30.72997 19.82997 45.96997 30.46997l-17.28003 26.31006-10.96997 17.29993c-4.71-23.69-11.55997-50.74996-17.71997-74.07996z",
+          "fill": "#b1e2cbff",
+          "width": 45.969970703125,
+          "height": 74.0799560546875
+        },
+        {
+          "type": "path",
+          "id": "ykah6",
+          "x": 1709.02001953125,
+          "y": 1175.43994140625,
+          "name": "Vector",
+          "geometry": "M36.52002 0c8.14 1.61 8.22991 13.23002 11.28992 20.52002 5.15 12.3 7.06007 21.98999 21.07006 26.98999 4.93 1.76 20.05992 5.92011 21.91993 9.61011-4.41 5.17-17.25991 10.91995-22.02991 15.94995-12.91 13.61-9.57 36.64995-14.62 50.31994-1.55-0.20999-4.22-0.60999-5-1.98999-6.14-10.88999-9.09007-29.54992-17.69006-39.04992-5.62-6.21-24.19996-9.24001-31.45996-14.01001 0.06-3.43 7.03992-7.86001 9.91992-9.01001 31.12-12.48 18.2301-40.91008 26.6001-59.33008z",
+          "fill": "#010101ff",
+          "width": 90.7999267578125,
+          "height": 123.3900146484375
+        },
+        {
+          "type": "path",
+          "id": "DVKtQ",
+          "x": 1726.010009765625,
+          "y": 1202.550048828125,
+          "name": "Vector",
+          "geometry": "M23.56995 0c1.77 1.6 3.66 5.33996 5.11999 7.57996 9.75 15.02 12.58011 18.33003 29.36011 24.16003-16.88 11.34-20.14003 20.30996-24.66004 39.07996-1.86 0.01-3.44005-4.84998-4.55004-7.22998-6.71-14.43-14.47997-19.89997-28.83997-25.34998 16.33-11.88 19.67995-19.00999 23.56995-38.23999z",
+          "fill": "#fdd774ff",
+          "width": 58.050048828125,
+          "height": 70.81996154785156
+        },
+        {
+          "type": "path",
+          "id": "u9QJfe",
+          "x": 158.4177703857422,
+          "y": 1125.5352783203125,
+          "name": "Vector",
+          "geometry": "M651.30219 154.41463c-9.70099-24.83-9.23395-52.47997 1.29803-76.95996 42.04102-96.6 218.44202-109.11001 257.40204-1.76001 9.61999 26.52 9.00995 58.19008-3.43006 83.95007-27.42999 53.28999-79.86395 69.20999-135.63397 66.98999-16.42199 10.75999-28.48602 17.42992-48.18701 20.90991-12.25403 21.40001-35.50403 29.29-57.98401 39.61-0.40698 14.98001-0.13202 29.8501-0.69501 44.86011-3.22399 86.01999-21.35803 155.87985-86.29901 217.63986-15.708 14.88001-33.22796 27.71009-52.14496 38.21009 12.61298 6.40002 23.28296 14.89996 28.01099 28.94995 3.63202 10.79998 2.594 22.64001-2.86401 32.65002-4.41199 8.25-10.88501 13.68005-16.47302 20.66003-16.86603 21.04999-34.85499 23.71003-59.09897 13.40003-10.10102 13.16998-19.68097 26.67987-37.47797 29.25989-22.55499 3.27002-32.40799-11.80994-47.42798-22.52991-14.90399 2.46002-27.83005 3.22992-41.16904-6.07007-8.86401-6.14001-14.80996-15.65997-16.44097-26.31994-1.70499-10.84003 0.574-22.54004 7.18399-31.41004 1.65701-2.21002 3.418-4.34003 5.27499-6.38-34.06201-5.40003-55.57199-11.82001-88.45499-22.88001-21.119 20.96002-41.48103 40.81006-64.68303 59.54004-37.54499 30.31-69.10998 42.10004-113.55298 18.77002-21.804 1.32001-43.909 0.90002-61.241-14.87-10.363-9.45001-16.54101-22.64001-17.17401-36.65002-1.268-33.42999 27.69401-50.28003 50.95601-67.67004l47.72601-35.97998c8.504-6.28003 20.90197-14.50998 27.60398-22.26999-4.057-13.35999-5.40899-25.93998 1.86501-38.58997 10.72-18.64999 34.50899-38.77997 50.33099-53.96997l115.68703-111.45007c20.58301-19.84 42.08301-39.79998 61.474-60.70998 8.741-11.08 14.67898-25.94995 20.92999-38.44995 22.07102-44.16 54.5-81.97009 103.02899-96.96008 61.55802-19.02 135.15299 2.38005 170.07297 58.55005l1.58698-2.07007z",
+          "fill": "#f5f0e6ff",
+          "width": 916.6292724609375,
+          "height": 713.2391967773438
+        },
+        {
+          "type": "path",
+          "id": "pju2C",
+          "x": 808.1329956054688,
+          "y": 1279.949951171875,
+          "name": "Vector",
+          "geometry": "M1.58698 0c2.011 3.46 5.34201 8.33008 5.122 12.08008-3.135-1.47-5.01198-6.58001-6.70898-10.01001l1.58698-2.07007z",
+          "fill": "#c3c2bdff",
+          "width": 6.719356536865234,
+          "height": 12.080078125
+        },
+        {
+          "type": "path",
+          "id": "WX13L",
+          "x": 195.6256561279297,
+          "y": 1254.020263671875,
+          "name": "Vector",
+          "geometry": "M477.95233 0.3798c51.88501-3.82 95.685 21.27002 113.40003 71.02002 78.914 25.75 78.25396 28.93995 2.52295 61.94994-4.766 19.70999-3.49396 38.60001-3.80097 58.64002-0.81799 53.28-7.61902 104.82-34.841 151.89001-30.039 51.86002-79.737 89.41-137.83399 104.12 6.28299 12.57998 12.96201 28.08996 18.495 41.08996 10.87399-0.1 38.93493 1.79999 45.82495 11.09998-0.45999 11.32001-23.418 2.08999-30.65399 0.61999 6.95999 4.98999 19.51602 11.8801 12.93103 21.20011-5.29999 2.13-20.94803-13.19004-28.34003-15.88004-9.656-3.51001-23.46295 1.26999-31.95996-2.02002-1.89499-2.67001-1.44104-1.17001-0.96405-4.77002 4.09201-5.35998 12.85904-6.30002 19.63104-7.89001-4.48901-12.63001-11.95898-28.48999-17.51599-40.75-16.983 3.39999-37.01105 4.95999-54.28705 5.5l23.08802 54.44006c10.651 0.14002 40.26199 2.64993 42.875 15.04996l-1.711 1.57007c-9.09601 2.66998-18.47098-0.93-27.70197-3.37 5.96701 6.13001 17.22797 14.54993 9.27796 22.56995-7.27802 0.21002-21.39396-17.32996-30.02497-20.55994-9.55398-3.57001-28.09103 3.16992-34.45703-2.1001l-0.23895-2.81994c3.07998-5.52002 8.74597-6.47998 14.71997-8.47998l12.20502-1.70999c-6.50901-17.81-14.80201-36.94004-22.016-54.65003-42.67999-1.19-86.458-13.54007-124.92201-31.95007-22.77499 24.36999-91.01201 93.65011-122.422 97.5701-15.409 1.92999-28.581-6.09009-40.052-15.30008-13.464 4.11999-37.069 7.62002-46.704-5.31995-2-2.67999-2.84001-6.0401-2.33101-9.34009 1.885-12.58999 40.675-37.7399 51.909-46.26989 33.175-24.96 66.09302-50.26001 98.74802-75.89002-7.028-2.23999-15.714-4.99005-21.655-9.44006-2.898-2.17002-5.661-5.15003-5.633-9.03003 0.068-9.34 45.452-49.57996 53.486-57.33997l110.64998-106.76001c27.12701-26.11 60.52698-53.06994 76.48297-87.06994 23.93201-50.98 52.38803-94.42 113.81903-99.61999z",
+          "fill": "#010101ff",
+          "width": 650.6078491210938,
+          "height": 546.4616088867188
+        },
+        {
+          "type": "path",
+          "id": "EULvb",
+          "x": 207.78199768066406,
+          "y": 1266.157958984375,
+          "name": "Vector",
+          "geometry": "M149.282 312.38214c38.744-33.5 80.791-76.05005 117.989-112.03004l44.92901-43.29004c18.57099-17.85001 36.068-33.31999 47.95899-56.74999 17.49099-33.69 35.66403-74.29 72.72302-90.74 54.177-24.05 109.84704-1.20996 135.09302 50.92005-1.31299 0.89-2.59803 1.81992-3.85401 2.78991-16.75897 13.16-19.34906 32.03006-6.46203 48.68006 4.919 4.5 6.25006 5.62998 11.95404 9.22998-4.63501 27.17001-3.81598 51.91003-4.659 79.04003-2.35699 75.84999-30.14899 147.40007-93.99701 192.42006-79.48599 56.04001-203.32303 48.14996-283.80702-1.16003-3.776-2.34-12.795-9.09006-16.944-6.42005-0.32401 3.15 0.59099 4.04004 2.21298 6.78003 5.657 3.82001 12.64601 9.76001 18.11701 14.15003-25.50901 22.66-88.757 93.76999-121.297 91.85998-7.257-0.42999-13.167-3.98999-19.03-7.97998l-0.21899-0.42004c-0.288 0.64999 91.167-64.34 93.89999-80.5l-1.28101-0.30994c-11.49099 3.92999-35.45099 25.72998-46.34698 34.47998-8.933 7.20001-18.11501 14.08002-27.52802 20.64002-17.181 12.17999-38.48599 26.04995-60.91398 22.20996-3.377-0.57999-5.86801-1.32004-7.82001-4.15003 0.785-6.48001 44.843-37.31003 52.291-43.03003 31.72-24.23999 63.111-48.91 94.164-74 1.22-1.20001 4.48201-4.98993 6.29001-4.55993 103.34099 24.39999 239.463-2.21003 281.80699-111.74001 4.20099-17.39 10.32401-61.29005-7.94-72.56006l-1.67596 0.69007c-1.047 3.83-0.98502 1.87991 0.32397 6.0299 14.53699 51.33-8.84897 93.7701-48.21997 126.47011-22.745 18.9-48.49103 29.69-76.90503 37.38001-9.98199 2.72-20.07199 5.01989-30.245 6.8999 17.02601-9.03 25.05298-14.18991 40.391-25.90991 5.15701-4.73001 20.55203-17.80005 22.17602-22.92005l-0.48102-1.47998c-2.13101-0.22-3.92798 0.72998-5.69397 1.96997-13.652 9.57001-36.30606 28.11005-51.88305 34.54004-36.51599 21.73001-65.78498 18.82993-106.31398 12.54993 10.71899-3.09 19.42799-6.17999 29.86599-9.97998 14.12-6.19 85.63698-41.40994 86.09398-55.31995l-1.64599-0.81006c-4.46701 1.66001-9.07798 5.1601-13.13599 7.8501-28.40399 18.76999-57.18599 32.18994-89.03899 44.05994-24.039 8.72-34.78202 11.13003-58.59802 1.54004 7.17-7.21 8.28301-7.46997 17.509-11.09998 16.60601-9.10998 95.43201-46.52008 98.52201-62.82007l-1.767-0.96997c-2.98399 1.04001-28.351 17.58002-33.95599 20.89002-17.075 9.85998-34.64901 18.83999-52.65201 26.88z",
+          "fill": "#dfb9e5ff",
+          "width": 569.613037109375,
+          "height": 497.8998718261719
+        },
+        {
+          "type": "path",
+          "id": "B00OJ3",
+          "x": 394.9320068359375,
+          "y": 1378.1199951171875,
+          "name": "Vector",
+          "geometry": "M370.50897 0c4.91901 4.5 6.25003 5.62998 11.95404 9.22998-4.63501 27.17-3.81601 51.91004-4.65899 79.04004-2.357 75.85001-30.14902 147.40004-93.99701 192.42004-79.486 56.04001-203.32301 48.14997-283.80701-1.16003l5.582 0.30994c11.501 0.55999 32.63799 6.18005 45.48199 8.06005 49.111 7.26999 99.27502 1.15995 145.20902-17.67004 85.957-36.10001 140.27698-117.99997 158.19397-207.08996 4.52701-22.51 7.31299-41.66002 16.04199-63.14002z",
+          "fill": "#ba9abeff",
+          "width": 382.4630126953125,
+          "height": 319.68896484375
+        },
+        {
+          "type": "path",
+          "id": "OYNzH",
+          "x": 354.23699951171875,
+          "y": 1514.6600341796875,
+          "name": "Vector",
+          "geometry": "M0 116.29993c1.22-1.2 4.48201-4.98994 6.29001-4.55994 103.341 24.39999 239.46298-2.20999 281.80697-111.73999-0.22299 17.09-13.78796 44.68997-23.44897 58.71997-51.823 75.26999-184.92501 98.76996-264.64801 57.57996z",
+          "fill": "#ba9abeff",
+          "width": 288.09698486328125,
+          "height": 136.40823364257812
+        },
+        {
+          "type": "path",
+          "id": "d4U2mw",
+          "x": 257.9909973144531,
+          "y": 1658.010009765625,
+          "name": "Vector",
+          "geometry": "M122.20999 0c5.657 3.82 12.64601 9.76003 18.11701 14.15002-25.50901 22.66-88.757 93.76999-121.297 91.85999-7.257-0.43-13.167-3.98998-19.03-7.97998 38.292-7.71 96.89499-68.90003 122.20999-98.03003z",
+          "fill": "#ba9abeff",
+          "width": 140.32699584960938,
+          "height": 106.04776000976562
+        },
+        {
+          "type": "path",
+          "id": "J5Ir5",
+          "x": 477.6719970703125,
+          "y": 1448.8199462890625,
+          "name": "Vector",
+          "geometry": "M155.37 0c14.537 51.33-8.84897 93.7701-48.21998 126.47009-22.745 18.9-48.49102 29.69001-76.90502 37.38001-9.982 2.72-20.072 5.0199-30.245 6.8999 17.026-9.03 25.05299-14.18991 40.39099-25.90991 0.591 0.11999 1.94804 0.4299 2.45404 0.27991 60.569-18.16001 114.99797-81.42 112.52497-145.12z",
+          "fill": "#ba9abeff",
+          "width": 159.71829223632812,
+          "height": 170.75
+        },
+        {
+          "type": "path",
+          "id": "hgKU9",
+          "x": 375.86700439453125,
+          "y": 1605.77001953125,
+          "name": "Vector",
+          "geometry": "M29.866 2.56995c17.162 5.84 57.612-0.40995 76.448-2.56995-36.516 21.73-65.785 18.82993-106.314 12.54993 10.719-3.09 19.428-6.17998 29.866-9.97998z",
+          "fill": "#ba9abeff",
+          "width": 106.31399536132812,
+          "height": 17.105501174926758
+        },
+        {
+          "type": "path",
+          "id": "El7nD",
+          "x": 329.4079895019531,
+          "y": 1594.56005859375,
+          "name": "Vector",
+          "geometry": "M0 11.09998c7.17-7.21 8.283-7.46998 17.509-11.09998 10.187 5.79 29.17102 9.70994 41.08902 9.55994-24.039 8.72-34.78202 11.13004-58.59802 1.54004z",
+          "fill": "#ba9abeff",
+          "width": 58.5980224609375,
+          "height": 17.275224685668945
+        },
+        {
+          "type": "path",
+          "id": "t6Yck",
+          "x": 691.3298950195312,
+          "y": 1321.8294677734375,
+          "name": "Vector",
+          "geometry": "M9.52109 0.11052c21.804-1.87 22.979 20.45012 9.69001 32.12012-1.749 0.06-3.49899 0.04998-5.24799-0.02002-4.493-0.2-7.25903-1.44005-10.25903-5.05005-2.926-3.57-4.20602-8.21002-3.52503-12.77002 1.038-6.92 3.90004-10.44003 9.34204-14.28003z",
+          "fill": "#010101ff",
+          "width": 27.844249725341797,
+          "height": 32.27002716064453
+        },
+        {
+          "type": "path",
+          "id": "aHX2B",
+          "x": 768.7816162109375,
+          "y": 1334.77001953125,
+          "name": "Vector",
+          "geometry": "M11.26739 0c17.715 4.17 34.35801 11.55001 51.03601 18.64001l-17.85205 2.37c-9.742 1.14-34.87298 5.15994-42.80798 1.93994-5.676-6.75 4.78902-17.75995 9.62402-22.94995z",
+          "fill": "#fdd774ff",
+          "width": 62.303401947021484,
+          "height": 24.174352645874023
+        },
+        {
+          "type": "path",
+          "id": "rU5Jh",
+          "x": 769.2009887695312,
+          "y": 1362.449951171875,
+          "name": "Vector",
+          "geometry": "M44.94598 0l2.21302 0.07007c-1.531 1.57-14.02497 7.52-16.87598 8.75-9.25 3.99-13.24201 9.76994-21.91901 3.68994-4.125-3.9-5.21901-5.58994-8.36401-10.18994 14.453 0.16 30.57698-1.10007 44.94598-2.32007z",
+          "fill": "#fdd774ff",
+          "width": 47.15899658203125,
+          "height": 15.151978492736816
+        },
+        {
+          "type": "path",
+          "id": "Go4ME",
+          "x": 840.1517944335938,
+          "y": 1162.4947509765625,
+          "name": "Vector",
+          "geometry": "M94.40617 0.87525c30.47499-4.2 66.86199 6.82006 86.98198 30.81006 12.01 14.38 17.77004 32.95998 15.98004 51.59998-5.61 56.26999-71.39202 77.03998-117.03002 66.49999-2.78-0.64-4.80797 2.07994-6.93896 3.93994-7.225 6.46001-39.75403 27.49005-46.76703 16.06006 0.043-7.55 7.258-13.74007 10.513-20.45007 1.912-3.94001 2.69003-7.13996 3.80603-11.31995-5.906-3.36-11.24301-6.42996-16.66102-10.46996-28.246-21.09001-32.21604-60.28005-10.02703-87.42005 20.263-24.79 49.06301-35.75 80.14301-39.25z",
+          "fill": "#010101ff",
+          "width": 197.68869018554688,
+          "height": 173.12782287597656
+        },
+        {
+          "type": "path",
+          "id": "t331h",
+          "x": 849.8280639648438,
+          "y": 1172.056640625,
+          "name": "Vector",
+          "geometry": "M87.86394 0.35336c7.463-0.58 14.96596-0.45008 22.40295 0.41992 20.98801 2.51 42.21503 11.95001 55.33502 29.01001 10.08001 12.97 14.49996 29.44998 12.25995 45.72998-2.32001 16.47-12.50996 30.9901-25.77997 40.6001-26.735 19.35001-54.70298 18.21001-85.37799 13.76001-4.473 1.91001-16.17697 13.58989-21.49896 16.75989-5.245 3.13001-8.033 3.98004-13.74201 6.05005 5.095-8 8.68997-15.60004 7.94397-25.78003-0.49-8.44-12.414-12.1099-18.724-17.1499-36.758-29.33-20.19097-74.34002 15.87604-93.89002 17.76-9.62 31.202-13.54001 51.305-15.51001z",
+          "fill": "#f5f0e6ff",
+          "width": 178.4317626953125,
+          "height": 152.68331909179688
+        },
+        {
+          "type": "path",
+          "id": "Fcs9c",
+          "x": 895.5984497070312,
+          "y": 1235.1558837890625,
+          "name": "Vector",
+          "geometry": "M6.60554 0.30413c4.637-1.24 9.42203 1.42001 10.81903 6.01001 1.397 4.59-1.09801 9.47002-5.64002 11.02001-3.078 1.05-6.486 0.34002-8.888-1.84997-2.401-2.2-3.41397-5.53006-2.64197-8.69006 0.773-3.16 3.20695-5.64999 6.35096-6.48999z",
+          "fill": "#010101ff",
+          "width": 17.812057495117188,
+          "height": 17.81168556213379
+        },
+        {
+          "type": "path",
+          "id": "FAH0M",
+          "x": 931.5963134765625,
+          "y": 1234.0150146484375,
+          "name": "Vector",
+          "geometry": "M6.40665 0.32497c4.69-1.31 9.54704 1.46003 10.81103 6.16003 1.265 4.7-1.55004 9.53-6.26403 10.75-4.652 1.21-9.404-1.55995-10.65101-6.19995-1.248-4.64 1.476-9.42008 6.10401-10.71008z",
+          "fill": "#010101ff",
+          "width": 17.520517349243164,
+          "height": 17.5188045501709
+        },
+        {
+          "type": "path",
+          "id": "jjruN",
+          "x": 968.077392578125,
+          "y": 1232.7740478515625,
+          "name": "Vector",
+          "geometry": "M5.26262 0.72592c4.452-1.93 9.628 0.11997 11.53399 4.58997 1.906 4.46-0.18802 9.63-4.66601 11.5-4.435 1.86-9.53903-0.21001-11.42603-4.63-1.888-4.42 0.14804-9.53996 4.55805-11.45997z",
+          "fill": "#010101ff",
+          "width": 17.501371383666992,
+          "height": 17.49871063232422
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "AxptP",
+      "x": -4613,
+      "y": -499,
+      "name": "copy",
+      "clip": true,
+      "width": 2048,
+      "height": 2048,
+      "fill": {
+        "type": "color",
+        "color": "#ffffffff",
+        "enabled": false
+      },
+      "layout": "none",
+      "children": [
+        {
+          "type": "path",
+          "id": "wgh58",
+          "x": 396.18743896484375,
+          "y": 291.6717529296875,
+          "name": "Vector",
+          "geometry": "M629.46259 0.78126c47.11999-1.691 97.83001-0.327 145.01001 1.164 28.36999 1.756 58.33001 0.66399 86.01 7.98499 85.62 22.649 81.17994 116.23401 85.05994 185.07001 22.34998 7.914 38.46002 25.95599 54.91006 42.396 5.71-6.26601 11.3399-11.60099 18.5899-16.11799 12.63-7.882 27.3002-10.10099 33.3202-25.453 5.02-12.82699 4.4699-27.41102 9.3099-40.55902 5.97-16.17 17.9-28.54999 33.6-35.58298 17.41-7.80001 38.53-7.75702 56.17-0.73902 21.13 8.403 34.4001 27.445 38.5301 49.41801 2.0899 11.106 2.3499 26.965 9.3499 36.073 9.44 12.298 37.9601 8.10098 53.2901 43.91198 7.5699 17.704 7.48 38.73598 0.23 56.54998-9.4301 23.138-28.75 31.99603-50.47 40.96002-5.2901 10.71701-7.4501 22.43198-10.8301 33.92499-3.72 12.677-7.14 19.60202-13.47 31.07501 47.97 48.48901 58.62 48.99798 61.25 125.82599 1.6801 49.35998 2.2599 100.95001 3.18 150.48303l4.64 305.66199c1.63 75.78005 1.8601 151.58995 0.69 227.38005-0.8299 43.78-1.7 90.6099-8.7 133.8499-3.75 23.1601-15.2499 48.0701-31.43 65.26-12.88 13.5301-28.9599 23.6-46.75 29.2801-24.13 7.4399-73.54 10.5199-100.31 12.8199-79.39004 6.85-158.94002 11.5599-238.58004 14.12-13.77002 0.64-27.95001 0.98-41.73999 1.38-101.02997 3.52-202.14899 3.2001-303.14801-0.97-58.43399-2.4599-133.35199 1.6601-178.33697-40.8099-33.83802-31.9399-37.78504-77.47-40.42603-121.25-1.15302-17.53-2.02402-35.0701-2.61102-52.6201-20.595-0.08-41.18798-0.3399-61.77698-0.7699-43.728-0.91-86.03099-1.26-120.14999-32.86-37.146-34.41-39.79902-78.1501-43.45502-124.8501l-5.28698-69.23c-7.997-104.53-14.03498-209.20993-18.10999-313.97995-6.519-156.42401-10.76701-313.00501-2.28101-469.45201 2.777-43.33101 2.951-85.59897 11.099-128.35698 16.89-88.62899 95.71999-93.10501 169.78799-101.28601 53.06501-5.861 105.12198-7.79599 158.28199-9.90399l285.55304-9.798z",
+          "fill": "#fbf9f4ff",
+          "width": 1258.2852783203125,
+          "height": 1479.3372802734375
+        },
+        {
+          "type": "path",
+          "id": "DFi2C",
+          "x": 460.7104187011719,
+          "y": 355.273193359375,
+          "name": "Vector",
+          "geometry": "M599.26959 0.21279c3.40998-0.074 6.81-0.127 10.21997-0.159 32.43-0.32 64.86005 0.85301 97.27002 1.79401 21.84998 0.634 45.58002-0.15901 67.01001 4.26199 8.23999 1.699 17.67005 4.856 23.67005 10.974 25.09002 25.577 20.99005 132.29298 20.53003 169.46197 12.14001 0.16 40.33996 0.44005 48.72998 8.21704 22.08001 20.45799 45.59002 43.76799 67.27002 64.756 35.41998 33.996 70.53993 68.30099 105.35993 102.91199 23.84 23.45999 49.63 46.89901 70.22 73.05102 0.05 14.892 1.46 32.09598 1.9 47.41699l2.0699 101.76203 6.72 447.04597c0.59 58.99-0.16 118-2.25 176.9599-1.03 25.1601-1.73 51.4802-6.48 76.2101-8.98 46.74-60.1699 44.06-97.5699 47.45-33.55996 3.1899-67.18991 5.8-100.83993 7.8301-131.07001 8.39-262.40002 12.1899-393.73303 11.3899-43.25501-0.7701-86.49909-2.09-129.72208-3.95-40.10901-1.6801-111.95798 2.8101-125.67499-45.1899-5.393-18.87-6.009-44.6302-7.138-64.5901-1.85699-35.11-3.34695-70.23-4.46995-105.37l-6.521 0.38c-33.90599 1.9399-66.99803 1.36-100.97803 0.76-22.71099-0.96-46.12601 0.53-68.46301-4.1799-45.077-9.51-44.53098-56.4301-47.20798-92.1801l-5.69501-82.20995c-9.976-130.93-16.923-262.07007-20.83599-393.32605-3.784-121.28199-3.532-242.65598 0.75799-363.92098 1.763-43.28799 2.86099-88.01305 10.693-130.41104 4.31-23.333 22.16601-33.84399 43.63101-37.49499 98.588-16.77 203.30995-18.78398 302.54497-22.36399 80.61398-2.908 159.238-6.21402 238.98202-7.28701z",
+          "fill": "#000000ff",
+          "width": 1120.434326171875,
+          "height": 1351.651123046875
+        },
+        {
+          "type": "path",
+          "id": "Heay1",
+          "x": 726.8011474609375,
+          "y": 563.8640747070312,
+          "name": "Vector",
+          "geometry": "M15.12886 1050.616c-1.946-20.1-2.60499-44.67-3.53699-65.05002-2.116-50.27002-3.73299-100.57001-4.85199-150.88001-3.905-126.85998-6.12799-253.76001-6.66699-380.67001-0.273-88.57001 0.22098-177.138 1.47998-265.696 0.279-27.149 0.72001-54.29602 1.32501-81.43902 2.037-83.20401 1.64398-81.81097 84.81098-89.16797 28.386-2.399 56.79999-4.45701 85.23498-6.17401 119.885-7.878 240.00499-11.72504 360.14501-11.53204 13.71997 0.171 27.42999 0.64102 41.11999 1.40802-0.03003 43.801-2.75995 87.894-1.06994 131.643 3.13 81.21901 15.79992 111.63 104.70996 109.651 47.90002-1.066 97.02997-2.92302 144.73999 3.14398 3.03003 147.01701 5.19 294.05309 6.47998 441.09306 1.82001 119.65998 5.13 239.82001-3.13001 359.30002-0.59002 8.53-4.41003 34.67-10.02002 40.03-12.45001 11.9-54.31994 13.15-69.42993 14.54-31.25 2.96-62.54999 5.4101-93.89001 7.35-104.51001 6.38-209.14997 10.3001-313.84998 11.75-64.04001 0.52-128.08703-0.5599-192.07603-3.22-28.26-1.15-55.68396-1.5501-83.85596-4.7401-42.753-4.8399-46.14403-22.51-47.66803-61.3399z",
+          "fill": "#fbf9f4ff",
+          "width": 831.26416015625,
+          "height": 1120.0428466796875
+        },
+        {
+          "type": "path",
+          "id": "sA8h2",
+          "x": 741.9299926757812,
+          "y": 563.8709716796875,
+          "name": "Vector",
+          "geometry": "M517.94 0c13.71997 0.171 27.43 0.64102 41.12 1.40802-0.03003 43.801-2.75995 87.89401-1.06995 131.64301 3.13001 81.21899 15.79999 111.63 104.70996 109.651 47.90003-1.066 97.02997-2.92302 144.73999 3.14398 3.03003 147.017 5.19 294.0531 6.47998 441.09308 1.82001 119.66003 5.13001 239.81994-3.13 359.29991-0.59003 8.53-4.41004 34.6701-10.02002 40.03-12.45001 11.9001-54.31995 13.1501-69.42993 14.5401-31.25 2.9599-62.54999 5.41-93.89002 7.35-104.51001 6.38-209.14996 10.3-313.84997 11.75-64.04001 0.52-128.08705-0.56-192.07605-3.22-28.26001-1.15-55.68396-1.5502-83.85596-4.7401-42.753-4.84-46.14403-22.51-47.66803-61.34 23.94-1.3 52.31001 1.75 76.10901 5.6 56.136 9.09 109.00499 8.2401 165.45599 7.7301l111.245-0.7901c31.23001-0.68 62.44998-2.16 93.59997-4.42 81.25-5.78 155.74005-15.73 217.81006-77.25 22.14002-21.95001 41.27997-57.26995 50.57996-87.33996 25.09002-81.15003 29.79004-172.42999 35.64001-256.85999 4.14002-59.71002 6.70001-118.99005 5.29004-178.65002-1.29999-55.17499-10.55005-111.03501-11.83008-165.719-16.86999 2.39499-31.76996 1.00898-48.59997-1.10302-17.13001-2.31501-34.25-4.754-51.34998-7.31501-33.04999-4.72198-75.52997-8.36398-96.73999-37.80798-30.82001-42.778-24.06-107.06-26.84997-157.474-1.57001-28.166-6.17005-62.17802-2.42005-89.21002z",
+          "fill": "#d3d3d3ff",
+          "width": 816.13525390625,
+          "height": 1120.035888671875
+        },
+        {
+          "type": "path",
+          "id": "DtETm",
+          "x": 850.8085327148438,
+          "y": 904.9979858398438,
+          "name": "Vector",
+          "geometry": "M90.10747 0c4.749 0.874 12.65298 3.091 10.90998 9.427-7.22 26.25-18.15402 46.83603-19.06702 75.00903 16.769-8.155 36.72601-33.105 48.45501-47.08599 2.597-2.798 6.997-7.74401 11.289-7.05701 12.69701 1.701 7.12599 13.80396 3.73499 21.28296-4.734 10.44-7.206 18.204-8.862 29.664 18.694-8.807 33.32408-26.58899 49.18408-39.10199 5.32001-4.197 17.72995 7.65299 9.07996 15.99799-0.67 0.646-6.83005 13.03105-8.30005 16.02905 12.94-7.092 53.84007-41.70405 63.95007-30.61505 2.36 7.848-3.39998 19.20304-6.35998 27.58703 26.56001-8.637 74.50993-48.709 79.66993-10.55999 1.04999 7.722 44.31998-0.86499 52.47998 10.39801-1.63 10.529-29.34994 12.53098-38.07995 13.07098-17.12-0.762-27.80005-4.59503-33.67005-21.39203-10.95001 4.492-21.08999 10.03301-31.61999 15.37201-16.44 8.328-46.87995 24.036-47.79994-7.41901-10.74001 7.301-21.56006 15.13102-33.06006 21.18403-12.06999 6.351-17.01999 1.58402-24.73999-7.44898-3.72 0.314-11.94001 6.24098-15.63001 8.33398-18.80099 10.67601-32.41597 6.16601-31.78698-16.72698-5.433 5.183-14.12002 14.14997-20.20501 17.84497-46.176 28.038-35.30298-27.01101-29.45398-48.95801-10.804 13.299-51.62497 68.13602-69.39197 56.98602-0.59-1.57-1.20304-2.19003-0.55805-3.60003 4.773-7.559 16.19602-16.55994 23.39502-22.66895 18.319-15.547 48.67101-64.44704 66.43702-75.55304z",
+          "fill": "#000000ff",
+          "width": 376.27142333984375,
+          "height": 103.30769348144531
+        },
+        {
+          "type": "path",
+          "id": "x7JpTr",
+          "x": 861.2960205078125,
+          "y": 1176.9866943359375,
+          "name": "Vector",
+          "geometry": "M71.12201 0.08325c26.769-2.11 6.12399 36.44006 2.59399 53.06006 12.035-8.99 58.501-59.91 59.53699-21.12 39.381-22.08 27.25101 4.11996 54.091 5.32996 28.93 1.31 164.40003-23.27002 183.52002-6.40002 5.91001 18.53-60.33001 15.91001-70.64001 16.26-9.59 0.24-19.16007 0.93006-28.69006 2.06006-18.4 2.23-72.28994 9.80003-88.05994 6.53003-10.81-2.24-19.02998-7.62-27.73999-14-15.63001 5.37-29.63802 19.59994-41.05103-0.19006-7.54699 6.69-45.93001 45.40002-56.85101 26.02002-5.049-8.96 2.65801-33.16 6.16901-43.25-10.693 9-48.97902 45.18997-61.27002 39.84998-2.333-2.6-2.37096-2.35003-2.73096-5.78004 1.411-3.14 63.21801-53.68999 71.12201-58.36999z",
+          "fill": "#000000ff",
+          "width": 371.2364196777344,
+          "height": 73.01255798339844
+        },
+        {
+          "type": "path",
+          "id": "zj1ug",
+          "x": 855.3944702148438,
+          "y": 1064.8016357421875,
+          "name": "Vector",
+          "geometry": "M72.63153 0.10844c20.674-2.36 3.38601 34.47995 0.42401 44.31995 13.179-10.67 62.778-58.08998 46.72901-4.35999 24.39199-7.7 47.14094-32.49994 72.90094-37.55994 17.91999-3.53 12.53999 22.88989 11.73999 32.8899 18.61999-3.88 33.75003-17.04993 50.41003-16.04993 4.07001 0.24 6.77008 5.20998 8.82007 8.60999 18.89001 2.06 37.01996-3.05996 55.58996-4.95996 11.13001-1.14 45.48999-7.1901 52.73999 1.26989-0.23999 10.25-19.60003 12.28008-27.30004 13.20008-17.56 2.1-35.03992 4.48002-52.53992 7.02002-15.89002 1.7-31.22006 4.17996-43.06006-9.04004-26.5 12.83-65.47996 33.04998-59.45996-16.52002-15.94 8.01-30.40004 18.07005-45.71704 27.05005-9.40601 5.51-21.95598 13.09-32.84998 7.86999-6.46-3.1-5.05998-7.47001-7.91998-12.01001-4.475 1.55-13.80605 10.48003-18.99805 13.53003-30.068 17.69-29.69396-6.50006-21.76696-29.06006-10.236 8.42-48.38001 42.64004-60.71301 35.29004-1.866-2.73-1.70098-2.56002-1.61298-5.90002 2.252-5.21 12.786-8.50005 19.211-13.18006 17.239-12.57 35.61998-31.62991 53.37298-42.40991z",
+          "fill": "#000000ff",
+          "width": 371.98553466796875,
+          "height": 62.62550735473633
+        },
+        {
+          "type": "path",
+          "id": "JagJr",
+          "x": 1276.688720703125,
+          "y": 1068.647216796875,
+          "name": "Vector",
+          "geometry": "M31.46131 0.59273c4.91-0.84 8.28001-0.98997 12.89001 0.91003 5.56 5 1.83994 12.83998 9.55993 15.97998 17.92 7.3 93.34998-28.06002 99.72999-4.27002-2.35001 12.18-30.14001 13.16003-41.26001 14.91004-18.24 4.7-55.72992 15.38996-73.41993 4.57995-5.24-3.2-5.20003-7.32993-6.16003-13.04992-3.96-4.6-17.52002 15.74993-28.40002 14.42993-2.36-1.47-2.47994-1.22996-3.68994-3.70996-0.94-1.89-0.95002-4.11001-0.02002-6.01001 4.75-9.73 20.84002-19.70002 30.77002-23.77002z",
+          "fill": "#000000ff",
+          "width": 153.6412353515625,
+          "height": 37.37738800048828
+        },
+        {
+          "type": "path",
+          "id": "dUaxc",
+          "x": 1274.56005859375,
+          "y": 961.9520263671875,
+          "name": "Vector",
+          "geometry": "M66.88989 1.46397c15.01-0.99 77.98-5.65899 83.5 9.35101-0.50999 2.524-1.36992 3.91099-3.15991 5.693-7.99001 7.935-50.31003 3.66097-63.40002 3.72796-14.46 0.372-67.46003 5.13703-77.91004 1.72003-3.16-1.031-4.38992-2.30202-5.91992-5.17102 0.8-12.933 55.21989-14.63198 66.88989-15.32098z",
+          "fill": "#000000ff",
+          "width": 150.389892578125,
+          "height": 23.18296241760254
+        },
+        {
+          "type": "path",
+          "id": "pqwqq",
+          "x": 483.6614990234375,
+          "y": 378.3221435546875,
+          "name": "Vector",
+          "geometry": "M29.4215 1018.3179c-1.493-45.67001-7.22002-99.07004-10.40402-145.63003-5.446-83.72998-9.97697-167.52002-13.59097-251.34601-6.198-142.74701-7.08701-285.67496-2.66501-428.48796 0.766-30.489 2.047-60.96303 3.841-91.40904 1.104-16.737 1.65798-49.93001 12.85498-63.75601 3.746-4.626 20.38401-8.867 26.83402-9.866 34.108-5.284 68.995-8.54699 103.463-10.98599 51.301-3.517 102.65498-6.21099 154.04299-8.07998 84.806-3.18 174.12396-7.66002 258.73095-8.63202 47.38001-0.408 94.76013 0.18399 142.11011 1.77499 13.65997-0.464 42.16998-0.61299 52.36999 9.28101 18.15998 17.633 15.64991 123.05698 16.40992 151.90698-119.33997-0.313-238.64997 3.55404-357.72296 11.59504-28.323 1.81599-56.62098 4.00401-84.88599 6.56201-26.95999 2.431-67.94101 3.21501-88.14302 22.36401-19.45799 18.44301-17.51598 55.17195-18.38898 80.57994-0.867 26.659-1.489 53.32498-1.867 79.995-1.575 80.81799-2.53702 161.64697-2.88703 242.479 0.63001 114.21497 2.386 228.41498 5.26801 342.58496 1.55099 46.16999 2.78401 92.34 3.70001 138.52-35.92599 0.76-71.63399 0.7201-107.95299-0.5699-18.242-0.65-62.486 2.0599-76.792-11.0501-11.94-10.9399-11.57501-41.9099-14.32501-57.8299z",
+          "fill": "#5179d4ff",
+          "width": 773.41845703125,
+          "height": 1088.268798828125
+        },
+        {
+          "type": "path",
+          "id": "c8E8rL",
+          "x": 513.0830078125,
+          "y": 380.0583190917969,
+          "name": "Vector",
+          "geometry": "M675.21704 0.16366c13.65997-0.464 42.16998-0.61299 52.37 9.281 18.15997 17.633 15.6499 123.05697 16.40991 151.90698-119.33997-0.313-238.64997 3.55403-357.72296 11.59503-28.323 1.81599-56.62097 4.00401-84.88599 6.56201-26.95999 2.431-67.94101 3.21501-88.143 22.36402-19.45801 18.443-17.51598 55.17198-18.38898 80.57997-0.86701 26.65899-1.489 53.32498-1.86701 79.99499-1.57499 80.818-2.53701 161.64694-2.88702 242.47898 0.63 114.21496 2.386 228.41497 5.26801 342.58496 1.55099 46.16998 2.78401 92.34 3.70001 138.52-35.926 0.76-71.63401 0.7201-107.95301-0.5699-18.242-0.6501-62.48599 2.0599-76.79199-11.0501-11.94-10.9399-11.57501-41.9099-14.32501-57.8299l2.46802 1.87c29.977 4.15 87.34798 9.65 114.13397-4.25 34.465-17.89005 25.96101-83.33 24.66602-115.61003-1.271-30.5-2.34305-61.02001-3.21705-91.54003-4.55499-149.43-8.76496-299.48993 1.83704-448.78495 3.19901-45.05398 5.645-93.22104 18.539-136.64204 8.72901-29.398 26.77301-55.34801 54.60901-69.5 48.733-24.778 198.78702-26.98198 259.41101-29.14898l126.95996-4.38199c32.33002-0.939 78.02997 11.55799 87.98999-30.04101 1.78998-7.827 2.78009-15.816 2.95008-23.844 0.16998-11.101-3.38001-50.123-7.28003-62.427-0.33002-1.042-4.40003-0.89399-6.14002-1.01099l-1.70996-1.10702z",
+          "fill": "#4466aeff",
+          "width": 743.9969482421875,
+          "height": 1086.5325927734375
+        },
+        {
+          "type": "path",
+          "id": "fR3a1",
+          "x": 1320.5699462890625,
+          "y": 574.2750244140625,
+          "name": "Vector",
+          "geometry": "M0 0c0.66 0.422 1.55007 0.96595 2.07007 1.48895 45.24 45.058 91.43003 89.13405 137.03003 133.82605 24.52 24.041 49.24991 48.02895 72.6499 73.16095 0.05 0.64501 0.10002 1.29 0.15002 1.935-17.83-1.92799-35.75994-2.84094-53.69995-2.73395-29.08 0.18801-116.13007 8.16998-137.83008-10.46002-21.52-18.472-18.02999-94.75998-18.98999-123.07098-0.76-22.167-0.12-50.351-1.38-74.146z",
+          "fill": "#fbf9f4ff",
+          "width": 211.9000244140625,
+          "height": 210.41094970703125
+        },
+        {
+          "type": "path",
+          "id": "AkHtZ",
+          "x": 1447.2099609375,
+          "y": 468.635986328125,
+          "name": "Vector",
+          "geometry": "M69.90002 0c3.04 0.042 6.53004 0.122 7.41004 3.591 7.49 29.49 7.12 62.86399 37.38 79.568 7.55001 4.167 26.91993 11.31799 31.28992 17.16198-2.74001 5.69001-34.56 14.24101-43.5 26.67701-12.45 17.322-15.27991 32.68005-20.65991 53.14105-1.61 6.13699-2.70004 12.66696-6.04004 17.73596-3.34-0.362-6.25995-1.09698-7.31995-4.67798-5.48-18.517-7.04008-36.26202-15.08008-54.30102-7.74-17.365-24.80993-23.30797-41.42993-29.39197-4.1-1.504-10.22007-4.79699-11.95007-8.86499 7.68-11.60401 34.62005-8.18702 51.55005-36.61902 13.47-22.631 11.67998-50.50802 18.34997-64.02002z",
+          "fill": "#000000ff",
+          "width": 145.97998046875,
+          "height": 197.875
+        },
+        {
+          "type": "path",
+          "id": "CHLW3",
+          "x": 1472.739990234375,
+          "y": 508.66400146484375,
+          "name": "Vector",
+          "geometry": "M46.84998 0c1.9 1.95 5.08998 10.36801 6.09997 13.30701 8.44 24.53 22.37009 36.33897 45.97009 46.84497-31.99 13.384-40.10002 30.85703-49.52002 63.05902l-0.70007 1.81-0.95996-0.18402c-7.41-34.666-15.09999-48.52895-47.73999-63.73395 1.9-1.027 3.78003-2.06904 5.66003-3.12604 25.75-14.531 33.44994-30.28099 41.18995-57.97699z",
+          "fill": "#fcd577ff",
+          "width": 98.9200439453125,
+          "height": 125.02099609375
         }
       ]
     }
