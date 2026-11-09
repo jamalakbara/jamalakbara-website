@@ -1,24 +1,4 @@
-import { Fraunces, Space_Grotesk } from "next/font/google";
 import localFont from "next/font/local";
-
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
-  display: "swap",
-  preload: true,
-  fallback: ["system-ui", "Arial"],
-});
-
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  weight: ["300", "400"],
-  style: ["italic"],
-  display: "swap",
-  preload: false,
-  fallback: ["Georgia", "serif"],
-});
 
 // Working Folder type (public site). Fontshare faces, self-hosted + subset.
 // Comico is subset to the hero-name glyphs + digits (identity + number tiles only).
@@ -47,4 +27,4 @@ const comico = localFont({
 });
 
 /** Font variables for a root layout's <body>. */
-export const fontClasses = `${spaceGrotesk.variable} ${fraunces.variable} ${tanker.variable} ${erode.variable} ${comico.variable} antialiased`;
+export const fontClasses = `${tanker.variable} ${erode.variable} ${comico.variable} antialiased`;
