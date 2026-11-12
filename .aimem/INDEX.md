@@ -11,7 +11,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
-- memory: 31 (active 31)
+- memory: 32 (active 32)
 - handoff: 55 (final 55)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
