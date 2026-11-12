@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 32 (active 32)
-- handoff: 56 (final 56)
+- handoff: 57 (final 57)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-7s3ezcg9 2026-11-12 (agent:claude-code) — Done: Bahasa-first pass: scored 55 candidates, read 8 SERPs, wrote 5 ID posts (website-katalog-order-whatsapp, shopify-atau-woocommerce, google-bisnisku-atau-website, berapa-lama-bikin-website, domai…
 - hnd-wxpg9j1r 2026-11-12 (agent:claude-code) — Done: Published bedanya-ui-dan-ux. Wrote EN how-long-does-it-take-to-build-a-website and website-maintenance-cost, and ID jasa-maintenance-website, from the owner's two client quotations (no client n…
 - hnd-6memwmdg 2026-11-12 (agent:claude-code) — Done: Ran brand-awareness keyword and SERP research with OpenSEO (about 330 credits), wrote docs/SEO_AWARENESS_RESEARCH.md, drafted 3 journal posts (EN web designer vs developer; ID company profile P…
 - hnd-fftx1pkf 2026-11-08 (human:akbar) — Done: Opened PR #38 from development into main for the centered wide layout. · Next: Review PR #38.
 - hnd-rg9kxkh5 2026-11-08 (human:akbar) — Done: Verified development matches origin and reviewed the centered layout diff and prior browser checks. · Next: Commit the layout and related handoffs and push development.
-- hnd-jdjeyg43 2026-11-08 (human:akbar) — Done: Found the existing Chrome localhost tab on a connection-refused page. Reloaded and visually verified centered 1416px panels and wide aurora gutters. · Next: Review the refreshed localhost tab.
