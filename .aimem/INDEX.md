@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 12 (proposed 5, accepted 7)
 - memory: 32 (active 32)
-- handoff: 55 (final 55)
+- handoff: 56 (final 56)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-wxpg9j1r 2026-11-12 (agent:claude-code) — Done: Published bedanya-ui-dan-ux. Wrote EN how-long-does-it-take-to-build-a-website and website-maintenance-cost, and ID jasa-maintenance-website, from the owner's two client quotations (no client n…
 - hnd-6memwmdg 2026-11-12 (agent:claude-code) — Done: Ran brand-awareness keyword and SERP research with OpenSEO (about 330 credits), wrote docs/SEO_AWARENESS_RESEARCH.md, drafted 3 journal posts (EN web designer vs developer; ID company profile P…
 - hnd-fftx1pkf 2026-11-08 (human:akbar) — Done: Opened PR #38 from development into main for the centered wide layout. · Next: Review PR #38.
 - hnd-rg9kxkh5 2026-11-08 (human:akbar) — Done: Verified development matches origin and reviewed the centered layout diff and prior browser checks. · Next: Commit the layout and related handoffs and push development.
 - hnd-jdjeyg43 2026-11-08 (human:akbar) — Done: Found the existing Chrome localhost tab on a connection-refused page. Reloaded and visually verified centered 1416px panels and wide aurora gutters. · Next: Review the refreshed localhost tab.
-- hnd-tc8bx01h 2026-11-08 (human:akbar) — Done: Centered the shared public folder panels at a 1416px maximum while retaining the full-width aurora. Updated the design system. Chromium confirmed nav, hero and project folder widths and alignme…
