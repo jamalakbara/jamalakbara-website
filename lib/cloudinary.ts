@@ -63,3 +63,13 @@ export function getProjectImageUrl(imageName: string, options: CloudinaryOptions
 export function getCloudinaryBaseUrl(): string {
     return `https://res.cloudinary.com/${CLOUD_NAME}/image/upload`;
 }
+
+/**
+ * First frame of a Cloudinary video as a JPG, for `<video poster>`.
+ * Keeps the version and public ID, swaps any delivery transforms for
+ * `so_0,q_auto,f_jpg`. Returns undefined for non-Cloudinary URLs.
+ */
+export function getVideoPosterUrl(videoUrl: string): string | undefined {
+    const m = videoUrl.match(/^(https:\/\/res\.cloudinary\.com\/[^/]+\/video\/upload\/)(?:[^/]+\/)*?(v\d+\/[^?]+?)(?:\.\w+)?$/);
+    return m ? `${m[1]}so_0,q_auto,f_jpg/${m[2]}.jpg` : undefined;
+}

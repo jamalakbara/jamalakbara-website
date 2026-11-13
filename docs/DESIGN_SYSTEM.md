@@ -95,6 +95,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | Folder / Tab, Section / Paper | `components/site/folder.tsx`, `.f-tab`, `.f-folder__body` |
 | Page title panel | `components/site/title-panel.tsx` |
 | Project / Editorial row (+ media strip A/B/C) | `components/site/project-row.tsx`, number tiles in `number-tile.tsx` |
+| Project / Entry / Video / Desktop + Mobile (`d5RPQ` / `JZLax`, board 03D; used in 17B) | A project with `video` shows only that video in one wide slot (920 × 360 at 1440, full width × 220 on mobile). `components/site/row-video.tsx` plays it only while on screen, starts paused under reduced motion, and pins a 48 px pause/play control (cobalt on paper) 12 px into the slot's bottom-left, outside the row link. The 10 s silent loops are rendered in Remotion (`video/src/loops`: aurora shell, paper folders, real captures) and the poster is the first frame from Cloudinary (`so_0`). |
 | Receipt (perforation, barcode, torn edges) | `components/site/receipt.tsx` |
 | Contact / Note (copy-email stamp) | `components/site/contact-note.tsx` |
 | Footer / Action (`EXZpj`), Footer / Strip / Desktop (`VeUhP`), Footer / Strip / Mobile (`M2bfj`) — board 03C (`ydXi9`) | `components/site/contact-strip.tsx` (`ContactStrip` + `FooterAction`) |

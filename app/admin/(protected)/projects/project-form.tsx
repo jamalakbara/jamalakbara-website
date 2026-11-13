@@ -349,7 +349,7 @@ export function ProjectForm({
           <Section n="02" title="Media">
             <MediaField label="Cover" hint="Fallback when there is no gallery · Cloudinary" value={form.image} onChange={(v) => set("image", v)} />
             <GalleryField value={form.gallery} onChange={(v) => set("gallery", v)} />
-            <MediaField label="Hover video" kind="video" hint="MP4 or WebM · plays on hover in the work index" value={form.video} onChange={(v) => set("video", v)} />
+            <MediaField label="Row video" kind="video" hint="MP4 or WebM · silent loop in the Work row's first media slot (first frame is the poster)" value={form.video} onChange={(v) => set("video", v)} />
             <Field label="Live preview URL" help="Where the row links when set (else the live site).">
               <input className="a-input" type="url" placeholder="https://" value={form.livePreview} onChange={(e) => set("livePreview", e.target.value)} />
             </Field>

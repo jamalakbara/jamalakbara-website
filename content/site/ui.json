@@ -23,7 +23,7 @@
     "introLabel": "Introduction",
     "noteLabel": "A PERSONAL NOTE",
     "note": "Mostly coding, sometimes moving things\na few pixels until they feel right.",
-    "intro": "I’m Akbar, a developer and designer\nin Bandung. Here’s some of what\nI’ve been working on.",
+    "intro": "I’m Jamal Akbar Alam, a developer and designer\nin Bandung. Here’s some of what\nI’ve been working on.",
     "exploreWork": "Explore work",
     "selectedTab": "SELECTED WORK",
     "selectedHeading": "Selected work.",
@@ -60,7 +60,9 @@
     "emptyHeading": "STILL BREWING.",
     "emptyBody": "There’s no work to show here yet. New projects are on the bench. Check back soon, or start one with me.",
     "emptyAction": "Start a project",
-    "imageAlt": "project image"
+    "imageAlt": "project image",
+    "videoPause": "Pause project video",
+    "videoPlay": "Play project video"
   },
   "caseStudy": {
     "back": "All work",
@@ -78,10 +80,10 @@
   },
   "about": {
     "label": "ABOUT / PROFILE",
-    "intro": "Hi, I’m Akbar — a developer and designer based in Bandung, Indonesia.",
+    "intro": "Hi, I’m Jamal Akbar Alam — a developer and designer based in Bandung, Indonesia.",
     "storyTab": "MY STORY",
     "shortLabel": "THE SHORT VERSION",
-    "portraitAlt": "Portrait of Akbar",
+    "portraitAlt": "Portrait of Jamal Akbar Alam",
     "portraitCaption": "Jamal Akbar Alam, Bandung",
     "quote": ["“ALWAYS CHASING ", "WORK ", "THAT FEELS ", "WORTH BUILDING.”"],
     "doTab": "WHAT I DO",

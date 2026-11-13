@@ -7,13 +7,17 @@ import { useSite } from "@/lib/i18n/context";
 import { sentenceCase } from "@/lib/site-format";
 import { NumberTile } from "@/components/site/number-tile";
 import { mediaAlt } from "@/lib/media-meta";
+import { getVideoPosterUrl } from "@/lib/cloudinary";
+import { RowVideo } from "@/components/site/row-video";
 
 // Editorial project row (canvas "Project / Editorial row"): 400px details
 // column beside a right-aligned media strip. Three strip compositions from the
 // canvas rotate by row (A Withavelle, B Adana, C Sonderlab); rows with fewer
 // images collapse gracefully. Desktop and mobile strips are separate DOM so
 // each matches its frame exactly; the hidden one is display:none (lazy images
-// inside it never load).
+// inside it never load). A project with a video shows only that video, in the
+// single wide slot (canvas "Project / Editorial row / Video"): muted, looped,
+// started and paused by RowVideo.
 
 type Box = { w?: number; h: number; grow?: boolean; bg?: string };
 
@@ -25,20 +29,35 @@ const DESKTOP: Record<"A" | "B" | "C", Box[]> = {
 
 const PATTERNS = ["A", "B", "C"] as const;
 
-function Img({ src, alt, box, sizes }: { src: string; alt: string; box: Box; sizes: string }) {
+function Img({ src, alt, box, sizes, video }: { src: string; alt: string; box: Box; sizes: string; video?: string }) {
   const { lang } = useSite();
   return (
     <span
       className={box.grow ? "f-row__img f-row__img--grow" : "f-row__img"}
       style={{ width: box.grow ? undefined : box.w, height: box.h, background: box.bg }}
     >
-      {/* alt text set in /admin/media wins over the generated fallback */}
-      <Image src={src} alt={mediaAlt(src, lang) ?? alt} fill sizes={sizes} />
+      {video ? (
+        <video
+          src={video}
+          poster={getVideoPosterUrl(video)}
+          aria-label={mediaAlt(video, lang) ?? alt}
+          muted
+          loop
+          playsInline
+          preload="none"
+        />
+      ) : (
+        /* alt text set in /admin/media wins over the generated fallback */
+        <Image src={src} alt={mediaAlt(src, lang) ?? alt} fill sizes={sizes} />
+      )}
     </span>
   );
 }
 
-function DesktopStrip({ media, pattern, title, altSuffix }: { media: string[]; pattern: "A" | "B" | "C"; title: string; altSuffix: string }) {
+/** `video` is only passed with a one-item `media`, so it fills the single slot. */
+type StripProps = { media: string[]; pattern: "A" | "B" | "C"; title: string; altSuffix: string; video?: string };
+
+function DesktopStrip({ media, pattern, title, altSuffix, video }: StripProps) {
   let boxes: Box[];
   if (media.length >= 3) boxes = DESKTOP[pattern];
   else if (media.length === 2) boxes = [{ grow: true, h: 360 }, { w: 220, h: 294 }];
@@ -46,19 +65,19 @@ function DesktopStrip({ media, pattern, title, altSuffix }: { media: string[]; p
   return (
     <span className="f-row__strip f-strip-d">
       {boxes.map((b, i) => (
-        <Img key={i} src={media[i]} alt={i === 0 ? `${title} — ${altSuffix}` : ""} box={b} sizes="(min-width: 1024px) 40vw, 1px" />
+        <Img key={i} src={media[i]} alt={i === 0 ? `${title} — ${altSuffix}` : ""} box={b} sizes="(min-width: 1024px) 40vw, 1px" video={video} />
       ))}
     </span>
   );
 }
 
-function MobileStrip({ media, pattern, title, altSuffix }: { media: string[]; pattern: "A" | "B" | "C"; title: string; altSuffix: string }) {
+function MobileStrip({ media, pattern, title, altSuffix, video }: StripProps) {
   const sizes = "(max-width: 1023px) 100vw, 1px";
   const alt = (i: number) => (i === 0 ? `${title} — ${altSuffix}` : "");
   if (media.length === 1) {
     return (
       <span className="f-row__strip f-strip-m">
-        <Img src={media[0]} alt={alt(0)} box={{ grow: true, h: 220 }} sizes={sizes} />
+        <Img src={media[0]} alt={alt(0)} box={{ grow: true, h: 220 }} sizes={sizes} video={video} />
       </span>
     );
   }
@@ -101,6 +120,7 @@ export function ProjectRow({
 }) {
   const { ui } = useSite();
   const pattern = PATTERNS[variant % 3];
+  const media = row.video ? row.media.slice(0, 1) : row.media;
   const external = !row.caseHref && row.href && row.href !== "#";
   const H = headingLevel === 2 ? "h2" : "h3";
   const inner = (
@@ -117,23 +137,21 @@ export function ProjectRow({
         </span>
         <span className="f-body f-row__desc">{row.description}</span>
       </span>
-      <DesktopStrip media={row.media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} />
-      <MobileStrip media={row.media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} />
+      <DesktopStrip media={media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} video={row.video} />
+      <MobileStrip media={media} pattern={pattern} title={row.title} altSuffix={ui.work.imageAlt} video={row.video} />
       {external && <span className="f-sr">{ui.common.opensNewTab}</span>}
     </>
   );
-  if (row.caseHref) {
-    return (
-      <Link className="f-row" href={row.caseHref}>
-        {inner}
-      </Link>
-    );
-  }
-  return external ? (
+  const link = row.caseHref ? (
+    <Link className="f-row" href={row.caseHref}>
+      {inner}
+    </Link>
+  ) : external ? (
     <a className="f-row" href={row.href} target="_blank" rel="noopener noreferrer">
       {inner}
     </a>
   ) : (
     <div className="f-row">{inner}</div>
   );
+  return row.video ? <RowVideo>{link}</RowVideo> : link;
 }
