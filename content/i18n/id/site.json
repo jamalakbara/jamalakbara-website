@@ -28,7 +28,7 @@
     "home": {
       "availability": "Lagi terima project baru",
       "headline": "Aku bikin website yang cepat dan berguna.",
-      "intro": "Aku Akbar, developer dan desainer. Aku bikin website dan aplikasi yang cepat dibuka dan gampang dipake.",
+      "intro": "Aku Jamal Akbar Alam, developer dan desainer. Aku bikin website dan aplikasi yang cepat dibuka dan gampang dipake.",
       "seo": {
         "title": "Jamal Akbar Alam — Developer & Desainer di Bandung",
         "description": "Jamal Akbar Alam, developer dan desainer di Bandung. Bikin website, aplikasi web, dan toko online yang cepat dan gampang dipake, dari desain sampai kode."
@@ -47,7 +47,7 @@
       "heading": "Developer dan desainer yang suka bikin sesuatu.",
       "footnote": "Lulusan Teknik Informatika, Telkom University. Sekarang kerja mandiri dan terbuka buat kolaborasi baru.",
       "seo": {
-        "title": "About Akbar, Developer dan Desainer",
+        "title": "Kenalan, Developer dan Desainer di Bandung",
         "description": "Kenalan sama Jamal Akbar Alam, developer dan desainer di Bandung yang bikin website dan produk digital yang rapi, cepat, dan gampang dipake."
       }
     },
@@ -56,7 +56,7 @@
       "heading": "Punya ide? Yuk ngobrol.",
       "seo": {
         "title": "Kontak",
-        "description": "Punya ide website atau aplikasi? Hubungi Akbar, developer dan desainer di Bandung, buat ngobrol soal project kalian lewat WhatsApp atau email."
+        "description": "Punya ide website atau aplikasi? Hubungi Jamal Akbar Alam, developer dan desainer di Bandung, buat ngobrol soal project kalian lewat WhatsApp atau email."
       }
     },
     "journal": {
@@ -64,13 +64,13 @@
       "heading": "Catatan dari meja kerja.",
       "seo": {
         "title": "Jurnal",
-        "description": "Catatan dan tulisan dari Akbar, developer dan desainer dari Bandung. Tentang web development, Shopify, desain, dan proses di balik setiap build."
+        "description": "Catatan dan tulisan dari Jamal Akbar Alam, developer dan desainer dari Bandung. Tentang web development, Shopify, desain, dan proses di balik setiap build."
       }
     }
   },
   "about": {
     "description": [
-      "Halo, aku Akbar. Aku developer sekaligus desainer, dan sebagian besar waktuku kupakai buat bikin sesuatu di web. Yang aku pedulikan: tampilannya, rasanya waktu dipakai, dan apakah semuanya beneran jalan sesuai harapan orang.",
+      "Halo, aku Jamal Akbar Alam. Aku developer sekaligus desainer, dan sebagian besar waktuku kupakai buat bikin sesuatu di web. Yang aku pedulikan: tampilannya, rasanya waktu dipakai, dan apakah semuanya beneran jalan sesuai harapan orang.",
       "Yang bikin aku betah itu campuran desain dan kode: ngubah satu ide jadi sesuatu yang rapi, cepat, dan gampang dipake. Aku suka ngurusin masalah ribet di antaranya, dan selalu nyari kerjaan yang layak dibikin."
     ]
   },
@@ -112,7 +112,7 @@
       "introLabel": "Perkenalan",
       "noteLabel": "CATATAN PRIBADI",
       "note": "Kebanyakan ngoding. Sisanya\ngeser-geser dikit sampai kelihatan pas.",
-      "intro": "Halo, aku Akbar, developer dan\ndesainer dari Bandung. Ini beberapa\nhasil kerjaku.",
+      "intro": "Halo, aku Jamal Akbar Alam, developer dan\ndesainer dari Bandung. Ini beberapa\nhasil kerjaku.",
       "exploreWork": "Lihat project",
       "selectedTab": "PROJECT PILIHAN",
       "selectedHeading": "Project pilihan.",
@@ -176,10 +176,10 @@
     },
     "about": {
       "label": "ABOUT / PROFIL",
-      "intro": "Halo, aku Akbar, developer dan desainer di Bandung, Indonesia.",
+      "intro": "Halo, aku Jamal Akbar Alam, developer dan desainer di Bandung, Indonesia.",
       "storyTab": "CERITAKU",
       "shortLabel": "VERSI SINGKAT",
-      "portraitAlt": "Foto Akbar",
+      "portraitAlt": "Foto Jamal Akbar Alam",
       "portraitCaption": "Jamal Akbar Alam, Bandung",
       "quote": [
         "“SELALU NGEJAR ",
