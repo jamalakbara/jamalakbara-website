@@ -61953,55 +61953,11 @@
                   }
                 },
                 {
-                  "id": "w12DSw",
+                  "id": "JlMLB",
                   "type": "ref",
-                  "ref": "UOCZh",
+                  "ref": "d5RPQ",
                   "name": "Withavelle / Editorial project row",
-                  "width": "fill_container",
-                  "stroke": "$folder-line",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "gap": 16,
-                  "padding": [
-                    24,
-                    0,
-                    32,
-                    0
-                  ],
-                  "descendants": {
-                    "fXJGF": {
-                      "context": "Current live-site image. Source URL recorded in images/work-refresh/sources.json. Preserve original proportions.",
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "jamalakbara-assets/avelle-01.png",
-                        "mode": "contain"
-                      },
-                      "height": 360
-                    },
-                    "LVCv8": {
-                      "context": "Current live-site image. Source URL recorded in images/work-refresh/sources.json. Preserve original proportions.",
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "jamalakbara-assets/avelle-02.png",
-                        "mode": "contain"
-                      },
-                      "width": "fill_container"
-                    },
-                    "znm4Z": {
-                      "context": "Current live-site image. Source URL recorded in images/work-refresh/sources.json. Preserve original proportions.",
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "jamalakbara-assets/avelle-03.png",
-                        "mode": "contain"
-                      },
-                      "width": "fill_container",
-                      "height": 360
-                    }
-                  }
+                  "width": "fill_container"
                 },
                 {
                   "type": "frame",
@@ -62322,23 +62278,29 @@
                   }
                 },
                 {
-                  "id": "DGtlc",
+                  "id": "h2YgR",
                   "type": "ref",
-                  "ref": "OcAks",
+                  "ref": "JZLax",
                   "name": "Mobile / Withavelle / Editorial project row",
                   "width": "fill_container",
-                  "stroke": "$folder-line",
-                  "strokeWidth": {
-                    "top": 1
-                  },
-                  "layout": "vertical",
-                  "gap": 16,
-                  "padding": [
-                    16,
-                    0,
-                    24,
-                    0
-                  ]
+                  "descendants": {
+                    "WlRz0": {
+                      "id": "DwxOi",
+                      "type": "ref",
+                      "ref": "m2WIwU",
+                      "name": "Withavelle / Project details",
+                      "width": "fill_container"
+                    },
+                    "fOTkJ": {
+                      "fill": {
+                        "type": "image",
+                        "enabled": true,
+                        "url": "jamalakbara-assets/video-withavelle-mobile.jpg",
+                        "mode": "contain"
+                      },
+                      "name": "Withavelle / Video slot"
+                    }
+                  }
                 },
                 {
                   "type": "frame",
@@ -160928,6 +160890,580 @@
                                   },
                                   "width": "fill_container",
                                   "height": 143.62
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "x6geq",
+              "name": "Project / Entry / Video",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 12,
+              "children": [
+                {
+                  "type": "text",
+                  "id": "Mc0Ww",
+                  "name": "Project / Entry / Video caption",
+                  "fill": "$folder-muted",
+                  "content": "PROJECT / ENTRY / VIDEO",
+                  "fontFamily": "Inter",
+                  "fontSize": 12,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "gpvZA",
+                  "name": "Project / Entry / Video specimens",
+                  "width": "fill_container",
+                  "gap": 32,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "d5RPQ",
+                      "name": "Project / Entry / Video / Desktop",
+                      "reusable": true,
+                      "width": 1416,
+                      "stroke": "$folder-line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "gap": 16,
+                      "padding": [
+                        24,
+                        0,
+                        32,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "Ly6qo",
+                          "name": "Withavelle / Project details",
+                          "width": 400,
+                          "height": 360,
+                          "layout": "vertical",
+                          "padding": [
+                            0,
+                            24,
+                            0,
+                            0
+                          ],
+                          "justifyContent": "space_between",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "eGc6x",
+                              "name": "Withavelle / Identity",
+                              "gap": 12,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "j8wtk",
+                                  "name": "Project 01 / Illustrated number",
+                                  "width": 56,
+                                  "height": 56,
+                                  "layout": "none",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "O9lXiT",
+                                      "x": 1.8587822821865672,
+                                      "y": 0,
+                                      "name": "Project 01 / Supplied number artwork",
+                                      "context": "Hover-only peel-and-lift matching the contact stickers. No idle animation. Website handoff: enter 220ms ease-out; spring return stiffness 260 damping 20. Reduced motion: shadow only. Canvas uses pointer-responsive deformation without timed spring.",
+                                      "width": 52.282435435626866,
+                                      "height": 56,
+                                      "effect": {
+                                        "type": "shader",
+                                        "url": "jamalakbara-assets/sticker-hover-peel.glsl",
+                                        "uniforms": {
+                                          "u_content": "pencil:object",
+                                          "u_strength": 1,
+                                          "u_preview": 0
+                                        }
+                                      },
+                                      "layout": "none",
+                                      "children": [
+                                        {
+                                          "type": "path",
+                                          "id": "aD6im",
+                                          "x": 0,
+                                          "y": 0,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M168.56172 0.67759c41.94901-4.623 69.259 15.44 107.726 28.915l113.17102 39.69801c62.25702 21.573 98.13702 25.17 126.26697 92.82701 9.09369 21.89521 11.81293 45.915 7.84405 69.28898-4.10498 25.518-15.591 50.05499-25.65399 73.76501l-33.58703 77.79599c-10.17499 23.474-17.72303 44.99899-27.18103 68.16699 9.596 1.452 22.13201 5.14801 28.75 11.20001 47.29797 43.24802 1.854 80.90998-45.43403 88.17194-16.83899 2.586-33.16101 5.659-48.64001 7.55902-57.37268 5.65753-115.13843 6.1355-172.59694 1.42804-32.40399-2.53497-104.73901-9.96002-126.96899-36.15002-6.19601-7.29901-9.06799-19.20298-7.64402-28.78299 2.47198-16.62702 13.32901-24.44001 25.638-33.387-12.087-4.26599-21.28101-8.57501-32.12301-15.29699-29.15399-18.07801-49.379-57.95499-55.802-90.96299-3.25943-16.58782-3.09268-33.66696 0.49002-50.18801 4.43401-19.56101 13.911-33.65601 19.166-51.07901 12.009-45.448 31.927-86.416 48.921-129.508 21.621-54.82201 27.37799-110.24601 97.65799-123.46",
+                                          "fill": "#FEFEFE",
+                                          "width": 52.282435435626866,
+                                          "height": 56
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "blkkb",
+                                          "x": 3.0730793241682277,
+                                          "y": 3.1301653798380507,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M150.34381 0.00006c23.32401-0.041 63.68201 20.533 87.80301 28.962l113.46399 40.203c35.94098 12.658 76.49499 18.61 95.13898 55.243 5.51898 9.71001 10.80102 19.35699 13.77899 30.20101 10.20001 37.13998-7.383 70.98898-20.99103 104.62997-12.70502 31.40601-26.633 62.82999-40.14697 94.03501-12.62598 29.151-21.69501 60.33301-37.52899 88.104 15.638 2.63898 43.15899 6.612 55.64801 16.25299 14.29797 11.03699-3.98999 21.87598-14.98798 25.04602-43.24902 12.46698-91.36401 16.16303-136.23401 17.09003-26.24301 0.65503-194.17901-2.02002-200.70599-31.07397 2.853-22.125 89.781-27.00202 109.10699-27.46601-43.13101-18.13501-98.849-33.12799-137.79199-58.63901-19.248-12.609-33.541-51.04199-36.306-73.48999-3.68201-29.89099 10.647-53.46701 20.78301-80.901l47.46199-124.90398c17.70801-46.331 23.13-97.885 81.50799-103.293",
+                                          "fill": "#010000",
+                                          "width": 46.13496019649668,
+                                          "height": 49.74508328337737
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "ufNjU",
+                                          "x": 4.237771682013142,
+                                          "y": 4.324215282688567,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M141.26474 0.00001c16.20099 0.828 56.52701 19.738 74.37201 25.932l119.88599 42.30899c28.591 10.009 81.01202 19.24699 87.505 54.51199 5.60901 30.463-17.88 73.05499-29.95502 101.52499l-47.604 112.555c-15.25 35.695-19.659 76.85901-62.92499 85.738-38.08899 2.034-86.05798-23.57501-121.13202-37.349-21.073-8.27499-44.53799-18.90301-65.44299-26.41198-46.324-16.638-110.39801-25.68399-93.069-92.069 3.763-14.177 11.57599-29.41599 16.91598-43.67899l48.55301-126.22101c7.31201-18.92999 13.58701-38.17101 21.241-57.08599 10.42999-25.779 23.418-37.632 51.655-39.75501",
+                                          "fill": "#EFC55B",
+                                          "width": 42.18457431739393,
+                                          "height": 42.065765285652134
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "R43Cgq",
+                                          "x": 14.361364785251634,
+                                          "y": 15.251252223206205,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M87.28384 0.10393c9.134-0.79201 26.23801 2.994 32.71701 9.601 45.37 46.255-10.48199 169.50099-69.962 174.65101-93.539-3.41598-41.29901-170.806 37.24499-184.252",
+                                          "fill": "#010000",
+                                          "width": 13.592616987713237,
+                                          "height": 18.347157389783096
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "pn1Bx",
+                                          "x": 16.724112245737693,
+                                          "y": 17.430361842751747,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M64.14346 0.00279c9.37-0.069 11.79901 1.118 19.38599 5.967 1.31699 5.89 4.815 14.888 5.58899 19.692 2.57599 16.01201-3.591 39.28801-9.35501 53.963-8.401 21.39001-30.801 51.63598-52.33801 60.70501-56.23099-1.621-16.95001-124.20199 36.71798-140.32699",
+                                          "fill": "#EFC55B",
+                                          "width": 8.929051946498964,
+                                          "height": 13.96566319441109
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "gKPrB",
+                                          "x": 24.69870420194201,
+                                          "y": 18.666734748735777,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M73.35214 44.03148c-7.09302 2.18701-19.733 7.09201-22.53399-3.19501 1.93701-9.927 15.39899-18.15799 23.53302-22.73599 10.87201-6.118 27.66699-20.013 40.08197-17.88001 16.80102 2.888-1.28101 35.802-4.42499 44.08701-15.89697 41.90399-36.99103 82.17902-51.496 124.608 7.88101 2.806 16.02701 4.97 19.73098 13.358 1.23199 2.79001 1.51501 6.19602 0.10901 8.974-1.27002 2.509-3.62903 3.918-6.29303 4.57801-8.02002 1.98498-56.478-16.628-64.462-21.87299-2.59201-1.703-6.642-4.95401-7.336-8.207-0.509-2.38501-0.34201-3.79501 1.112-5.79401 1.95901-2.69501 6.233-4.41299 9.46701-4.50299 7.823-0.21899 16.858 3.86701 24.216 6.38699 9.164-25.75698 20.57001-49.65301 31.271-74.71701 2.04498-4.79001 12.20502-27.30899 12.71503-30.43099 2.97302-5.37299 6.5-15.00101 8.893-20.98099l-14.58301 8.32498z",
+                                          "fill": "#010000",
+                                          "width": 12.090279074362535,
+                                          "height": 19.50329114818916
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "bb6Gn",
+                                          "x": 5.789963892662897,
+                                          "y": 18.352596489062744,
+                                          "name": "01 number tile / Vector detail",
+                                          "geometry": "M28.51501 212.40901c32.87347 11.20136 65.36572 23.49179 97.42301 36.85098 33.341 13.88503 63.225 27.77199 97.87799 38.59096 85.13501 26.581 93.90198-31.64001 119.724-91.95097 15.31732-35.38181 30.30365-70.90604 44.95697-106.56799 7.96197-19.12298 17.36999-39.58899 23.89099-58.98902 3.2677-9.95274 5.96606-20.08347 8.08203-30.34297 8.37799 43.11-3.349 62.118-19.578 101.02101l-40.15601 93.63001c-14.07898 33.02899-24.07702 68.05699-43.13299 98.684-12.41303 21.10102-42.81403 26.888-64.88098 20.63501-34.04999-9.65002-74.215-25.17102-106.35001-40.005-25.082-11.57898-109.59601-36.23699-126.93601-52.67198-9.82101-5.54801-13.85901-12.9-19.436-22.24 9.776 6.18702 17.84299 9.172 28.51498 13.35599",
+                                          "fill": "#EFC55B",
+                                          "width": 42.12197323448634,
+                                          "height": 31.483365347023614
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "KnPxZ",
+                                  "name": "Withavelle / Name and category",
+                                  "layout": "vertical",
+                                  "gap": 4,
+                                  "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "horHQ",
+                                      "name": "Withavelle / Name",
+                                      "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                                      "metadata": {
+                                        "type": "fontshare-text",
+                                        "content": "Withavelle",
+                                        "fontFamily": "$folder-display",
+                                        "fontSize": 15
+                                      },
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/djSwY.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 83,
+                                      "height": 32
+                                    },
+                                    {
+                                      "type": "rectangle",
+                                      "id": "TaoP0",
+                                      "name": "Withavelle / Category",
+                                      "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                                      "metadata": {
+                                        "type": "fontshare-text",
+                                        "content": "E-commerce development",
+                                        "fontFamily": "$folder-body",
+                                        "fontSize": 13
+                                      },
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/m0LB96.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 131,
+                                      "height": 20
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "e06u94",
+                              "name": "Withavelle / Description",
+                              "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                              "metadata": {
+                                "type": "fontshare-text",
+                                "content": "Fashion meets digital. An online storefront built for Withavelle.",
+                                "fontFamily": "$folder-body",
+                                "fontSize": 14,
+                                "lineHeight": 1.25
+                              },
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/dKwUb.png",
+                                "mode": "contain"
+                              },
+                              "width": "fill_container",
+                              "height": 60
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "pugAP",
+                          "name": "Withavelle / Video slot",
+                          "context": "Rows with a video show only the video, in one full-width slot (desktop 360px tall, mobile 220px at 346 wide). Silent seamless 10s loop rendered in Remotion (video/src/loops): aurora shell, paper folders, real captures. Image = first frame, cropped like object-fit: cover.",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 360,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/video-withavelle-desktop.jpg",
+                            "mode": "contain"
+                          },
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ZegDJ",
+                              "x": 12,
+                              "y": 300,
+                              "name": "Video / Pause control",
+                              "context": "48px icon button (RowVideo) outside the row link, pinned 12px in from the bottom-left of the video slot. Cobalt pause glyph on paper; becomes Play when paused and on first render under reduced motion.",
+                              "width": 48,
+                              "height": 48,
+                              "fill": "#F8F6F0",
+                              "cornerRadius": 4,
+                              "layout": "none",
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 2.5,
+                                  "id": "x8eJM",
+                                  "x": 17,
+                                  "y": 16,
+                                  "name": "Pause bar",
+                                  "fill": "#2445DB",
+                                  "width": 5,
+                                  "height": 16
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 2.5,
+                                  "id": "D4j3hn",
+                                  "x": 26,
+                                  "y": 16,
+                                  "name": "Pause bar",
+                                  "fill": "#2445DB",
+                                  "width": 5,
+                                  "height": 16
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "JZLax",
+                      "name": "Project / Entry / Video / Mobile",
+                      "reusable": true,
+                      "width": 378,
+                      "stroke": "$folder-line",
+                      "strokeWidth": {
+                        "top": 1
+                      },
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": [
+                        16,
+                        0,
+                        24,
+                        0
+                      ],
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "WlRz0",
+                          "name": "Sonderlab / Project details",
+                          "width": "fill_container",
+                          "layout": "vertical",
+                          "gap": 20,
+                          "justifyContent": "space_between",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "BkbDv",
+                              "name": "Sonderlab / Identity",
+                              "gap": 12,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "frame",
+                                  "id": "e3Gt8",
+                                  "name": "Project 03 / Illustrated number",
+                                  "width": 48,
+                                  "height": 48,
+                                  "layout": "none",
+                                  "children": [
+                                    {
+                                      "type": "frame",
+                                      "id": "wTTok",
+                                      "x": 1.6289790983536463,
+                                      "y": 0,
+                                      "name": "Project 03 / Supplied number artwork",
+                                      "width": 44.74204180329271,
+                                      "height": 48,
+                                      "layout": "none",
+                                      "children": [
+                                        {
+                                          "type": "path",
+                                          "id": "hXq71",
+                                          "x": 0,
+                                          "y": 0,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M171.98291 0.49337c35.52002-4.069 72.73999 18.027 106.35999 29.685l109.53002 38.39001c62.45997 21.66099 101.79004 26.854 128.40992 94.87699 29.05005 74.25101-25.31006 148.637-50.06006 216.978-8.21997 22.702-19.1001 48.68301-28.37988 70.55399 11.44995 2.039 20.52002 5.26001 29.91992 12.38299 9.6499 7.25501 16.19995 17.724 17.69995 29.73401 4.45996 35.62903-31.80005 49.70203-59.90991 56.52399-17.22998 4.17901-34.19995 6.37701-52.01001 8.43298-75.60999 7.39398-160.66004 6.901-235.62-6.70697-21.32995-3.87097-54.89001-12.29797-67.09997-31.552-5.25146-8.39679-7.02685-18.50849-4.95008-28.19196 3.34998-14.95202 13.29004-22.54699 25.41004-30.11099-21.69995-7.32199-43.06995-19.612-57.38001-37.90799-16.14001-20.63599-28.84998-48.85699-32.57995-74.84799-2.30969-15.50452-1.58972-31.30978 2.11999-46.54004 5.22998-21.01401 14.67004-35.96399 20.95996-54.83899 7.27002-21.84701 12.68005-41.06 21.48999-62.84199 8.18994-20.23501 16.92004-39.56301 25.17005-59.69201 11.29004-27.569 18.56995-63.491 36.65002-87.145 15.69922-20.36448 38.79028-33.72294 64.27002-37.18103",
+                                          "fill": "#FEFEFE",
+                                          "width": 44.74204180329271,
+                                          "height": 48
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "CGwg1",
+                                          "x": 2.652160459956149,
+                                          "y": 2.6922995853368077,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M149.90576 0.04069c19.82996-1.117 64.97998 21.074 86.84998 28.626l111.63 39.244c18.80005 6.468 37.11011 11.36301 55.8501 19.048 27.95996 11.46401 38.62012 27.19301 50.87988 53.627 19.53003 42.10501-0.07007 80.43-15.83008 119.926-12.67993 31.767-27.13989 64.82001-40.68994 96.388-12.07007 28.285-20.65991 57.431-36.16992 84.285 15.38989 2.77399 42.21997 6.849 54.83008 15.91699 15.34009 11.02399-2.3501 22.15003-14.04004 25.60798-42.22998 12.492-88.27002 15.55798-132.11999 17.03003-41.57996 0.65197-166.47999-1.61298-199.20997-23.83399-3.23999-2.198-4.80005-3.987-5.43005-7.85498 4.58997-21.27698 88.94995-26.38 108.26001-26.83697-39.98999-17.41602-82.38001-29.379-121.64001-48.48902-31.78003-15.47101-47.70996-50.63501-52.40003-84.12799-4.01001-28.712 10.73999-53.22501 20.18006-79.155 6.30005-15.92801 9.85999-34.20199 16.65002-49.82699 19.47998-44.851 36.76001-90.09201 53.63-135.928 10.06006-27.317 29.93995-40.927 58.77002-43.64599",
+                                          "fill": "#010000",
+                                          "width": 39.51225293570223,
+                                          "height": 42.62899721586161
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "Q5agl",
+                                          "x": 3.706436589362656,
+                                          "y": 3.752330372086642,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M131.62427 0.43565c20.02002-2.434 32.92004 5.795 50.68005 13.162 11.10608 4.52438 22.35535 8.68954 33.72986 12.489 38.06006 12.913 75.35999 25.535 113.13989 39.676 41.96997 15.709 106.54004 21.39 92.23999 83.84599-6.81006 29.76999-22.15991 55.66199-32.71997 84.069-19.76001 50.41602-43.06006 99.50101-62.11999 150.207-6.76001 17.827-18.10999 29.52399-35.98999 36.36301-0.63001 0.19-1.26001 0.36801-1.90003 0.534-31.86999 8.23498-95.66003-22.17499-126.34997-35.25101-23.67298-10.15595-47.53736-19.86035-71.57984-29.108-31.77002-12.36801-78.82996-17.29901-88.98999-56.41001-6.90002-26.6 8.08997-50.841 16.53003-75.20498 7.64001-18.96799 12.31995-39.72901 20.71997-58.35001 21.35999-46.996 36.79004-96.48999 57.87-143.311 5.22998-11.611 22.94995-20.067 34.73999-22.711",
+                                          "fill": "#C1DEC7",
+                                          "width": 36.11388702105041,
+                                          "height": 36.0058420931281
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "RzbHy",
+                                          "x": 11.3985108547155,
+                                          "y": 12.903902602717272,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M85.96338 0.10385c9.45996-0.714 25.60998 2.25101 32.66003 8.981 47.14002 44.979-10.07995 168.361-66.65002 175.28101-94.86999-0.97-45.57996-168.341 33.98999-184.26199",
+                                          "fill": "#010000",
+                                          "width": 11.605293313608634,
+                                          "height": 15.723932286556185
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "fefaQ",
+                                          "x": 13.472821470828912,
+                                          "y": 14.776075348824556,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M61.40161 0.1163c55.06006-4.412 17.35999 118.04502-33.92004 139.45902-24.93994 1.73999-28.84998-22.97602-27.13001-42.16199 3.37-37.448 25.18994-81.123 61.05005-97.297",
+                                          "fill": "#C1DEC7",
+                                          "width": 7.5496107084354325,
+                                          "height": 11.911320837702327
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "DHrZl",
+                                          "x": 21.057350534270263,
+                                          "y": 15.743760933158617,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M87.89172 0.00002c16.01001 1.349 34.54004 7.411 40.89991 23.328 12.19995 30.541-3.02002 54.34401-29.93995 67.11699 18.02002 16.54699 21.43005 41.73501 12.28003 63.84298-6.48913 15.66477-19.04223 28.03608-34.79992 34.29602-14.65613 5.64264-30.96521 5.15763-45.26001-1.346-18.55005-8.32102-37.35998-30.129-29.05005-52.956 1.85999-5.09399 9.04004-9.70498 14.10998-5.621 5.28003 4.23999 5.52002 9.513 6.31995 15.801q0.30005 1.16101 0.63 2.31201c2.44995 8.38101 7.35998 14.79699 15.38001 18.78399 41.25 20.50901 78.30994-44.77801 34.66003-64.84201-8.28003-3.80301-27.16003-7.57998-18.70996-20.65399 5.58997-8.65299 19.43994-4.41901 28.06006-6.699 7.91003-1.70999 18.68006-7.936 22.69995-15.15399 14.20996-25.51999-7.90002-48.452-32.34997-29.51801-8.14001 6.30399-22.81006 21.95801-28.79004 4.29599-0.60998-4.99701 4.17004-12.539 7.32995-16.104 9.56995-10.793 22.65002-15.508 36.53003-16.883",
+                                          "fill": "#010000",
+                                          "width": 11.347788664617457,
+                                          "height": 16.41695986630377
+                                        },
+                                        {
+                                          "type": "path",
+                                          "id": "u7UGg",
+                                          "x": 5.070553256434984,
+                                          "y": 15.95135024134005,
+                                          "name": "03 number tile / Vector detail",
+                                          "geometry": "M418.44983 0c6.65991 7.927 3.08008 41.00198-0.17993 50.629-15.84009 46.77301-36.91992 92.47101-56.33008 137.81799-14.96997 34.98401-25.02002 72.32901-46.44995 104.15601-8.01001 11.88702-23.38001 19.36499-37.34998 20.72998-10.40002 1.05401-19.31994 0.39001-29.58996-2.39502-34.91004-9.45899-68.75-24.47998-101.95996-38.73902-36.25-15.56399-105.83997-35.62799-134.60999-58.207-5.38-5.34799-8.19995-10.328-11.97998-16.82299 17 10.091 64.89002 25.80099 86.80005 34.37698 18.81995 7.177 37.46997 14.79001 55.93994 22.83099 27.5 11.858 52.78003 22.439 81.33997 31.38098 82.75 25.90198 93.26001-31.85299 118.71997-91.24899 14.6101-33.89542 28.83764-67.95456 42.67968-102.1709 13.16993-31.92999 26.62989-57.97101 32.96997-92.33799",
+                                          "fill": "#C1DEC7",
+                                          "width": 36.00847606564346,
+                                          "height": 26.76351623537136
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "frame",
+                                  "id": "VfxBj",
+                                  "name": "Sonderlab / Name and category",
+                                  "layout": "vertical",
+                                  "gap": 4,
+                                  "children": [
+                                    {
+                                      "type": "rectangle",
+                                      "id": "Lr2tt",
+                                      "name": "Sonderlab / Name",
+                                      "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                                      "metadata": {
+                                        "type": "fontshare-text",
+                                        "content": "Sonderlab",
+                                        "fontFamily": "$folder-display",
+                                        "fontSize": 15
+                                      },
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/PtF83.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 82,
+                                      "height": 32
+                                    },
+                                    {
+                                      "type": "rectangle",
+                                      "id": "p8dE4",
+                                      "name": "Sonderlab / Category",
+                                      "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                                      "metadata": {
+                                        "type": "fontshare-text",
+                                        "content": "E-commerce development",
+                                        "fontFamily": "$folder-body",
+                                        "fontSize": 13
+                                      },
+                                      "fill": {
+                                        "type": "image",
+                                        "enabled": true,
+                                        "url": "jamalakbara-assets/yDtlu.png",
+                                        "mode": "contain"
+                                      },
+                                      "width": 131,
+                                      "height": 20
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "rectangle",
+                              "id": "Hspzp",
+                              "name": "Sonderlab / Description",
+                              "context": "Working Folder v1 typography. Canonical content, font, size and color in tools/type-source.json. Rendered with supplied Fontshare files; use live text in production.",
+                              "metadata": {
+                                "type": "fontshare-text",
+                                "content": "An e-commerce project for Sonderlab.",
+                                "fontFamily": "$folder-body",
+                                "fontSize": 14,
+                                "lineHeight": 1.25
+                              },
+                              "fill": {
+                                "type": "image",
+                                "enabled": true,
+                                "url": "jamalakbara-assets/a2ImO.png",
+                                "mode": "contain"
+                              },
+                              "width": "fill_container",
+                              "height": 28
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "fOTkJ",
+                          "name": "Sonderlab / Video slot",
+                          "context": "Rows with a video show only the video, in one full-width slot (desktop 360px tall, mobile 220px at 346 wide). Silent seamless 10s loop rendered in Remotion (video/src/loops): aurora shell, paper folders, real captures. Image = first frame, cropped like object-fit: cover.",
+                          "clip": true,
+                          "width": "fill_container",
+                          "height": 240,
+                          "fill": {
+                            "type": "image",
+                            "enabled": true,
+                            "url": "jamalakbara-assets/video-sonderlab-mobile.jpg",
+                            "mode": "contain"
+                          },
+                          "layout": "none",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "ZeMmz",
+                              "x": 12,
+                              "y": 180,
+                              "name": "Video / Pause control",
+                              "context": "48px icon button (RowVideo) outside the row link, pinned 12px in from the bottom-left of the video slot. Cobalt pause glyph on paper; becomes Play when paused and on first render under reduced motion.",
+                              "width": 48,
+                              "height": 48,
+                              "fill": "#F8F6F0",
+                              "cornerRadius": 4,
+                              "layout": "none",
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 2.5,
+                                  "id": "o6685X",
+                                  "x": 17,
+                                  "y": 16,
+                                  "name": "Pause bar",
+                                  "fill": "#2445DB",
+                                  "width": 5,
+                                  "height": 16
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 2.5,
+                                  "id": "FrNbf",
+                                  "x": 26,
+                                  "y": 16,
+                                  "name": "Pause bar",
+                                  "fill": "#2445DB",
+                                  "width": 5,
+                                  "height": 16
                                 }
                               ]
                             }

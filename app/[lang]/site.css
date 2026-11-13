@@ -558,6 +558,27 @@
   a.f-row:hover .f-row__img img { transform: scale(1.02); }
   .f-row__img img { transition: transform 240ms ease-out; }
 }
+/* Row video (RowVideo): fills the first media slot like an image. The pause
+   control sits outside the row link, pinned by RowVideo to the bottom-left of
+   the visible slot; the offsets below are its pre-measure fallback (strip after
+   the 400px details column + 16px gap, bottom on the row padding 32 / 24). */
+.f-row__img video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+@media (hover: hover) {
+  a.f-row:hover .f-row__img video { transform: scale(1.02); }
+  .f-row__img video { transition: transform 240ms ease-out; }
+}
+.f-rowvid { position: relative; }
+.f-rowvid__btn {
+  position: absolute;
+  left: 428px;
+  bottom: 44px;
+  background: var(--f-paper);
+  color: var(--f-accent);
+}
+.f-rowvid:has(> [data-rv="pending"]) > .f-rowvid__btn { visibility: hidden; }
+@media (max-width: 1023px) {
+  .f-rowvid__btn { left: 12px; bottom: 36px; }
+}
 .f-tile { position: relative; width: 56px; height: 56px; flex-shrink: 0; }
 .f-tile img { position: absolute; top: 0; height: 56px; width: auto; left: 50%; transform: translateX(-50%); }
 .f-tile__n {

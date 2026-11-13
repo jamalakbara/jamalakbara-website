@@ -23,7 +23,7 @@ export async function mediaUsage(): Promise<Record<string, MediaUse[]>> {
   for (const p of projects) {
     const href = `/admin/projects/${p.id}`;
     if (p.image) add(p.image, { label: `${p.title} · cover`, href });
-    if (p.video) add(p.video, { label: `${p.title} · hover video`, href });
+    if (p.video) add(p.video, { label: `${p.title} · row video`, href });
     p.gallery?.forEach((g, i) => add(g, { label: `${p.title} · gallery ${i + 1}`, href }));
   }
 

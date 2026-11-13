@@ -60,7 +60,9 @@
     "emptyHeading": "STILL BREWING.",
     "emptyBody": "There’s no work to show here yet. New projects are on the bench. Check back soon, or start one with me.",
     "emptyAction": "Start a project",
-    "imageAlt": "project image"
+    "imageAlt": "project image",
+    "videoPause": "Pause project video",
+    "videoPlay": "Play project video"
   },
   "caseStudy": {
     "back": "All work",

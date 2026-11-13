@@ -6,6 +6,7 @@
     "description": "An elegant fashion e-commerce platform built with Shopify, featuring custom theme development, refined product presentation, and a smooth checkout experience. Crafted to reflect the brand's polished aesthetic while staying fast and conversion-focused.",
     "summary": "A polished Shopify storefront for an elegant fashion label, fast and built to convert.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1783504306/withavelle_kgj0un.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794559888/work-withavelle-loop.mp4",
     "year": "2026",
     "tech": [
       "Shopify",
@@ -49,6 +50,7 @@
     "description": "A high-performance modern web application built with Next.js, focusing on exceptional user experience, scalability, and clean architecture.",
     "summary": "A fast, cleanly architected Next.js web app built for scale.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1776850023/adana_n83dlc.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794559893/work-adana-loop.mp4",
     "year": "2026",
     "tech": [
       "Next.js",
@@ -87,6 +89,7 @@
     "description": "E-commerce platform development for Duma, featuring modern Shopify theme with fashion-forward product presentation, comprehensive inventory management, and optimized shopping experience. Built with scalable architecture to handle fashion retail operations and provide seamless customer journey across all devices.",
     "summary": "A fashion-forward Shopify store with inventory tooling that works on every device.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145443/Screenshot_2026-02-04_at_02.03.40_mazucd.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794559899/work-duma-loop.mp4",
     "year": "2021",
     "tech": [
       "Shopify",
@@ -130,7 +133,7 @@
     "description": "A bold streetwear e-commerce platform built with Shopify, featuring custom theme development, dynamic product showcases, and seamless checkout experience. Designed to capture the raw energy of street culture with optimal performance and scalability.",
     "summary": "A bold Shopify store that carries the raw energy of street culture.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146623/rawtyperiot_hg0kn8.webp",
-    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1770147989/rawtyperiot_e53hke.webm",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561294/work-rawtype-riot-loop.mp4",
     "year": "2026",
     "tech": [
       "Shopify",
@@ -172,7 +175,7 @@
     "description": "A modern e-commerce platform built with Shopify, featuring custom theme development, advanced product filtering, and seamless checkout experience. Designed for scalability and optimal performance.",
     "summary": "A custom Shopify theme with advanced product filtering and a smooth checkout.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1768698828/sonderlab-project_y86tym.png",
-    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/q_auto,f_auto/v1768708989/sonderlab_w9ag7c.webm",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794559906/work-sonderlab-loop.mp4",
     "year": "2024",
     "tech": [
       "Shopify",
@@ -302,6 +305,7 @@
     "description": "Modern e-commerce platform developed with Shopify, featuring custom theme development, advanced product catalog management, and optimized shopping experience. Built with scalable architecture to handle high-volume transactions and seamless customer interactions across all devices.",
     "summary": "A custom Shopify theme and catalog built for high-volume sales.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146104/Screenshot_2026-02-04_at_02.14.36_vhavvm.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561298/work-nawaclo-loop.mp4",
     "year": "2024",
     "tech": [
       "Shopify",
@@ -344,6 +348,7 @@
     "description": "E-commerce platform development for Lakon Indonesia, a contemporary Indonesian fashion brand celebrating local culture and craftsmanship. Built with custom Shopify theme featuring curated collections, storytelling elements, and seamless shopping experience that showcases Indonesia's rich textile heritage.",
     "summary": "A storytelling Shopify store for an Indonesian fashion brand rooted in textile heritage.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145241/Screenshot_2026-02-04_at_02.00.10_c7wsi1.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561303/work-lakon-indonesia-loop.mp4",
     "year": "2024",
     "tech": [
       "Shopify",
@@ -386,6 +391,7 @@
     "description": "A comprehensive backend development project featuring modern Python technologies for building scalable server-side applications with efficient data management, secure authentication systems, and containerized deployment strategies.",
     "summary": "A containerized Python backend with secure auth and efficient data handling.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145959/Screenshot_2026-02-04_at_02.12.18_yxp6yy.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561306/work-combo-loop.mp4",
     "year": "2024",
     "tech": [
       "Python",
@@ -429,6 +435,7 @@
     "description": "A comprehensive backend system for data management and analytics dashboard. Built with robust authentication, efficient data processing, and scalable architecture to handle complex data operations and real-time reporting.",
     "summary": "The backend behind a data dashboard: processing, auth and real-time reporting.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146325/Screenshot_2026-02-04_at_02.16.54_xz5lvl.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561311/work-base-data-dashboard-loop.mp4",
     "year": "2022",
     "tech": [
       "Python",
@@ -513,6 +520,7 @@
     "description": "Backend development for BIONS, BNI's integrated business and operational system. Built robust server-side infrastructure to handle enterprise-level banking operations, transaction processing, and data management with high security standards and performance requirements.",
     "summary": "Secure, enterprise-grade backend for BNI's business and banking operations.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770145961/Screenshot_2026-02-04_at_02.11.42_irj1lk.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561314/work-bions-bni-loop.mp4",
     "year": "2023",
     "tech": [
       "CodeIgniter 4",
@@ -557,6 +565,7 @@
     "description": "E-commerce platform development for Green Rebel Foods, featuring custom Shopify theme with product variant management, subscription system, and integrated marketing tools.",
     "summary": "A Shopify store with subscriptions and variant management.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146105/Screenshot_2026-02-04_at_02.14.10_s2pdwq.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561319/work-green-rebel-foods-loop.mp4",
     "year": "2021",
     "tech": [
       "Shopify",
@@ -600,6 +609,7 @@
     "description": "E-commerce platform development for Aza Wear, featuring modern Shopify theme with fashion-focused product presentation, size and variant management, and seamless shopping experience. Built with scalable architecture to handle fashion inventory and provide elegant customer journey across all devices.",
     "summary": "A fashion Shopify store with size and variant management for a growing range.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.10_iwhz9a.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561324/work-aza-wear-loop.mp4",
     "year": "2020",
     "tech": [
       "Shopify",
@@ -679,6 +689,7 @@
     "description": "E-commerce platform development for State Medical Equipment, featuring custom Shopify theme with product catalog management, medical equipment specifications, and integrated B2B commerce solutions tailored for healthcare industry needs.",
     "summary": "A B2B Shopify catalog for medical equipment, with full product specs.",
     "image": "https://res.cloudinary.com/dh0spkwh3/image/upload/q_auto,f_auto/v1770146328/Screenshot_2026-02-04_at_02.17.46_bjhlid.png",
+    "video": "https://res.cloudinary.com/dh0spkwh3/video/upload/v1794561328/work-state-medical-equipment-loop.mp4",
     "year": "2020",
     "tech": [
       "Shopify",

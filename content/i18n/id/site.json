@@ -158,7 +158,9 @@
       "emptyHeading": "MASIH DIRACIK.",
       "emptyBody": "Belum ada project yang bisa ditampilin. Yang baru lagi dikerjain. Mampir lagi nanti, atau mulai satu project bareng aku.",
       "emptyAction": "Mulai project",
-      "imageAlt": "gambar project"
+      "imageAlt": "gambar project",
+      "videoPause": "Jeda video project",
+      "videoPlay": "Putar video project"
     },
     "caseStudy": {
       "back": "Semua project",
