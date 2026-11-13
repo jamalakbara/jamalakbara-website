@@ -12,7 +12,7 @@ Project: `jamalakbara` · mode: solo · sync: none
 ## Counts
 - decision: 13 (proposed 6, accepted 7)
 - memory: 32 (active 32)
-- handoff: 58 (final 58)
+- handoff: 59 (final 59)
 - incident: 1 (resolved 1)
 - runbook: 1 (active 1)
 
@@ -21,8 +21,8 @@ Project: `jamalakbara` · mode: solo · sync: none
 - mem-y9hnr14q [agent] How to run and test — npm run dev (Webpack default; dev:turbopack opt-in), npm run build as the gate, verify SEO on a local prod server.
 
 ## Recent handoffs
+- hnd-e3pj2dsk 2026-11-13 (agent:claude-code) — Done: Unified public name to Jamal Akbar Alam across content, schema, keywords, manifest (dec-zstfqvde). Wrote docs/OFFSITE_PROFILES.md (GitHub, Instagram, X, Facebook bios; LinkedIn left as is by ow…
 - hnd-x52w392c 2026-11-12 (agent:claude-code) — Done: Rewrote the 8 new Bahasa posts in the site's casual aku/kalian register (gak, udah, bikin, ngurus, buat) after owner said the first drafts were too formal. Facts, links and slugs unchanged. Bui…
 - hnd-7s3ezcg9 2026-11-12 (agent:claude-code) — Done: Bahasa-first pass: scored 55 candidates, read 8 SERPs, wrote 5 ID posts (website-katalog-order-whatsapp, shopify-atau-woocommerce, google-bisnisku-atau-website, berapa-lama-bikin-website, domai…
 - hnd-wxpg9j1r 2026-11-12 (agent:claude-code) — Done: Published bedanya-ui-dan-ux. Wrote EN how-long-does-it-take-to-build-a-website and website-maintenance-cost, and ID jasa-maintenance-website, from the owner's two client quotations (no client n…
 - hnd-6memwmdg 2026-11-12 (agent:claude-code) — Done: Ran brand-awareness keyword and SERP research with OpenSEO (about 330 credits), wrote docs/SEO_AWARENESS_RESEARCH.md, drafted 3 journal posts (EN web designer vs developer; ID company profile P…
-- hnd-fftx1pkf 2026-11-08 (human:akbar) — Done: Opened PR #38 from development into main for the centered wide layout. · Next: Review PR #38.
