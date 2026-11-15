@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getSite } from "@/lib/i18n";
 import { LANGS, type Lang } from "@/lib/i18n/config";
+import { localePath } from "@/lib/i18n/routes";
+import { formatDate, getPosts } from "@/lib/posts";
 import { alternatesFor } from "@/lib/seo";
 import { ServiceView } from "@/components/site/service-view";
 
@@ -46,5 +48,21 @@ export default async function ServicePageRoute({ params }: { params: Promise<Par
   const page = site.services.find((p) => p.slug === slug);
   if (!page) notFound();
 
-  return <ServiceView site={site} page={page} />;
+  // "Keep reading": posts that already point at this service, then the other services.
+  const href = site.path(`/services/${page.slug}`);
+  const related = [
+    ...getPosts(language)
+      .filter((p) => p.content.includes(`](/services/${page.slug})`))
+      .slice(0, 3)
+      .map((p) => ({
+        href: localePath(language, `/journal/${p.slug}`),
+        title: p.title,
+        meta: formatDate(language, p.date),
+      })),
+    ...site.serviceLinks
+      .filter((l) => l.href !== href)
+      .map((l) => ({ href: l.href, title: l.label, meta: site.ui.services.more })),
+  ];
+
+  return <ServiceView site={site} page={page} related={related} />;
 }

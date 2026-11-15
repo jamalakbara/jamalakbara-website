@@ -2,6 +2,7 @@ import { ButtonLink } from "@/components/site/button";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { Folder } from "@/components/site/folder";
 import { ArrowDown, ArrowRight, MapPin } from "@/components/site/icons";
+import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
 import { StructuredData } from "@/components/structured-data";
 import { sentenceLines } from "@/lib/site-format";
 import type { Site } from "@/lib/i18n";
@@ -9,7 +10,17 @@ import type { ServicePage } from "@/lib/content-types";
 
 const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-export function ServiceView({ site, page, preview = false }: { site: Site; page: ServicePage; preview?: boolean }) {
+export function ServiceView({
+  site,
+  page,
+  preview = false,
+  related,
+}: {
+  site: Site;
+  page: ServicePage;
+  preview?: boolean;
+  related?: RelatedItem[];
+}) {
   const language = site.lang;
   const t = site.ui.services;
   const toc = [
@@ -79,6 +90,7 @@ export function ServiceView({ site, page, preview = false }: { site: Site; page:
               </div>
             </section>
           )}
+          {related && <RelatedPosts heading={site.ui.article.keepReading} items={related} />}
         </div>
       </Folder>
 
