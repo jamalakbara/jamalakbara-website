@@ -82,7 +82,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 - Panels have a 12 px radius at every size. Controls have 4 px. Note and receipt are square. Project images are square-edged.
 - **Folders:** 12 px lead-in, then a 36 px tab rail, then the paper body. Tabs are 220 px wide on desktop and 150 px on mobile, with offsets 0 / 180 / 360 (desktop) and 0 / 88 / 176 (mobile). The body's top-left corner is square only when the tab sits flush left. The root gap between panels is 4 px.
 - **Reading column:** 640 px max. Article and journal rows use a 400 px left column, a 48 px gap, and a 640 px main column.
-- **Sticker fields** (`<Stickers base={…}>`) place stickers with container-query units, so a composition is exact at its canvas width and scales down below it. Bases: title panels and article margins 1416, home collage 1336 / 346, mobile title panel 378. Title panels and folders keep a fixed height, so margin fields stop growing at 1416 and centre on wider screens (article margins stay left, in the TOC column); only the home collage, which has its own aspect ratio, keeps scaling up. A sticker beside the reading column (`.f-stickers--beside`) hides below 1420, where the column reaches under it.
+- **Sticker fields** (`<Stickers base={…}>`) place stickers with container-query units, so a composition is exact at its canvas width and scales down below it. Bases: title panels 1416, home collage 1336 / 346, mobile title panel 378. Title panels and folders keep a fixed height, so margin fields stop growing at 1416 and centre on wider screens; only the home collage, which has its own aspect ratio, keeps scaling up. A sticker beside the reading column (`.f-stickers--beside`) hides below 1420, where the column reaches under it.
 
 ## 4. Components → code
 
@@ -102,6 +102,7 @@ Canvas text boxes also carry 1 px above and below, which the role classes reprod
 | Empty state / 404 stage | `components/site/empty-state.tsx` |
 | Journal editorial row | `components/site/journal-index.tsx` |
 | Article reading surface | `components/site/article-view.tsx`, `.f-prose` |
+| Contents / Progress rail (article `ZDuka`, privacy `yGZvX`, service `Yqch4`; options board `uEE10`) — Tanker 12 label + muted "{n} sections" count, 1px `--f-line` rule, Erode 18 muted rows at 48 px, section in view = 2px cobalt marker + cobalt name. No Back to top link under the list (removed Nov 2026; the article end nav keeps its own). Desktop only on article/privacy. Website: the rail is sticky at ≥1024px (48px from the top, 100px while the nav shows). The article TOC column has no margin stickers, on the site or on canvas m54Zq (removed Nov 2026; they collided with the sticky rail) | `components/site/toc-rail.tsx` (`TocRail`, scroll-spy sets `aria-current="location"`), `.f-rail*`; count string `ui.common.sectionCount` |
 | Button primary / secondary / disabled / loading; icon button | `components/site/button.tsx` (`Button`, `ButtonLink`, `IconButton`), `.f-btn--primary`, `.f-btn--secondary`, `.f-iconbtn`, `[disabled]` |
 | Link / Editorial (underlined) | `.f-link` (underline bar), `.f-uline` (border variant), `.f-act` (icon + label) |
 | Filter chips | `.f-filter[aria-pressed]` |

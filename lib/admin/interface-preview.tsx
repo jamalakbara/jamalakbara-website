@@ -30,6 +30,7 @@ export function interfacePreview(section: string, draft: Record<string, unknown>
     seeTheWork: "about",
     backHome: "notFound",
     backToTop: "journal",
+    sectionCount: "journal",
     opensNewTab: "work",
   };
   const viewSection = section === "common" && field

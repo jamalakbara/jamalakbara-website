@@ -7,7 +7,7 @@
   scroll-behavior: auto !important;
 }
 
-[data-interface-preview] :is(.f-main > *, .f-nav, .f-page > .f-mnav, .f-art-pin) {
+[data-interface-preview] :is(.f-main > *, .f-nav, .f-page > .f-mnav) {
   position: relative;
   top: auto;
 }

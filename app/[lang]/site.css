@@ -821,22 +821,40 @@ textarea.f-input { height: 168px; padding: 16px; resize: vertical; }
 .f-art-surface { position: relative; container-type: inline-size; display: flex; gap: 48px; padding: 48px var(--f-inset); }
 .f-art-toc { position: relative; z-index: 0; display: flex; flex-direction: column; gap: 16px; width: 400px; flex-shrink: 0; }
 .f-art-toc__list { display: flex; flex-direction: column; gap: 16px; }
+/* The rail sticks while its page scrolls (desktop; static under 1024px).
+   It sits 48px from the top, or clear of the sticky nav while the nav shows. */
+.f-art-surface { --f-rail-top: 100px; }
+.f-shell[data-nav="hidden"] .f-art-surface { --f-rail-top: 48px; }
+.f-art-toc__list.f-rail { position: sticky; top: var(--f-rail-top); z-index: 1; transition: top 240ms var(--f-ease); }
+@media (prefers-reduced-motion: reduce) { .f-art-toc__list.f-rail { transition: none; } }
+/* Progress rail (contents on article, privacy, service): 1px rule, 2px cobalt marker on the
+   section in view. Canvas: "… contents / Progress rail" (Erode 18/1.45 → CSS 1.54, 48px rows). */
+.f-rail__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.f-rail__list { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.f-rail__link {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 0 0 20px;
+  border-left: 1px solid var(--f-line);
+  color: var(--f-muted);
+  font: 18px/1.54 var(--f-erode);
+  text-decoration: none;
+  transition: color 160ms ease-out, border-color 160ms ease-out;
+}
+.f-rail__link[aria-current="location"] { padding-left: 19px; border-left: 2px solid var(--f-accent); color: var(--f-accent); }
+@media (hover: hover) { .f-rail__link:not([aria-current]):hover { color: var(--f-ink); } }
+.f-shell .f-rail__link:focus-visible { outline-offset: -2px; }
+@media (prefers-reduced-motion: reduce) { .f-rail__link { transition: none; } }
 .f-art-col { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 24px; width: 640px; min-width: 0; }
 .f-art-end { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; border-top: 1px solid var(--f-line); }
-/* Margin: fills the TOC column under the list; the field spans the full surface width
-   (canvas x is surface-relative) and clips vertically at the surface bottom. */
-.f-art-margin { position: relative; flex: 1; pointer-events: none; }
-.f-art-margin__field { position: absolute; top: 0; bottom: 0; left: calc(-1 * var(--f-inset)); width: min(calc(100cqw + 2 * var(--f-inset)), 1416px); overflow-y: clip; }
-/* Relay groups: each pin sticks inside its lane, then the lane end hands over to the next group. */
-.f-art-lane { position: absolute; left: 0; right: 0; }
-.f-art-pin { position: sticky; top: 48px; }
 @media (max-width: 1023px) {
   .f-art-id { flex-direction: column; align-items: flex-start; gap: 24px; }
   .f-art-sig, .f-art-titlecol { width: auto; }
+  .f-art-sig:empty { display: none; }
   .f-art-surface { flex-direction: column; gap: 24px; }
   .f-art-toc { width: auto; }
-  .f-art-toc__list { position: static; }
-  .f-art-margin { display: none; }
+  .f-art-toc__list, .f-art-toc__list.f-rail { position: static; }
   .f-art-col { width: auto; max-width: 640px; }
 }
 @media (max-width: 767px) {
@@ -1288,12 +1306,13 @@ textarea.f-input { resize: none; }
 .f-case-img--g0 { flex: 1 1 280px; height: 300px; }
 .f-case-img--g1 { flex: 0 1 240px; height: 220px; }
 .f-svc-head { display: flex; flex-direction: column; gap: 48px; padding: 24px var(--f-inset) 48px; }
-.f-svc-head__top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.f-svc-head__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+/* Label row on detail pages: back link, divider, page label (same spot as the index label row). */
+.f-crumb { display: flex; flex-wrap: wrap; align-items: center; column-gap: 16px; }
+.f-crumb__sep { width: 1px; height: 16px; background: var(--f-line); }
 .f-svc-hero { display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; }
 .f-svc-title { font-size: 64px; line-height: 1.1; max-width: 760px; min-width: 0; }
 .f-svc-intro { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; width: 440px; flex-shrink: 0; }
-.f-svc-toc { display: flex; flex-direction: column; }
-.f-svc-toc .f-act { justify-content: space-between; width: 100%; border-bottom: 1px solid var(--f-line); }
 .f-svc-faq { display: flex; flex-direction: column; }
 .f-svc-faq > div { display: flex; flex-direction: column; gap: 6px; padding: 16px 0; border-bottom: 1px solid var(--f-line); }
 .f-svc-faq h3 { font-weight: 400; }

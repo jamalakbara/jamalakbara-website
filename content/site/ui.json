@@ -4,6 +4,7 @@
     "locationCaps": "BANDUNG, INDONESIA",
     "opensNewTab": "(opens in a new tab)",
     "backToTop": "Back to top",
+    "sectionCount": "{n} sections",
     "backHome": "Back to home",
     "seeTheWork": "See the work"
   },
@@ -174,6 +175,7 @@
   "services": {
     "tab": "SERVICES",
     "toc": "ON THIS PAGE",
+    "back": "All services",
     "faq": "Questions",
     "more": "Services",
     "eyebrow": "Design & Development / Bandung",
