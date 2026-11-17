@@ -56,6 +56,21 @@ export default auth((req) => {
   const isAdminHost = host.startsWith("cms.");
   const { pathname } = req.nextUrl;
 
+  // Production admin lives on cms.jamalakbara.com (the OAuth app's callback
+  // host). Send apex / www /admin traffic there. Localhost and Vercel
+  // preview hosts keep serving /admin directly.
+  const bareHost = host.split(":")[0];
+  if (
+    (bareHost === "jamalakbara.com" || bareHost === "www.jamalakbara.com") &&
+    /^\/admin(\/|$)/.test(pathname)
+  ) {
+    const target = new URL(
+      (pathname.slice("/admin".length) || "/") + req.nextUrl.search,
+      "https://cms.jamalakbara.com",
+    );
+    return NextResponse.redirect(target, 307);
+  }
+
   // Strip /admin prefix on cms host so internal links stay clean.
   // Exempt /api/admin (auth endpoints, API routes live there separately).
   if (
