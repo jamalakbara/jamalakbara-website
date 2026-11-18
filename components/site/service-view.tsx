@@ -1,11 +1,13 @@
 import { ButtonLink } from "@/components/site/button";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { Folder } from "@/components/site/folder";
-import { ArrowDown, ArrowRight, MapPin } from "@/components/site/icons";
+import Link from "next/link";
+import { ArrowLeft, ArrowRight, MapPin } from "@/components/site/icons";
+import { TocRail } from "@/components/site/toc-rail";
 import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
 import { StructuredData } from "@/components/structured-data";
 import { sentenceLines } from "@/lib/site-format";
-import type { Site } from "@/lib/i18n";
+import { fill, type Site } from "@/lib/i18n";
 import type { ServicePage } from "@/lib/content-types";
 
 const anchor = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -39,7 +41,14 @@ export function ServiceView({
 
       <header className="f-panel f-svc-head">
         <div className="f-svc-head__top">
-          <span className="f-tabtext">{page.eyebrow}</span>
+          <div className="f-crumb">
+            <Link href={site.path("/services")} className="f-act">
+              <ArrowLeft size={16} />
+              {t.back}
+            </Link>
+            <span className="f-crumb__sep" aria-hidden="true" />
+            <span className="f-tabtext">{page.eyebrow}</span>
+          </div>
           <span className="f-loc f-meta f-muted">
             <MapPin size={14} />
             {site.ui.common.location}
@@ -59,15 +68,11 @@ export function ServiceView({
 
       <Folder tab={t.tab} n="01" bodyClassName="f-art-surface">
         <nav className="f-case-side" aria-label={t.toc}>
-          <span className="f-meta">{t.toc}</span>
-          <div className="f-svc-toc">
-            {toc.map((item) => (
-              <a key={item.id} href={`#${item.id}`} className="f-act">
-                {item.label}
-                <ArrowDown size={16} />
-              </a>
-            ))}
-          </div>
+          <TocRail
+            label={t.toc}
+            count={fill(site.ui.common.sectionCount, { n: toc.length })}
+            items={toc}
+          />
         </nav>
 
         <div className="f-case-col">

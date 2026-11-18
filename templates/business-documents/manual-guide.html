@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual Guide — GUIDE-[YYYY]-001</title>
+<!--
+  Manual guide / user handover template — Working Folder business documents.
+  Sibling of the Quotation (33.x) and Invoice (34) frames in docs/design/jamalakbara.pen.
+  Canvas mirror: frames 35.1–35.6 "Manual guide / … / A4".
+
+  How to use:
+  1. Replace every [BRACKETED] value. Search the file for "[" to find them all.
+  2. Keep one .page per A4 sheet (794 × 1123 px = 210 × 297 mm at 96 dpi). Copy a page to add one;
+     update the footer page count ("01—06") on every page.
+  3. Swap each .shot placeholder for a real screenshot: <img class="shot__img" src="…" alt="…">.
+  4. Print → Save as PDF, A4, margins "None", background graphics on.
+-->
+<style>
+@font-face { font-family: "Tanker"; src: url("../../app/fonts/Tanker-400.woff2") format("woff2"); font-display: block; }
+@font-face { font-family: "Erode"; src: url("../../app/fonts/Erode-400.woff2") format("woff2"); font-display: block; }
+
+:root {
+  --paper: #F8F6F0;
+  --note: #FFFEFA;
+  --ink: #201E19;
+  --muted: #6E695F;
+  --surface: #E8E3D9;
+  --line: #D8D2C8;
+  --accent: #2445DB;
+  --error: #A62929;
+  --success: #456D5B;
+  --band: #F6F5F2;
+  --tanker: "Tanker", "Arial Narrow", sans-serif;
+  --erode: "Erode", Georgia, serif;
+}
+
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--surface);
+  color: var(--ink);
+  font-family: var(--erode);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheets { display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 32px 16px; }
+
+/* A4 page — same frame as the quotation: 794 × 1123, padding 40 48 32 48 */
+.page {
+  width: 794px; height: 1123px; flex: none;
+  background: var(--note);
+  padding: 40px 48px 32px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(32,30,25,.08), 0 8px 24px rgba(32,30,25,.06);
+}
+.page__body { display: flex; flex-direction: column; gap: 16px; }
+
+@media print {
+  body { background: none; }
+  .sheets { padding: 0; gap: 0; }
+  .page { box-shadow: none; break-after: page; }
+}
+@media (max-width: 826px) {
+  .sheets { align-items: flex-start; overflow-x: auto; }
+}
+
+/* ---------- Type roles ---------- */
+.display { font-family: var(--tanker); font-size: 72px; line-height: 1.05; text-transform: uppercase; margin: 0; letter-spacing: -0.005em; }
+.h-sec { font-family: var(--tanker); font-size: 30px; line-height: 1.17; text-transform: uppercase; margin: 0; }
+.h-sub { font-family: var(--tanker); font-size: 30px; line-height: 1.17; text-transform: uppercase; margin: 0; }
+.h-item { font-family: var(--tanker); font-size: 18px; line-height: 1.3; text-transform: uppercase; margin: 0; }
+.h-name { font-family: var(--tanker); font-size: 22px; line-height: 1.3; text-transform: uppercase; margin: 0; }
+.h-fact { font-family: var(--tanker); font-size: 22px; line-height: 1.2; text-transform: uppercase; margin: 0; }
+.label { font-family: var(--erode); font-size: 11.5px; line-height: 1.5; text-transform: uppercase; color: var(--muted); letter-spacing: .01em; margin: 0; }
+.lead { font-size: 15px; line-height: 1.7; margin: 0; }
+.body { font-size: 14px; line-height: 1.6; margin: 0; }
+.small { font-size: 13px; line-height: 1.6; margin: 0; }
+.muted { color: var(--muted); }
+.accent { color: var(--accent); }
+a { color: var(--accent); text-decoration: none; }
+
+/* ---------- Masthead ---------- */
+.mast { display: flex; flex-direction: column; gap: 16px; }
+.mast__top { display: flex; justify-content: space-between; align-items: center; }
+.tab {
+  background: #000; color: #fff;
+  font-family: var(--tanker); font-size: 24px; line-height: 1;
+  padding: 9px 16px 8px; border-radius: 10px 10px 0 0;
+}
+.mast__meta { display: flex; align-items: center; gap: 12px; }
+.mast__meta p { font-size: 11.5px; line-height: 1.7; text-transform: uppercase; color: var(--muted); margin: 0; text-align: left; }
+.stamp { width: 44px; height: 44px; display: block; }
+.rule { height: 1px; background: var(--line); border: 0; margin: 0; }
+.running { display: flex; justify-content: space-between; align-items: center; }
+.running span:first-child { font-size: 13px; }
+.running span:last-child { font-size: 11.5px; text-transform: uppercase; color: var(--muted); }
+
+/* Cover title block */
+.titleblock { display: flex; justify-content: space-between; align-items: flex-start; gap: 24px; }
+.titleblock__left { display: flex; flex-direction: column; gap: 14px; padding-top: 4px; }
+.docmeta { display: grid; grid-template-columns: auto auto; column-gap: 32px; row-gap: 10px; padding-top: 12px; min-width: 260px; }
+.docmeta .full { grid-column: 1 / -1; }
+.docmeta .v { font-size: 14px; line-height: 1.6; margin: 2px 0 0; }
+
+/* Two columns: prepared for / app */
+.cols { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+.party { display: flex; flex-direction: column; gap: 4px; }
+.party .h-name { margin: 6px 0 4px; }
+
+/* Section heading: accent number + Tanker title */
+.sec { display: flex; align-items: center; gap: 14px; padding-top: 4px; }
+.sec__n { font-size: 11.5px; color: var(--accent); padding-top: 6px; }
+
+/* At-a-glance band */
+.band {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  background: var(--band); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+.band > div { display: flex; flex-direction: column; gap: 6px; }
+
+/* Contents */
+.toc { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; row-gap: 6px; margin: 0; padding: 0; list-style: none; }
+.toc li { font-size: 14px; line-height: 1.6; }
+.toc span { margin-right: 6px; }
+
+/* Table — same as scope of work */
+.table { width: 100%; border-collapse: collapse; }
+.table th {
+  text-align: left; font-weight: 400; font-size: 11.5px; text-transform: uppercase; color: var(--muted);
+  background: var(--band); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
+  padding: 10px 12px 10px 0;
+}
+.table td { vertical-align: top; border-bottom: 1px solid var(--line); padding: 12px 12px 12px 0; }
+.table tr:last-child td { border-bottom: 2px solid var(--line); }
+.table td:first-child { width: 30%; }
+.table .h-item { padding-top: 1px; }
+
+/* Numbered steps */
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.steps li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.steps li:last-child { border-bottom: 0; }
+.steps .n { font-family: var(--tanker); font-size: 22px; line-height: 1.1; color: var(--accent); }
+.steps .t { display: flex; flex-direction: column; gap: 2px; }
+.kbd { font-family: var(--erode); font-size: 11px; border: 1px solid var(--line); background: var(--paper); border-radius: 4px; padding: 0 5px; white-space: nowrap; }
+.path { color: var(--ink); white-space: nowrap; }
+
+/* Task block */
+.task { display: flex; flex-direction: column; gap: 6px; padding: 12px 0 4px; border-top: 1px solid var(--ink); }
+.task__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
+
+/* Callouts */
+.note { background: var(--band); padding: 16px 20px; display: flex; flex-direction: column; gap: 6px; }
+.note--accent { border-left: 3px solid var(--accent); }
+.note--warn { border-left: 3px solid var(--error); }
+.note--warn .label { color: var(--error); }
+.note--accent .label { color: var(--accent); }
+
+/* Screenshot placeholder with numbered pins */
+.shot {
+  position: relative; height: 330px; background: var(--paper);
+  border: 1px dashed var(--muted); border-radius: 4px;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+}
+.shot__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top left; }
+.shot__ph { display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center; }
+.shot__ph .h-item { color: var(--muted); }
+.shot__ui { position: absolute; inset: 14px; display: grid; grid-template-columns: 120px 1fr; grid-template-rows: 28px 1fr; gap: 10px; opacity: .55; }
+.shot__ui i { display: block; background: var(--surface); border-radius: 3px; }
+.shot__ui i:nth-child(1) { grid-column: 1 / -1; }
+.shot__ui i:nth-child(2) { grid-row: 2; }
+.shot__ui i:nth-child(3) { grid-row: 2; background: transparent; border: 1px solid var(--surface); }
+.shot__ph { position: relative; z-index: 1; background: var(--paper); padding: 12px 18px; border-radius: 4px; }
+.pin {
+  position: absolute; z-index: 2; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--accent); color: #fff;
+  font-family: var(--tanker); font-size: 12px; line-height: 22px; text-align: center;
+}
+.legend { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; row-gap: 10px; }
+.legend li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.legend .pin { position: static; }
+
+/* Do / avoid */
+.dodont { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+.dodont ul { list-style: none; margin: 8px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.dodont li { font-size: 14px; line-height: 1.6; display: grid; grid-template-columns: 16px 1fr; }
+.dodont .do li::before { content: "+"; color: var(--success); font-family: var(--tanker); }
+.dodont .dont li::before { content: "–"; color: var(--error); font-family: var(--tanker); }
+.dodont .do .label { color: var(--success); }
+.dodont .dont .label { color: var(--error); }
+
+/* Bullets like terms page */
+.bullets { margin: 0; padding: 0 0 0 0; list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.bullets li { display: grid; grid-template-columns: 24px 1fr; font-size: 14px; line-height: 1.7; }
+.bullets li::before { content: "•"; font-size: 10px; padding-left: 4px; line-height: 2.24; }
+
+/* Sign-off */
+.sign { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+.sign__line { height: 1px; background: var(--ink); margin: 52px 0 10px; }
+
+/* Footer */
+.foot { border-top: 1px solid var(--line); padding-top: 12px; display: flex; justify-content: space-between; align-items: flex-end; }
+.foot__l { display: flex; flex-direction: column; gap: 4px; }
+.foot__l .h-fact { font-size: 22px; }
+.foot__l a { font-size: 13px; }
+.foot__r { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; font-size: 11.5px; color: var(--muted); }
+.foot__r span:last-child { text-transform: uppercase; }
+
+.gap-8 { display: flex; flex-direction: column; gap: 8px; }
+.gap-12 { display: flex; flex-direction: column; gap: 12px; }
+</style>
+</head>
+<body>
+<main class="sheets">
+
+<!-- ================= PAGE 01 — Cover & overview ================= -->
+<section class="page" aria-label="Page 1">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta">
+          <p>Design &amp; Development<br>Bandung, Indonesia</p>
+          <img class="stamp" src="../../public/brand/stamp.svg" alt="">
+        </div>
+      </div>
+      <hr class="rule">
+      <div class="titleblock">
+        <div class="titleblock__left">
+          <h1 class="display">Manual<br>guide.</h1>
+          <p class="label">User manual / [Website / Web app / Store]</p>
+        </div>
+        <div class="docmeta">
+          <div class="full"><p class="label">Guide no.</p><p class="v">GUIDE-[YYYY]-001</p></div>
+          <div><p class="label">Version</p><p class="v">[1.0]</p></div>
+          <div><p class="label">Last updated</p><p class="v">[DD Month YYYY]</p></div>
+        </div>
+      </div>
+    </header>
+
+    <div class="cols">
+      <div class="party">
+        <p class="label">Prepared for</p>
+        <p class="h-name">[Client] / [Brand]</p>
+        <p class="small">[client-domain.com]</p>
+        <p class="small">Prepared by: Jamal Akbar Alam</p>
+        <p class="small">UI/UX Designer &amp; Web Developer</p>
+      </div>
+      <div class="party">
+        <p class="label">Application</p>
+        <p class="h-name">[App / Website name]</p>
+        <p class="small">[admin.client-domain.com]</p>
+        <p class="small">Platform: [WordPress, Shopify or custom]</p>
+        <p class="small">Reference: [QUO-YYYY-000]</p>
+      </div>
+    </div>
+
+    <div class="sec"><span class="sec__n">01</span><h2 class="h-sec">About this guide</h2></div>
+    <p class="lead">This guide shows your team how to use [App / Website name] day to day: signing in, finding your way around the dashboard, and handling the tasks you will do most often, such as [adding products, updating pages and replacing images].</p>
+    <p class="lead">Each task is written as short, numbered steps. Button and menu names, such as <span class="path">[Publish]</span>, match the labels you will see on screen. If something does not look the way this guide describes, check the troubleshooting page first, then send me an email.</p>
+
+    <div class="band">
+      <div><p class="label">Admin address</p><p class="h-fact">[/wp-admin]</p></div>
+      <div><p class="label">Who it's for</p><p class="h-fact">[Admin &amp; editors]</p></div>
+      <div><p class="label">Support until</p><p class="h-fact accent">[DD MMM YYYY]</p></div>
+    </div>
+
+    <div class="gap-8">
+      <p class="label">In this guide</p>
+      <ul class="toc">
+        <li><span>02</span>Getting started</li>
+        <li><span>05</span>Good practice</li>
+        <li><span>03</span>Dashboard tour</li>
+        <li><span>06</span>Troubleshooting</li>
+        <li><span>04</span>Everyday tasks</li>
+        <li><span>07</span>Support &amp; handover</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 01—06</span></div>
+  </footer>
+</section>
+
+<!-- ================= PAGE 02 — Getting started ================= -->
+<section class="page" aria-label="Page 2">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta"><p>Design &amp; Development<br>Bandung, Indonesia</p><img class="stamp" src="../../public/brand/stamp.svg" alt=""></div>
+      </div>
+      <hr class="rule">
+      <div class="running"><span>GUIDE-[YYYY]-001</span><span>[Brand] / [App / Website name]</span></div>
+    </header>
+
+    <div class="sec"><span class="sec__n">02</span><h2 class="h-sec">Getting started.</h2></div>
+    <p class="body">Everything you need before your first edit. It takes about five minutes.</p>
+
+    <ol class="steps">
+      <li><span class="n">01</span><div class="t"><p class="h-item">Open the admin</p><p class="body">Go to <span class="path">[client-domain.com/wp-admin]</span> in Chrome, Safari or Edge. Bookmark it so you can find it again.</p></div></li>
+      <li><span class="n">02</span><div class="t"><p class="h-item">Sign in</p><p class="body">Enter the email and password sent to you separately. Tick <span class="path">Remember me</span> only on your own device.</p></div></li>
+      <li><span class="n">03</span><div class="t"><p class="h-item">Set your own password</p><p class="body">Open <span class="path">[Profile → Account]</span>, choose a new password of at least 12 characters, then press <span class="path">[Update profile]</span>.</p></div></li>
+      <li><span class="n">04</span><div class="t"><p class="h-item">Check your role</p><p class="body">Your role decides what you can change. If a menu from this guide is missing, your role may not include it. See the table below.</p></div></li>
+    </ol>
+
+    <table class="table">
+      <thead><tr><th>Role</th><th>What it can do</th><th style="width:24%">Assigned to</th></tr></thead>
+      <tbody>
+        <tr><td><p class="h-item">[Administrator]</p></td><td><p class="body">Everything, including users, settings and plugins. Keep this to one or two people.</p></td><td><p class="body">[Name]</p></td></tr>
+        <tr><td><p class="h-item">[Editor]</p></td><td><p class="body">Add and edit products, pages, posts and images. Cannot change settings.</p></td><td><p class="body">[Name, Name]</p></td></tr>
+        <tr><td><p class="h-item">[Author]</p></td><td><p class="body">Write and publish their own posts only.</p></td><td><p class="body">[Name]</p></td></tr>
+      </tbody>
+    </table>
+
+    <div class="note note--warn">
+      <p class="label">Keep access private</p>
+      <p class="body">Never share one login between people. Ask an administrator to create an account for each new team member, and remove it when they leave.</p>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 02—06</span></div>
+  </footer>
+</section>
+
+<!-- ================= PAGE 03 — Dashboard tour ================= -->
+<section class="page" aria-label="Page 3">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta"><p>Design &amp; Development<br>Bandung, Indonesia</p><img class="stamp" src="../../public/brand/stamp.svg" alt=""></div>
+      </div>
+      <hr class="rule">
+      <div class="running"><span>GUIDE-[YYYY]-001</span><span>[Brand] / [App / Website name]</span></div>
+    </header>
+
+    <div class="sec"><span class="sec__n">03</span><h2 class="h-sec">Dashboard tour.</h2></div>
+    <p class="body">This is the first screen after you sign in. The numbers match the list below.</p>
+
+    <figure class="shot" style="margin:0">
+      <!-- Replace with: <img class="shot__img" src="screenshots/dashboard.png" alt="Dashboard after sign-in"> -->
+      <div class="shot__ui" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="shot__ph"><p class="h-item">Screenshot / Dashboard</p><p class="small muted">1440 × 900, cropped to the top-left</p></div>
+      <span class="pin" style="left:24px;top:22px">1</span>
+      <span class="pin" style="left:62px;top:96px">2</span>
+      <span class="pin" style="left:300px;top:96px">3</span>
+      <span class="pin" style="right:28px;top:22px">4</span>
+      <span class="pin" style="right:40px;bottom:36px">5</span>
+    </figure>
+
+    <ol class="legend">
+      <li><span class="pin">1</span><div><p class="h-item">[Top bar]</p><p class="small">View the live site, see notifications and sign out.</p></div></li>
+      <li><span class="pin">4</span><div><p class="h-item">[Account menu]</p><p class="small">Your profile, password and language.</p></div></li>
+      <li><span class="pin">2</span><div><p class="h-item">[Main menu]</p><p class="small">Every section you can manage: products, pages, media, orders.</p></div></li>
+      <li><span class="pin">5</span><div><p class="h-item">[Save / Publish]</p><p class="small">Nothing goes live until you press it. Drafts stay private.</p></div></li>
+      <li><span class="pin">3</span><div><p class="h-item">[Workspace]</p><p class="small">Where lists and editors open. Search and filters sit at the top.</p></div></li>
+    </ol>
+
+    <div class="note note--accent">
+      <p class="label">Tip</p>
+      <p class="body">Lost? Use the <span class="path">[Dashboard]</span> link at the top of the main menu to come back to this screen at any time. Nothing is lost by navigating away from a saved page.</p>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 03—06</span></div>
+  </footer>
+</section>
+
+<!-- ================= PAGE 04 — Everyday tasks ================= -->
+<section class="page" aria-label="Page 4">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta"><p>Design &amp; Development<br>Bandung, Indonesia</p><img class="stamp" src="../../public/brand/stamp.svg" alt=""></div>
+      </div>
+      <hr class="rule">
+      <div class="running"><span>GUIDE-[YYYY]-001</span><span>[Brand] / [App / Website name]</span></div>
+    </header>
+
+    <div class="sec"><span class="sec__n">04</span><h2 class="h-sec">Everyday tasks.</h2></div>
+    <p class="body">The jobs you will do most. Copy a task block to add your own.</p>
+
+    <article class="task">
+      <div class="task__head"><h3 class="h-item">A / [Add a new product]</h3><p class="label">[Products → Add new]  /  ~5 min</p></div>
+      <ol class="steps">
+        <li><span class="n">01</span><div class="t"><p class="body">Open <span class="path">[Products]</span> and press <span class="path">[Add new]</span>.</p></div></li>
+        <li><span class="n">02</span><div class="t"><p class="body">Fill in the name, price and description. Prices use the default currency, [IDR].</p></div></li>
+        <li><span class="n">03</span><div class="t"><p class="body">Add photos under <span class="path">[Product gallery]</span>. Use square images, at least 1200 × 1200 px.</p></div></li>
+        <li><span class="n">04</span><div class="t"><p class="body">Pick a category, then press <span class="path">[Publish]</span>. Check it on the live site.</p></div></li>
+      </ol>
+    </article>
+
+    <article class="task">
+      <div class="task__head"><h3 class="h-item">B / [Edit a page's text]</h3><p class="label">[Pages → All pages]  /  ~2 min</p></div>
+      <ol class="steps">
+        <li><span class="n">01</span><div class="t"><p class="body">Find the page in the list and press <span class="path">[Edit]</span>.</p></div></li>
+        <li><span class="n">02</span><div class="t"><p class="body">Click into any text block and type. Keep headings short so they fit on mobile.</p></div></li>
+        <li><span class="n">03</span><div class="t"><p class="body">Press <span class="path">[Preview]</span>, then <span class="path">[Update]</span> when it looks right.</p></div></li>
+      </ol>
+    </article>
+
+    <article class="task">
+      <div class="task__head"><h3 class="h-item">C / [Replace an image]</h3><p class="label">[Media → Library]  /  ~2 min</p></div>
+      <ol class="steps">
+        <li><span class="n">01</span><div class="t"><p class="body">Upload the new image and fill in its <span class="path">[Alt text]</span>: one plain sentence describing it.</p></div></li>
+        <li><span class="n">02</span><div class="t"><p class="body">Open the page or product that uses the old image and choose the new one. Save.</p></div></li>
+      </ol>
+    </article>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 04—06</span></div>
+  </footer>
+</section>
+
+<!-- ================= PAGE 05 — Good practice & troubleshooting ================= -->
+<section class="page" aria-label="Page 5">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta"><p>Design &amp; Development<br>Bandung, Indonesia</p><img class="stamp" src="../../public/brand/stamp.svg" alt=""></div>
+      </div>
+      <hr class="rule">
+      <div class="running"><span>GUIDE-[YYYY]-001</span><span>[Brand] / [App / Website name]</span></div>
+    </header>
+
+    <div class="sec"><span class="sec__n">05</span><h2 class="h-sec">Good practice.</h2></div>
+    <div class="dodont">
+      <div class="do">
+        <p class="label">Do</p>
+        <ul>
+          <li>Compress photos before upload. Aim for under 500 KB each.</li>
+          <li>Preview every change before you publish it.</li>
+          <li>Write alt text for every image. It helps search and screen readers.</li>
+          <li>Keep page titles under 60 characters.</li>
+        </ul>
+      </div>
+      <div class="dont">
+        <p class="label">Avoid</p>
+        <ul>
+          <li>Installing or updating plugins without checking with me first.</li>
+          <li>Changing a page's URL. Old links and Google results will break.</li>
+          <li>Pasting text straight from Word. Use paste as plain text.</li>
+          <li>Deleting a page instead of moving it to draft.</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr class="rule">
+
+    <div class="sec"><span class="sec__n">06</span><h2 class="h-sec">Troubleshooting.</h2></div>
+    <table class="table">
+      <thead><tr><th>If this happens</th><th>Try this</th></tr></thead>
+      <tbody>
+        <tr><td><p class="h-item">I can't sign in</p></td><td><p class="body">Use <span class="path">[Lost your password?]</span> on the sign-in page. After five failed tries, wait 15 minutes.</p></td></tr>
+        <tr><td><p class="h-item">My change isn't showing</p></td><td><p class="body">Check that you pressed <span class="path">[Update]</span>, not only <span class="path">[Preview]</span>. Then refresh with <span class="kbd">Ctrl</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span> (<span class="kbd">⌘</span> + <span class="kbd">Shift</span> + <span class="kbd">R</span> on Mac).</p></td></tr>
+        <tr><td><p class="h-item">An image looks blurry</p></td><td><p class="body">Upload a larger file, at least twice the size it appears on screen.</p></td></tr>
+        <tr><td><p class="h-item">The layout looks broken</p></td><td><p class="body">Undo your last change with <span class="path">[Revisions]</span>, then email me a screenshot and the page address.</p></td></tr>
+        <tr><td><p class="h-item">[Your own issue]</p></td><td><p class="body">[What to check first, then who to contact.]</p></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 05—06</span></div>
+  </footer>
+</section>
+
+<!-- ================= PAGE 06 — Support & handover ================= -->
+<section class="page" aria-label="Page 6">
+  <div class="page__body">
+    <header class="mast">
+      <div class="mast__top">
+        <div class="tab">JAMALAKBARA.</div>
+        <div class="mast__meta"><p>Design &amp; Development<br>Bandung, Indonesia</p><img class="stamp" src="../../public/brand/stamp.svg" alt=""></div>
+      </div>
+      <hr class="rule">
+      <div class="running"><span>GUIDE-[YYYY]-001</span><span>[Brand] / [App / Website name]</span></div>
+    </header>
+
+    <div class="sec"><span class="sec__n">07</span><h2 class="h-sec">Support &amp; maintenance.</h2></div>
+    <div class="band">
+      <div><p class="label">Contact</p><p class="lead"><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></p></div>
+      <div><p class="label">Reply within</p><p class="h-fact">[1 working day]</p></div>
+      <div><p class="label">Free maintenance until</p><p class="h-fact accent">[DD MMM YYYY]</p></div>
+    </div>
+    <ul class="bullets">
+      <li>Included: bug fixes within the agreed scope, security and plugin updates, and small text or image changes.</li>
+      <li>Not included: new pages, features or integrations. These are quoted separately.</li>
+      <li>When you report a problem, send the page address, a screenshot and what you did just before it happened.</li>
+    </ul>
+
+    <hr class="rule">
+
+    <h2 class="h-sub">Handover.</h2>
+    <p class="lead">By signing below, both parties confirm that access, training and this guide have been handed over.</p>
+    <div class="sign">
+      <div class="party">
+        <p class="label">Service provider</p>
+        <p class="h-name">Jamal Akbar Alam</p>
+        <p class="small muted">UI/UX Designer &amp; Web Developer</p>
+        <div class="sign__line"></div>
+        <p class="small">Jamal Akbar Alam / Date</p>
+      </div>
+      <div class="party">
+        <p class="label">Client</p>
+        <p class="h-name">[Client] / [Brand]</p>
+        <p class="small muted">[client-domain.com]</p>
+        <div class="sign__line"></div>
+        <p class="small">[Client name] / Date</p>
+      </div>
+    </div>
+
+    <div class="note">
+      <p class="label">Next steps</p>
+      <p class="h-sub">Handed over. Ready to run.</p>
+      <p class="body">Keep this guide with your login details. When the [App / Website name] changes, ask for an updated version.</p>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <div class="foot__l"><p class="h-fact">Built to be used.</p><a href="mailto:hello-im@jamalakbara.com">hello-im@jamalakbara.com</a></div>
+    <div class="foot__r"><span>jamalakbara.com</span><span>Manual guide / 06—06</span></div>
+  </footer>
+</section>
+
+</main>
+</body>
+</html>

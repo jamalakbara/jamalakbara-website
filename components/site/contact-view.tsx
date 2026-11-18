@@ -8,7 +8,6 @@ import { TitlePanel } from "@/components/site/title-panel";
 import { Button } from "@/components/site/button";
 import { ContactNote } from "@/components/site/contact-note";
 import { ContactStrip } from "@/components/site/contact-strip";
-import type { StickerSpot } from "@/components/site/sticker";
 import { Check, MapPin, Send } from "@/components/site/icons";
 import { sentenceLines } from "@/lib/site-format";
 
@@ -19,11 +18,6 @@ import { sentenceLines } from "@/lib/site-format";
 type Errors = { name?: string; email?: string; message?: string };
 
 
-const STICKERS: StickerSpot[] = [
-  { name: "make-it-useful", x: 470, y: 74, w: 126, h: 119.283, r: 6 },
-  { name: "debug-duck", x: 700, y: 150, w: 76.633, h: 86.4, r: -10 },
-  { name: "pen-tool", x: 850, y: 44, w: 68.697, h: 81, r: -14 },
-];
 
 export function ContactView({ preview = false, previewField }: { preview?: boolean; previewField?: string }) {
   const { contact, path, ui } = useSite();
@@ -131,8 +125,7 @@ export function ContactView({ preview = false, previewField }: { preview?: boole
         }
         heading={<h1 className="f-display f-display--caps">{sentenceLines(contact.heading)}</h1>}
         intro={<p className="f-body">{copy.intro}</p>}
-        stickers={STICKERS}
-        mobileStickers={[{ name: "debug-duck", x: 270, y: 74, w: 59.603, h: 67.2, r: -10 }]}
+        stickers={["make-it-useful"]}
       />
 
       <section className="f-folder" aria-label={copy.tab}>

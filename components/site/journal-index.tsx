@@ -2,7 +2,6 @@ import Link from "next/link";
 import { TitlePanel } from "@/components/site/title-panel";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { EmptyState } from "@/components/site/empty-state";
-import type { StickerSpot } from "@/components/site/sticker";
 import { getSite, type Site } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
@@ -15,11 +14,6 @@ import { ArrowRight, ArrowUp } from "@/components/site/icons";
 
 export type IndexPost = { slug: string; title: string; description: string; date: string };
 
-const STICKERS: StickerSpot[] = [
-  { name: "dev-mode", x: 470, y: 60, w: 96, h: 97.974, r: -9 },
-  { name: "less-noise-more-craft", x: 704, y: 58, w: 160, h: 128.436, r: 7 },
-  { name: "kopi-susu", x: 940, y: 82, w: 56, h: 113.275, r: -5 },
-];
 
 export function JournalIndex({
   posts,
@@ -46,7 +40,7 @@ export function JournalIndex({
         }
         heading={<h1 className="f-display f-display--caps">{sentenceLines(site.journal.heading)}</h1>}
         intro={<p className="f-body f-pre f-journal-intro">{copy.intro}</p>}
-        stickers={STICKERS}
+        stickers={["dev-mode", "less-noise-more-craft"]}
       />
 
       <section className="f-folder" aria-label={copy.tab}>

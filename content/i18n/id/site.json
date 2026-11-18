@@ -93,6 +93,7 @@
       "locationCaps": "BANDUNG, INDONESIA",
       "opensNewTab": "(buka di tab baru)",
       "backToTop": "Kembali ke atas",
+      "sectionCount": "{n} bagian",
       "backHome": "Kembali ke Home",
       "seeTheWork": "Lihat project"
     },
@@ -304,6 +305,7 @@
     },
     "services": {
       "tab": "SERVICES",
+      "back": "Semua layanan",
       "toc": "DI HALAMAN INI",
       "faq": "Pertanyaan umum",
       "more": "Services",

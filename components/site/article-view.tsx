@@ -1,75 +1,18 @@
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { Stamp } from "@/components/site/stamp";
-import { Sticker, cqw, type StickerSpot } from "@/components/site/sticker";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { RelatedPosts, type RelatedItem } from "@/components/site/related-posts";
 import { getSite, fill, type Ui } from "@/lib/i18n";
 import type { Lang } from "@/lib/i18n/config";
 import { contentHref, localePath } from "@/lib/i18n/routes";
 import { pad2 } from "@/lib/site-format";
-import { ArrowDown, ArrowLeft, ArrowUp } from "@/components/site/icons";
+import { ArrowLeft, ArrowUp } from "@/components/site/icons";
+import { TocRail } from "@/components/site/toc-rail";
 
 // Article — canvas 16 (m54Zq / c73NeH). Server component shared by
 // journal posts in both languages; metadata + JSON-LD stay in the page.
 // "In this entry" anchors come from the post's own `##` headings.
-
-// Margin stickers in relay groups: each group pins near the top of the viewport
-// while its lane is in view, then the next group pushes it off. The field sits in
-// the TOC column below the "In this entry" list, so a long list pushes it down
-// instead of running under it.
-const MARGIN_BASE = 1416;
-const MARGIN: StickerSpot[][] = [
-  [
-    { name: "dev-laptop", x: 86, y: 464, w: 156, h: 141.625, r: -8 },
-    { name: "dev-mode", x: 250, y: 408, w: 112, h: 114.303, r: 11 },
-  ],
-  [{ name: "debug-duck", x: 188, y: 720, w: 128, h: 144.314, r: 6 }],
-  [
-    { name: "build-with-care", x: 106, y: 1120, w: 152, h: 125.059, r: 9 },
-    { name: "pen-tool", x: 288, y: 1254, w: 88, h: 103.76, r: -14 },
-  ],
-  [
-    { name: "make-it-useful", x: 116, y: 1700, w: 144, h: 136.323, r: -7 },
-    { name: "kopi-susu", x: 286, y: 1880, w: 64, h: 129.457, r: 8 },
-  ],
-];
-const groupTop = (g: StickerSpot[]) => Math.min(...g.map((s) => s.y));
-// Canvas y of the first group lands this far below the list.
-const MARGIN_SHIFT = groupTop(MARGIN[0]) - 32;
-
-function MarginStickers() {
-  const u = (v: number) => cqw(v, MARGIN_BASE);
-  let z = 2;
-  return (
-    <div className="f-art-margin" aria-hidden="true">
-      <div className="f-art-margin__field" style={{ containerType: "inline-size" }}>
-        {MARGIN.map((g, i) => {
-          const top = groupTop(g);
-          const next = MARGIN[i + 1];
-          const bottom = Math.max(...g.map((s) => s.y + s.h));
-          return (
-            <div
-              key={i}
-              className="f-art-lane"
-              style={
-                next
-                  ? { top: u(top - MARGIN_SHIFT), height: u(groupTop(next) - top) }
-                  : { top: u(top - MARGIN_SHIFT), bottom: 0 }
-              }
-            >
-              <div className="f-art-pin" style={{ height: u(bottom - top) }}>
-                {g.map((s) => (
-                  <Sticker key={s.name} {...s} y={s.y - top} z={z++} base={MARGIN_BASE} />
-                ))}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 const slugify = (s: string) =>
   s
@@ -160,18 +103,11 @@ export function ArticleView({
         </div>
         <div className="f-folder__body f-folder__body--flush f-art-surface">
           <nav className="f-art-toc" aria-label={copy.toc}>
-            {sections.length > 0 && (
-              <div className="f-art-toc__list">
-                <span className="f-tabtext">{copy.toc}</span>
-                {sections.map((s) => (
-                  <a key={s.id} href={`#${s.id}`} className="f-act">
-                    {s.label}
-                    <ArrowDown size={16} />
-                  </a>
-                ))}
-              </div>
-            )}
-            <MarginStickers />
+            <TocRail
+              label={copy.toc}
+              count={fill(ui.common.sectionCount, { n: sections.length })}
+              items={sections}
+            />
           </nav>
           <div className="f-art-col">
             <div className="f-prose">
