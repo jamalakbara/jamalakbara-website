@@ -13,7 +13,12 @@ export function localePath(lang: Lang, path: string): string {
   return path.startsWith("/journal") ? path.replace("/journal", "/jurnal") : path;
 }
 
-export const absoluteUrl = (path: string) => (path === "/" ? SITE_URL : `${SITE_URL}${path}`);
+/**
+ * Absolute URL for a public path. Home keeps its trailing slash
+ * ("https://jamalakbara.com/") so canonical, hreflang and sitemap all use the
+ * exact URL crawlers request; a bare origin made /id's hreflang look one-way.
+ */
+export const absoluteUrl = (path: string) => `${SITE_URL}${path}`;
 
 /** The language a public URL belongs to. */
 export const pathLang = (pathname: string): Lang =>

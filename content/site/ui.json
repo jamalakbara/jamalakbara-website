@@ -163,7 +163,31 @@
     "greeting": "Hi Akbar, I'm {name}.",
     "replyTo": "Reply to:",
     "stripHeading": "Curious what I’ve built?",
-    "stripLabel": "See the work"
+    "stripLabel": "See the work",
+    "next": {
+      "tab": "WHAT HAPPENS NEXT",
+      "heading": "After you send a message",
+      "steps": [
+        {
+          "title": "I reply within a day or two",
+          "body": "I read every message myself. If something in your brief is unclear, I ask a few questions instead of guessing."
+        },
+        {
+          "title": "We talk about the project",
+          "body": "A short call or chat about your goal, your audience and your deadline. Clients outside Bandung work with me online."
+        },
+        {
+          "title": "You get a scope and a price",
+          "body": "What is included, the timeline and the price are agreed in writing before any work starts. Payment is 50% upfront and 50% before launch."
+        },
+        {
+          "title": "Then design and build",
+          "body": "You review the design first, then see working updates as I build. Website projects include two rounds of revisions and a month of free support after launch."
+        }
+      ],
+      "noteHeading": "What helps in a brief",
+      "note": "What you are building and who it is for, a rough deadline, and links to sites you like. A budget range helps too, but it is fine if you do not have one yet."
+    }
   },
   "note": {
     "label": "A NOTE TO AKBAR",
@@ -187,7 +211,31 @@
     "countLabel": "Services",
     "detail": "See details",
     "contactHeading": "Have a project in mind?",
-    "contactCta": "Tell me about it"
+    "contactCta": "Tell me about it",
+    "process": {
+      "tab": "HOW IT WORKS",
+      "heading": "How every project runs",
+      "steps": [
+        {
+          "title": "We talk first",
+          "body": "We start with your goal, your users and your deadline. If a smaller fix would do the job, I will tell you instead of selling you a bigger project."
+        },
+        {
+          "title": "Scope and price up front",
+          "body": "I write down what is included and price by project, not by the hour, so you know the number before we start. Payment is 50% upfront and 50% before launch."
+        },
+        {
+          "title": "Design and build in one place",
+          "body": "I design the interface and build it myself, so nothing gets lost between a designer and a developer. You review at each stage."
+        },
+        {
+          "title": "Launch and hand over",
+          "body": "I test on real phones and laptops, launch, and set things up so your team can edit content without a developer. You own the code."
+        }
+      ],
+      "noteHeading": "Where I work",
+      "note": "I work from Bandung, Indonesia (UTC+7). Clients across Indonesia and abroad work with me online, with written updates so the time difference rarely slows anything down."
+    }
   },
   "privacy": {
     "label": "LEGAL / PRIVACY",

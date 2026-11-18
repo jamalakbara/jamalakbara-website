@@ -8,6 +8,7 @@ import { TitlePanel } from "@/components/site/title-panel";
 import { Button } from "@/components/site/button";
 import { ContactNote } from "@/components/site/contact-note";
 import { ContactStrip } from "@/components/site/contact-strip";
+import { StepsFolder } from "@/components/site/steps-folder";
 import { Check, MapPin, Send } from "@/components/site/icons";
 import { sentenceLines } from "@/lib/site-format";
 
@@ -189,6 +190,8 @@ export function ContactView({ preview = false, previewField }: { preview?: boole
           <ContactNote trackEmail />
         </div>
       </section>
+
+      <StepsFolder copy={copy.next} n="02" id="next-steps" />
 
       <ContactStrip heading={copy.stripHeading} label={copy.stripLabel} href={path("/work")} />
     </>

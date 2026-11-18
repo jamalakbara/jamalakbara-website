@@ -1381,6 +1381,20 @@ textarea.f-input { resize: none; }
   .f-services-intro h1 { font-size: 40px; }
   .f-services-index { padding-block: 20px 8px; }
 }
+/* Numbered "how it works" folder (/contact, /services) */
+.f-steps { display: grid; gap: 20px; padding: 32px var(--f-inset) 40px; }
+.f-steps__list { padding: 0; margin: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 48px; }
+.f-steps__item { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 12px; padding: 16px 0; border-top: 1px solid var(--f-line); }
+.f-steps__item h3 { font-weight: 400; margin: 0 0 6px; }
+.f-steps__item p { margin: 0; }
+.f-steps__n { color: var(--f-accent); padding-top: 4px; }
+.f-steps__note { display: grid; gap: 6px; max-width: 720px; padding: 16px 20px; background: var(--f-note); border: 1px solid var(--f-line); border-radius: 8px; }
+.f-steps__note h3 { margin: 0; text-transform: uppercase; color: var(--f-muted); }
+.f-steps__note p { margin: 0; }
+@media (max-width: 767px) {
+  .f-steps { padding-block: 24px 28px; }
+  .f-steps__list { grid-template-columns: minmax(0, 1fr); }
+}
 .f-related { display: flex; flex-direction: column; padding-top: 32px; border-top: 1px solid var(--f-ink); }
 .f-related .f-case-h { padding-bottom: 8px; }
 .f-related__row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--f-line); transition: color 160ms ease-out; }

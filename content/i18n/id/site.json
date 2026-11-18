@@ -47,7 +47,7 @@
       "heading": "Developer dan desainer yang suka bikin sesuatu.",
       "footnote": "Lulusan Teknik Informatika, Telkom University. Sekarang kerja mandiri dan terbuka buat kolaborasi baru.",
       "seo": {
-        "title": "Kenalan, Developer dan Desainer di Bandung",
+        "title": "Kenalan, Developer dan Desainer Bandung",
         "description": "Kenalan sama Jamal Akbar Alam, developer dan desainer di Bandung yang bikin website dan produk digital yang rapi, cepat, dan gampang dipake."
       }
     },
@@ -294,7 +294,31 @@
       "greeting": "Halo Akbar, aku {name}.",
       "replyTo": "Balas ke:",
       "stripHeading": "Penasaran sama yang udah aku bikin?",
-      "stripLabel": "Lihat project"
+      "stripLabel": "Lihat project",
+      "next": {
+        "tab": "SETELAH KIRIM PESAN",
+        "heading": "Habis kalian kirim pesan",
+        "steps": [
+          {
+            "title": "Aku balas dalam sehari atau dua hari",
+            "body": "Semua pesan aku baca sendiri. Kalau ada yang belum jelas di brief kalian, aku tanya dulu, bukan nebak."
+          },
+          {
+            "title": "Kita ngobrol soal project-nya",
+            "body": "Ngobrol singkat lewat call atau chat soal tujuan, target pengunjung, dan deadline kalian. Klien dari luar Bandung juga bisa kerja bareng secara online."
+          },
+          {
+            "title": "Kalian dapet estimasi yang jelas",
+            "body": "Cakupan kerja, timeline, dan biaya disepakatin di awal sebelum mulai. Pembayarannya 50% DP di awal dan 50% sisanya sebelum live."
+          },
+          {
+            "title": "Lanjut desain dan development",
+            "body": "Kalian review desainnya dulu, baru masuk development. Website udah termasuk 2 kali revisi dan maintenance gratis sebulan setelah live."
+          }
+        ],
+        "noteHeading": "Biar brief-nya gampang dipahami",
+        "note": "Ceritain project-nya apa dan buat siapa, kira-kira kapan mau live, dan link website yang kalian suka. Kisaran budget juga ngebantu, tapi kalau belum ada juga nggak apa-apa."
+      }
     },
     "note": {
       "label": "CATATAN BUAT AKBAR",
@@ -318,7 +342,31 @@
       "countLabel": "Layanan",
       "detail": "Lihat detail",
       "contactHeading": "Udah ada ide project?",
-      "contactCta": "Ceritain project kalian"
+      "contactCta": "Ceritain project kalian",
+      "process": {
+        "tab": "CARA KERJA",
+        "heading": "Gimana tiap project jalan",
+        "steps": [
+          {
+            "title": "Ngobrol dulu",
+            "body": "Kita mulai dari tujuan bisnis, siapa pengunjungnya, dan deadline kalian. Kalau ternyata cukup diperbaiki sedikit, aku bilang jujur."
+          },
+          {
+            "title": "Estimasi di awal",
+            "body": "Cakupan kerja dan biaya aku tulis sebelum mulai, jadi kalian tahu angkanya dari awal. Pembayarannya 50% DP dan 50% sebelum live."
+          },
+          {
+            "title": "Desain dan development satu orang",
+            "body": "Desain dan kodenya aku kerjain sendiri, jadi nggak ada yang hilang di antara desainer dan developer. Kalian review di tiap tahap."
+          },
+          {
+            "title": "Live dan serah terima",
+            "body": "Aku tes di HP dan laptop, terus live. Websitenya disiapin biar gampang kalian urus sendiri, plus maintenance gratis sebulan setelah live."
+          }
+        ],
+        "noteHeading": "Kerja dari mana",
+        "note": "Aku kerja dari Bandung, tapi klien dari seluruh Indonesia bisa kerja bareng secara online. Update-nya tertulis, jadi kalian bisa cek progres kapan aja."
+      }
     },
     "privacy": {
       "label": "LEGAL / PRIVASI",
