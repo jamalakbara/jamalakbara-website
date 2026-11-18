@@ -91,7 +91,9 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
     },
     manifest: "/manifest.json",
-    alternates,
+    // No `alternates` here: Next.js rewrites "https://jamalakbara.com/" to the
+    // bare origin, so home renders its own canonical + hreflang links
+    // (app/[lang]/page.tsx). Every other route sets its own alternates.
     category: "technology",
     classification: "Portfolio",
     referrer: "origin-when-cross-origin",

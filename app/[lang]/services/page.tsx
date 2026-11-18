@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Folder } from "@/components/site/folder";
 import { ContactStrip } from "@/components/site/contact-strip";
+import { StepsFolder } from "@/components/site/steps-folder";
 import { ArrowRight } from "@/components/site/icons";
 import { StickerCluster } from "@/components/site/sticker";
 import { getSite } from "@/lib/i18n";
@@ -79,6 +80,7 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
           })}
         </ol>
       </Folder>
+      <StepsFolder copy={t.process} n="02" id="how-it-works" />
       <ContactStrip heading={t.contactHeading} label={t.contactCta} />
     </div>
   );

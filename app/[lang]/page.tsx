@@ -3,6 +3,7 @@ import { StructuredData } from "@/components/structured-data";
 import type { Lang } from "@/lib/i18n/config";
 import { localePath } from "@/lib/i18n/routes";
 import { requireLive } from "@/lib/i18n/targets";
+import { alternatesFor } from "@/lib/seo";
 import { formatDate, getPosts } from "@/lib/posts";
 
 type Props = { params: Promise<{ lang: string }> };
@@ -15,8 +16,17 @@ export default async function HomePage({ params }: Props) {
     .slice(0, 3)
     .map((p) => ({ href: localePath(lang, `/journal/${p.slug}`), title: p.title, date: formatDate(lang, p.date) }));
 
+  // Canonical + hreflang written by hand (React hoists them into <head>):
+  // Next's metadata strips the home URL's trailing slash, which made the
+  // en <-> id hreflang pair look one-way to crawlers that request "/".
+  const alternates = alternatesFor(lang, "/");
+
   return (
     <>
+      <link rel="canonical" href={alternates.canonical} />
+      {Object.entries(alternates.languages ?? {}).map(([hrefLang, href]) => (
+        <link key={hrefLang} rel="alternate" hrefLang={hrefLang} href={href} />
+      ))}
       <StructuredData lang={lang} type="WebSite" />
       <StructuredData lang={lang} type="Person" />
       <HomeView latest={latest} />

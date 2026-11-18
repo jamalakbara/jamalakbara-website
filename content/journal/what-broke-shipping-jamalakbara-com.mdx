@@ -1,0 +1,60 @@
+---
+title: "Everything that broke while I shipped jamalakbara.com"
+description: "A developer's honest log of the build failures, routing bugs and layout problems hit while shipping a bilingual Next.js 16 portfolio, and how each was fixed."
+date: "2026-11-17"
+tags: ["build-log", "nextjs", "debugging", "lessons"]
+draft: false
+related: ["working-folder-revamp", "building-jamalakbara-com", "typescript-content-modules-instead-of-cms"]
+---
+
+Build logs usually read like a straight line: decision, implementation, result. Mine weren't. Here is what actually broke while I built and shipped this site on Next.js 16, bilingual in English and Bahasa Indonesia, with its own admin, and what each failure taught me.
+
+## A pivot first: the CMS I said I didn't need
+
+In May I wrote that content in TypeScript modules suited a single-author portfolio, and that a CMS mattered "exactly zero". That's no longer true of this site. Content now lives as JSON and MDX files in the repository, and I edit it through a custom admin at `/admin`. Saves commit to the repo through the GitHub API and a rebuild publishes them. There's no database.
+
+I chose that over Keystatic, Payload, Sanity and a hosted database because git already was the database, and I didn't want a second system to keep alive. That decision created a few of the problems below.
+
+## 1. Fonts that failed the build
+
+I'd listed two Google fonts that weren't doing anything. Next fetches those at build time, and when the fetch failed, so did the Vercel build. Nothing in the app was broken. The deploy just wouldn't finish.
+
+The fix was to delete them. Every typeface is now self-hosted through `next/font/local`, and the build no longer depends on a third party being reachable. Lesson: an unused dependency is still a dependency.
+
+## 2. Bahasa pages that vanished from production
+
+I'd set up the service detail pages to build from a list of slugs, with `dynamicParams = false`. The English list was empty, and the function returned only that. Every Bahasa detail page silently disappeared from the production build.
+
+Locale and slug have to be returned together as one pair. When a route lives under a language segment, an empty list for one language can quietly remove the other.
+
+## 3. A client chunk pulling in the file system
+
+The post editor imported a constant from a server-side admin module. That module imports the content store, and the content store imports `node:fs`. The client bundle then tried to include a Node module, and the build broke in a confusing way.
+
+The rule I now follow: client components don't import values from server admin modules. Shared constants go in a small file with no server dependencies.
+
+## 4. The bottom of the page that never appeared
+
+Content revealed itself as you scrolled, using an intersection observer with a small inset. On tall screens, the last ten percent of the page never entered that inset, so anything there stayed invisible.
+
+A second observer with no margin, covering the tail of the page, fixed it. Scroll-driven reveals deserve the same testing as any feature, on the screens you don't use every day.
+
+## 5. Links to pages that didn't exist yet
+
+While the Bahasa site was unpublished, individual Bahasa posts were already public. Service pages in that language returned 404. Posts that linked to those pages sent readers to a dead end.
+
+Publishing isn't one switch when content is spread across routes. Now I check what links to what before something goes live.
+
+## 6. An admin path leaking into the URL
+
+I serve the CMS from its own subdomain, with the `/admin` prefix hidden. Login redirects and some hardcoded links used the internal path, so `/admin/...` showed up in the address bar and sometimes on pages it shouldn't. It was fixed with clean-path redirects in the proxy, and the API routes were left exempt.
+
+## What still doesn't work
+
+`npm run lint` crashes with a circular-structure error from my ESLint 9 setup. I haven't fixed it. The production build type-checks everything and renders every page, so that's my quality gate for now. I'd rather say that than pretend the project is spotless.
+
+## What I took from it
+
+Most of these weren't clever bugs. They were gaps between pieces that worked on their own: a build and a font host, a route and a language, a client and a server. That's also where client projects go wrong, which is why I check the production build and the links, not only the page I just changed.
+
+For the design side of the same project, read [rebuilding jamalakbara.com as a working folder](/journal/working-folder-revamp). If you'd like this kind of care on your own site, [get in touch](/contact).
