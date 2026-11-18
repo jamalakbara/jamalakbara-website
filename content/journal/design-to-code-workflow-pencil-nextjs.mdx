@@ -1,0 +1,63 @@
+---
+title: "My design-to-code workflow: Pencil canvas to Next.js, checked with pixel diffs"
+description: "How I ship a design 1:1 in Next.js: a Pencil canvas as the source of truth, exported values, line-height quirks and a pixelmatch review loop."
+date: "2026-11-18"
+tags: ["workflow", "nextjs", "design-systems", "tooling"]
+draft: false
+related: ["working-folder-revamp", "how-i-use-ai", "what-broke-shipping-jamalakbara-com"]
+---
+
+Most "pixel-perfect" claims aren't tested. Someone eyeballs a screenshot and says it looks right. I wanted something I could measure, so I built the current site against a single design canvas and diffed every page against it. This is the workflow, in the order I'd repeat it. It's the process behind [the revamp](/journal/working-folder-revamp), without the story.
+
+## 1. One canvas is the source of truth
+
+Every page exists as a frame in one Pencil file, at 1440 wide for desktop and 390 wide for mobile. Not Figma plus a PDF plus a Notion page, one file. If it isn't in the canvas, it isn't designed yet. If the site disagrees with the canvas, the site is wrong until I change the canvas on purpose.
+
+## 2. Take real values, don't estimate them
+
+I export frames as HTML and CSS and read the numbers: padding, line height, radii, positions. Estimating from a screenshot is how a 16px gap becomes 18px, and it adds up.
+
+Tokens come across once and get named for the system, not the tool:
+
+```css
+--f-paper: #F8F6F0;
+--f-ink: #201E19;
+--f-accent: #2445DB;
+```
+
+## 3. Know where the canvas lies
+
+Two quirks cost me hours before I wrote them down:
+
+- **Line height.** The canvas sets each line at font size times a ratio, then adds the typeface's built-in line gap on top. In CSS, that means line-height equals the canvas ratio plus 0.09 for these faces. A 1.4 ratio becomes 1.49.
+- **Hidden padding.** Canvas text boxes carry 1px above and below. I reproduce that with `padding-block: 1px` on the type roles so everything lines up.
+
+And one limitation: the canvas couldn't load two of my typefaces, so text in those faces is rendered as image artwork there. That's fine for a mockup. It's never allowed in production. The site uses live text.
+
+## 4. The review loop
+
+For each route:
+
+1. Export the frame as a 1x PNG.
+2. Screenshot the real page in headless Chrome at 1440 and at 390. My page scrolls inside a container, so I set the viewport height to that container's scroll height.
+3. Compare the two with `pixelmatch`, threshold 0.15, ignoring antialiasing.
+4. Look at the diff image, not just the percentage.
+5. Check for horizontal overflow at 320, 390, 768, 1024 and 1440.
+
+## 5. Read the leftovers
+
+A percentage on its own means little. At desktop width: contact 1.7%, journal 1.7%, the 404 page 0.4%, home 4.0%, an article 4.2%. Mobile ran a little higher.
+
+What matters is why each remaining pixel differs. In my case it's mostly three things: real copy where the canvas used placeholder text, real data counts (the canvas had three projects and the site has seventeen), and canvas render artifacts. Each is an expected difference.
+
+A diff of zero would be a warning. It would mean I'd hardcoded the mockup instead of connecting the design to real content.
+
+## 6. What I leave to a model, and what I don't
+
+I used a coding agent for the repetitive part: applying one large spec consistently across nine routes, two widths and every state. That's tedious for a person and well suited to a tool. I still reviewed every change, and I rejected a few that were right in code but wrong on a real phone. How I split that work is in [how I actually use AI](/journal/how-i-use-ai).
+
+## What this buys a client
+
+You get a result you can compare against what was approved, with numbers, rather than my word that it looks close. If you're paying for a design, you should be able to check that you got it.
+
+If you want a site built this way, from design to deploy by one person, [start a conversation](/contact).

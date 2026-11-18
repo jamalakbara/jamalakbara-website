@@ -1,0 +1,45 @@
+---
+title: "Kenapa website jadi bisa beda dari desainnya, dan cara aku ngejaganya"
+description: "Desain bagus di mockup tapi hasil websitenya beda? Ini kenapa itu sering terjadi, dan cara aku ngejaga hasilnya sama dengan yang kalian setujuin."
+date: "2026-11-18"
+tags: ["desain", "cara-kerja", "web-development", "kualitas"]
+draft: false
+related: ["desainer-sekaligus-developer", "bedanya-ui-dan-ux", "kapan-perlu-redesign-website"]
+---
+
+Kalian udah setuju sama mockup-nya. Pas websitenya jadi, kok rasanya beda ya? Jaraknya nggak sama, hurufnya lebih kecil, dan di HP ada bagian yang bisa digeser ke samping. Ini sering banget kejadian, dan biasanya bukan karena developer-nya males. Di sini aku jelasin kenapa bisa gitu, dan gimana aku ngejaga supaya hasil akhirnya sama kayak desain yang kalian setujuin.
+
+## Kenapa bisa beda
+
+Mockup itu gambar diam. Di gambar nggak ada layar yang lebih sempit, nggak ada koneksi lambat, dan nggak ada teks yang ternyata lebih panjang dari contoh. Pas desain dipindah jadi website, tiap hal itu minta satu keputusan kecil. Kalau yang mutusin cuma nebak, hasilnya geser dikit. Kalau nebaknya kebanyakan, jadinya beda.
+
+Yang paling sering bikin tampilan berubah:
+
+- Jarak dan ukuran huruf yang dikira-kira dari gambar, bukan diambil dari angka aslinya.
+- Teks asli yang lebih panjang atau lebih pendek dari teks contoh.
+- Layar HP yang nggak pernah dibuat.
+- Animasi yang bagus di prototype tapi patah-patah di HP biasa.
+
+## Cara aku ngejaganya
+
+Pertama, aku jadiin satu file desain sebagai patokan. Semua halaman ada di situ, dalam dua ukuran: lebar 1440 buat desktop dan 390 buat HP. Kalau websitenya beda dari desain, berarti websitenya yang salah, kecuali kita sepakat ngubah desainnya.
+
+Jarak, ukuran huruf, dan sudut aku ambil langsung dari desain, bukan dikira-kira dari screenshot.
+
+Terus, aku bandingin pakai tools, bukan pakai perasaan. Tiap halaman aku screenshot di dua ukuran tadi, lalu dibandingin sama desainnya pakai alat yang nunjukin persis bagian mana yang beda. Di website ini, halaman kontak dan jurnal bedanya cuma sekitar 1,7%, halaman 404 cuma 0,4%, dan beranda sekitar 4%.
+
+Sisa bedanya harus ada alasannya. Misalnya teks asli yang beda dari teks contoh, atau proyek yang jumlahnya ternyata lebih banyak dari yang digambar. Kalau hasilnya persis nol, malah curiga: berarti aku cuma nyalin mockup, bukan nyambungin desain ke isi yang beneran.
+
+Terakhir, aku cek di tiap ukuran layar. Aku pastiin nggak ada halaman yang bisa digeser ke samping di lebar 320, 390, 768, 1024, dan 1440. Tombol dan link juga aku bikin cukup gede buat dipencet jempol, minimal 48 pixel.
+
+## Yang bisa kalian minta dari developer mana pun
+
+- Minta perbandingan berdampingan antara desain yang disetujui dan hasilnya, di HP dan di desktop.
+- Tanya apa yang beda dan kenapa. Kalau jawabannya spesifik, itu tanda bagus.
+- Coba websitenya di HP kalian sendiri, jangan cuma di komputer si developer.
+
+## Kenapa lebih gampang kalau satu orang
+
+Kalau desainer dan developer-nya orang yang sama, nggak ada serah-terima di tengah yang bisa bikin detail ilang. Ada untungnya, ada juga ruginya, dan dua-duanya aku jelasin di [kenapa aku ngerjain desain dan kodenya sendiri](/journal/desainer-sekaligus-developer). Kalau yang kalian bingungin sebenernya bedanya tampilan dan cara kerja, baca [bedanya UI dan UX](/journal/bedanya-ui-dan-ux).
+
+Kalau kalian mau website yang hasilnya bisa dicek persis sama desainnya, [ceritain aja kebutuhan kalian](/contact).

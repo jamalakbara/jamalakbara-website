@@ -1,0 +1,57 @@
+---
+title: "Website aku sendiri juga pernah error: 6 masalah waktu bikin website ini"
+description: "Enam masalah nyata yang muncul waktu aku bikin website sendiri, dari build gagal sampai halaman hilang, dan apa yang aku cek biar gak kejadian di proyek kalian."
+date: "2026-11-17"
+tags: ["cara-kerja", "web-development", "kualitas", "behind-the-scenes"]
+draft: false
+related: ["cara-kerja-bikin-website-dari-awal-sampai-live", "revamp-working-folder", "jasa-maintenance-website"]
+---
+
+Developer jarang cerita bagian yang error. Padahal buat kalian yang mau hire developer, itu justru info paling berguna. Semua proyek pasti ada masalahnya, jadi yang perlu kalian lihat itu cara ngadepinnya. Ini enam hal yang beneran kejadian waktu aku bikin website ini, tanpa istilah teknis yang ribet.
+
+## 1. Website nggak bisa dipublikasi gara-gara font
+
+Aku sempat masang dua font dari Google yang akhirnya nggak kepake. Pas website dibangun, font itu diambil dari server luar. Waktu pengambilannya gagal, seluruh proses publikasi ikut gagal. Websitenya sendiri nggak rusak, cuma nggak bisa dipublikasi.
+
+Font yang nggak kepake aku buang, dan sekarang semua font disimpan di dalam website sendiri. Pelajarannya: hal kecil yang nggak dipakai pun bisa jadi titik gagal.
+
+## 2. Halaman bahasa Indonesia ilang
+
+Halaman detail layanan versi bahasa Indonesia sempat nggak muncul sama sekali di versi live. Penyebabnya, daftar halaman yang dibuat cuma nyatet versi bahasa Inggris, dan bagian yang kosong itu bikin versi lainnya ikut ilang.
+
+Pelajarannya: kalau website punya dua bahasa, cek dua-duanya di versi yang bener-bener live, jangan cuma di komputer sendiri.
+
+## 3. Link ke halaman yang belum ada
+
+Sebelum versi bahasa Indonesia dirilis, tulisan-tulisannya udah bisa dibuka, tapi halaman layanannya masih error 404. Jadi tulisan yang nge-link ke halaman itu malah nganterin pembaca ke jalan buntu.
+
+Pelajarannya: ngerilis itu bukan satu tombol kalau isinya nyebar di banyak halaman. Sekarang aku cek dulu siapa nge-link ke siapa.
+
+## 4. Bagian paling bawah halaman nggak muncul
+
+Konten di website ini muncul pelan-pelan pas di-scroll. Di layar yang tinggi, sepuluh persen paling bawah halaman nggak pernah kena batas pemicunya, jadi isinya tetep ngumpet.
+
+Aku tambahin pemicu kedua khusus buat ujung halaman. Pelajarannya: animasi scroll harus dites di ukuran layar yang jarang kalian pakai.
+
+## 5. Alamat admin nampilin bagian internal
+
+Aku punya halaman admin sendiri buat ngedit isi website. Di alamat khususnya, awalan internal `/admin` sempat kebawa ke address bar, karena sebagian link dan proses login pakai alamat bagian dalam. Sekarang udah dirapiin lewat pengalihan alamat.
+
+Pelajarannya: yang kelihatan bener dari dalam bisa kelihatan aneh dari luar.
+
+## 6. Pemeriksaan otomatis yang masih rusak
+
+Jujur aja, perintah lint di proyek ini masih crash gara-gara masalah konfigurasi di alat yang aku pakai, dan belum aku benerin. Sebagai gantinya, patokanku sekarang build produksi, yang ngecek tipe data dan nge-render semua halaman. Aku lebih milih ngomong terus terang daripada pura-pura semuanya mulus.
+
+## Pola yang sama di proyek kalian
+
+Hampir semua masalah di atas bukan bug yang rumit. Masalahnya ada di celah antara dua bagian yang masing-masing jalan normal: build dan font, halaman dan bahasa, tampilan dan ukuran layar. Di celah kayak gitu juga proyek klien biasanya bermasalah.
+
+Makanya sebelum bilang "selesai", aku:
+
+- buka versi yang beneran live, bukan cuma di komputerku
+- coba di HP dan di beberapa ukuran layar
+- klik semua link, di semua bahasa
+- cek lagi setelah dipublikasi
+
+Kalau kalian pengen website yang dicek sampai segitunya, [ngobrol aja dulu](/contact). Gambaran lengkap proses dari awal sampai live ada di [cara kerja bikin website](/journal/cara-kerja-bikin-website-dari-awal-sampai-live).

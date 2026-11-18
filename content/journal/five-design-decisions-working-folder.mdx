@@ -1,0 +1,58 @@
+---
+title: "Five design decisions behind my Working Folder portfolio, and what they cost"
+description: "A designer's teardown of a portfolio: one accent colour, three typefaces, objects instead of sections, a notch nav and restrained motion, with trade-offs."
+date: "2026-11-19"
+tags: ["design", "teardown", "typography", "portfolio"]
+draft: false
+related: ["working-folder-revamp", "design-to-code-workflow-pencil-nextjs", "ai-and-craft"]
+---
+
+The [revamp post](/journal/working-folder-revamp) tells how this site got built. This one is about the decisions, one by one, including what each costs. A design with no downsides usually means nobody made a choice.
+
+The brief I set myself was a working folder, not a corporate template: paper panels, folder tabs, a receipt, a note and a sticker collage.
+
+## 1. One accent colour, used only for action
+
+Cobalt, `#2445DB`, is the only loud colour in the interface. Primary buttons, links, the active nav state and focus rings use it. Nothing decorative does.
+
+**Why.** If every colour means something, a visitor learns in seconds that blue means "you can do something here." Cobalt on paper measures 6.6:1 contrast, so the accent is readable as well as recognisable.
+
+**The cost.** It's restrictive. A sticker or a graphic I'd like in blue stays out, because I'd be spending the accent on decoration. The pastel aurora behind the paper is where the page gets its colour, so the accent can stay reserved for action.
+
+## 2. Three typefaces, three jobs
+
+Tanker for headings, titles and tabs. Erode for body text and actions. Comico only for the hero name and the number digits. Everything is weight 400, and I never fake bold or italic.
+
+**Why.** Comico has so much personality that it would tire anyone if used for paragraphs. Giving it one job keeps it special.
+
+**The cost.** Comico is subset to only the glyphs the name and digits need, which brought it from 1.5 MB to about 54 KB. That's good for speed and bad for flexibility. If I want it for anything else, I have to re-subset the font first. The restriction is baked into the file.
+
+## 3. Objects instead of sections
+
+Services are a receipt with a perforated edge and a barcode. Contact is a note on top of the folder. About uses numbered tiles. The home page ends with a collage of twelve hand-made stickers.
+
+**Why.** A "services" section looks like every other services section. A receipt makes people read it as something with a price attached, which is what it is.
+
+**The cost.** Objects need more design and more care to keep accessible. The receipt and the note have to stay real text that a screen reader can read, not pictures of paper.
+
+## 4. A navigation that shows where you are, physically
+
+The active page sits in a recessed notch cut into the paper, like the tab of the folder you've pulled out. The notch and links glide between routes using a View Transition.
+
+**Why.** It answers "where am I?" without an arrow or underline, and it fits the metaphor.
+
+**The cost.** It depends on browser support for the transition and on careful route naming. A localised URL like `/id/work` first broke it because the generated transition name wasn't valid CSS, so I normalise the path before naming. Reduced motion falls back to plain navigation.
+
+## 5. Motion with limits
+
+The effects are a first-load splash, a slow shader behind the paper, stickers that peel on hover, and a stamp that settles in the hero. There are no other decorative effects.
+
+**Why.** Every one of those does something. The splash types my name and stamps it, once per session, because a splash you see twice is a toll booth. The shader renders at low resolution and frame rate, pauses when the tab is hidden, and goes static for visitors who ask for reduced motion.
+
+**The cost.** The splash always plays through, with no skip. That's a real trade-off against impatient visitors, and it's why it only runs once.
+
+## The common thread
+
+Each decision narrows something. One accent, three faces, a few effects. Restriction is what lets a small number of distinctive details carry the whole page, and it's what keeps the design from collapsing into the average of every portfolio. That's the argument in [AI, craft, and what's left when implementation is cheap](/journal/ai-and-craft): when anything can be generated, being particular is the point.
+
+If you want a site that looks like your business and not like everyone else's, [let's talk](/contact).
