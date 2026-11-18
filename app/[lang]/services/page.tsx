@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { Folder } from "@/components/site/folder";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { ArrowRight } from "@/components/site/icons";
-import { Stickers } from "@/components/site/sticker";
+import { StickerCluster } from "@/components/site/sticker";
 import { getSite } from "@/lib/i18n";
 import { isLang, type Lang } from "@/lib/i18n/config";
 import { alternatesFor } from "@/lib/seo";
@@ -49,17 +49,7 @@ export default async function ServicesPage({ params }: PageProps<"/[lang]/servic
           <h1 className="f-display f-display--caps">{t.overviewTitle}</h1>
           <p className="f-body">{t.overviewDescription}</p>
         </div>
-        <Stickers
-          className="f-stickers f-services-stickers"
-          spots={[
-            { name: "dev-laptop", x: 0, y: 43, w: 104, h: 94.4, r: -10 },
-            { name: "build-with-care", x: 85, y: 65, w: 92, h: 75.7, r: 9 },
-          ]}
-        />
-        <Stickers
-          className="f-stickers f-services-stickers--compact"
-          spots={[{ name: "dev-laptop", x: 0, y: 25, w: 72, h: 65.4, r: -10 }]}
-        />
+        <StickerCluster names={["dev-laptop", "build-with-care"]} />
       </header>
       <Folder tab={t.listHeading} n="01" bodyClassName="f-services-index" labelledBy="service-index-heading">
         <h2 id="service-index-heading" className="sr-only">{t.listHeading}</h2>

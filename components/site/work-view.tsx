@@ -9,19 +9,11 @@ import { TitlePanel } from "@/components/site/title-panel";
 import { ProjectRow } from "@/components/site/project-row";
 import { ContactStrip } from "@/components/site/contact-strip";
 import { EmptyState } from "@/components/site/empty-state";
-import type { StickerSpot } from "@/components/site/sticker";
 import { ArrowRight } from "@/components/site/icons";
 
 // Work — canvas 17 (Pb8Dp / vs4kI), empty state 17A.
 // Filters are built from the projects' real categories (case-normalised).
 
-const STICKERS: StickerSpot[] = [
-  { name: "pen-tool", x: 404, y: 70, w: 88.204, h: 104, r: -9 },
-  { name: "shopping-bag-cursor", x: 522, y: 176, w: 105.158, h: 108, r: 8 },
-  { name: "build-with-care", x: 656, y: 96, w: 160.436, h: 132, r: 6 },
-  { name: "debug-duck", x: 776, y: 186, w: 88.695, h: 100, r: -7 },
-  { name: "browser-rocket", x: 866, y: 62, w: 105.823, h: 124, r: 11 },
-];
 
 const ALL = "all";
 
@@ -55,7 +47,7 @@ export function WorkView({ previewEmpty = false }: { previewEmpty?: boolean }) {
         aside={<span className="f-meta f-muted">{count(works.length)}</span>}
         heading={<h1 className="f-display f-display--caps">{sentenceLines(work.heading)}</h1>}
         intro={<p className="f-body">{t.intro}</p>}
-        stickers={STICKERS}
+        stickers={["browser-rocket", "shopping-bag-cursor", "pen-tool"]}
       />
 
       <section className="f-folder" aria-label={t.tab}>

@@ -450,6 +450,18 @@
 .f-title-panel__h { width: 640px; max-width: 100%; }
 .f-title-panel__intro { width: 360px; flex-shrink: 0; }
 .f-loc { display: inline-flex; align-items: center; gap: 6px; }
+/* Sticker cluster (canvas 42 — Services overview), shared by the Services, Work, Journal,
+   About and Contact title panels: 1–3 stickers in a box (104 / 184 / 236px wide) centred in the panel; below 1024px a single
+   72px lead sticker in the top-right corner, with the label row kept clear of it. */
+.f-stickers.f-cluster { inset-inline: calc(50% - var(--cluster-w, 177px) / 2) auto; width: var(--cluster-w, 177px); }
+/* Taller title panels keep the Services geometry: a 184px box (the Services hero height) centred vertically. */
+.f-title-panel .f-stickers.f-cluster { inset-block: calc(50% - 92px) auto; height: 184px; }
+.f-stickers.f-cluster--compact { display: none; }
+@media (max-width: 1023px) {
+  .f-stickers.f-cluster { display: none; }
+  .f-stickers.f-cluster--compact { display: block; inset-inline: auto 30px; width: 72px; }
+  .f-title-panel--cluster :is(.f-title-panel__label, .f-title-panel__h) { padding-inline-end: 90px; }
+}
 .f-stickers { position: absolute; inset: 0; pointer-events: none; }
 /* Margin fields stop at the 1416 canvas: the panels they sit in keep a fixed height, so a field that kept
    scaling past it would push its stickers out of the panel. Wider screens centre the composition instead. */
@@ -1214,12 +1226,6 @@ textarea.f-input { resize: none; }
   .f-br-d { display: none; }
   .f-br-m { display: inline; }
 }
-.f-stickers--mobile { display: none; }
-@media (max-width: 767px) {
-  .f-stickers--mobile { display: block; }
-  .f-title-panel--msticker .f-title-panel__h { max-width: 250px; }
-  .f-title-panel--msticker .f-title-panel__h br { display: none; }
-}
 
 /* about: capability rows */
 .f-cap__text { display: flex; gap: 24px; flex: 1 1 0; min-width: 0; }
@@ -1334,8 +1340,6 @@ textarea.f-input { resize: none; }
 .f-services-intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; }
 .f-services-intro h1 { font-size: 64px; line-height: 1.1; }
 .f-services-intro .f-body { max-width: 360px; }
-.f-services-stickers { inset-inline: calc(50% - 92px) auto; width: 177px; }
-.f-services-stickers--compact { display: none; }
 .f-services-index { padding: 24px var(--services-inset) 12px; }
 .f-services-index__head { display: flex; justify-content: flex-end; padding-bottom: 14px; }
 .f-services-list { padding: 0; margin: 0; list-style: none; }
@@ -1368,8 +1372,6 @@ textarea.f-input { resize: none; }
 @media (max-width: 1023px) {
   .f-services-intro { flex-direction: column; align-items: flex-start; gap: 8px; }
   .f-services-hero .f-meta { padding-inline-end: 90px; }
-  .f-services-stickers { display: none; }
-  .f-services-stickers--compact { display: block; inset-inline: auto 30px; width: 72px; }
   .f-services-row { grid-template-columns: 24px minmax(0, 1fr) 20px; gap: 12px; align-items: start; padding-block: 16px; }
   .f-services-row__info { grid-template-columns: minmax(0, 1fr); gap: 6px; }
   .f-services-row .f-title { font-size: 22px; }

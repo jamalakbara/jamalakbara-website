@@ -8,16 +8,11 @@ import { TitlePanel } from "@/components/site/title-panel";
 import { Folder } from "@/components/site/folder";
 import { Receipt } from "@/components/site/receipt";
 import { ContactStrip } from "@/components/site/contact-strip";
-import { Stickers, type StickerSpot } from "@/components/site/sticker";
+import { Stickers } from "@/components/site/sticker";
 import { ArrowRight, MapPin } from "@/components/site/icons";
 
 // About — canvas 18 (BWDyJ desktop / U7cNrD mobile).
 
-const STICKERS: StickerSpot[] = [
-  { name: "bandung-volcano", x: 716, y: 70, w: 126.827, h: 131, r: -7 },
-  { name: "dev-laptop", x: 596, y: 40, w: 83, h: 75.352, r: -7 },
-  { name: "debug-duck", x: 1112, y: 70, w: 88.695, h: 100, r: -7 },
-];
 
 const ICONS = [
   { icon: "web-app", w: 80, h: 67.752 },
@@ -41,8 +36,7 @@ export function AboutView() {
         }
         heading={<h1 className="f-display f-display--caps">{sentenceLines(about.heading)}</h1>}
         intro={<p className="f-body">{t.intro}</p>}
-        stickers={STICKERS}
-        mobileStickers={[{ name: "kopi-susu", x: 282, y: 64, w: 51.415, h: 104, r: 9 }]}
+        stickers={["bandung-volcano", "debug-duck", "kopi-susu"]}
       />
 
       <Folder tab={t.storyTab} n="01" bodyClassName="f-about-story">
